@@ -9,6 +9,7 @@ export const rootReducer = (state= initialState, action) => {
         case 'estoy para que no tire error ;)':
             
             return ':)'
+
     
         default:
             return state;
