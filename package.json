@@ -9,10 +9,7 @@
   },
   "dependencies": {
     "@react-navigation/native": "^6.0.6",
-<<<<<<< HEAD
     "@react-navigation/stack": "^6.0.11",
-=======
->>>>>>> 67090d8b78f3bbae21de9c38064551abe8275ba4
     "expo": "~43.0.0",
     "expo-status-bar": "~1.1.0",
     "firebase": "^9.1.3",
@@ -25,13 +22,9 @@
     "react-native-web": "0.17.1",
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
-<<<<<<< HEAD
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
     "react-native-gesture-handler": "~1.10.2"
-=======
-    "redux-devtools-extension": "^2.13.9"
->>>>>>> 67090d8b78f3bbae21de9c38064551abe8275ba4
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
