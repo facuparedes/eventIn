@@ -1,18 +1,26 @@
 import React from 'react';
-import { FlatList, View, Text } from 'react-native';
+import Login from './screens/Login';
+import Register from './screens/Register';
+import { Provider } from 'react-redux';
+import store from './store/store.js';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+
 
 export default function App() {
-  //ejemplo de flat list
-  let a = [{name:'andy'},{name:'cris'},{name:'chris'}]
+
+  const Stack = createStackNavigator();
   
   return (
-    <View>
-      <Text>Goodbye World!</Text>
-      <FlatList
-        data={a}
-        renderItem={({item}) => <Text style={{fontSize:200}}>Name: {item.name}</Text>}      
-      />
-    </View>
+    <Provider store={store}>
+        <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Login" component={Login}/>
+          <Stack.Screen name="Register" component={Register}/>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
+
   );
 }
 

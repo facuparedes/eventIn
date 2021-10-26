@@ -6,9 +6,10 @@ const initialState = {
 
 export const rootReducer = (state= initialState, action) => {
     switch (action.type) {
-        case value:
+        case 'estoy para que no tire error ;)':
             
-            break;
+            return ':)'
+
     
         default:
             return state;
