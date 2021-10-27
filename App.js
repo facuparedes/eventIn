@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Login from "./src/screens/Login.jsx";
 import Register from "./src/screens/Register.jsx";
 import store from "./src/common/redux/store.js";
+import FormEvent from './src/screens/FormEvent/FormEvent';
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -13,6 +14,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name="Form" component={FormEvent} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
         </Stack.Navigator>
