@@ -7,7 +7,7 @@ import styles from "./FormStyles";
 import { MaterialIcons } from '@expo/vector-icons';
 import { addDoc, collection} from "firebase/firestore"; 
 import db from "../../../api/firebase/config";
-
+import {icons,CalendarOutlined} from '@ant-design/icons'
 const FormEvent = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -98,26 +98,33 @@ const FormEvent = () => {
         labelStyle={styles.label}
         inputContainerStyle={styles.inputcont}
         onChangeText={handleFee}/>
+        
+        <TouchableOpacity>
+        <MaterialIcons name="date-range" size={24} color="black"/>
+        </TouchableOpacity>
+        
 
-       <MaterialIcons name="date-range" size={24} color="black" />
         <Input 
         label="Fecha del evento" 
         placeholder="Fecha..." 
         inputStyle={styles.input}
         labelStyle={styles.label}
         inputContainerStyle={styles.inputcont}
-        leftIcon/>
+        // leftIcon={{ type: 'font-awesome', name: 'comment' }}
+        // leftIconContainerStyle={styles.lefticn}
+        /> 
+
 
         <Text h4>Tipo de evento</Text>
         <View style={styles.checkBox}>
             {
                 !isPublic && !isPrivate? 
                 <View style={styles.checkBox}>
-                    <CheckBox title="Publico" onPress={handleIsPublic} size={20} checked={isPublic}/>
-                    <CheckBox title="Privado" onPress={handleIsPrivate} checked={isPrivate}/>
+                    <CheckBox title="Publico" onPress={handleIsPublic} size={20} checked={isPublic} containerStyle={styles.boxcont}/>
+                    <CheckBox title="Privado" onPress={handleIsPrivate} checked={isPrivate} containerStyle={styles.boxcont}/>
                 </View>
-                : isPublic? <CheckBox title="Publico" onPress={handleIsPublic} size={20} checked={isPublic}/>
-                : <CheckBox title="Privado" onPress={handleIsPrivate} checked={isPrivate}/>
+                : isPublic? <CheckBox title="Publico" onPress={handleIsPublic} size={20} checked={isPublic} containerStyle={styles.boxcont}/>
+                : <CheckBox title="Privado" onPress={handleIsPrivate} checked={isPrivate} containerStyle={styles.boxcont}/>
             }
         </View>
         {/* <Input label="Ubicacion" placeholder="Evento location..."/> */}
@@ -128,7 +135,7 @@ const FormEvent = () => {
         onChangeText={handlePhoto}/>
         {/*createdAt*/}
         <TouchableOpacity title="Crear Evento" onPress={handleSubmit} style={styles.btn}>
-        <Text>Crear Evento</Text>
+        <Text style={{color:'white'}}>Crear Evento</Text>
         </TouchableOpacity> 
       </ScrollView>
     </View>
