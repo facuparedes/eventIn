@@ -107,9 +107,10 @@ const FormEvent = () => {
         inputContainerStyle={styles.inputcont}
         onChangeText={handleFee}/>
         
-        <Text h4>Fecha</Text>
+        <View style={styles.calendarContainer}>
+        <Text h4 style={{marginTop:7}}>Fecha</Text>
         <TouchableOpacity onPress={handleMode}>
-        <MaterialIcons name="date-range" size={24} color="black"/>
+        <MaterialIcons name="date-range" size={45} color="black" style={styles.calendar} />
         </TouchableOpacity>
         {show && 
           <DateTimePicker
@@ -122,11 +123,11 @@ const FormEvent = () => {
           minimumDate={new Date()}
         />
         }
-
+       </View>
         
 
 
-        <Text h4>Tipo de evento</Text>
+        <Text style={{alignSelf:'center',marginBottom:8}} h4>Tipo de evento</Text>
         <View style={styles.checkBox}>
             {
                 !isPublic && !isPrivate? 

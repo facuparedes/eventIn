@@ -103,6 +103,15 @@ const styles = StyleSheet.create({
         // marginLeft:1
         // position:'absolute',
         alignItems:'center'
+    },
+    calendarContainer:{
+        flexDirection:'row',
+        marginBottom:35,
+        marginTop:5
+    },
+    calendar:{
+        marginLeft:10,
+        // marginTop:2
     }
 
 
