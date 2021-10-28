@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Alert } from "react-native";
 import { View } from "react-native";
-import { Input, CheckBox, Text, Button } from "react-native-elements";
+import { Input, CheckBox, Text, Button, Platform } from "react-native-elements";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import styles from "./FormStyles";
 import { MaterialIcons } from '@expo/vector-icons';
 import { addDoc, collection} from "firebase/firestore"; 
 import db from "../../../api/firebase/config";
-import {icons,CalendarOutlined} from '@ant-design/icons'
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+
 const FormEvent = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -16,6 +18,7 @@ const FormEvent = () => {
   const [isPublic, setIsPublic] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   const [photo, setPhoto] = useState("");
+  const [show, setShow] = useState(false);
   // HANDLES FUNCTIONS
   const handleTitle = (text) => {
     setTitle(text);
@@ -40,15 +43,19 @@ const FormEvent = () => {
       setPhoto(text)
   }
 
+  const handleMode = () => {
+    setShow(true)
+
+  }
+
+  const handleCalendar = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    setShow(false)
+  }
+
   async function handleSubmit () {
     if(!title || !description || !fee || (!isPublic && !isPrivate)) return Alert.alert('No puede haber campos vacios')  
-    const form = {
-            title,
-            description,
-            fee,
-            isPublic: isPublic? isPublic : isPrivate,
-            photo
-          }
     
           
 
@@ -57,16 +64,17 @@ const FormEvent = () => {
         description,
         fee,
         isPublic: isPublic? isPublic : isPrivate,
-        photo
+        photo,
+        date
     });
 
     Alert.alert('Evento creado');
 
-    // setTitle("")
-    // setDescription("")
-    // setFee(0)
-    // setIsPublic(false)
-    // setIsPrivate(false)
+    setTitle("")
+    setDescription("")
+    setFee(0)
+    setIsPublic(false)
+    setIsPrivate(false)
   };
  
   return (
@@ -99,20 +107,23 @@ const FormEvent = () => {
         inputContainerStyle={styles.inputcont}
         onChangeText={handleFee}/>
         
-        <TouchableOpacity>
+        <Text h4>Fecha</Text>
+        <TouchableOpacity onPress={handleMode}>
         <MaterialIcons name="date-range" size={24} color="black"/>
         </TouchableOpacity>
-        
+        {show && 
+          <DateTimePicker
+          testID="dateTimePicker"
+          value={date}
+          mode={'date'}
+          display="default"
+          onChange={handleCalendar}
+          maximumDate={new Date(2022, 1, 1)}
+          minimumDate={new Date()}
+        />
+        }
 
-        <Input 
-        label="Fecha del evento" 
-        placeholder="Fecha..." 
-        inputStyle={styles.input}
-        labelStyle={styles.label}
-        inputContainerStyle={styles.inputcont}
-        // leftIcon={{ type: 'font-awesome', name: 'comment' }}
-        // leftIconContainerStyle={styles.lefticn}
-        /> 
+        
 
 
         <Text h4>Tipo de evento</Text>
