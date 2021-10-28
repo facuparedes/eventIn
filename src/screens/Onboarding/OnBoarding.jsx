@@ -7,8 +7,8 @@ export default function OnBoarding({ navigation }) {
     <Onboarding
       nextLabel="Siguiente"
       skipLabel="Omitir"
-      onSkip={() => navigation.navigate("Home")}
-      onDone={() => navigation.navigate("Home")}
+      onSkip={() => navigation.navigate("TabBar")}
+      onDone={() => navigation.navigate("TabBar")}
       pages={[
         {
           backgroundColor: "#F7F7F7",
