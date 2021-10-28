@@ -16,6 +16,7 @@ jobs:
       - uses: expo/expo-github-action@v6
         with:
           expo-version: 4.x
+          packager: npm
       - run: npm i
       - run: npm test
       - run: expo doctor
