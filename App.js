@@ -4,7 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import store from "./src/common/redux/store.js";
 // import TabBar from "./src/routes/TabBar";
-import OnBoarding from "./src/screens/Onboarding/OnBoarding";
+import OnBoarding from "./src/screens/Onboarding/OnBoardingaaaa";
 import Login from "./src/screens/Login/Login";
 import Register from "./src/screens/Register/Register";
 
@@ -12,7 +12,7 @@ export default function App() {
   const Stack = createStackNavigator();
 
   return (
-    <Providerasd store={store}>
+    <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
