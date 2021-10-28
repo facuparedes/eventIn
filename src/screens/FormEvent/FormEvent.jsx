@@ -25,7 +25,7 @@ const FormEvent = () => {
     setDescription(text);
   };
   const handleFee = (value) => {
-    setFee(value);
+    setFee(Number(value));
   };
 
   const handleIsPublic = () => {
@@ -41,14 +41,14 @@ const FormEvent = () => {
   }
 
   async function handleSubmit () {
-    //if(!title || !description || !fee || (!isPublic && !isPrivate)) return Alert.alert('No puede haber campos vacios')  
+    if(!title || !description || !fee || (!isPublic && !isPrivate)) return Alert.alert('No puede haber campos vacios')  
     const form = {
             title,
             description,
             fee,
             isPublic: isPublic? isPublic : isPrivate,
             photo
-    }
+          }
     
           
 
