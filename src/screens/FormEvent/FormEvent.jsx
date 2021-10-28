@@ -10,23 +10,30 @@ const FormEvent = () => {
     //date
     const [isPublic, setIsPublic] = useState(false)
     const [isPrivate, setIsPrivate] = useState(false)
-    // HANDELS FUNCTIONS
+    // HANDLES FUNCTIONS
     const handleTitle = (text) => {
         setTitle(text)
     }
+
     const handleDescription = (text) => {
         setDescription(text)
     }
     const handleFee = (value) => {
         setFee(value)
     }
+
     const handleIsPublic = () => {
         setIsPublic(!isPublic)
-        console.log(isPublic)
     }
+    
     const handleIsPrivate = () => {
         setIsPrivate(!isPrivate)
     }
+
+    const handleSubmit = () => {
+
+    }
+
     return (
 //titulo -description - $fee - date - isPublic - location = {lat, long} - attachments - createdAt
         
@@ -34,17 +41,17 @@ const FormEvent = () => {
             <ScrollView>
             <Input 
                 label="Titulo" 
-                placeholder="Titulo del evento..." 
+                placeholder="Nombre del evento..." 
                 onChangeText={text => handleTitle(text)}/>
             <Input 
                 label="Descripción" 
-                placeholder="Descripcion ..."
+                placeholder="Descripción..."
                 onChange={handleDescription}/>
 
             <Input label="Tarifa" placeholder="Tarifa..."/>
 
 
-            <Input label="Fecha del evento" placeholder="Evento date..."/>
+            <Input label="Fecha del evento" placeholder="Fecha..."/> 
             <Text h4>Tipo de evento</Text>
             <View>
                 <CheckBox title="Publico" onPress={handleIsPublic}/>
@@ -53,7 +60,7 @@ const FormEvent = () => {
             {/* <Input label="Ubicacion" placeholder="Evento location..."/> */}
             <Input label="Fotos" placeholder="Añadir link de la foto..."/>
             {/*createdAt*/}
-            <Button title="Crear Evento" />
+            <Button title="Crear Evento" onPress={handleSubmit} />
             </ScrollView>
 
         </View>
