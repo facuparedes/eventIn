@@ -17,6 +17,6 @@ jobs:
         with:
           expo-version: 4.x
           packager: npm
-      - run: npm i
-      - run: npm test
+      # run: npm i
+      - run: npm test --if-present
       - run: expo doctor
