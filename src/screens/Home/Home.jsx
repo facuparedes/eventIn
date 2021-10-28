@@ -35,7 +35,7 @@ export default function Home() {
         <FlatList data={data} 
             renderItem={({ item }) => 
                 <Card title={item.title} 
-                    description={titem.description} 
+                    description={item.description} 
                     date={item.date} 
                     attachments={item.attachments[0]} />} 
         />
