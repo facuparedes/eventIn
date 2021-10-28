@@ -12,7 +12,7 @@ export default function App() {
   const Stack = createStackNavigator();
 
   return (
-    <Provider store={store}>
+    <Providerasd store={store}>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
