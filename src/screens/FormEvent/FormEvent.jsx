@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert, View, TextInput, Platform } from "react-native";
 import { Input, CheckBox, Text, Button } from "react-native-elements";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
@@ -7,6 +7,7 @@ import { MaterialIcons, Feather } from '@expo/vector-icons';
 import { addDoc, collection} from "firebase/firestore"; 
 import db from "../../../api/firebase/config";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import * as Location from 'expo-location';
 
 const FormEvent = () => {
   // form states
@@ -16,14 +17,40 @@ const FormEvent = () => {
   const [isPublic, setIsPublic] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   const [photo, setPhoto] = useState("");
-      // dateTime states (also form)
+  // dateTime states (also form)
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState(new Date());
-  // dateTime states (not form)
-  const [showDate, setShowDate] = useState(false);
-  const [showTime, setShowTime] = useState(false);
-  const [textDate, setTextDate] = useState('');
-  const [textTime, setTextTime] = useState('');
+    // dateTime states (not form)
+    const [showDateStart, setShowDateStart] = useState(false);
+    const [showDateEnd, setShowDateEnd] = useState(false);
+    const [showTimeStart, setShowTimeStart] = useState(false);
+    const [showTimeEnd, setShowTimeEnd] = useState(false);
+    const [textDateStart, setTextDateStart] = useState('');
+    const [textDateEnd, setTextDateEnd] = useState('');
+    const [textTimeStart, setTextTimeStart] = useState('');
+    const [textTimeEnd, setTextTimeEnd] = useState('');
+  //location
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Los permisos fueron denegados');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    //Alert.alert('ESTE EVENTO SERÁ CREADO EN TU UBICACIÓN ACTUAL');
+
+    })();
+  }, []);
+
+  if(errorMsg){
+    Alert.alert(errorMsg)
+  }
 
   // Event Handlers
   const handleTitle = (text) => {
@@ -52,49 +79,77 @@ const FormEvent = () => {
     // dateTime handler 1
   const showMode = (currentMode) => {
     if (currentMode === 'date') {
-        setShowTime(false);
-        setShowDate(true);
+        //setShowTime(false);
+        setShowDateStart(true);
+    }
+    if(currentMode === 'dateEnd'){
+      setShowDateEnd(true)
+      //setShowTime(false)
     }
     if (currentMode === 'time') {
-        setShowDate(false);
-        setShowTime(true);
+        setShowTimeStart(true);
+        //setShowDateStart(false);
     }
+    if (currentMode === 'timeEnd') {
+      setShowTimeEnd(true);
+      //setShowDateStart(false);
+  }
   };
   
     // dateTime handler 2
-  const onChangeDate = (event, selectedDate) => {
+  const onChangeDateStart = (event, selectedDate) => {
     const currentDate = selectedDate || date;
 
-    setShowDate(Platform.OS === 'ios'); // why this?
+    setShowDateStart(Platform.OS === 'ios'); // why this?
     setDate(currentDate);
 
     let tempDate = new Date(currentDate);
     let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
-    setTextDate(fDate);
+    setTextDateStart(fDate);
 
-    console.log({
-        Fecha: fDate,
-        Hora: textTime
-    }); // ERASE LATER!!!!!!!!!!
-    setShowDate(false);
+    setShowDateStart(false);
 }
 
+  const onChangeDateEnd = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    
+    setShowDateEnd(Platform.OS === 'ios'); // why this?
+    setDate(currentDate);
+
+    let tempDate = new Date(currentDate);
+    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
+    setTextDateEnd(fDate);
+    
+    setShowDateEnd(false)
+  }
+
   // dateTime handler 3
-const onChangeTime = (event, selectedTime) => {
+const onChangeTimeStart = (event, selectedTime) => {
     const currentTime = selectedTime || time;
 
-    setShowTime(Platform.OS === 'ios'); // why this?
+    setShowTimeStart(Platform.OS === 'ios'); // why this?
     setTime(currentTime);
 
     let tempTime = new Date(currentTime);
     let fTime = tempTime.getHours() + ':' + tempTime.getMinutes();
-    setTextTime(fTime);
+    setTextTimeStart(fTime);
 
-    console.log({
-        Fecha: textDate,
-        Hora: fTime
-    });  // ERASE LATER!!!!!!!!!
-    setShowTime(false)
+
+    setShowTimeStart(false)
+}
+
+const onChangeTimeEnd = (event, selectedTime) => {
+  const currentTime = selectedTime || time;
+
+  setShowTimeEnd(Platform.OS === 'ios'); // why this?
+  setTime(currentTime);
+
+  let tempTime = new Date(currentTime);
+  let fTime = tempTime.getHours() + ':' + tempTime.getMinutes();
+  setTextTimeEnd(fTime);
+
+
+  setShowTimeEnd(false)
 }
 
   async function handleSubmit () {
@@ -104,9 +159,20 @@ const onChangeTime = (event, selectedTime) => {
         title,
         description,
         fee,
-        isPublic: isPublic? isPublic : isPrivate,
+        isPublic: isPublic? true : false,
         photo,
-        date
+        date: {
+          start: textDateStart,
+          end: textDateEnd
+        },
+        hour: {
+          start: textTimeStart,
+          end: textTimeEnd
+        },
+        location: {
+          lat: location.coords.latitude,
+          long: location.coords.longitude
+        }
     });
 
     Alert.alert('Evento creado');
@@ -157,12 +223,12 @@ const onChangeTime = (event, selectedTime) => {
         }}>
           <View style={styles.horaCont}>
           <Input
-            label="Fecha:"
+            label="Fecha Inicio:"
             placeholder="Fecha..."
             inputStyle={styles.input}
             labelStyle={styles.label}
             inputContainerStyle={styles.inputHoraContainer}
-            value={textDate}
+            value={textDateStart}
           />
           <TouchableOpacity
             onPress={() => showMode('date')}
@@ -170,15 +236,30 @@ const onChangeTime = (event, selectedTime) => {
             <MaterialIcons name="date-range" size={45} color="black" style={styles.reloj} />
           </TouchableOpacity>
           </View>
+          <View style={styles.horaCont}>
+          <Input
+            label="Finalización del Evento:"
+            placeholder="Fecha..."
+            inputStyle={styles.input}
+            labelStyle={styles.label}
+            inputContainerStyle={styles.inputHoraContainer}
+            value={textDateEnd}
+          />
+          <TouchableOpacity
+            onPress={() => showMode('dateEnd')}
+          >
+            <MaterialIcons name="date-range" size={45} color="black" style={styles.reloj} />
+          </TouchableOpacity>
+          </View>
 
           <View style={styles.horaCont}>
           <Input
-            label="Hora:"
+            label="Hora Inicio:"
             placeholder="Hora..."
             inputStyle={styles.input}
             labelStyle={styles.label}
             inputContainerStyle={styles.inputHoraContainer}
-            value={textTime}
+            value={textTimeStart}
           />
           <TouchableOpacity
             onPress={() => showMode('time')}
@@ -186,26 +267,62 @@ const onChangeTime = (event, selectedTime) => {
           <Feather name="clock" size={45} color="black" style={styles.reloj} />
           </TouchableOpacity>
           </View>
-          
-            {showDate && (
+          <View style={styles.horaCont}>
+          <Input
+            label="Hora de Finalización:"
+            placeholder="Hora..."
+            inputStyle={styles.input}
+            labelStyle={styles.label}
+            inputContainerStyle={styles.inputHoraContainer}
+            value={textTimeEnd}
+          />
+          <TouchableOpacity
+            onPress={() => showMode('timeEnd')}
+          >
+          <Feather name="clock" size={45} color="black" style={styles.reloj} />
+          </TouchableOpacity>
+          </View>
+            {showDateStart && (
               <DateTimePicker
                 testID='dateTimePicker'
                 value={date}
                 mode='date'
                 // is24Hour={false}
                 display='default'
-                onChange={onChangeDate}
+                minimumDate={new Date()}
+                onChange={onChangeDateStart}
               />
             )}
-
-            {showTime && (
+            {showDateEnd && (
               <DateTimePicker
                 testID='dateTimePicker'
                 value={date}
+                mode='date'
+                // is24Hour={false}
+                display='default'
+                minimumDate={date}
+                onChange={onChangeDateEnd}
+              />
+            )}
+            
+            {showTimeStart && (
+              <DateTimePicker
+                testID='dateTimePicker'
+                value={time}
                 mode='time'
                 is24Hour={true}
                 display='default'
-                onChange={onChangeTime}
+                onChange={onChangeTimeStart}
+              />
+            )}
+            {showTimeEnd && (
+              <DateTimePicker
+                testID='dateTimePicker'
+                value={time}
+                mode='time'
+                is24Hour={true}
+                display='default'
+                onChange={onChangeTimeEnd}
               />
             )}
         </View>
