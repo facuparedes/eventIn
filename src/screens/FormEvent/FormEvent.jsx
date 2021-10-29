@@ -24,14 +24,11 @@ function validate (form) {
   if(form.description.length > 140) {
     errorsValidate.descriptionL = 'La descripción no puede tener más de 140 carácteres'
   }
-  if(typeof form.fee !== 'number') {
+  if(!/^[0-9]+$/.test(form.fee)) {
     errorsValidate.fee = 'La tarifa debe ser un número.'
   } 
   if(form.fee < 0) {
     errorsValidate.feeM = 'La tarifa no puede ser menor a 0.'
-  }
-  if(!form.isPublic && !form.isPrivate) {
-    errorsValidate.publicPrivate = 'Debes seleccionar un tipo para tu evento.'
   }
   if(!form.category) {
     errorsValidate.category = 'Debes seleccionar una categoría.'
@@ -48,7 +45,7 @@ function validate (form) {
   return errorsValidate;
 }
 
-const FormEvent = ({navigation}) => {
+const FormEvent = ({ navigation }) => {
   const [errors, setErrors] = useState({});
   // form states
   const [title, setTitle] = useState("");
@@ -110,7 +107,7 @@ const FormEvent = ({navigation}) => {
   };
 
   const handleFee = (value) => {  
-    setFee(Number(value));
+    setFee(value);
   };
 
   const handleIsPublic = () => {
@@ -205,8 +202,9 @@ const FormEvent = ({navigation}) => {
   }
 
   async function handleSubmit () {
-    if(!title || !description || !fee || (!isPublic && !isPrivate) || !categories) return Alert.alert('No puede haber campos vacios')  
-   
+    if(!isPublic && !isPrivate) return Alert.alert('Selecciona un tipo de evento.')  
+
+
     let errorsForm = validate({
       title,
       description,
@@ -256,14 +254,10 @@ const FormEvent = ({navigation}) => {
     } else {
       return Alert.alert('Hay algo mal.')
     }
-
+    if(fee === 0) Alert.alert('Tu evento será gratuito')
     Alert.alert('Evento creado');
 
-    setTitle("")
-    setDescription("")
-    setFee(0)
-    setIsPublic(false)
-    setIsPrivate(false)
+    navigation.replace('Login')
   };
 
   return (
