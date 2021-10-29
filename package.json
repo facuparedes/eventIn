@@ -26,7 +26,8 @@
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.3.0",
-    "@react-native-community/datetimepicker": "3.5.2"
+    "@react-native-community/datetimepicker": "3.5.2",
+    "expo-location": "~13.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

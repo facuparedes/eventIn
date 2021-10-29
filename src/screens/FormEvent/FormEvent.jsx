@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Alert } from "react-native";
 import { View } from "react-native";
 import { Input, CheckBox, Text, Button, Platform } from "react-native-elements";
@@ -8,6 +8,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { addDoc, collection} from "firebase/firestore"; 
 import db from "../../../api/firebase/config";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import * as Location from 'expo-location';
 
 
 const FormEvent = () => {
@@ -19,6 +20,24 @@ const FormEvent = () => {
   const [isPrivate, setIsPrivate] = useState(false);
   const [photo, setPhoto] = useState("");
   const [show, setShow] = useState(false);
+  //user location 
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+      
+      Alert.alert('EL EVENTO SERÁ CREADO EN SU UBICACIÓN ACTUAL')
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
   // HANDLES FUNCTIONS
   const handleTitle = (text) => {
     setTitle(text);
@@ -63,9 +82,13 @@ const FormEvent = () => {
         title,
         description,
         fee,
-        isPublic: isPublic? isPublic : isPrivate,
+        isPublic: isPublic? isPublic : false,
         photo,
-        date
+        date,
+        coords:{
+          lat: location.coords.latitude,
+          long: location.coords.longitude 
+        }
     });
 
     Alert.alert('Evento creado');
@@ -79,7 +102,7 @@ const FormEvent = () => {
  
   return (
     //titulo -description - $fee - date - isPublic - location = {lat, long} - attachments - createdAt
-
+    
     <View style={styles.container}>
         <Text h1>Crea tu Evento</Text>
       <ScrollView>
@@ -107,7 +130,7 @@ const FormEvent = () => {
         inputContainerStyle={styles.inputcont}
         onChangeText={handleFee}/>
         
-        <Text h4>Fecha</Text>
+        <Text h4>Fecha: -{date.toDateString()}-</Text>
         <TouchableOpacity onPress={handleMode}>
         <MaterialIcons name="date-range" size={24} color="black"/>
         </TouchableOpacity>
