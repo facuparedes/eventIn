@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native';
 // .color1 {color: #2968c0;}
 // .color2 {color: #298bc4;}
 // .color3 {color: #29adbf;}
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#298bc4',
         paddingTop: 50,
         paddingHorizontal: 12,
-       
+
     },
     input: {
         backgroundColor: '#d7eae9',
@@ -22,20 +22,20 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         marginTop: 1,
         alignItems: 'center',
-        
+
         //borderBottomColor: 'green'
 
 
     },
     inputError: {
-    backgroundColor: '#d7eae9',
-    borderColor: 'red',
-    borderRadius: 14,
-    paddingLeft: 12,
-    marginBottom: 5,
-    borderWidth: 2,
-    marginTop: 1,
-    alignItems: 'center',
+        backgroundColor: '#d7eae9',
+        borderColor: 'red',
+        borderRadius: 14,
+        paddingLeft: 12,
+        marginBottom: 5,
+        borderWidth: 2,
+        marginTop: 1,
+        alignItems: 'center',
     },
     header: {
         fontSize: 30,
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 5,
         marginBottom: 15,
-        borderWidth:1,
-        borderColor:'black'
+        borderWidth: 1,
+        borderColor: 'black'
     },
     btnContainer: {
         paddingRight: 25,
@@ -67,50 +67,50 @@ const styles = StyleSheet.create({
     },
     label: {
         marginBottom: 3,
-        color:'black',
-    
+        color: 'black',
+
     },
     inputcont: {
         borderBottomWidth: 0,
-        marginHorizontal:2,
+        marginHorizontal: 2,
     },
-    checkBox:{
-        flexDirection:'row',
-        justifyContent:'space-evenly'
+    checkBox: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly'
     },
-    boxcont:{
-      backgroundColor:'#d7eae9',
-      borderColor:'black',
-      borderWidth:2,
-      borderRadius:15
+    boxcont: {
+        backgroundColor: '#d7eae9',
+        borderColor: 'black',
+        borderWidth: 2,
+        borderRadius: 15
     },
-    text:{
-    //    marginLeft:20,
-       marginBottom:10
+    text: {
+        //    marginLeft:20,
+        marginBottom: 10
     },
-    textContainer:{
-        justifyContent:'center',
-        alignItems:'center'
+    textContainer: {
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    icn:{
+    icn: {
         // position:'absolute',
-        alignItems:'flex-start'
+        alignItems: 'flex-start'
         // marginLeft:8,
         // marginTop:326,
         // marginTop:12
     },
-    lefticn:{
+    lefticn: {
         // marginLeft:1
         // position:'absolute',
-        alignItems:'center'
+        alignItems: 'center'
     },
-    calendarContainer:{
-        flexDirection:'row',
-        marginBottom:35,
-        marginTop:5
+    calendarContainer: {
+        flexDirection: 'row',
+        marginBottom: 35,
+        marginTop: 5
     },
-    calendar:{
-        marginLeft:10,
+    calendar: {
+        marginLeft: 10,
         // marginTop:2
     }
 
