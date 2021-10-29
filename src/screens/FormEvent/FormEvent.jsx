@@ -29,6 +29,14 @@ const FormEvent = () => {
     const [textDateEnd, setTextDateEnd] = useState('');
     const [textTimeStart, setTextTimeStart] = useState('');
     const [textTimeEnd, setTextTimeEnd] = useState('');
+  //Categorias
+  const [showCategories, setShowCategories] = useState(false);
+  const [categories, setCategories] = useState('');
+  const [bar, setBar] = useState(false);
+  const [deportes, setDeportes] = useState(false);
+  const [fiesta, setFiesta] = useState(false);
+  const [teatro, setTeatro] = useState(false);
+  const [musica, setMusica] = useState(false);
   //location
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -43,7 +51,7 @@ const FormEvent = () => {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
-    //Alert.alert('ESTE EVENTO SERÁ CREADO EN TU UBICACIÓN ACTUAL');
+    Alert.alert('ESTE EVENTO SERÁ CREADO EN TU UBICACIÓN ACTUAL');
 
     })();
   }, []);
@@ -76,6 +84,8 @@ const FormEvent = () => {
   const handlePhoto = (text) => {
       setPhoto(text)
   }
+
+ 
     // dateTime handler 1
   const showMode = (currentMode) => {
     if (currentMode === 'date') {
@@ -153,7 +163,7 @@ const onChangeTimeEnd = (event, selectedTime) => {
 }
 
   async function handleSubmit () {
-    if(!title || !description || !fee || (!isPublic && !isPrivate)) return Alert.alert('No puede haber campos vacios')  
+    if(!title || !description || !fee || (!isPublic && !isPrivate) || !categories) return Alert.alert('No puede haber campos vacios')  
     
     await addDoc(collection(db, "events"), {
         title,
@@ -161,18 +171,20 @@ const onChangeTimeEnd = (event, selectedTime) => {
         fee,
         isPublic: isPublic? true : false,
         photo,
-        date: {
-          start: textDateStart,
-          end: textDateEnd
+        category: categories,
+        start: {
+          date: textDateStart,
+          hour: textTimeStart
         },
-        hour: {
-          start: textTimeStart,
-          end: textTimeEnd
+        end: {
+          date: textDateEnd,
+          hour: textTimeEnd
         },
         location: {
           lat: location.coords.latitude,
           long: location.coords.longitude
-        }
+        },
+        createdAt: new Date()
     });
 
     Alert.alert('Evento creado');
@@ -183,7 +195,15 @@ const onChangeTimeEnd = (event, selectedTime) => {
     setIsPublic(false)
     setIsPrivate(false)
   };
+
+
  
+  const handleCategories = () => {
+    setShowCategories(!showCategories)
+  }
+
+
+
   return (
     //titulo -description - $fee - date - isPublic - location = {lat, long} - attachments - createdAt
 
@@ -238,22 +258,6 @@ const onChangeTimeEnd = (event, selectedTime) => {
           </View>
           <View style={styles.horaCont}>
           <Input
-            label="Finalización del Evento:"
-            placeholder="Fecha..."
-            inputStyle={styles.input}
-            labelStyle={styles.label}
-            inputContainerStyle={styles.inputHoraContainer}
-            value={textDateEnd}
-          />
-          <TouchableOpacity
-            onPress={() => showMode('dateEnd')}
-          >
-            <MaterialIcons name="date-range" size={45} color="black" style={styles.reloj} />
-          </TouchableOpacity>
-          </View>
-
-          <View style={styles.horaCont}>
-          <Input
             label="Hora Inicio:"
             placeholder="Hora..."
             inputStyle={styles.input}
@@ -267,6 +271,22 @@ const onChangeTimeEnd = (event, selectedTime) => {
           <Feather name="clock" size={45} color="black" style={styles.reloj} />
           </TouchableOpacity>
           </View>
+          <View style={styles.horaCont}>
+          <Input
+            label="Finalización del Evento:"
+            placeholder="Fecha..."
+            inputStyle={styles.input}
+            labelStyle={styles.label}
+            inputContainerStyle={styles.inputHoraContainer}
+            value={textDateEnd}
+          />
+          <TouchableOpacity
+            onPress={() => showMode('dateEnd')}
+          >
+            <MaterialIcons name="date-range" size={45} color="black" style={styles.reloj} />
+          </TouchableOpacity>
+          </View>
+          
           <View style={styles.horaCont}>
           <Input
             label="Hora de Finalización:"
@@ -373,11 +393,70 @@ const onChangeTimeEnd = (event, selectedTime) => {
           inputContainerStyle={styles.inputcont}
           onChangeText={handlePhoto}
         />
-          {/*createdAt*/}
+        <TouchableOpacity style={styles.btn} onPress={handleCategories}>
+          <Text>Mostrar Categorias</Text>
+        </TouchableOpacity>     
+        {showCategories && !bar && !deportes && !musica && !teatro && !fiesta?
+          <View>
+            <CheckBox title="Bar" onPress={()=> {
+              setCategories('Bar')
+              setBar(!bar)
+              if(bar) return setCategories('')
+              }} checked={bar}/>
+            <CheckBox title="Deportes" onPress={()=> {
+              setCategories('Deportes')
+              setDeportes(!deportes)
+              if(deportes) return setCategories('')
+          }} checked={deportes}/>
+            <CheckBox title="Fiesta" onPress={()=> {
+              setCategories('Fiesta')
+              setFiesta(!fiesta)
+              if(fiesta) return setCategories('')
+          }} checked={fiesta}/>
+            <CheckBox title="Musica" onPress={()=> {
+              setCategories('Musica')
+              setMusica(!musica)
+              if(musica) return setCategories('')
+          }} checked={musica}/>
+            <CheckBox title="Teatro" onPress={()=> {
+              setCategories('Teatro')
+              setTeatro(!teatro)
+              if(teatro) return setCategories('')
+          }} checked={teatro}/>
+          </View>
+          : bar? <CheckBox title="Bar" onPress={()=> {
+            setCategories('Bar')
+            setBar(!bar)
+            if(bar) return setCategories('')
+            }} checked={bar}/>
+            
+            : deportes? <CheckBox title="Deportes" onPress={()=> {
+              setCategories('Deportes')
+              setDeportes(!deportes)
+              if(deportes) return setCategories('')
+          }} checked={deportes}/>
+          
+          : fiesta? <CheckBox title="Fiesta" onPress={()=> {
+            setCategories('Fiesta')
+            setFiesta(!fiesta)
+            if(fiesta) return setCategories('')
+          }} checked={fiesta}/>
+        
+        : musica? <CheckBox title="Musica" onPress={()=> {
+          setCategories('Musica')
+          setMusica(!musica)
+          if(musica) return setCategories('')
+          }} checked={musica}/>
+        : teatro? <CheckBox title="Teatro" onPress={()=> {
+          setCategories('Teatro')
+          setTeatro(!teatro)
+          if(teatro) return setCategories('')
+        }} checked={teatro}/> : null
+        }
+        { console.log('CATEGORIES: ',categories)}
         <TouchableOpacity title="Crear Evento" onPress={handleSubmit} style={styles.btn}>
           <Text style={{color:'white'}}>Crear Evento</Text>
         </TouchableOpacity> 
-        
       </ScrollView>
     </View>
   );
