@@ -57,6 +57,11 @@ const FormEvent = ({ navigation }) => {
   // dateTime states (also form)
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState(new Date());
+  const [dateValueStart, setDateValueStart] = useState(new Date())
+  const [timeValueStart, setTimeValueStart] = useState(new Date());
+  const [dateValueEnd, setDateValueEnd] = useState(new Date())
+  const [timeValueEnd, setTimeValueEnd] = useState(new Date());
+
     // dateTime states (not form)
   const [showDateStart, setShowDateStart] = useState(false);
   const [showDateEnd, setShowDateEnd] = useState(false);
@@ -157,7 +162,7 @@ const FormEvent = ({ navigation }) => {
     let tempDate = new Date(currentDate);
     let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
     setTextDateStart(fDate);
-
+    setDateValueStart(tempDate)
     setShowDateStart(false);
 }
 
@@ -170,7 +175,7 @@ const FormEvent = ({ navigation }) => {
     let tempDate = new Date(currentDate);
     let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
     setTextDateEnd(fDate);
-    
+    setDateValueEnd(tempDate)
     setShowDateEnd(false)
   }
 
@@ -184,7 +189,7 @@ const FormEvent = ({ navigation }) => {
     let tempTime = new Date(currentTime);
     let fTime = tempTime.getHours() + ':' + tempTime.getMinutes();
     setTextTimeStart(fTime);
-
+    setTimeValueStart(tempTime)
     setShowTimeStart(false)
     }
 
@@ -197,7 +202,7 @@ const FormEvent = ({ navigation }) => {
     let tempTime = new Date(currentTime);
     let fTime = tempTime.getHours() + ':' + tempTime.getMinutes();
     setTextTimeEnd(fTime);
-
+    setTimeValueEnd(tempTime)
     setShowTimeEnd(false)
   }
 
@@ -213,8 +218,8 @@ const FormEvent = ({ navigation }) => {
       photo,
       category: categories,
       start: {
-        date: textDateStart,
-        time: textTimeStart
+        date: dateValueStart,
+        time: timeValueStart
       },
       end: {
         date: textDateEnd,
@@ -238,12 +243,12 @@ const FormEvent = ({ navigation }) => {
         photo,
         category: categories,
         start: {
-          date: textDateStart,
-          time: textTimeStart
+          date: dateValueStart,
+          time: timeValueStart
         },
         end: {
-          date: textDateEnd,
-          time: textTimeEnd
+          date: dateValueEnd,
+          time: timeValueEnd
         },
         location: {
           lat: location.coords.latitude,
@@ -369,7 +374,7 @@ const FormEvent = ({ navigation }) => {
                 mode='date'
                 // is24Hour={false}
                 display='default'
-                minimumDate={date}
+                minimumDate={new Date()}
                 onChange={onChangeDateEnd}
               />
             )}
