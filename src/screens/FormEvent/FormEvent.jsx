@@ -47,31 +47,26 @@ function validate (form) {
 
 const FormEvent = ({ navigation }) => {
   const [errors, setErrors] = useState({});
-  // form states
+  // Form states
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [fee, setFee] = useState(0);
   const [isPublic, setIsPublic] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   const [photo, setPhoto] = useState("");
-  // dateTime states (also form)
+  // DateTime states (also form)
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState(new Date());
-  const [dateValueStart, setDateValueStart] = useState(new Date())
-  const [timeValueStart, setTimeValueStart] = useState(new Date());
-  const [dateValueEnd, setDateValueEnd] = useState(new Date())
-  const [timeValueEnd, setTimeValueEnd] = useState(new Date());
-
-    // dateTime states (not form)
-  const [showDateStart, setShowDateStart] = useState(false);
-  const [showDateEnd, setShowDateEnd] = useState(false);
-  const [showTimeStart, setShowTimeStart] = useState(false);
-  const [showTimeEnd, setShowTimeEnd] = useState(false);
   const [textDateStart, setTextDateStart] = useState('');
   const [textDateEnd, setTextDateEnd] = useState('');
   const [textTimeStart, setTextTimeStart] = useState('');
   const [textTimeEnd, setTextTimeEnd] = useState('');
-  //Categorias
+    // DateTime states (not form)
+  const [showDateStart, setShowDateStart] = useState(false);
+  const [showDateEnd, setShowDateEnd] = useState(false);
+  const [showTimeStart, setShowTimeStart] = useState(false);
+  const [showTimeEnd, setShowTimeEnd] = useState(false);
+  // Categories Checkboxes states
   const [showCategories, setShowCategories] = useState(false);
   const [categories, setCategories] = useState('');
   const [bar, setBar] = useState(false);
@@ -79,10 +74,11 @@ const FormEvent = ({ navigation }) => {
   const [fiesta, setFiesta] = useState(false);
   const [teatro, setTeatro] = useState(false);
   const [musica, setMusica] = useState(false);
-  //location
+  // Location states
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
 
+  // Función para pedir acceso a la ubicación del usuario dentro del useEffect
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -132,40 +128,36 @@ const FormEvent = ({ navigation }) => {
   }
 
  
-    // dateTime handler 1
+    // DateTime handler 1
   const showMode = (currentMode) => {
     if (currentMode === 'date') {
-        //setShowTime(false);
         setShowDateStart(true);
     }
     if(currentMode === 'dateEnd'){
       setShowDateEnd(true)
-      //setShowTime(false)
     }
     if (currentMode === 'time') {
         setShowTimeStart(true);
-        //setShowDateStart(false);
     }
     if (currentMode === 'timeEnd') {
       setShowTimeEnd(true);
-      //setShowDateStart(false);
     }
   };
   
-    // dateTime handler 2
+    // DateTime handler 2
   const onChangeDateStart = (event, selectedDate) => {
     const currentDate = selectedDate || date;
 
-    setShowDateStart(Platform.OS === 'ios'); // why this?
+    setShowDateStart(Platform.OS === 'ios'); // why this? 
     setDate(currentDate);
 
     let tempDate = new Date(currentDate);
     let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
     setTextDateStart(fDate);
-    setDateValueStart(tempDate)
+
     setShowDateStart(false);
 }
-
+    // DateTime handler 3
   const onChangeDateEnd = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     
@@ -175,11 +167,11 @@ const FormEvent = ({ navigation }) => {
     let tempDate = new Date(currentDate);
     let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
     setTextDateEnd(fDate);
-    setDateValueEnd(tempDate)
+    
     setShowDateEnd(false)
   }
 
-  // dateTime handler 3
+  // dateTime handler 4
   const onChangeTimeStart = (event, selectedTime) => {
     const currentTime = selectedTime || time;
 
@@ -189,7 +181,7 @@ const FormEvent = ({ navigation }) => {
     let tempTime = new Date(currentTime);
     let fTime = tempTime.getHours() + ':' + tempTime.getMinutes();
     setTextTimeStart(fTime);
-    setTimeValueStart(tempTime)
+
     setShowTimeStart(false)
     }
 
@@ -202,14 +194,15 @@ const FormEvent = ({ navigation }) => {
     let tempTime = new Date(currentTime);
     let fTime = tempTime.getHours() + ':' + tempTime.getMinutes();
     setTextTimeEnd(fTime);
-    setTimeValueEnd(tempTime)
+
     setShowTimeEnd(false)
   }
 
   async function handleSubmit () {
+    // Todavía tenemos algunos temas con esta prop. El if no va a estar en el futuro, es un parche.
     if(!isPublic && !isPrivate) return Alert.alert('Selecciona un tipo de evento.')  
 
-
+    // Form Validation
     let errorsForm = validate({
       title,
       description,
@@ -218,8 +211,8 @@ const FormEvent = ({ navigation }) => {
       photo,
       category: categories,
       start: {
-        date: dateValueStart,
-        time: timeValueStart
+        date: textDateStart,
+        time: textTimeStart
       },
       end: {
         date: textDateEnd,
@@ -232,8 +225,7 @@ const FormEvent = ({ navigation }) => {
       createdAt: new Date()
     })
 
-    console.log(errorsForm);
-
+    // Add Form to Firebase as a document.
     if (Object.keys(errorsForm).length === 0) {
       await addDoc(collection(db, "events"), {
         title,
@@ -243,12 +235,12 @@ const FormEvent = ({ navigation }) => {
         photo,
         category: categories,
         start: {
-          date: dateValueStart,
-          time: timeValueStart
+          date: textDateStart,
+          time: textTimeStart
         },
         end: {
-          date: dateValueEnd,
-          time: timeValueEnd
+          date: textDateEnd,
+          time: textTimeEnd
         },
         location: {
           lat: location.coords.latitude,
@@ -257,11 +249,14 @@ const FormEvent = ({ navigation }) => {
         createdAt: new Date()
     });
     } else {
-      return Alert.alert('Hay algo mal.')
+      // Este mensaje va a devolver un alert con el mensaje de la primer prop del estado `errors` en el futuro
+      return Alert.alert('Hay errores en los campos del formulario.')
     }
-    if(fee === 0) Alert.alert('Tu evento será gratuito')
+    if(fee === 0) Alert.alert('Tu evento será gratuito.')
     Alert.alert('Evento creado');
 
+    
+    //Navegamos al login porque en nuestra rama no está el Home en el navigator. Pero navegaríamos a Home
     navigation.replace('Login')
   };
 
@@ -293,7 +288,7 @@ const FormEvent = ({ navigation }) => {
         inputContainerStyle={styles.inputcont}
         onChangeText={handleFee}/>
 
-        {/* dateTimePicker */}
+        {/* DATE/TIME PICKER */}
         <View style={{
           flex: 1,
           backgroundColor: '#298bc4',
@@ -374,7 +369,7 @@ const FormEvent = ({ navigation }) => {
                 mode='date'
                 // is24Hour={false}
                 display='default'
-                minimumDate={new Date()}
+                minimumDate={date}
                 onChange={onChangeDateEnd}
               />
             )}
@@ -399,8 +394,9 @@ const FormEvent = ({ navigation }) => {
               />
             )}
         </View>
+        {/* FINISH DATE/TIME PICKER */}
         
-        {/* CHECKBOXES */}
+        {/* CATEGORIES CHECKBOXES */}
         <Text style={{alignSelf:'center',marginBottom:8}} h4>Tipo de evento</Text>
         <View style={styles.checkBox}>
           {
@@ -437,7 +433,6 @@ const FormEvent = ({ navigation }) => {
           }
 
         </View>
-        {/* <Input label="Ubicacion" placeholder="Evento location..."/> */}
           <Input 
             label="Fotos" 
             placeholder="Añadir link de la foto..." 
@@ -553,6 +548,8 @@ const FormEvent = ({ navigation }) => {
             checked={teatro}
           /> : null
         }
+        {/* FINISH CATEGORIES CHECKBOXES */}
+        
         <TouchableOpacity title="Crear Evento" onPress={handleSubmit} style={styles.btn}>
           <Text style={{color:'white'}}>Crear Evento</Text>
         </TouchableOpacity>
