@@ -105,13 +105,29 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     calendarContainer: {
-        flexDirection: 'row',
-        marginBottom: 35,
-        marginTop: 5
+        // flexDirection: 'row',
+        // marginBottom: 35,
+        // marginTop: 5,
+        marginHorizontal:6
     },
     calendar: {
         marginLeft: 10,
         // marginTop:2
+    },
+    inputHoraContainer:{
+        borderBottomWidth: 0,
+        marginRight: 55,
+    },
+    reloj:{
+        marginRight:35
+        // marginBottom:100,
+        // position:'absolute'
+    },
+    horaCont:{
+        flexDirection:'row',
+        alignItems:'center',
+        justifyContent:'space-around',
+        marginLeft:8
     }
 
 

@@ -155,33 +155,37 @@ const onChangeTime = (event, selectedTime) => {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-          <TouchableOpacity
-            onPress={() => showMode('date')}
-          >
-            <MaterialIcons name="date-range" size={45} color="black" style={styles.calendar} />
-          </TouchableOpacity>
-
+          <View style={styles.horaCont}>
           <Input
             label="Fecha:"
             placeholder="Fecha..."
             inputStyle={styles.input}
             labelStyle={styles.label}
-            inputContainerStyle={styles.inputcont}
+            inputContainerStyle={styles.inputHoraContainer}
             value={textDate}
           />
           <TouchableOpacity
-            onPress={() => showMode('time')}
+            onPress={() => showMode('date')}
           >
-            <Feather name="clock" size={45} color="black" style={styles.calendar} />
+            <MaterialIcons name="date-range" size={45} color="black" style={styles.reloj} />
           </TouchableOpacity>
+          </View>
+
+          <View style={styles.horaCont}>
           <Input
             label="Hora:"
             placeholder="Hora..."
             inputStyle={styles.input}
             labelStyle={styles.label}
-            inputContainerStyle={styles.inputcont}
+            inputContainerStyle={styles.inputHoraContainer}
             value={textTime}
           />
+          <TouchableOpacity
+            onPress={() => showMode('time')}
+          >
+          <Feather name="clock" size={45} color="black" style={styles.reloj} />
+          </TouchableOpacity>
+          </View>
           
             {showDate && (
               <DateTimePicker
