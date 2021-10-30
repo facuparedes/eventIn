@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#298bc4',
         paddingTop: 50,
         paddingHorizontal: 12,
-
     },
     input: {
         backgroundColor: '#d7eae9',
@@ -22,10 +21,7 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         marginTop: 1,
         alignItems: 'center',
-
         //borderBottomColor: 'green'
-
-
     },
     inputError: {
         backgroundColor: '#d7eae9',
@@ -108,29 +104,27 @@ const styles = StyleSheet.create({
         // flexDirection: 'row',
         // marginBottom: 35,
         // marginTop: 5,
-        marginHorizontal:6
+        marginHorizontal: 6
     },
     calendar: {
         marginLeft: 10,
         // marginTop:2
     },
-    inputHoraContainer:{
+    inputHoraContainer: {
         borderBottomWidth: 0,
         marginRight: 55,
     },
-    reloj:{
-        marginRight:35
+    reloj: {
+        marginRight: 35
         // marginBottom:100,
         // position:'absolute'
     },
-    horaCont:{
-        flexDirection:'row',
-        alignItems:'center',
-        justifyContent:'space-around',
-        marginLeft:8
+    horaCont: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        marginLeft: 8
     }
-
-
 })
 
-export default styles
+export default styles;
