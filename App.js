@@ -3,6 +3,7 @@ import { Provider } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import store from "./src/common/redux/store.js";
+import FormEvent from './src/screens/FormEvent/FormEvent';
 import TabBar from "./src/routes/TabBar";
 import Logo from "./src/screens/Logo/Logo";
 import OnBoarding from "./src/screens/Onboarding/OnBoarding";
@@ -18,13 +19,13 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
-            headerShown: false,
-          }}
-        >
+            headerShown: false
+          }}>
           <Stack.Screen name="Logo" component={Logo} />
           <Stack.Screen name="Onboarding" component={OnBoarding} />
           <Stack.Screen name="TabBar" component={TabBar} />
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Form" component={FormEvent} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
         </Stack.Navigator>
