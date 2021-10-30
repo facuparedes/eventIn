@@ -1,14 +1,11 @@
-import React, { useState } from "react";
-import { Image, View, Text, StyleSheet, StatusBar, FlatList, TouchableOpacity, Dimensions } from "react-native";
-
-const { width, height } = Dimensions.get("window");
-
-const colorPallete = { first: "#2968c0", second: "#298bc4", third: "#29adbf", fourth: "#6ad5ce", fifth: "#d7eae9" };
+import React from "react";
+import { SafeAreaView, Image, View, Text, TouchableOpacity, Animated } from "react-native";
+import { colorPallete, styles, width, height } from "./styles";
 
 const slides = [
   {
     id: 1,
-    image: require("../../assets/location.png"),
+    image: require("../../assets/onboarding1.png"),
     title: "¡Todos los eventos en un solo lugar!",
   },
   {
@@ -23,150 +20,89 @@ const slides = [
   },
 ];
 
-const Slide = ({ item }) => {
-  return (
-    <View style={{ alignItems: "center", margin: 36 }}>
-      <Image source={item.image} style={{ height: "65%" }} />
-      <Text style={styles.title}>{item.title}</Text>
-    </View>
-  );
-};
-
 export default function OnBoarding({ navigation }) {
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const scrollX = new Animated.Value(0);
 
-  const Footer = () => {
+  const RenderContent = () => {
     return (
-      <View style={{ height: height * 0.35, justifyContent: "space-between", paddingHorizontal: 20 }}>
-        <View style={{ flexDirection: "row", justifyContent: "center", marginTop: 20 }}>
-          {slides.map((_, index) => (
-            <View
-              key={index}
-              style={[
-                styles.indicator,
-                currentSlideIndex == index && {
-                  backgroundColor: colorPallete.fourth,
-                  width: 25,
-                },
-              ]}
-            />
-          ))}
-        </View>
-        <View style={{ marginBottom: 30 }}>
-          <View style={{ flexDirection: "column" }}>
-            <TouchableOpacity style={styles.btnStart} onPress={() => navigation.navigate("TabBar")}>
-              <Text style={{ fontSize: 28, color: colorPallete.third, textAlign: "center", marginTop: 4 }}>Empezar</Text>
-            </TouchableOpacity>
-            <View style={{ height: 15 }} />
-            <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.navigate("Login")}>
-              <Text style={{ fontSize: 28, color: colorPallete.third, textAlign: "center", marginTop: 4 }}>Iniciar Sesión</Text>
-            </TouchableOpacity>
-            <View style={{ height: 15 }} />
-            <TouchableOpacity style={styles.btnRegister} onPress={() => navigation.navigate("Register")}>
-              <Text style={{ fontSize: 28, color: "white", textAlign: "center", marginTop: 4 }}>Registrarse</Text>
-            </TouchableOpacity>
+      <Animated.ScrollView
+        horizontal
+        pagingEnabled
+        scrollEnabled
+        decelerationRate={0}
+        scrollEventThrottle={16}
+        snapToAlignment="center"
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ height: height * 0.75 }}
+        onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], { useNativeDriver: false })}
+      >
+        {slides.map((item, index) => (
+          <View key={index} style={{ width: width }}>
+            <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+              <Image source={item.image} resizeMode="contain" style={{ width: "80%", height: "80%" }} />
+            </View>
+            <View style={{ position: "absolute", bottom: "10%", left: 40, right: 40 }}>
+              <Text style={styles.title}>{item.title}</Text>
+            </View>
           </View>
+        ))}
+      </Animated.ScrollView>
+    );
+  };
+
+  const RenderButtons = () => {
+    return (
+      <View style={{ height: height * 0.25, justifyContent: "space-between", paddingHorizontal: 30, marginBottom: 10 }}>
+        <View style={{ flexDirection: "column" }}>
+          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.replace("TabBar")}>
+            <Text style={{ fontSize: 28, color: colorPallete.third, textAlign: "center", marginTop: 4 }}>Empezar</Text>
+          </TouchableOpacity>
+          <View style={{ height: 15 }} />
+          <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.replace("Login")}>
+            <Text style={{ fontSize: 28, color: colorPallete.third, textAlign: "center", marginTop: 4 }}>Iniciar Sesión</Text>
+          </TouchableOpacity>
+          <View style={{ height: 15 }} />
+          <TouchableOpacity style={styles.btnRegister} onPress={() => navigation.replace("Register")}>
+            <Text style={{ fontSize: 28, color: "white", textAlign: "center", marginTop: 4 }}>Registrarse</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
   };
 
-  const updateCurrentSlideIndex = (e) => {
-    const contentOffsetx = e.nativeEvent.contentOffset.x;
-    const currentIndex = Math.round(contentOffsetx / width);
-    setCurrentSlideIndex(currentIndex);
+  const RenderDots = () => {
+    const dotPosition = Animated.divide(scrollX, width);
+
+    return (
+      <View style={styles.dotContainer}>
+        {slides.map((item, index) => {
+          const opacity = dotPosition.interpolate({
+            inputRange: [index - 1, index, index + 1],
+            outputRange: [0.3, 1, 0.3],
+            extrapolate: "clamp",
+          });
+
+          const dotSize = dotPosition.interpolate({
+            inputRange: [index - 1, index, index + 1],
+            outputRange: [8, 17, 8],
+            extrapolate: "clamp",
+          });
+
+          return <Animated.View key={`dot-${index}`} opacity={opacity} style={[styles.dot, { width: dotSize, height: dotSize }]}></Animated.View>;
+        })}
+      </View>
+    );
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: colorPallete.fifth }}>
-      <StatusBar backgroundColor={colorPallete.fifth} />
-      <FlatList
-        onMomentumScrollEnd={updateCurrentSlideIndex}
-        pagingEnabled
-        data={slides}
-        contentContainerStyle={{ height: height * 0.75 }}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => <Slide item={item} />}
-      />
-      <Footer />
-    </View>
+    <SafeAreaView style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: colorPallete.fifth }}>
+      <View>
+        <RenderContent />
+        <RenderButtons />
+      </View>
+      <View style={styles.dotRootContainer}>
+        <RenderDots />
+      </View>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 22,
-    marginTop: 50,
-    textAlign: "center",
-  },
-  indicator: {
-    height: 2.5,
-    width: 10,
-    backgroundColor: "grey",
-    marginHorizontal: 3,
-    marginBottom: 20,
-    borderRadius: 2,
-  },
-  btnStart: {
-    height: 50,
-    borderRadius: 30,
-    backgroundColor: "transparent",
-  },
-  btnLogin: {
-    height: 50,
-    borderRadius: 30,
-    borderStyle: "solid",
-    borderWidth: 2,
-    borderColor: colorPallete.third,
-    backgroundColor: "transparent",
-  },
-  btnRegister: {
-    height: 50,
-    borderRadius: 30,
-    backgroundColor: colorPallete.third,
-  },
-});
-
-// import Onboarding from "react-native-onboarding-swiper";
-
-// export default function OnBoarding({ navigation }) {
-//   return (
-//     <Onboarding
-//       nextLabel="Siguiente"
-//       skipLabel="Omitir"
-//       onSkip={() => navigation.navigate("TabBar")}
-//       onDone={() => navigation.navigate("TabBar")}
-//       pages={[
-//         {
-//           backgroundColor: "#d7eae9",
-//           image: <Image style={styles.image} source={require("../../assets/location.png")} />,
-//           title: <Text></Text>,
-//           subtitle: <Text style={styles.subTitle}>¡Encuentra todo tipo de eventos cerca tuyo!</Text>,
-//         },
-//         {
-//           backgroundColor: "#d7eae9",
-//           image: <Image style={styles.image} source={require("../../assets/Agendar.png")} />,
-//           title: <Text></Text>,
-//           subtitle: <Text style={styles.subTitle}>¡Agendá tus eventos favoritos!</Text>,
-//         },
-//         {
-//           backgroundColor: "#d7eae9",
-//           image: <Image style={styles.image} source={require("../../assets/post.png")} />,
-//           title: <Text></Text>,
-//           subtitle: <Text style={styles.subTitle}>¡Creá tus propios eventos!</Text>,
-//         },
-//       ]}
-//     />
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   subTitle: {
-//     fontSize: 20,
-//   },
-//   image: {
-//     width: 320,
-//     height: 320,
-//   },
-// });

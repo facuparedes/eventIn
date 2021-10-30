@@ -1,11 +1,12 @@
 import React from "react";
-import { Image, View, StyleSheet } from "react-native";
+import { Image, View } from "react-native";
+import { styles } from "./styles";
 
 export default function Logo({ navigation }) {
   const timer = function () {
     setTimeout(() => {
-      navigation.navigate("Onboarding");
-    }, 3000);
+      navigation.replace("Onboarding");
+    }, 1500);
   };
 
   return (
@@ -15,16 +16,3 @@ export default function Logo({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  logo: {
-    width: 325,
-    height: 145,
-  },
-  view: {
-    backgroundColor: "#d7eae9",
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
