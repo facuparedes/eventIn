@@ -8,20 +8,44 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         display: 'flex',
-        backgroundColor: '#298bc4',
+        backgroundColor: '#fff',
         paddingTop: 50,
         paddingHorizontal: 12,
     },
+    titleText: {
+        height: 30,
+        marginTop: 0,
+        marginBottom: 10,
+        textAlign: 'left'
+    },
+    logoImage: {
+        resizeMode: 'contain',
+        height: '30%',
+        width: '30%'
+        // flex: 1,
+        // width: 20,
+        // height: 20,
+        // resizeMode: 'contain',
+        // alignSelf: 'flex-end'
+    },
     input: {
-        backgroundColor: '#d7eae9',
+        backgroundColor: '#fff',
         borderColor: 'black',
-        borderRadius: 14,
-        paddingLeft: 12,
-        marginBottom: 5,
-        borderWidth: 3,
-        marginTop: 1,
+        borderRadius: 4,
+        paddingLeft: 9,
+        marginBottom: 2,
+        borderWidth: 1,
         alignItems: 'center',
         //borderBottomColor: 'green'
+    },
+    label: {
+        marginBottom: 1,
+        color: 'black',
+        fontWeight: 'normal'
+    },
+    inputCont: {
+        borderBottomWidth: 0,
+        marginRight: 20
     },
     inputError: {
         backgroundColor: '#d7eae9',
@@ -33,52 +57,76 @@ const styles = StyleSheet.create({
         marginTop: 1,
         alignItems: 'center',
     },
-    header: {
-        fontSize: 30,
-        position: 'absolute',
-        // backgroundColor: '#f4efec',
-        borderRadius: 50,
-        padding: 15,
-    },
-    headerContainer: {
-        alignItems: 'flex-start'
-    },
     btn: {
-        backgroundColor: '#2968c0',
+        backgroundColor: '#6ad5ce',
+        height: 50,
+        width: 200,
         // paddingLeft: 5,
         paddingHorizontal: 4,
         paddingBottom: 10,
         // paddingRight: 5,
         paddingTop: 10,
-        borderRadius: 15,
+        borderRadius: 7,
         alignItems: 'center',
         marginTop: 5,
         marginBottom: 15,
-        borderWidth: 1,
-        borderColor: 'black'
+        // borderWidth: 1,
+        // borderColor: 'black'
+    },
+    categoriesView: {
+        flex: 1,
+        flexDirection: 'row'
+    },
+    btnCategories: {
+        backgroundColor: '#fff',
+        height: 30,
+        width: 170,
+        borderRadius: 7,
+        alignItems: 'center',
+        marginTop: 5,
+        marginLeft: 10,
+        marginBottom: 15,
+        borderWidth: 1.5,
+        borderColor: '#6ad5ce'
+    },
+    catIcon: {
+        marginRight: 8
+    },
+    textCat: {
+        alignSelf: 'flex-start',
+        paddingLeft: 12,
+        paddingTop: 2,
+        fontSize: 16
+    },
+    btnsContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    textBtn: {
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 20
     },
     btnContainer: {
         paddingRight: 25,
         paddingLeft: 25
     },
-    label: {
-        marginBottom: 3,
-        color: 'black',
-
-    },
-    inputcont: {
-        borderBottomWidth: 0,
-        marginHorizontal: 2,
+    textType: {
+        alignSelf: 'flex-start',
+        marginLeft: 8,
+        marginBottom: 8,
+        fontSize: 16
     },
     checkBox: {
         flexDirection: 'row',
-        justifyContent: 'space-evenly'
+        justifyContent: 'flex-start',
     },
     boxcont: {
-        backgroundColor: '#d7eae9',
-        borderColor: 'black',
-        borderWidth: 2,
-        borderRadius: 15
+        borderWidth: 0,
+        backgroundColor: '#fff',
+        fontWeight: '100'
     },
     text: {
         //    marginLeft:20,
@@ -115,7 +163,8 @@ const styles = StyleSheet.create({
         marginRight: 55,
     },
     reloj: {
-        marginRight: 35
+        marginRight: 35,
+
         // marginBottom:100,
         // position:'absolute'
     },

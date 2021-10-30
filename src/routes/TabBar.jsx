@@ -62,6 +62,7 @@ export default function TabBar({ navigation }) {
         name="FormEvent"
         component={FormEvent}
         options={{
+          headerShown: false,
           tabBarIcon: ({ color, size }) => <AntDesign name="form" color={color} size={size} />,
         }}
       />

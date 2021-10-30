@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Alert, View, Platform } from "react-native";
+import { Alert, View, Platform, Image } from "react-native";
 import { Input, CheckBox, Text } from "react-native-elements";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import styles from "./FormStyles";
@@ -93,7 +93,7 @@ const FormEvent = ({ navigation }) => {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
-    Alert.alert('ESTE EVENTO SERÁ CREADO EN TU UBICACIÓN ACTUAL');
+    // Alert.alert('ESTE EVENTO SERÁ CREADO EN TU UBICACIÓN ACTUAL');
 
     })();
   }, []);
@@ -259,47 +259,42 @@ const FormEvent = ({ navigation }) => {
     Alert.alert('Evento creado');
 
     // Navegamos a Login porque no tenemos a Home en el Navigator, pero en el futuro navegaremos a Home.
-    navigation.replace('Login')
+    navigation.replace('Home');
   };
 
   return (
     <View style={styles.container}>
-      <Text h1>Crea tu Evento</Text>
+      <View style={styles.textAndImg}>
+        <Text h4 style={styles.titleText}>Crea tu Evento</Text>
+        <Image source={require('../../assets/Logo.png')} style={styles.logoImage} />
+      </View>
       <ScrollView>
         <Input 
-        label="Nombre:" 
+        label="Nombre" 
         placeholder="Nombre del evento..."
         onChangeText={handleTitle} 
         inputStyle={styles.input}
-        labelStyle={styles.label}
-        inputContainerStyle={styles.inputcont}/>
+        labelStyle={[styles.label, {marginTop: 25}]}
+        inputContainerStyle={styles.inputCont}/>
 
         <Input 
-        label="Descripción:" 
-        placeholder="Descripción..." 
-        onChangeText={handleDescription} 
-        inputStyle={styles.input}
-        labelStyle={styles.label}
-        inputContainerStyle={styles.inputcont}/>
-
-        <Input 
-        label="Tarifa: " 
+        label="Tarifa" 
         placeholder="Tarifa..."
         inputStyle={styles.input}
         labelStyle={styles.label}
-        inputContainerStyle={styles.inputcont}
+        inputContainerStyle={styles.inputCont}
         onChangeText={handleFee}/>
 
         {/* DATE/TIME PICKER */}
         <View style={{
           flex: 1,
-          backgroundColor: '#298bc4',
+          backgroundColor: '#fff',
           alignItems: 'center',
           justifyContent: 'center',
         }}>
           <View style={styles.horaCont}>
             <Input
-              label="Fecha Inicio:"
+              label="Fecha de Inicio"
               placeholder="Fecha..."
               inputStyle={styles.input}
               labelStyle={styles.label}
@@ -313,7 +308,7 @@ const FormEvent = ({ navigation }) => {
 
           <View style={styles.horaCont}>
             <Input
-              label="Hora Inicio:"
+              label="Hora de Inicio"
               placeholder="Hora..."
               inputStyle={styles.input}
               labelStyle={styles.label}
@@ -327,7 +322,7 @@ const FormEvent = ({ navigation }) => {
 
           <View style={styles.horaCont}>
             <Input
-              label="Finalización del Evento:"
+              label="Fecha de Finalización"
               placeholder="Fecha..."
               inputStyle={styles.input}
               labelStyle={styles.label}
@@ -341,7 +336,7 @@ const FormEvent = ({ navigation }) => {
           
           <View style={styles.horaCont}>
             <Input
-              label="Hora de Finalización:"
+              label="Hora de Finalización"
               placeholder="Hora..."
               inputStyle={styles.input}
               labelStyle={styles.label}
@@ -400,13 +395,13 @@ const FormEvent = ({ navigation }) => {
         {/* FINISH DATE/TIME PICKER */}
         
         {/* CATEGORIES CHECKBOXES */}
-        <Text style={{alignSelf:'center',marginBottom:8}} h4>Tipo de evento</Text>
+        <Text style={styles.textType}>Tipo de evento:</Text>
         <View style={styles.checkBox}>
           {
             !isPublic && !isPrivate? 
             <View style={styles.checkBox}>
               <CheckBox 
-                title="Publico" 
+                title="Público" 
                 onPress={handleIsPublic} 
                 size={20} 
                 checked={isPublic} 
@@ -436,18 +431,29 @@ const FormEvent = ({ navigation }) => {
           }
 
         </View>
+
+        <Input 
+          label="Descripción" 
+          placeholder="Descripción..." 
+          onChangeText={handleDescription} 
+          inputStyle={styles.input}
+          labelStyle={styles.label}
+          inputContainerStyle={styles.inputCont}/>
+
           <Input 
             label="Fotos" 
             placeholder="Añadir link de la foto..." 
             inputStyle={styles.input}
             labelStyle={styles.label}
-            inputContainerStyle={styles.inputcont}
+            inputContainerStyle={styles.inputCont}
             onChangeText={handlePhoto}
           />
-          <TouchableOpacity style={styles.btn} onPress={handleCategories}>
-            <Text>Mostrar Categorias</Text>
-          </TouchableOpacity>     
-          
+          <TouchableOpacity style={styles.btnCategories} onPress={handleCategories}>
+            <View style={styles.categoriesView}>
+              <Text style={styles.textCat}>Mostrar Categorias</Text>
+              <MaterialIcons name="arrow-drop-down" size={30} color="black" style={styles.catIcon} />
+            </View>
+          </TouchableOpacity>
         {
           showCategories && !bar && !deportes && !musica && !teatro && !fiesta?
           
@@ -460,6 +466,7 @@ const FormEvent = ({ navigation }) => {
                   if(bar) return setCategories('')
                 }} 
                 checked={bar}
+                containerStyle={styles.boxcont}
                 />
               <CheckBox 
                 title="Deportes" 
@@ -469,6 +476,7 @@ const FormEvent = ({ navigation }) => {
                   if(deportes) return setCategories('')
                 }} 
                 checked={deportes}
+                containerStyle={styles.boxcont}
               />
               <CheckBox 
                 title="Fiesta" 
@@ -478,6 +486,7 @@ const FormEvent = ({ navigation }) => {
                 if(fiesta) return setCategories('')
               }} 
               checked={fiesta}
+              containerStyle={styles.boxcont}
               />
               <CheckBox 
                 title="Musica" 
@@ -487,6 +496,7 @@ const FormEvent = ({ navigation }) => {
                   if(musica) return setCategories('')
               }} 
               checked={musica}
+              containerStyle={styles.boxcont}
               />
               <CheckBox 
                 title="Teatro" 
@@ -496,6 +506,7 @@ const FormEvent = ({ navigation }) => {
                   if(teatro) return setCategories('')
               }} 
               checked={teatro}
+              containerStyle={styles.boxcont}
               />
             </View>
             : bar? 
@@ -507,6 +518,7 @@ const FormEvent = ({ navigation }) => {
                 if(bar) return setCategories('')
                 }} 
               checked={bar}
+              containerStyle={styles.boxcont}
               />
               : deportes? 
               <CheckBox 
@@ -517,6 +529,7 @@ const FormEvent = ({ navigation }) => {
                   if(deportes) return setCategories('')
                 }} 
                 checked={deportes}
+                containerStyle={styles.boxcont}
               />
             
             : fiesta? 
@@ -528,6 +541,7 @@ const FormEvent = ({ navigation }) => {
                 if(fiesta) return setCategories('')
               }} 
               checked={fiesta}
+              containerStyle={styles.boxcont}
             />
           
           : musica? 
@@ -539,6 +553,7 @@ const FormEvent = ({ navigation }) => {
               if(musica) return setCategories('')
             }} 
             checked={musica}
+            containerStyle={styles.boxcont}
           />
           : teatro? 
           <CheckBox 
@@ -549,14 +564,15 @@ const FormEvent = ({ navigation }) => {
               if(teatro) return setCategories('')
             }} 
             checked={teatro}
+            containerStyle={styles.boxcont}
           /> : null
         }
         {/* FINISH CATEGORIES CHECKBOXES */}
-
-        <TouchableOpacity title="Crear Evento" onPress={handleSubmit} style={styles.btn}>
-          <Text style={{color:'white'}}>Crear Evento</Text>
-        </TouchableOpacity>
-
+        <View style={styles.btnsContainer}>
+          <TouchableOpacity title="Crear Evento" onPress={handleSubmit} style={styles.btn}>
+            <Text style={styles.textBtn}>Crear Evento</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
