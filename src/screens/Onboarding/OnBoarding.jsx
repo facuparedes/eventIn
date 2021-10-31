@@ -10,12 +10,12 @@ const slides = [
   },
   {
     id: 2,
-    image: require("../../assets/Agendar.png"),
+    image: require("../../assets/onboarding2.png"),
     title: "¡Agendá los que más te gusten!",
   },
   {
     id: 3,
-    image: require("../../assets/post.png"),
+    image: require("../../assets/onboarding3.png"),
     title: "¡Creá tu propio evento!",
   },
 ];
