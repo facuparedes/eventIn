@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Alert, View, Platform, Image } from "react-native";
+import { Alert, View, Platform, Image, ScrollView } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Input, CheckBox, Text } from "react-native-elements";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import styles from "./FormStyles";
 import { MaterialIcons, Feather } from '@expo/vector-icons';
 import { addDoc, collection} from "firebase/firestore"; 
@@ -271,18 +271,18 @@ const FormEvent = ({ navigation }) => {
         <Image source={require('../../assets/Logo.png')} style={styles.logoImage} />
       </View>
 
-      <ScrollView>
+      <ScrollView style={styles.scrollView}>
         <Input 
         label="Nombre" 
-        placeholder="Nombre del evento..."
+        placeholder="Nombre del evento"
         onChangeText={handleTitle} 
         inputStyle={styles.input}
-        labelStyle={[styles.label, {marginTop: 25}]}
+        labelStyle={styles.label}
         inputContainerStyle={styles.inputCont}/>
 
         <Input 
         label="Tarifa" 
-        placeholder="Tarifa..."
+        placeholder="Tarifa"
         inputStyle={styles.input}
         labelStyle={styles.label}
         inputContainerStyle={styles.inputCont}
@@ -298,7 +298,7 @@ const FormEvent = ({ navigation }) => {
           <View style={styles.horaCont}>
             <Input
               label="Fecha de Inicio"
-              placeholder="Fecha..."
+              placeholder="Fecha"
               inputStyle={styles.input}
               labelStyle={styles.label}
               inputContainerStyle={styles.inputHoraContainer}
@@ -312,7 +312,7 @@ const FormEvent = ({ navigation }) => {
           <View style={styles.horaCont}>
             <Input
               label="Hora de Inicio"
-              placeholder="Hora..."
+              placeholder="Hora"
               inputStyle={styles.input}
               labelStyle={styles.label}
               inputContainerStyle={styles.inputHoraContainer}
@@ -326,7 +326,7 @@ const FormEvent = ({ navigation }) => {
           <View style={styles.horaCont}>
             <Input
               label="Fecha de Finalización"
-              placeholder="Fecha..."
+              placeholder="Fecha"
               inputStyle={styles.input}
               labelStyle={styles.label}
               inputContainerStyle={styles.inputHoraContainer}
@@ -340,7 +340,7 @@ const FormEvent = ({ navigation }) => {
           <View style={styles.horaCont}>
             <Input
               label="Hora de Finalización"
-              placeholder="Hora..."
+              placeholder="Hora"
               inputStyle={styles.input}
               labelStyle={styles.label}
               inputContainerStyle={styles.inputHoraContainer}
@@ -408,13 +408,13 @@ const FormEvent = ({ navigation }) => {
                 onPress={handleIsPublic} 
                 size={20} 
                 checked={isPublic} 
-                containerStyle={styles.boxcont}
+                containerStyle={styles.boxCont}
               />
               <CheckBox 
                 title="Privado" 
                 onPress={handleIsPrivate} 
                 checked={isPrivate} 
-                containerStyle={styles.boxcont}
+                containerStyle={styles.boxCont}
               />
             </View>
             : isPublic? 
@@ -423,13 +423,13 @@ const FormEvent = ({ navigation }) => {
                 onPress={handleIsPublic} 
                 size={20} 
                 checked={isPublic} 
-                containerStyle={styles.boxcont}
+                containerStyle={styles.boxCont}
               />
             : <CheckBox 
                 title="Privado" 
                 onPress={handleIsPrivate} 
                 checked={isPrivate} 
-                containerStyle={styles.boxcont}
+                containerStyle={styles.boxCont}
               />
           }
 
@@ -445,7 +445,7 @@ const FormEvent = ({ navigation }) => {
 
           <Input 
             label="Fotos" 
-            placeholder="Añadir link de la foto..." 
+            placeholder="Añadir link de la foto" 
             inputStyle={styles.input}
             labelStyle={styles.label}
             inputContainerStyle={styles.inputCont}
@@ -453,7 +453,7 @@ const FormEvent = ({ navigation }) => {
           />
           <TouchableOpacity style={styles.btnCategories} onPress={handleCategories}>
             <View style={styles.categoriesView}>
-              <Text style={styles.textCat}>Mostrar Categorias</Text>
+              <Text style={styles.textCat}>Categorias</Text>
               <MaterialIcons name="arrow-drop-down" size={30} color="black" style={styles.catIcon} />
             </View>
           </TouchableOpacity>
@@ -469,7 +469,7 @@ const FormEvent = ({ navigation }) => {
                   if(bar) return setCategories('')
                 }} 
                 checked={bar}
-                containerStyle={styles.boxcont}
+                containerStyle={styles.boxCont}
                 />
               <CheckBox 
                 title="Deportes" 
@@ -479,7 +479,7 @@ const FormEvent = ({ navigation }) => {
                   if(deportes) return setCategories('')
                 }} 
                 checked={deportes}
-                containerStyle={styles.boxcont}
+                containerStyle={styles.boxCont}
               />
               <CheckBox 
                 title="Fiesta" 
@@ -489,7 +489,7 @@ const FormEvent = ({ navigation }) => {
                 if(fiesta) return setCategories('')
               }} 
               checked={fiesta}
-              containerStyle={styles.boxcont}
+              containerStyle={styles.boxCont}
               />
               <CheckBox 
                 title="Musica" 
@@ -499,7 +499,7 @@ const FormEvent = ({ navigation }) => {
                   if(musica) return setCategories('')
               }} 
               checked={musica}
-              containerStyle={styles.boxcont}
+              containerStyle={styles.boxCont}
               />
               <CheckBox 
                 title="Teatro" 
@@ -509,7 +509,7 @@ const FormEvent = ({ navigation }) => {
                   if(teatro) return setCategories('')
               }} 
               checked={teatro}
-              containerStyle={styles.boxcont}
+              containerStyle={styles.boxCont}
               />
             </View>
             : bar? 
@@ -521,7 +521,7 @@ const FormEvent = ({ navigation }) => {
                 if(bar) return setCategories('')
                 }} 
               checked={bar}
-              containerStyle={styles.boxcont}
+              containerStyle={styles.boxCont}
               />
               : deportes? 
               <CheckBox 
@@ -532,7 +532,7 @@ const FormEvent = ({ navigation }) => {
                   if(deportes) return setCategories('')
                 }} 
                 checked={deportes}
-                containerStyle={styles.boxcont}
+                containerStyle={styles.boxCont}
               />
             
             : fiesta? 
@@ -544,7 +544,7 @@ const FormEvent = ({ navigation }) => {
                 if(fiesta) return setCategories('')
               }} 
               checked={fiesta}
-              containerStyle={styles.boxcont}
+              containerStyle={styles.boxCont}
             />
           
           : musica? 
@@ -556,7 +556,7 @@ const FormEvent = ({ navigation }) => {
               if(musica) return setCategories('')
             }} 
             checked={musica}
-            containerStyle={styles.boxcont}
+            containerStyle={styles.boxCont}
           />
           : teatro? 
           <CheckBox 
@@ -567,7 +567,7 @@ const FormEvent = ({ navigation }) => {
               if(teatro) return setCategories('')
             }} 
             checked={teatro}
-            containerStyle={styles.boxcont}
+            containerStyle={styles.boxCont}
           /> : null
         }
         {/* FINISH CATEGORIES CHECKBOXES */}

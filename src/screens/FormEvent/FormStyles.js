@@ -10,37 +10,39 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         paddingHorizontal: 8
     },
-    // textAndImg: {
-    //     flex: 1
-    // },
+    textAndImg: {
+        flexDirection: 'row',
+        height: 60
+    },
     titleText: {
-        textAlign: 'left'
+        textAlign: 'left',
+        marginTop: 10
     },
     logoImage: {
         resizeMode: 'contain',
-        height: 80,
+        height: 60,
         width: 80,
-        marginLeft: 280,
-        alignContent: 'space-between'
+        marginLeft: 120
     },
     input: {
         backgroundColor: '#fff',
         borderColor: 'black',
         borderRadius: 4,
-        paddingLeft: 9,
-        marginBottom: 2,
-        borderWidth: 1,
+        // paddingLeft: 9,
+        // marginBottom: 2,
+        // borderWidth: 1,
         alignItems: 'center',
         //borderBottomColor: 'green'
     },
     label: {
         marginBottom: 1,
         color: 'black',
-        fontWeight: 'normal'
+        fontWeight: 'normal',
+        // fontFamily: 'asd'
     },
     inputCont: {
-        borderBottomWidth: 0,
-        marginRight: 20
+        // borderBottomWidth: 0,
+        marginRight: 46
     },
     inputError: {
         backgroundColor: '#d7eae9',
@@ -61,7 +63,7 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         // paddingRight: 5,
         paddingTop: 10,
-        borderRadius: 7,
+        borderRadius: 6,
         alignItems: 'center',
         marginTop: 5,
         marginBottom: 15,
@@ -74,9 +76,9 @@ const styles = StyleSheet.create({
     },
     btnCategories: {
         backgroundColor: '#fff',
-        height: 30,
-        width: 180,
-        borderRadius: 7,
+        height: 36,
+        width: 134,
+        borderRadius: 6,
         alignItems: 'center',
         marginTop: 5,
         marginLeft: 10,
@@ -85,12 +87,14 @@ const styles = StyleSheet.create({
         borderColor: '#6ad5ce'
     },
     catIcon: {
-        marginRight: 8
+        marginRight: 8,
+        marginTop: 2,
+        marginLeft: 6
     },
     textCat: {
         alignSelf: 'flex-start',
         paddingLeft: 12,
-        paddingTop: 2,
+        paddingTop: 5,
         fontSize: 16,
     },
     btnsContainer: {
@@ -118,13 +122,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
     },
-    boxcont: {
+    boxCont: {
         borderWidth: 0,
         backgroundColor: '#fff',
-        fontWeight: '100'
+        height: 42
     },
     text: {
-        //    marginLeft:20,
         marginBottom: 10
     },
     textContainer: {
@@ -154,7 +157,7 @@ const styles = StyleSheet.create({
         // marginTop:2
     },
     inputHoraContainer: {
-        borderBottomWidth: 0,
+        // borderBottomWidth: 0,
         marginRight: 40,
     },
     reloj: {
