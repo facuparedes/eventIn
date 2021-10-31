@@ -98,7 +98,7 @@ const FormEvent = ({ navigation }) => {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
-    // Alert.alert('ESTE EVENTO SERÁ CREADO EN TU UBICACIÓN ACTUAL');
+    Alert.alert('ESTE EVENTO SERÁ CREADO EN TU UBICACIÓN ACTUAL');
 
     })();
   }, []);
