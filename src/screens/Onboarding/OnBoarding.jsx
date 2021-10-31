@@ -54,7 +54,7 @@ export default function OnBoarding({ navigation }) {
     return (
       <View style={{ height: height * 0.25, justifyContent: "space-between", paddingHorizontal: 30, marginBottom: 10 }}>
         <View style={{ flexDirection: "column" }}>
-          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.replace("TabBar")}>
+          <TouchableOpacity style={styles.btnStart} onPress={() => navigation.replace("Loading")}>
             <Text style={{ fontSize: 28, color: colorPallete.third, textAlign: "center", marginTop: 4 }}>Empezar</Text>
           </TouchableOpacity>
           <View style={{ height: 15 }} />
