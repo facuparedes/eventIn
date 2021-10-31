@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
   },
   dotRootContainer: {
     position: "absolute",
-    bottom: height > 700 ? "27%" : "20%",
+    bottom: "27%",
   },
   btnStart: {
     height: 50,
