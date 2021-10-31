@@ -16,20 +16,17 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     marginTop: 10,
-  }
+  },
 });
 
-function Loading(loading, children) {
-  if (loading) {
-    return (
-      <View style={styles.container}>
-        <Image style={styles.logo} source={require("../../assets/Logo.png")} />
-        <ActivityIndicator size="large" color="#00ff00" />
-        <Text style={styles.text}>Loading...</Text>
-      </View>
-    );
-  }
-    return children;
+function Loading() {
+  return (
+    <View style={styles.container}>
+      <Image style={styles.logo} source={require("../../assets/Logo.png")} />
+      <ActivityIndicator size="large" color="#00ff00" />
+      <Text style={styles.text}>Loading...</Text>
+    </View>
+  );
 }
 
 export default Loading;
