@@ -1,7 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Entypo, FontAwesome, AntDesign } from "@expo/vector-icons";
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text, Image, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import Home from "../screens/Home/Home";
 import Login from "../screens/Login/Login";
@@ -30,6 +31,19 @@ export default function TabBar({ navigation }) {
         component={Home}
         options={{
           tabBarIcon: ({ color, size }) => <Entypo name="home" color={color} size={size} />,
+          headerBackground: () => (
+            <SafeAreaView>
+              <Image
+                style={{ 
+                  resizeMode: 'contain',
+                  height: 70,
+                  width: 70,
+                  alignSelf: 'center'
+                }}
+                source={require('../assets/Logo.png')}
+              />
+            </SafeAreaView>
+          ),
           headerRight: () => (
             <TouchableOpacity>
               <Text

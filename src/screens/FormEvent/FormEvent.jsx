@@ -25,6 +25,9 @@ function validate (form) {
   if(form.description.length > 140) {
     errorsValidate.descriptionL = 'La descripción no puede tener más de 140 carácteres.'
   }
+  // if(!form.locationText) {
+  //   errorsValdiate.LocationText = 'Debes ingresar una ubicación para tu evento.'
+  // }
   if(!/^[0-9]+$/.test(form.fee)) {
     errorsValidate.fee = 'La tarifa debe ser un número.'
   } 
@@ -49,12 +52,13 @@ function validate (form) {
 const FormEvent = ({ navigation }) => {
   const [errors, setErrors] = useState({});
   // form states
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [locationText, setLocationText] = useState('')
   const [fee, setFee] = useState(0);
   const [isPublic, setIsPublic] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
-  const [photo, setPhoto] = useState("");
+  const [photo, setPhoto] = useState('');
   // DateTime states (also form)
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState(new Date());
@@ -110,6 +114,10 @@ const FormEvent = ({ navigation }) => {
 
   const handleDescription = (text) => {
     setDescription(text);
+  };
+
+  const handleLocationText = (text) => {
+    setLocationText(text);
   };
 
   const handleFee = (value) => {  
@@ -441,22 +449,33 @@ const FormEvent = ({ navigation }) => {
           onChangeText={handleDescription} 
           inputStyle={styles.input}
           labelStyle={styles.label}
-          inputContainerStyle={styles.inputCont}/>
+          inputContainerStyle={styles.inputCont}
+        />
 
-          <Input 
-            label="Fotos" 
-            placeholder="Añadir link de la foto" 
-            inputStyle={styles.input}
-            labelStyle={styles.label}
-            inputContainerStyle={styles.inputCont}
-            onChangeText={handlePhoto}
-          />
-          <TouchableOpacity style={styles.btnCategories} onPress={handleCategories}>
-            <View style={styles.categoriesView}>
-              <Text style={styles.textCat}>Categorias</Text>
-              <MaterialIcons name="arrow-drop-down" size={30} color="black" style={styles.catIcon} />
-            </View>
-          </TouchableOpacity>
+        <Input 
+          label="Ubicación" 
+          placeholder="Ingresar dirección" 
+          onChangeText={handleLocationText} 
+          inputStyle={styles.input}
+          labelStyle={styles.label}
+          inputContainerStyle={styles.inputCont}
+        />
+
+        <Input 
+          label="Fotos" 
+          placeholder="Añadir link de la foto" 
+          inputStyle={styles.input}
+          labelStyle={styles.label}
+          inputContainerStyle={styles.inputCont}
+          onChangeText={handlePhoto}
+        />
+
+        <TouchableOpacity style={styles.btnCategories} onPress={handleCategories}>
+          <View style={styles.categoriesView}>
+            <Text style={styles.textCat}>Categorias</Text>
+            <MaterialIcons name="arrow-drop-down" size={30} color="black" style={styles.catIcon} />
+          </View>
+        </TouchableOpacity>
         {
           showCategories && !bar && !deportes && !musica && !teatro && !fiesta?
           

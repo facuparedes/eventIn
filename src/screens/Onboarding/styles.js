@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
   },
   btnStart: {
     height: 50,
-    borderRadius: 30,
+    borderRadius: 7,
     backgroundColor: "transparent",
   },
   btnLogin: {
