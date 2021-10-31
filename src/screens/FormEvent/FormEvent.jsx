@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Alert, View, Platform, Image } from "react-native";
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { Input, CheckBox, Text } from "react-native-elements";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import styles from "./FormStyles";
@@ -263,11 +264,13 @@ const FormEvent = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+
       <View style={styles.textAndImg}>
         <Text h4 style={styles.titleText}>Crea tu Evento</Text>
         <Image source={require('../../assets/Logo.png')} style={styles.logoImage} />
       </View>
+
       <ScrollView>
         <Input 
         label="Nombre" 
@@ -302,7 +305,7 @@ const FormEvent = ({ navigation }) => {
               value={textDateStart}
             />
             <TouchableOpacity onPress={() => showMode('date')}>
-              <MaterialIcons name="date-range" size={45} color="black" style={styles.reloj} />
+              <MaterialIcons name="date-range" size={40} color="black" style={styles.reloj} />
             </TouchableOpacity>
           </View>
 
@@ -316,7 +319,7 @@ const FormEvent = ({ navigation }) => {
               value={textTimeStart}
             />
             <TouchableOpacity onPress={() => showMode('time')}>
-              <Feather name="clock" size={45} color="black" style={styles.reloj} />
+              <Feather name="clock" size={40} color="black" style={styles.reloj} />
             </TouchableOpacity>
           </View>
 
@@ -330,7 +333,7 @@ const FormEvent = ({ navigation }) => {
               value={textDateEnd}
             />
             <TouchableOpacity onPress={() => showMode('dateEnd')}>
-              <MaterialIcons name="date-range" size={45} color="black" style={styles.reloj} />
+              <MaterialIcons name="date-range" size={40} color="black" style={styles.reloj} />
             </TouchableOpacity>
           </View>
           
@@ -344,7 +347,7 @@ const FormEvent = ({ navigation }) => {
               value={textTimeEnd}
             />
             <TouchableOpacity onPress={() => showMode('timeEnd')}>
-            <Feather name="clock" size={45} color="black" style={styles.reloj} />
+            <Feather name="clock" size={40} color="black" style={styles.reloj} />
             </TouchableOpacity>
           </View>
 
@@ -574,7 +577,7 @@ const FormEvent = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

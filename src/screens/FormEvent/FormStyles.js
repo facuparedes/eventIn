@@ -7,26 +7,21 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        display: 'flex',
         backgroundColor: '#fff',
-        paddingTop: 50,
-        paddingHorizontal: 12,
+        paddingHorizontal: 8
     },
+    // textAndImg: {
+    //     flex: 1
+    // },
     titleText: {
-        height: 30,
-        marginTop: 0,
-        marginBottom: 10,
         textAlign: 'left'
     },
     logoImage: {
         resizeMode: 'contain',
-        height: '30%',
-        width: '30%'
-        // flex: 1,
-        // width: 20,
-        // height: 20,
-        // resizeMode: 'contain',
-        // alignSelf: 'flex-end'
+        height: 80,
+        width: 80,
+        marginLeft: 280,
+        alignContent: 'space-between'
     },
     input: {
         backgroundColor: '#fff',
@@ -80,7 +75,7 @@ const styles = StyleSheet.create({
     btnCategories: {
         backgroundColor: '#fff',
         height: 30,
-        width: 170,
+        width: 180,
         borderRadius: 7,
         alignItems: 'center',
         marginTop: 5,
@@ -96,7 +91,7 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         paddingLeft: 12,
         paddingTop: 2,
-        fontSize: 16
+        fontSize: 16,
     },
     btnsContainer: {
         flex: 1,
@@ -160,10 +155,11 @@ const styles = StyleSheet.create({
     },
     inputHoraContainer: {
         borderBottomWidth: 0,
-        marginRight: 55,
+        marginRight: 40,
     },
     reloj: {
-        marginRight: 35,
+        marginRight: 40,
+        marginBottom: 8
 
         // marginBottom:100,
         // position:'absolute'
