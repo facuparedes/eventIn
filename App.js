@@ -10,6 +10,7 @@ import OnBoarding from "./src/screens/Onboarding/OnBoarding";
 import Home from "./src/screens/Home/Home";
 import Login from "./src/screens/Login/Login";
 import Register from "./src/screens/Register/Register";
+import Loading from "./src/screens/Loading/Loading"
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -23,6 +24,7 @@ export default function App() {
           }}>
           <Stack.Screen name="Logo" component={Logo} />
           <Stack.Screen name="Onboarding" component={OnBoarding} />
+          <Stack.Screen name="Loading" component={Loading} />
           <Stack.Screen name="TabBar" component={TabBar} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Form" component={FormEvent} />
