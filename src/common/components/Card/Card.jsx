@@ -1,19 +1,23 @@
+import moment from "moment";
 import React from "react";
 import { View, Text, Image } from "react-native";
 import { styles } from "./styles.js";
 
 export default function Card({ id, title, description, date, photo }) {
-  const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-  const day = date.getDate();
-  const month = date.getMonth();
-  const year = date.getFullYear();
-
+  const diff = moment(moment.now()).diff(date, "hours");
+  const isToday = diff < 24 && diff >= 0;
   return (
     <View style={styles.card}>
-      <Text style={styles.title}> {title} </Text>
-      <Text style={styles.text}>{`${day} de ${months[month]}, ${year}`}</Text>
-      <Image source={{ uri: photo }} style={styles.image} />
-      <Text style={styles.text}>{`${description.slice(0, 45)}...`}</Text>
+      <View style={styles.card_header}>
+        <Text style={styles.card_header_title}>{title}</Text>
+        <Text numberOfLines={3} style={styles.card_header_title_description}>
+          {description}
+        </Text>
+      </View>
+      <View style={styles.card_body}>
+        <Image source={{ uri: photo }} style={styles.card_body_image} resizeMode={"cover"} />
+        <Text style={[styles.card_body_date, isToday ? styles.card_body_date_active : ""]}>{moment(date).toNow()}</Text>
+      </View>
     </View>
   );
 }
