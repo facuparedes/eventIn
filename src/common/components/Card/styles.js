@@ -3,8 +3,8 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   card: {
     flex: 1,
-    width: 350,
-    marginTop: 20,
+    width: "70%",
+    marginTop: "3%",
     borderRadius: 10,
     elevation: 3,
     backgroundColor: "#6ad5ce",
@@ -12,15 +12,16 @@ export const styles = StyleSheet.create({
     shadowColor: "gray",
     shadowOpacity: 0.1,
     shadowRadius: 8,
-    marginHorizontal: 30,
-    marginVertical: 2,
+    marginHorizontal: "6%",
+    marginVertical: "1%",
     alignItems: "center",
     justifyContent: "center",
   },
   image: {
-    width: 290,
+    width: "80%",
     height: 150,
     borderRadius: 10,
+    resizeMode: "stretch"
   },
   title: {
     fontSize: 18,
