@@ -31,6 +31,8 @@ const EventSchema = {
     minProps: 2,
     props: { lat: "number", long: "number" },
   },
+  /** TEMPORAL PHOTO */
+  photo: "url|empty:false",
   $$strict: "remove",
 };
 
