@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <View>
       <Text>ACA IRIAN LOS FILTROS??</Text>
-      <CardsFlat style={{flex: 1}}/>
+      <CardsFlat  style={{ flex: 1 }} />
       <Text>QUE IRIA ACA???</Text>
     </View>
   );
