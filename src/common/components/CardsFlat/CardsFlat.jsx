@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
     console.log(allEvents)
   return (
     <View>
-         <FlatList style={{width: 500,height: 700 }}
+        <FlatList style={{width: 500,height: 700 }}
             data={data} 
             //horizontal
             renderItem={({ item }) => (
