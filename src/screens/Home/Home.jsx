@@ -5,9 +5,9 @@ import CardsFlat from "../../common/components/CardsFlat/CardsFlat";
 export default function Home() {
   return (
     <View>
-      <Text>HOME - EVENTOS</Text>
+      <Text>ACA IRIAN LOS FILTROS??</Text>
       <CardsFlat style={{flex: 1}}/>
-      <Text>otro componente</Text>
+      <Text>QUE IRIA ACA???</Text>
     </View>
   );
 }

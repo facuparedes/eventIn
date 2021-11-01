@@ -21,10 +21,10 @@ export default function CardsFlat() {
         renderItem={({ item }) => (
           <Card
             id={item.id}
-            title={item.data().title}
-            description={item.data().description}
-            date={item.data().start.date}
-            photo={item.data().photo}
+            title={item.title}
+            description={item.description}
+            date={item.start}
+            photo={item.photo}
           />
         )}
       />
