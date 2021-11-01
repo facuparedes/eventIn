@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <View>
       <Text>HOME - EVENTOS</Text>
-      <CardsFlat />
+      <CardsFlat style={{flex: 1}}/>
       <Text>otro componente</Text>
     </View>
   );
