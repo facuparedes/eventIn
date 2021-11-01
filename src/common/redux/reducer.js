@@ -1,14 +1,19 @@
-const initialState = {
+import { GET_EVENTS } from "./actions";
 
+const initialState = {
+    events: [],
 }
 
 
 
 export const rootReducer = (state= initialState, action) => {
     switch (action.type) {
-        case 'estoy para que no tire error ;)':
+        case GET_EVENTS:
             
-            return ':)'
+            return {
+                ...state,
+                events: action.payload
+            }
 
     
         default:
