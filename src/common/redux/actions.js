@@ -1,6 +1,7 @@
 import event from "../../../api/firebase/models/event";
 
 export const GET_EVENTS = "GET_EVENTS";
+export const GET_DETAILS = "GET_DETAILS";
 
 export const getEvents = () => {
   return async function (dispatch) {
@@ -12,3 +13,13 @@ export const getEvents = () => {
     });
   };
 };
+export const getDetails = (id) =>{
+  return async function (dispatch){
+    let details = await event.findById(id);
+
+    return dispatch({
+      type: GET_DETAILS,
+      payload: details
+    })
+  }
+}

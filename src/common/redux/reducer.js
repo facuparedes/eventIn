@@ -1,7 +1,9 @@
-import { GET_EVENTS } from "./actions";
+import { GET_EVENTS , GET_DETAILS} from "./actions";
+
 
 const initialState = {
     events: [],
+    detail: [],
 }
 
 
@@ -15,7 +17,11 @@ export const rootReducer = (state= initialState, action) => {
                 events: action.payload
             }
 
-    
+        case GET_DETAILS:
+            return{
+                ...state,
+                detail : action.payload
+            }   
         default:
             return state;
     }

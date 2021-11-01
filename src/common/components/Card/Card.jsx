@@ -12,7 +12,9 @@ export default function Card({ id, title, description, date, photo, navigation }
 
   return (
     <View>
-    <TouchableOpacity style={styles.card} onPress={()=>navigation.navigate("CardDetail")}>
+    <TouchableOpacity style={styles.card} onPress={()=>navigation.navigate("CardDetail",{
+      id: id
+    })}>
       <Text style={styles.title}> {title} </Text>
       <Text style={styles.text}>{`${day} de ${months[month]}, ${year}`}</Text>
       <Image source={{ uri: photo }} style={styles.image} />
