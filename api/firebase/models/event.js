@@ -2,11 +2,13 @@ import Validator, { ValidationSchema } from "fastest-validator";
 import { GeoPoint, Timestamp } from "firebase/firestore";
 import Model from "./model";
 const v = new Validator();
+const opt = { optional: true };
+const updateV = new Validator({ defaults: { string: opt, boolean: opt, number: opt, enum: opt, object: opt, url: opt } });
 
 /** @type {ValidationSchema} */
 const EventSchema = {
-  title: "string|empty:false|trim:true|min:1|max:100",
-  description: "string|empty:false|trim:true|min:1|max:1000",
+  title: "string|empty:false|trim|min:1|max:100",
+  description: "string|empty:false|trim|min:1|max:1000",
   fee: "number|min:0|max:10000000",
   isPublic: "boolean",
   category: {
@@ -37,6 +39,7 @@ const EventSchema = {
 };
 
 const check = v.compile(EventSchema);
+const updateCheck = updateV.compile(EventSchema);
 
 class Event extends Model {
   constructor() {
@@ -48,9 +51,9 @@ class Event extends Model {
 
   /** @private */
   __eventToFirebase(event) {
-    event.location = new GeoPoint(event.location.lat, event.location.long);
-    event.start = this.__mergeDateAndTime(event.start.date, event.start.time);
-    event.end = this.__mergeDateAndTime(event.end.date, event.end.time);
+    if (event.location) event.location = new GeoPoint(event.location.lat, event.location.long);
+    if (event.start) event.start = this.__mergeDateAndTime(event.start.date, event.start.time);
+    if (event.end) event.end = this.__mergeDateAndTime(event.end.date, event.end.time);
     return event;
   }
 
@@ -93,7 +96,7 @@ class Event extends Model {
    */
   update(id, event) {
     return new Promise(async (resolve, reject) => {
-      const result = check(event);
+      const result = updateCheck(event);
       const errors = Array.isArray(result) ? result : null;
 
       try {
