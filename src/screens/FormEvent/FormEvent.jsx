@@ -5,10 +5,9 @@ import { Input, CheckBox, Text } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styles from "./FormStyles";
 import { MaterialIcons, Feather } from '@expo/vector-icons';
-import { addDoc, collection} from "firebase/firestore"; 
-import db from "../../../api/firebase/config";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Location from 'expo-location';
+import Event from '../../../api/firebase/models/event'
 
 // Validate Function
 function validate (form) {
@@ -42,6 +41,9 @@ function validate (form) {
   }
   if(!form.end.date || !form.end.time) {
     errorsValidate.end = 'Tu evento debe tener una fecha y hora de finalización.'
+  }
+  if(!form.photo) {
+    errorsValidate.photo = 'Debes ingresar un link con una foto.'
   }
   // if(errorsMsg) {
   //   errorsValidate.location = 'Debes permitir el acceso a tu ubicación.'
@@ -235,15 +237,15 @@ const FormEvent = ({ navigation }) => {
       location: {
         lat: location.coords.latitude,
         long: location.coords.longitude
-      },
-      createdAt: new Date()
+      }
     })
 
     if (Object.keys(errorsForm).length === 0) {
-      await addDoc(collection(db, "events"), {
+      let feeNum = Number(fee)
+      Event.create({
         title,
         description,
-        fee,
+        fee: feeNum,
         isPublic: isPublic? true : false,
         photo,
         category: categories,
@@ -258,8 +260,7 @@ const FormEvent = ({ navigation }) => {
         location: {
           lat: location.coords.latitude,
           long: location.coords.longitude
-        },
-        createdAt: new Date()
+        }
     });
     } else {
       return Alert.alert('Error en la información ingresada.')
@@ -268,7 +269,7 @@ const FormEvent = ({ navigation }) => {
     Alert.alert('Evento creado');
 
     // Navegamos a Login porque no tenemos a Home en el Navigator, pero en el futuro navegaremos a Home.
-    navigation.replace('Home');
+    navigation.navigate('Home');
   };
 
   return (

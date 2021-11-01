@@ -1,10 +1,8 @@
 //import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore"
 import { setLogLevel } from "@firebase/firestore";
-setLogLevel('debug')
 import { initializeFirestore } from "@firebase/firestore";
-
+// setLogLevel('debug')
 
 const firebaseConfig = {
   apiKey: "AIzaSyD6jUHn_5STRnE4jsNqjSQhXWdApjmFQUw",
@@ -17,10 +15,6 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-//const db = getFirestore(app);
-//export default db 
+const db = initializeFirestore(app, { experimentalForceLongPolling: true });
 //const analytics = getAnalytics(app);
-const db = initializeFirestore(app, {
-  experimentalForceLongPolling: true
-})
-export default db
+export default db;
