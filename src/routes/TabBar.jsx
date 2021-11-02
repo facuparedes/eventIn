@@ -50,7 +50,7 @@ export default function TabBar({ navigation }) {
           ),
           headerRight: () => (
             <TouchableOpacity>
-              <Text onPress={() => navigation.navigate("FormEvent")} style={{ fontSize: 40, marginRight: 20 }}>
+              <Text onPress={() => navigation.navigate("Form")} style={{ fontSize: 40, marginRight: 20 }}>
                 +
               </Text>
             </TouchableOpacity>
