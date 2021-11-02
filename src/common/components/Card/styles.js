@@ -1,34 +1,52 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+
+const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get("window").height;
 
 export const styles = StyleSheet.create({
   card: {
     flex: 1,
-    width: "70%",
-    marginTop: "3%",
-    borderRadius: 10,
-    elevation: 3,
-    backgroundColor: "#6ad5ce",
-    shadowOffset: { width: 2, height: 2 },
-    shadowColor: "gray",
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    marginHorizontal: "6%",
-    marginVertical: "1%",
-    alignItems: "center",
-    justifyContent: "center",
+    width: "100%",
+    paddingVertical: 10,
+    backgroundColor: "#fff",
+    alignItems: "flex-start",
   },
-  image: {
-    width: "80%",
-    height: 150,
-    borderRadius: 10,
-    resizeMode: "stretch"
+  card_header: {
+    flex: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    width: "100%",
   },
-  title: {
+  card_header_title_description: {
+    color: "rgba(0, 0, 0, 0.6)",
+    marginTop: 5,
+  },
+  card_header_title: {
     fontSize: 18,
-    color: "white",
+    color: "#000",
   },
-  text: {
+  card_body: {
+    width: "100%",
+  },
+  card_body_image: {
+    position: "relative",
+    width: "100%",
+    height: windowHeight / 2.5,
+  },
+  card_body_date: {
+    position: "absolute",
+    right: 0,
     fontSize: 14,
-    color: "gray",
+    color: "white",
+    marginHorizontal: 5,
+    marginVertical: 8,
+    borderRadius: 100,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    backgroundColor: "rgba(255, 255, 255, 0.4)",
+  },
+  card_body_date_active: {
+    backgroundColor: "#6ad5ce",
+    color: "white",
   },
 });
