@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, TextInput, KeyboardAvoidingView, Text, View, Image } from 'react-native';
 import styles from './LoginStyles';
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import auth from '../../../api/firebase/services/AuthService';
 
 
 export default function Login ({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    function signIn () {
+        signInWithEmailAndPassword(auth, email, password)
+            .then(res=>{
+                console.log(res);
+                navigation.replace('TabBar')
+            })
+            .catch(e=> {
+                const errorCode = e.code;
+                const errorMessage = e.message;
+                alert(errorMessage)
+            })
+
+    }
 
     return (
         <KeyboardAvoidingView
@@ -32,7 +48,7 @@ export default function Login ({navigation}) {
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
-                    onPress={() => { }}
+                    onPress={signIn}
                     style={styles.button}
                 >
                     <Text style={styles.buttonText}>Iniciar Sesión</Text>

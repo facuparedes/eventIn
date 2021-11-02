@@ -1,11 +1,41 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, TextInput, KeyboardAvoidingView, Text, View, Image } from 'react-native';
 import styles from './RegisterStyles';
-
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import auth from '../../../api/firebase/services/AuthService'
 
 export default function Register ({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    function registerUser () {
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(res=> {
+                console.log(res);
+                navigation.replace('TabBar');
+            })
+            .catch(e=>console.log(e))
+        // .then((userCredential) => {
+        //     // Signed in 
+        //     const user = userCredential.user;
+        //     updateProfile(auth.currentUser, {
+        //         displayName: name,
+        //         photoURL: imageURL === ""? imageURL : 
+        //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgJMFsyQlqFwvHOYF0fEijnJjaNRsNDBfi1Q&usqp=CAU",
+        //       }).then(() => {
+        //         // Profile updated!
+        //         // ...
+        //     }).catch((error) => {
+        //         // An error occurred
+        //         // ...
+        //       });
+        // })
+        // .catch((error) => {
+        //     const errorMessage = error.message;
+        //     alert(errorMessage)
+        // });
+        // cambia el top por el parámetro que le pase a replace()
+    }
 
     return (
         <KeyboardAvoidingView
@@ -35,6 +65,7 @@ export default function Register ({navigation}) {
 
                 <TouchableOpacity
                     style={[styles.button, styles.buttonOutline]}
+                    onPress={registerUser}
                 >
                     <Text style={styles.buttonOutlineText}>Registrarse</Text>
                 </TouchableOpacity>
