@@ -1,36 +1,54 @@
 import { StyleSheet } from "react-native";
 
-const styles = StyleSheet.create({
-    view:{
-     flex: 1, alignContent: "center", justifyContent: "center" 
-    },
-    view2:{
-        backgroundColor:'#6ad5ce',
-        flex:1,
-        padding:'10%',
-        borderRadius:30,
-        marginTop:'15%',
-        marginBottom:'15%',
-        marginLeft:'3%',
-        marginRight:'3%',
-        flexDirection:'column'
-    },
-    img:{
-        resizeMode: "contain", 
-        height: 250, 
-        width: "100%" ,
-        borderRadius:30,
-        justifyContent:'center',
-        alignSelf:'center',
-        
-        
-    },
-    title:{
-        flex:1,
-        justifyContent: "center",
-        fontSize:30,  
-        alignSelf:'center',
+// first: "#2968c0", second: "#298bc4", third: "#29adbf", fourth: "#6ad5ce", fifth: "#d7eae9" };
 
+const styles = StyleSheet.create({
+    view: {
+        flex: 1,
+        alignContent: "center",
+        justifyContent: "center",
+        backgroundColor: '#fff',
     },
-})
-export default styles
+    img: {
+        resizeMode: "cover",
+        height: 250,
+        width: "136%",
+        borderRadius: 4,
+        justifyContent: 'center',
+        alignSelf: 'center',
+    },
+    title: {
+        fontSize: 30,
+        marginBottom: 10,
+        borderTopWidth: 1,
+        marginLeft: 0,
+        paddingTop: 16,
+        borderTopColor: '#6ad5ce'
+    },
+    viewLine: {
+        borderBottomWidth: 2,
+    },
+    viewTitle: {
+        alignSelf: 'flex-start',
+        backgroundColor: '#d7eae9'
+    },
+    bold: {
+        fontWeight: 'bold'
+    },
+    viewCont: {
+        flexDirection: 'row',
+        fontSize: 20,
+        marginTop: 4
+    },
+    textConts: {
+        marginLeft: 6,
+        marginTop: 10
+    },
+    viewContLine: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#6ad5ce',
+        marginLeft: 0
+    }
+});
+
+export default styles;
