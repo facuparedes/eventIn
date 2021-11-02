@@ -3,7 +3,6 @@ import { Text, View, Image } from "react-native";
 import { getDetails } from "../../common/redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./CardDetailStyles";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function CardDetail({ route }) {
   const dispatch = useDispatch();
@@ -13,11 +12,6 @@ export default function CardDetail({ route }) {
   }, [dispatch]);
 
   const details = useSelector((state) => state.detail);
-
-  // const startDate = details.start.toString().slice(4, 15);
-  // const startHour = details.start.toString().slice(16, 24);
-
-   console.log("este es el detail:", details);
 
   return (
       <View style={styles.view}>
@@ -50,6 +44,5 @@ export default function CardDetail({ route }) {
         </View>
       )}
       </View>
-    
   );
 }

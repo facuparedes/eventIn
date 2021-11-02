@@ -17,7 +17,7 @@ export default function CardsFlat() {
   return (
     <View>
       <FlatList
-        style={{ width: "120%", height: "90%" }}
+        style={{ width: "100%", height: "100%" }}
         data={allEvents}
         //horizontal
         renderItem={({ item }) => (
