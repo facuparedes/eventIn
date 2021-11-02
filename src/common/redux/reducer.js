@@ -1,28 +1,24 @@
-import { GET_EVENTS , GET_DETAILS} from "./actions";
-
+import { GET_EVENTS, GET_DETAILS } from "./actions";
 
 const initialState = {
-    events: [],
-    detail: [],
-}
+  events: [],
+  detail: [],
+};
 
+export const rootReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case GET_EVENTS:
+      return {
+        ...state,
+        events: action.payload,
+      };
 
-
-export const rootReducer = (state= initialState, action) => {
-    switch (action.type) {
-        case GET_EVENTS:
-            
-            return {
-                ...state,
-                events: action.payload
-            }
-
-        case GET_DETAILS:
-            return{
-                ...state,
-                detail : action.payload
-            }   
-        default:
-            return state;
-    }
-}
+    case GET_DETAILS:
+      return {
+        ...state,
+        detail: state.events.filter((e) => e.id === action.payload),
+      };
+    default:
+      return state;
+  }
+};

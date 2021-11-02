@@ -13,13 +13,9 @@ export const getEvents = () => {
     });
   };
 };
-export const getDetails = (id) =>{
-  return async function (dispatch){
-    let details = await event.findById(id);
-
-    return dispatch({
-      type: GET_DETAILS,
-      payload: details
-    })
-  }
-}
+export const getDetails = (id) => {
+  return {
+    type: GET_DETAILS,
+    payload: id,
+  };
+};
