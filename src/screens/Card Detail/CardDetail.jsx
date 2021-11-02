@@ -15,33 +15,36 @@ export default function CardDetail({ route }) {
 
   return (
       <View style={styles.view}>
-      
-      
-      {details.length ? (
-        <View style={styles.view2}>
-          <Text style={styles.title}>{details[0].title}</Text>
-          <View style={{marginBottom:'20%'}}>
+      {
+        details.length ? (
           <View>
+            <View style={styles.viewLine}></View>
+            <Text style={styles.title}>{details[0].title.toUpperCase()}</Text>
             <Image style={styles.img} source={{ uri: `${details[0].photo}` }} />
-          </View>
-          <View style={{marginBottom:'15%'}} >
-          <Text style={{ textAlign: "center",fontSize:20 }}>{details[0].description} </Text>
-          </View>
 
-          
-          <View style={{flexDirection:'row',justifyContent:'space-between'}}>
-          <Text style={{ textAlign: "center" }}>${details[0].fee}</Text>
-          <Text style={{ textAlign: "center" }}>{details[0].category}</Text>
-          </View>
+            <View style={styles.textConts}>
+              <View style={styles.viewCont}>
+                <Text style={styles.bold}>Sobre este evento </Text><Text>{details[0].description}</Text>
+              </View>
 
-          <Text style={{ textAlign: "center" }}>{`El evento será el día ${details[0].start.toString().slice(4, 15)} a las ${details[0].start.toString().slice(16, 24)}`}</Text>
-          
-        </View>
-        </View>
-      ) : (
-        <View>
+              <View style={styles.viewCont}>
+                <Text style={styles.bold}>Valor </Text><Text>${details[0].fee}</Text>
+              </View>
+              
+              <View style={styles.viewCont}>
+                <Text style={styles.bold}>Categoría </Text><Text>{details[0].category}</Text>
+              </View>
+
+              <View style={styles.viewCont}>
+                <Text style={[styles.bold, {paddingBottom: 12}]}>Fecha </Text><Text>{details[0].start.toString().slice(4, 15)} {details[0].start.toString().slice(16, 24)}</Text>
+              </View>
+              <View style={styles.viewContLine}></View> 
+              <View style={styles.viewLine}></View>
+            </View>
+
+          </View>
+        ) : (
           <Text>Loading...</Text>
-        </View>
       )}
       </View>
   );
