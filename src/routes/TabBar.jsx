@@ -19,7 +19,7 @@ export default function TabBar({ navigation }) {
       initialRouteName="Home"
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: "white",
+          backgroundColor: "#d7eae9",
           borderTopColor: "transparent",
           paddingBottom: 5,
           paddingTop: 5,

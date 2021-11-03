@@ -22,6 +22,9 @@ export const styles = StyleSheet.create({
     fontSize: 25,
     alignSelf: 'center',
     marginHorizontal: 12,
+  },
+  touchableOpacity: {
+    marginTop: 6,
   }
   
 })
