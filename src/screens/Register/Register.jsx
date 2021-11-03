@@ -37,6 +37,7 @@ export default function Register ({navigation}) {
         if(!username || !email || !password) {
             return Alert.alert('Por favor, llená todos los campos requieridos.')
         };
+
         const validation = validate({username: username, email: email, password: password})
 
         if(Object.keys(validation).length === 0) {
