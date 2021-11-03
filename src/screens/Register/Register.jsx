@@ -7,6 +7,25 @@ import { AntDesign } from '@expo/vector-icons';
 
 function validate (user) {
     let errors = {};
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if (!user.username) {
+        errors.username = 'Debes ingresar un nombre de usuario.'
+    }
+    if(!user.email) {
+        errors.email = 'Debes ingresar un email.'
+    }
+    if(!emailPattern.test(user.email)) {
+        errors.email = 'Por favor, ingresa un email válido.'
+    }
+    if(!user.password) {
+        errors.password = 'Debes ingresar una contraseña.'
+    }
+    if(user.password.length < 8) {
+        errors.passwordLength = 'La contraseña debe contener al menos 8 carácteres.'
+    }
+
+    return errors;
 }
 
 export default function Register ({navigation}) {
@@ -18,25 +37,27 @@ export default function Register ({navigation}) {
         if(!username || !email || !password) {
             return Alert.alert('Por favor, llená todos los campos requieridos.')
         };
+        const validation = validate({username: username, email: email, password: password})
 
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                console.log('Esto devuelve el register! ', userCredential);
-                const user = userCredential.user;
+        if(Object.keys(validation).length === 0) {
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
 
-                updateProfile(auth.currentUser, {  
-                    displayName: username    
-                });
+                    updateProfile(auth.currentUser, {  
+                        displayName: username    
+                    });
 
-                console.log('Esto devuelve el register! ', userCredential);
-
-                Alert.alert('Registro exitoso, bienvenido ', user.email)
-                navigation.replace('TabBar');
-            })
-            .catch(e=> {
-                console.log(e);
-                Alert.alert('Por favor, ingresa un email válido.')
-            })
+                    Alert.alert('Registro exitoso, bienvenido ', user.email) // o user.displayName (si no es asíncrono, sino .then())
+                    navigation.replace('Login');
+                })
+                .catch(e=> {
+                    console.log(e);
+                    Alert.alert('Algo salió mal.')
+                })
+        } else {
+            return Alert.alert(`${Object.values(validation)[0]}`)
+        }
     }
 
     return (

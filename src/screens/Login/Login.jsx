@@ -6,6 +6,23 @@ import styles from './LoginStyles';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import auth from '../../../api/firebase/services/AuthService';
 
+function validate (user) {
+    let errors = {}; 
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if(!user.email) {
+        errors.email = 'Debes ingresar un email.'
+    }
+    if(!emailPattern.test(user.email)) {
+        errors.email = 'Por favor, ingresa un email válido.'
+    }
+    if(!user.password) {
+        errors.password = 'Debes ingresar una contraseña.'
+    }
+
+    return errors;
+}
+
 export default function Login ({navigation}) {
     const dispatch = useDispatch();
 
@@ -14,19 +31,29 @@ export default function Login ({navigation}) {
 
     function signIn () {
         if(!email || !password) {
-            return Alert.alert('Debes ingresar tu email y contraseña.')
+            return Alert.alert('Debes ingresar tu email y contraseña.');
         }
-        signInWithEmailAndPassword(auth, email, password)
-            .then(data=>{
-                const user = data;
-                Alert.alert('Bienvenido, ', user.user.email);
-                dispatch(isLogged(user.user.uid))
-                navigation.replace('TabBar');
-            })
-            .catch(e=> {
-                const errorMessage = e.message;
-                alert(errorMessage)
-            })
+
+        const validation = validate({email: email, password: password});
+        console.log(validation)
+        console.log(Object.keys(validation))
+
+        if(Object.keys(validation).length === 0) {
+            signInWithEmailAndPassword(auth, email, password)
+                .then(data=>{
+                    const user = data;
+                    Alert.alert('Bienvenido, ', user.user.displayName);
+                    dispatch(isLogged(user.user.uid))
+                    navigation.replace('TabBar');
+                })
+                .catch(e=> {
+                    console.log(e)
+                    const errorMessage = e.message;
+                    Alert.alert(errorMessage)
+                });
+        } else {
+            return Alert.alert(`${Object.values(validation)[0]}`)
+        }
     }
 
     return (
