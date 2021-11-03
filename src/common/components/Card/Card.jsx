@@ -4,7 +4,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { styles } from "./styles.js";
 
 export default function Card({ id, title, description, date, photo, navigation }) {
-  const diff = moment(moment.now()).diff(date, "hours");
+  const diff = moment(date).diff(moment.now(), "hours");
   const isToday = diff < 24 && diff >= 0;
   return (
     <View style={styles.card}>
