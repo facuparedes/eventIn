@@ -172,6 +172,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         marginLeft: 8
+    },
+    btn2:{
+        backgroundColor: '#298bc4',
+        height: 35,
+        width: '100%',
+        // paddingLeft: 5,
+        paddingHorizontal: 4,
+        paddingBottom: 10,
+        // paddingRight: 5,
+        paddingTop: 10,
+        borderRadius: 6,
+        alignItems: 'center',
+        marginTop: 5,
+        marginBottom: 15,
     }
 })
 
