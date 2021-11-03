@@ -1,4 +1,4 @@
-import { GET_EVENTS, GET_DETAILS } from "./actions";
+import { GET_EVENTS, GET_DETAILS, ADD_INFO_USER } from "./actions";
 
 const initialState = {
   events: [],
@@ -18,6 +18,7 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         detail: state.events.filter((e) => e.id === action.payload),
       };
+    
     default:
       return state;
   }

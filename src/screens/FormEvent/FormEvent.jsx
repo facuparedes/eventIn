@@ -54,37 +54,10 @@ function validate (form) {
 const FormEvent = ({ navigation }) => {
   const [errors, setErrors] = useState({});
   // form states
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
   const [locationText, setLocationText] = useState('')
-  const [fee, setFee] = useState(0);
-  const [isPublic, setIsPublic] = useState(false);
-  const [isPrivate, setIsPrivate] = useState(false);
-  const [photo, setPhoto] = useState('');
-  // DateTime states (also form)
-  const [date, setDate] = useState(new Date())
-  const [time, setTime] = useState(new Date());
-  const [dateValueStart, setDateValueStart] = useState(new Date())
-  const [timeValueStart, setTimeValueStart] = useState(new Date());
-  const [dateValueEnd, setDateValueEnd] = useState(new Date())
-  const [timeValueEnd, setTimeValueEnd] = useState(new Date());
-    // DateTime states (not form)
-  const [showDateStart, setShowDateStart] = useState(false);
-  const [showDateEnd, setShowDateEnd] = useState(false);
-  const [showTimeStart, setShowTimeStart] = useState(false);
-  const [showTimeEnd, setShowTimeEnd] = useState(false);
-  const [textDateStart, setTextDateStart] = useState('');
-  const [textDateEnd, setTextDateEnd] = useState('');
-  const [textTimeStart, setTextTimeStart] = useState('');
-  const [textTimeEnd, setTextTimeEnd] = useState('');
-  // Categories states (not form)
-  const [showCategories, setShowCategories] = useState(false);
-  const [categories, setCategories] = useState('');
-  const [bar, setBar] = useState(false);
-  const [deportes, setDeportes] = useState(false);
-  const [fiesta, setFiesta] = useState(false);
-  const [teatro, setTeatro] = useState(false);
-  const [musica, setMusica] = useState(false);
+
+
+
   //Location states
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -110,37 +83,21 @@ const FormEvent = ({ navigation }) => {
   }
 
   // Event Handlers
-  const handleTitle = (text) => {
-    setTitle(text);
-  };
 
-  const handleDescription = (text) => {
-    setDescription(text);
-  };
+
+
 
   const handleLocationText = (text) => {
     setLocationText(text);
   };
 
-  const handleFee = (value) => {  
-    setFee(value);
-  };
 
-  const handleIsPublic = () => {
-    setIsPublic(!isPublic);
-  };
 
-  const handleIsPrivate = () => {
-    setIsPrivate(!isPrivate);
-  };
+ 
 
-  const handlePhoto = (text) => {
-      setPhoto(text)
-  }
 
-  const handleCategories = () => {
-    setShowCategories(!showCategories)
-  }
+
+
 
  
     // DateTime handler 1
@@ -298,160 +255,14 @@ const FormEvent = ({ navigation }) => {
         onChangeText={handleFee}/>
 
         {/* DATE/TIME PICKER */}
-        <View style={{
-          flex: 1,
-          backgroundColor: '#fff',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-          <View style={styles.horaCont}>
-            <Input
-              label="Fecha de Inicio"
-              placeholder="Fecha"
-              inputStyle={styles.input}
-              labelStyle={styles.label}
-              inputContainerStyle={styles.inputHoraContainer}
-              value={textDateStart}
-            />
-            <TouchableOpacity onPress={() => showMode('date')}>
-              <MaterialIcons name="date-range" size={40} color="black" style={styles.reloj} />
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.horaCont}>
-            <Input
-              label="Hora de Inicio"
-              placeholder="Hora"
-              inputStyle={styles.input}
-              labelStyle={styles.label}
-              inputContainerStyle={styles.inputHoraContainer}
-              value={textTimeStart}
-            />
-            <TouchableOpacity onPress={() => showMode('time')}>
-              <Feather name="clock" size={40} color="black" style={styles.reloj} />
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.horaCont}>
-            <Input
-              label="Fecha de Finalización"
-              placeholder="Fecha"
-              inputStyle={styles.input}
-              labelStyle={styles.label}
-              inputContainerStyle={styles.inputHoraContainer}
-              value={textDateEnd}
-            />
-            <TouchableOpacity onPress={() => showMode('dateEnd')}>
-              <MaterialIcons name="date-range" size={40} color="black" style={styles.reloj} />
-            </TouchableOpacity>
-          </View>
-          
-          <View style={styles.horaCont}>
-            <Input
-              label="Hora de Finalización"
-              placeholder="Hora"
-              inputStyle={styles.input}
-              labelStyle={styles.label}
-              inputContainerStyle={styles.inputHoraContainer}
-              value={textTimeEnd}
-            />
-            <TouchableOpacity onPress={() => showMode('timeEnd')}>
-            <Feather name="clock" size={40} color="black" style={styles.reloj} />
-            </TouchableOpacity>
-          </View>
-
-            {showDateStart && (
-              <DateTimePicker
-                testID='dateTimePicker'
-                value={date}
-                mode='date'
-                // is24Hour={false}
-                display='default'
-                minimumDate={new Date()}
-                onChange={onChangeDateStart}
-              />
-            )}
-            {showDateEnd && (
-              <DateTimePicker
-                testID='dateTimePicker'
-                value={date}
-                mode='date'
-                // is24Hour={false}
-                display='default'
-                minimumDate={new Date()}
-                onChange={onChangeDateEnd}
-              />
-            )}
-            {showTimeStart && (
-              <DateTimePicker
-                testID='dateTimePicker'
-                value={time}
-                mode='time'
-                is24Hour={true}
-                display='default'
-                onChange={onChangeTimeStart}
-              />
-            )}
-            {showTimeEnd && (
-              <DateTimePicker
-                testID='dateTimePicker'
-                value={time}
-                mode='time'
-                is24Hour={true}
-                display='default'
-                onChange={onChangeTimeEnd}
-              />
-            )}
-        </View>
+        
 
         {/* FINISH DATE/TIME PICKER */}
         
         {/* CATEGORIES CHECKBOXES */}
-        <Text style={styles.textType}>Tipo de evento:</Text>
-        <View style={styles.checkBox}>
-          {
-            !isPublic && !isPrivate? 
-            <View style={styles.checkBox}>
-              <CheckBox 
-                title="Público" 
-                onPress={handleIsPublic} 
-                size={20} 
-                checked={isPublic} 
-                containerStyle={styles.boxCont}
-              />
-              <CheckBox 
-                title="Privado" 
-                onPress={handleIsPrivate} 
-                checked={isPrivate} 
-                containerStyle={styles.boxCont}
-              />
-            </View>
-            : isPublic? 
-              <CheckBox 
-                title="Publico" 
-                onPress={handleIsPublic} 
-                size={20} 
-                checked={isPublic} 
-                containerStyle={styles.boxCont}
-              />
-            : <CheckBox 
-                title="Privado" 
-                onPress={handleIsPrivate} 
-                checked={isPrivate} 
-                containerStyle={styles.boxCont}
-              />
-          }
+        
 
-        </View>
 
-        <Input 
-          label="Descripción" 
-          placeholder="Descripción..." 
-          onChangeText={handleDescription} 
-          inputStyle={styles.input}
-          labelStyle={styles.label}
-          inputContainerStyle={styles.inputCont}
-        />
 
         <Input 
           label="Ubicación" 
@@ -462,134 +273,9 @@ const FormEvent = ({ navigation }) => {
           inputContainerStyle={styles.inputCont}
         />
 
-        <Input 
-          label="Fotos" 
-          placeholder="Añadir link de la foto" 
-          inputStyle={styles.input}
-          labelStyle={styles.label}
-          inputContainerStyle={styles.inputCont}
-          onChangeText={handlePhoto}
-        />
+        
 
-        <TouchableOpacity style={styles.btnCategories} onPress={handleCategories}>
-          <View style={styles.categoriesView}>
-            <Text style={styles.textCat}>Categorias</Text>
-            <MaterialIcons name="arrow-drop-down" size={30} color="black" style={styles.catIcon} />
-          </View>
-        </TouchableOpacity>
-        {
-          showCategories && !bar && !deportes && !musica && !teatro && !fiesta?
-          
-            <View>
-              <CheckBox 
-                title="Bar" 
-                onPress={()=> {
-                  setCategories('Bar')
-                  setBar(!bar)
-                  if(bar) return setCategories('')
-                }} 
-                checked={bar}
-                containerStyle={styles.boxCont}
-                />
-              <CheckBox 
-                title="Deportes" 
-                onPress={()=> {
-                  setCategories('Deportes')
-                  setDeportes(!deportes)
-                  if(deportes) return setCategories('')
-                }} 
-                checked={deportes}
-                containerStyle={styles.boxCont}
-              />
-              <CheckBox 
-                title="Fiesta" 
-                onPress={()=> {
-                setCategories('Fiesta')
-                setFiesta(!fiesta)
-                if(fiesta) return setCategories('')
-              }} 
-              checked={fiesta}
-              containerStyle={styles.boxCont}
-              />
-              <CheckBox 
-                title="Musica" 
-                onPress={()=> {
-                  setCategories('Musica')
-                  setMusica(!musica)
-                  if(musica) return setCategories('')
-              }} 
-              checked={musica}
-              containerStyle={styles.boxCont}
-              />
-              <CheckBox 
-                title="Teatro" 
-                onPress={()=> {
-                  setCategories('Teatro')
-                  setTeatro(!teatro)
-                  if(teatro) return setCategories('')
-              }} 
-              checked={teatro}
-              containerStyle={styles.boxCont}
-              />
-            </View>
-            : bar? 
-            <CheckBox 
-              title="Bar"
-              onPress={()=> {
-                setCategories('Bar')
-                setBar(!bar)
-                if(bar) return setCategories('')
-                }} 
-              checked={bar}
-              containerStyle={styles.boxCont}
-              />
-              : deportes? 
-              <CheckBox 
-                title="Deportes" 
-                onPress={()=> {
-                  setCategories('Deportes')
-                  setDeportes(!deportes)
-                  if(deportes) return setCategories('')
-                }} 
-                checked={deportes}
-                containerStyle={styles.boxCont}
-              />
-            
-            : fiesta? 
-            <CheckBox 
-              title="Fiesta" 
-              onPress={()=> {
-                setCategories('Fiesta')
-                setFiesta(!fiesta)
-                if(fiesta) return setCategories('')
-              }} 
-              checked={fiesta}
-              containerStyle={styles.boxCont}
-            />
-          
-          : musica? 
-          <CheckBox 
-            title="Musica" 
-            onPress={()=> {
-              setCategories('Musica')
-              setMusica(!musica)
-              if(musica) return setCategories('')
-            }} 
-            checked={musica}
-            containerStyle={styles.boxCont}
-          />
-          : teatro? 
-          <CheckBox 
-            title="Teatro" 
-            onPress={()=> {
-              setCategories('Teatro')
-              setTeatro(!teatro)
-              if(teatro) return setCategories('')
-            }} 
-            checked={teatro}
-            containerStyle={styles.boxCont}
-          /> : null
-        }
+        
         {/* FINISH CATEGORIES CHECKBOXES */}
         <View style={styles.btnsContainer}>
           <TouchableOpacity title="Crear Evento" onPress={handleSubmit} style={styles.btn}>
