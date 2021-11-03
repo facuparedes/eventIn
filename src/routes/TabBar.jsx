@@ -8,7 +8,7 @@ import Home from "../screens/Home/Home";
 import Login from "../screens/Login/Login";
 import Register from "../screens/Register/Register";
 import FormEvent from "../screens/FormEvent/FormEvent";
-
+import Search from "../common/components/Search/Search";
 const Tab = createBottomTabNavigator();
 
 const windowHeight = Dimensions.get("window").height;
@@ -35,7 +35,7 @@ export default function TabBar({ navigation }) {
           headerTitle: "",
           tabBarIcon: ({ color, size }) => <Entypo name="home" color={color} size={size} />,
           headerBackground: () => (
-            <SafeAreaView style={{ backgroundColor: "white" }}>
+            <SafeAreaView style={{ backgroundColor: "#d7eae9" }}>
               <Image
                 style={{
                   resizeMode: "contain",
@@ -49,11 +49,12 @@ export default function TabBar({ navigation }) {
             </SafeAreaView>
           ),
           headerRight: () => (
-            <TouchableOpacity>
-              <Text onPress={() => navigation.navigate("Form")} style={{ fontSize: 40, marginRight: 20 }}>
-                +
-              </Text>
-            </TouchableOpacity>
+            <Search/>
+            // <TouchableOpacity>
+            //   <Text onPress={() => navigation.navigate("Form")} style={{ fontSize: 40, marginRight: 20 }}>
+            //     + 
+            //   </Text>
+            // </TouchableOpacity>
           ),
         }}
       />
