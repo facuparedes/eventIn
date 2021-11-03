@@ -14,6 +14,7 @@ const [showMap, setShowMap] = useState(false);
 const [pin, setPin] = useState({
       latitude: -34.667270557115565,
       longitude: -58.368570803061345});
+  console.log('esta es la ubicacion actual',pin)
       const [region, setRegion] = useState({
         latitude: -34.667270557115565,
         longitude: -58.368570803061345,
@@ -74,18 +75,18 @@ const handleHideMap = () => {
           }} 
           provider='google'
           >
-          <Marker coordinate={{latitude: region.latitude, longitude: region.longitude}}> 
+          {/* <Marker coordinate={{latitude: region.latitude, longitude: region.longitude}}> 
           <Callout>
                 <Text> estadio </Text>
               </Callout>
-              </Marker>
+              </Marker> */}
 
           <Marker 
           coordinate={pin}
           draggable={true}
-          onDragStart={(e) => {
-              console.log("Drag start", e.nativeEvent.coordinate);
-            }}
+          // onDragStart={(e) => {
+          //     console.log("Drag start", e.nativeEvent.coordinate);
+          //   }}
             onDragEnd={(e) => {
               setPin({
                 latitude: e.nativeEvent.coordinate.latitude,
