@@ -5,7 +5,6 @@ import { Input, CheckBox, Text } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styles from "./FormStyles";
 import { MaterialIcons, Feather } from '@expo/vector-icons';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import * as Location from 'expo-location';
 import Event from '../../../api/firebase/models/event'
 
@@ -100,76 +99,7 @@ const FormEvent = ({ navigation }) => {
 
 
  
-    // DateTime handler 1
-  const showMode = (currentMode) => {
-    if (currentMode === 'date') {
-        setShowDateStart(true);
-    }
-    if(currentMode === 'dateEnd'){
-      setShowDateEnd(true);
-    }
-    if (currentMode === 'time') {
-        setShowTimeStart(true);
-    }
-    if (currentMode === 'timeEnd') {
-      setShowTimeEnd(true);
-    }
-  };
-  
-    // DateTime handler 2
-  const onChangeDateStart = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
 
-    setShowDateStart(Platform.OS === 'ios'); // why this?
-    setDate(currentDate);
-
-    let tempDate = new Date(currentDate);
-    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
-    setTextDateStart(fDate);
-    setDateValueStart(tempDate)
-    setShowDateStart(false);
-}
-
-  const onChangeDateEnd = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    
-    setShowDateEnd(Platform.OS === 'ios'); // why this?
-    setDate(currentDate);
-
-    let tempDate = new Date(currentDate);
-    let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
-    setTextDateEnd(fDate);
-    setDateValueEnd(tempDate)
-    setShowDateEnd(false)
-  }
-
-  // DateTime handler 3
-  const onChangeTimeStart = (event, selectedTime) => {
-    const currentTime = selectedTime || time;
-
-    setShowTimeStart(Platform.OS === 'ios'); // why this?
-    setTime(currentTime);
-
-    let tempTime = new Date(currentTime);
-    let fTime = tempTime.getHours() + ':' + tempTime.getMinutes();
-    setTextTimeStart(fTime);
-    setTimeValueStart(tempTime)
-    setShowTimeStart(false)
-    }
-
-  // DateTime handler 4
-  const onChangeTimeEnd = (event, selectedTime) => {
-    const currentTime = selectedTime || time;
-
-    setShowTimeEnd(Platform.OS === 'ios'); // why this?
-    setTime(currentTime);
-
-    let tempTime = new Date(currentTime);
-    let fTime = tempTime.getHours() + ':' + tempTime.getMinutes();
-    setTextTimeEnd(fTime);
-    setTimeValueEnd(tempTime)
-    setShowTimeEnd(false)
-  }
 
   async function handleSubmit () {
     // Esto es un parche, no va a estar en el futuro.
