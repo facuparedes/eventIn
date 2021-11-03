@@ -35,8 +35,6 @@ export default function Login ({navigation}) {
         }
 
         const validation = validate({email: email, password: password});
-        console.log(validation)
-        console.log(Object.keys(validation))
 
         if(Object.keys(validation).length === 0) {
             signInWithEmailAndPassword(auth, email, password)
@@ -47,12 +45,12 @@ export default function Login ({navigation}) {
                     navigation.replace('TabBar');
                 })
                 .catch(e=> {
-                    console.log(e)
+                    console.log(e);
                     const errorMessage = e.message;
-                    Alert.alert(errorMessage)
+                    Alert.alert(errorMessage);
                 });
         } else {
-            return Alert.alert(`${Object.values(validation)[0]}`)
+            return Alert.alert(`${Object.values(validation)[0]}`);
         }
     }
 
