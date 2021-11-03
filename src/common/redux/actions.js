@@ -2,7 +2,7 @@ import event from "../../../api/firebase/models/event";
 
 export const GET_EVENTS = "GET_EVENTS";
 export const GET_DETAILS = "GET_DETAILS";
-export const ADD_INFO_USER = "ADD_INFO_USER";
+export const ADD_EVENT_INFO = "ADD_EVENT_INFO";
 
 export const getEvents = () => {
   return async function (dispatch) {
@@ -20,9 +20,9 @@ export const getDetails = (id) => {
     payload: id,
   };
 };
-export const addUserInfo = (data) => {
-  return({
-    type: ADD_INFO_USER,
+export const addEventInfo = (data) => {
+  return ({
+    type: ADD_EVENT_INFO,
     payload: data
   })
 }

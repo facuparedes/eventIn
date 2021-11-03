@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { addEventInfo } from "../../common/redux/actions";
 import { Alert, View, Image } from "react-native";
 import { Input, Text, LinearProgress } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -8,6 +10,7 @@ import styles from "./FormStyles";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
 
 const FormDatePicker = ({ navigation }) => {
+  const dispatch = useDispatch();
   // DateTime states (also form)
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
@@ -96,6 +99,21 @@ const FormDatePicker = ({ navigation }) => {
     setShowTimeEnd(false);
   };
 
+  function handleNext () {
+    const partialEvent = {
+      start: {
+        date: dateValueStart,
+        time: timeValueStart
+      },
+      end: {
+        date: dateValueEnd,
+        time: timeValueEnd
+      },
+    }
+    dispatch(addEventInfo(partialEvent))
+    navigation.navigate("FormMaps");
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <LinearProgress color="lightgreen" variant="determinate" value={0.3} />
@@ -163,12 +181,18 @@ const FormDatePicker = ({ navigation }) => {
             onChange={onChangeDateEnd}
           />
         )}
-        {showTimeStart && <DateTimePicker testID="dateTimePicker" value={time} mode="time" is24Hour={true} display="default" onChange={onChangeTimeStart} />}
-        {showTimeEnd && <DateTimePicker testID="dateTimePicker" value={time} mode="time" is24Hour={true} display="default" onChange={onChangeTimeEnd} />}
+        {showTimeStart && <DateTimePicker 
+        testID="dateTimePicker" value={time} mode="time" is24Hour={true} display="default" onChange={onChangeTimeStart} />}
+        {showTimeEnd && <DateTimePicker 
+        testID="dateTimePicker" value={time} mode="time" is24Hour={true} display="default" onChange={onChangeTimeEnd} />}
       </View>
      
       <View style={styles.btnsContainer}>
-        <TouchableOpacity title="Siguiente..." onPress={() => navigation.navigate("FormMaps")} style={styles.btn}>
+        <TouchableOpacity 
+          title="Siguiente..." 
+          style={styles.btn}
+          onPress={handleNext}
+        >
           <Text style={styles.textBtn}>Siguiente</Text>
         </TouchableOpacity>
       </View>

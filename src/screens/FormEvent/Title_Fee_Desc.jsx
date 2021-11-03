@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { addEventInfo } from "../../common/redux/actions";
 import styles from "./FormStyles";
 import { Alert, View, Image, ScrollView } from "react-native";
 import { Input, Text, LinearProgress, CheckBox } from "react-native-elements";
@@ -7,6 +9,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
 
 const Title_Fee_Desc = ({ navigation }) => {
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [fee, setFee] = useState(0);
@@ -49,6 +53,20 @@ const Title_Fee_Desc = ({ navigation }) => {
   const handleCategories = () => {
     setShowCategories(!showCategories);
   };
+
+  function handleNext () {
+      const partialEvent = {
+        title,
+        description,
+        fee,
+        photo,
+        isPublic: isPublic? true : false,
+        category: categories
+      }
+      dispatch(addEventInfo(partialEvent));
+      navigation.navigate("FormDatePicker");
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -60,25 +78,76 @@ const Title_Fee_Desc = ({ navigation }) => {
           </Text>
           <Image source={require("../../assets/Logo.png")} style={styles.logoImage} />
         </View>
-        <Input label="Nombre" placeholder="Nombre del evento" onChangeText={handleTitle} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} />
 
-        <Input label="Descripción" placeholder="Descripción..." onChangeText={handleDescription} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} />
+        <Input 
+          label="Nombre" 
+          placeholder="Nombre del evento" 
+          onChangeText={handleTitle} 
+          inputStyle={styles.input} 
+          labelStyle={styles.label} 
+          inputContainerStyle={styles.inputCont} 
+          />
 
-        <Input label="Tarifa" placeholder="Tarifa" inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} onChangeText={handleFee} />
+        <Input 
+          label="Descripción" 
+          placeholder="Descripción..." 
+          onChangeText={handleDescription} 
+          inputStyle={styles.input} 
+          labelStyle={styles.label} 
+          inputContainerStyle={styles.inputCont}
+           />
 
-        <Input label="Fotos" placeholder="Añadir link de la foto" inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} onChangeText={handlePhoto} />
+        <Input 
+          label="Tarifa" 
+          placeholder="Tarifa" 
+          inputStyle={styles.input} 
+          labelStyle={styles.label} 
+          inputContainerStyle={styles.inputCont} 
+          onChangeText={handleFee}
+        />
+
+        <Input 
+          label="Fotos" 
+          placeholder="Añadir link de la foto" 
+          inputStyle={styles.input} 
+          labelStyle={styles.label} 
+          inputContainerStyle={styles.inputCont} 
+          onChangeText={handlePhoto} 
+        />
 
         <Text style={styles.textType}>Tipo de evento:</Text>
         <View style={styles.checkBox}>
           {!isPublic && !isPrivate ? (
             <View style={styles.checkBox}>
-              <CheckBox title="Público" onPress={handleIsPublic} size={20} checked={isPublic} containerStyle={styles.boxCont} />
-              <CheckBox title="Privado" onPress={handleIsPrivate} checked={isPrivate} containerStyle={styles.boxCont} />
+              <CheckBox 
+                title="Público" 
+                onPress={handleIsPublic}
+                size={20} 
+                checked={isPublic} 
+                containerStyle={styles.boxCont} 
+              />
+              <CheckBox 
+                title="Privado" 
+                onPress={handleIsPrivate} 
+                checked={isPrivate} 
+                containerStyle={styles.boxCont} 
+              />
             </View>
           ) : isPublic ? (
-            <CheckBox title="Publico" onPress={handleIsPublic} size={20} checked={isPublic} containerStyle={styles.boxCont} />
+            <CheckBox 
+              title="Publico" 
+              onPress={handleIsPublic} 
+              size={20} 
+              checked={isPublic}
+              containerStyle={styles.boxCont} 
+            />
           ) : (
-            <CheckBox title="Privado" onPress={handleIsPrivate} checked={isPrivate} containerStyle={styles.boxCont} />
+            <CheckBox 
+              title="Privado"
+              onPress={handleIsPrivate} 
+              checked={isPrivate} 
+              containerStyle={styles.boxCont}
+            />
           )}
         </View>
 
@@ -87,6 +156,7 @@ const Title_Fee_Desc = ({ navigation }) => {
             <Text style={styles.textCat}>Categorias</Text>
             <MaterialIcons name="arrow-drop-down" size={30} color="black" style={styles.catIcon} />
           </View>
+
         </TouchableOpacity>
         {showCategories && !bar && !deportes && !musica && !teatro && !fiesta ? (
           <View>
@@ -199,7 +269,11 @@ const Title_Fee_Desc = ({ navigation }) => {
         ) : null}
 
         <View style={styles.btnsContainer}>
-          <TouchableOpacity title="Siguiente..." onPress={() => navigation.navigate("FormDatePicker")} style={styles.btn}>
+          <TouchableOpacity 
+            title="Siguiente..." 
+            style={styles.btn}
+            onPress={handleNext}
+            >
             <Text style={styles.textBtn}>Siguiente</Text>
           </TouchableOpacity>
         </View>

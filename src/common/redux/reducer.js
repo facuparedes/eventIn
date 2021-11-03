@@ -1,8 +1,9 @@
-import { GET_EVENTS, GET_DETAILS, ADD_INFO_USER } from "./actions";
+import { GET_EVENTS, GET_DETAILS, ADD_EVENT_INFO } from "./actions";
 
 const initialState = {
   events: [],
   detail: [],
+  eventForm: {}
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -18,7 +19,21 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         detail: state.events.filter((e) => e.id === action.payload),
       };
-    
+
+    case ADD_EVENT_INFO:
+      let eventData = state.eventForm;
+      let newEventData = action.payload;
+
+      for (const prop in newEventData) {
+        eventData[prop] = newEventData[prop];
+      }
+      console.log(eventData);
+
+      return {
+        ...state,
+        eventForm: eventData
+      }
+
     default:
       return state;
   }
