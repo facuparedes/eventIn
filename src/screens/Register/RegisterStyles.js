@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         marginTop: 40
     },
     button: {
-        backgroundColor: '#6ad5ce',
+        backgroundColor: '#00BD9D',
         width: '100%',
         padding: 15,
         borderRadius: 6,
@@ -37,18 +37,13 @@ const styles = StyleSheet.create({
         marginTop: 5
     },
     buttonOutline: {
-        backgroundColor: 'white',
+        backgroundColor: '#fff',
         marginTop: 5,
         borderColor: '#6ad5ce',
         borderWidth: 2
     },
-    buttonText: {
-        color: 'white',
-        fontWeight: '700',
-        fontSize: 16
-    },
     buttonOutlineText: {
-        color: '#6ad5ce',
+        color: '#fff',
         fontWeight: '700',
         fontSize: 16
     },
@@ -57,12 +52,33 @@ const styles = StyleSheet.create({
     },
     textToLg: {
         marginTop: 30,
-        color: '#6ad5ce',
+        color: '#00BD9D',
         marginLeft: 4,
         fontWeight: '800'
     },
     loginTxts: {
         flexDirection: 'row'
+    },
+    viewLine: {
+        width: '100%',
+        marginTop: 24,
+        borderBottomWidth: 1,
+    },
+    oText: {
+        marginTop: -14,
+        padding: 4,
+        backgroundColor: '#fff',
+        marginBottom: 3
+    },
+    buttonText: {
+        color: '#00BD9D',
+        fontWeight: 'bold'
+    },
+    googleLog: {
+        flexDirection: 'row'
+    },
+    googleIcon: {
+        marginRight: 14
     }
 })
 

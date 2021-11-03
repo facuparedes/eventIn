@@ -20,7 +20,6 @@ export default function Login ({navigation}) {
                 const errorMessage = e.message;
                 alert(errorMessage)
             })
-
     }
 
     return (

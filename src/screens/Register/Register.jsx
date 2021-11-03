@@ -1,40 +1,38 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, TextInput, KeyboardAvoidingView, Text, View, Image } from 'react-native';
+import { TouchableOpacity, TextInput, KeyboardAvoidingView, Text, View, Image, Alert } from 'react-native';
 import styles from './RegisterStyles';
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import auth from '../../../api/firebase/services/AuthService'
+import { AntDesign } from '@expo/vector-icons';
 
 export default function Register ({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [username, setUsername] = useState('');
 
     function registerUser () {
+        if(!username || !email || !password) {
+            return Alert.alert('Por favor, llená todos los campos requieridos.')
+        };
+
         createUserWithEmailAndPassword(auth, email, password)
-            .then(res=> {
-                console.log(res);
+            .then((userCredential) => {
+                console.log('Esto devuelve el register! ', userCredential);
+                const user = userCredential.user;
+
+                updateProfile(auth.currentUser, {  
+                    displayName: username    
+                });
+
+                console.log('Esto devuelve el register! ', userCredential);
+
+                Alert.alert('Registro exitoso, bienvenido ', user.email)
                 navigation.replace('TabBar');
             })
-            .catch(e=>console.log(e))
-        // .then((userCredential) => {
-        //     // Signed in 
-        //     const user = userCredential.user;
-        //     updateProfile(auth.currentUser, {
-        //         displayName: name,
-        //         photoURL: imageURL === ""? imageURL : 
-        //         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgJMFsyQlqFwvHOYF0fEijnJjaNRsNDBfi1Q&usqp=CAU",
-        //       }).then(() => {
-        //         // Profile updated!
-        //         // ...
-        //     }).catch((error) => {
-        //         // An error occurred
-        //         // ...
-        //       });
-        // })
-        // .catch((error) => {
-        //     const errorMessage = error.message;
-        //     alert(errorMessage)
-        // });
-        // cambia el top por el parámetro que le pase a replace()
+            .catch(e=> {
+                // console.log(e);
+                Alert.alert('Por favor, ingresa un email válido.')
+            })
     }
 
     return (
@@ -45,6 +43,12 @@ export default function Register ({navigation}) {
             <Image style={styles.logoImage} source={require('../../assets/Logo.png')} />
 
             <View style={styles.inputContainer}>
+                    <TextInput
+                    placeholder="Nombre de Usuario"
+                    value={username}
+                    onChangeText={text => setUsername(text)}
+                    style={styles.input}
+                />
                 <TextInput
                     placeholder="Email"
                     value={email}
@@ -64,17 +68,21 @@ export default function Register ({navigation}) {
               
 
                 <TouchableOpacity
-                    style={[styles.button, styles.buttonOutline]}
+                    style={styles.button}
                     onPress={registerUser}
                 >
                     <Text style={styles.buttonOutlineText}>Registrarse</Text>
                 </TouchableOpacity>
 
+                <View style={styles.viewLine}></View>
+                <Text style={styles.oText}>O</Text>
+
                 <TouchableOpacity
-                    onPress={() => { navigation.navigate('Home') }}
-                    style={styles.button}
+                    // onPress={()=>{}}
+                    style={[styles.button, styles.buttonOutline, styles.googleLog]}
                 >
-                    <Text style={styles.buttonText}>Home</Text>
+                    <AntDesign name="google" size={20} color="#00BD9D" style={styles.googleIcon} />
+                    <Text style={styles.buttonText}>Iniciá sesión con Google</Text>
                 </TouchableOpacity>
 
                 <View style={styles.loginTxts}>
