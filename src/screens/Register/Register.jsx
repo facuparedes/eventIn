@@ -5,6 +5,10 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import auth from '../../../api/firebase/services/AuthService'
 import { AntDesign } from '@expo/vector-icons';
 
+function validate (user) {
+    let errors = {};
+}
+
 export default function Register ({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -30,7 +34,7 @@ export default function Register ({navigation}) {
                 navigation.replace('TabBar');
             })
             .catch(e=> {
-                // console.log(e);
+                console.log(e);
                 Alert.alert('Por favor, ingresa un email válido.')
             })
     }

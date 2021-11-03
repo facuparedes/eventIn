@@ -1,22 +1,29 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, TextInput, KeyboardAvoidingView, Text, View, Image } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { isLogged } from '../../common/redux/actions'
+import { TouchableOpacity, TextInput, KeyboardAvoidingView, Text, View, Image, Alert } from 'react-native';
 import styles from './LoginStyles';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import auth from '../../../api/firebase/services/AuthService';
 
-
 export default function Login ({navigation}) {
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     function signIn () {
+        if(!email || !password) {
+            return Alert.alert('Debes ingresar tu email y contraseña.')
+        }
         signInWithEmailAndPassword(auth, email, password)
-            .then(res=>{
-                console.log(res);
-                navigation.replace('TabBar')
+            .then(data=>{
+                const user = data;
+                Alert.alert('Bienvenido, ', user.user.email);
+                dispatch(isLogged(user.user.uid))
+                navigation.replace('TabBar');
             })
             .catch(e=> {
-                const errorCode = e.code;
                 const errorMessage = e.message;
                 alert(errorMessage)
             })
