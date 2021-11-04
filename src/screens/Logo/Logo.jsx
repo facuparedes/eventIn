@@ -2,7 +2,7 @@ import React from "react";
 import { Image, View } from "react-native";
 import { styles } from "./styles";
 import { useDispatch } from 'react-redux';
-import { isLogged } from "../../common/redux/actions";
+import { changeIsLogged } from "../../common/redux/actions";
 import { onAuthStateChanged } from "@firebase/auth";
 import auth from "../../../api/firebase/services/AuthService";
 
@@ -15,7 +15,7 @@ export default function Logo({ navigation }) {
         if (user) {
           console.log('USER UID', user.uid);
           const uid = user.uid;
-          dispatch(isLogged(uid))
+          dispatch(changeIsLogged(uid))
           navigation.replace('TabBar');
         } else {
           navigation.replace("Onboarding");

@@ -21,7 +21,7 @@ export const getDetails = (id) => {
   };
 };
 
-export const isLogged = (id) => {
+export const changeIsLogged = (id) => {
   return {
     type: IS_LOGGED,
     payload: id
