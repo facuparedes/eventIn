@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { isLogged } from '../../common/redux/actions'
 import { TouchableOpacity, TextInput, KeyboardAvoidingView, Text, View, Image, Alert } from 'react-native';
 import styles from './LoginStyles';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
@@ -24,7 +22,6 @@ function validate (user) {
 }
 
 export default function Login ({navigation}) {
-    const dispatch = useDispatch();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -41,7 +38,6 @@ export default function Login ({navigation}) {
                 .then(data=>{
                     const user = data;
                     Alert.alert('Bienvenido, ', user.user.displayName);
-                    dispatch(isLogged(user.user.uid))
                     navigation.replace('TabBar');
                 })
                 .catch(e=> {

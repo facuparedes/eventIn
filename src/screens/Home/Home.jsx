@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { isLogged } from '../../common/redux/actions';
-import { View, Text, Button, Alert } from "react-native";
+import { onAuthStateChanged } from 'firebase/auth';
+import { View, Button, Alert } from "react-native";
 import auth from "../../../api/firebase/services/AuthService";
 import CardsFlat from "../../common/components/CardsFlat/CardsFlat";
 import { signOut } from "@firebase/auth";
 
 export default function Home({navigation}) {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const subscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const uid = user.uid;
+          dispatch(isLogged(uid));
+        }
+    });
+    return subscribe;
+  })
 
   function logOut () {
     signOut(auth);

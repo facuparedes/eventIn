@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, TextInput, KeyboardAvoidingView, Text, View, Image, Alert } from 'react-native';
 import styles from './RegisterStyles';
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithRedirect, signInWithPopup } from "firebase/auth";
 import auth from '../../../api/firebase/services/AuthService'
 import { AntDesign } from '@expo/vector-icons';
 
@@ -32,33 +32,46 @@ export default function Register ({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
-
+    
     function registerUser () {
         if(!username || !email || !password) {
             return Alert.alert('Por favor, llená todos los campos requieridos.')
         };
-
+        
         const validation = validate({username: username, email: email, password: password})
-
+        
         if(Object.keys(validation).length === 0) {
             createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-
-                    updateProfile(auth.currentUser, {  
-                        displayName: username    
-                    });
-
-                    Alert.alert('Registro exitoso, bienvenido ', user.email) // o user.displayName (si no es asíncrono, sino .then())
-                    navigation.replace('Login');
-                })
-                .catch(e=> {
-                    console.log(e);
-                    Alert.alert('Algo salió mal.')
-                })
+            .then((userCredential) => {
+                const user = userCredential.user;
+                
+                updateProfile(auth.currentUser, {  
+                    displayName: username    
+                });
+                
+                Alert.alert('Registro exitoso, bienvenido ', user.email) // o user.displayName (si no es asíncrono, sino .then())
+                navigation.replace('Login');
+            })
+            .catch(e=> {
+                console.log(e);
+                Alert.alert('Algo salió mal.')
+            })
         } else {
             return Alert.alert(`${Object.values(validation)[0]}`)
         }
+    };
+    
+    // const googleProvider = new GoogleAuthProvider();
+
+    function signInWithGoogle () {
+        Alert.alert('Coders are working, coming soon!');
+        // console.log('GOOGLE PROVIDER', googleProvider)
+        // console.log('SIGN IN WITH POPUP', signInWithPopup);
+        // console.log('SIGN IN WITH REDIRECT', signInWithRedirect)
+        // signInWithPopup(auth, googleProvider)
+        // .then(res=>{
+        //     console.log(res)
+        // })
     }
 
     return (
@@ -104,7 +117,7 @@ export default function Register ({navigation}) {
                 <Text style={styles.oText}>O</Text>
 
                 <TouchableOpacity
-                    // onPress={()=>{}}
+                    onPress={signInWithGoogle}
                     style={[styles.button, styles.buttonOutline, styles.googleLog]}
                 >
                     <AntDesign name="google" size={20} color="#00BD9D" style={styles.googleIcon} />
