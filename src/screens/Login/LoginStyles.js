@@ -22,6 +22,8 @@ const styles = StyleSheet.create({
         borderRadius: 6,
         marginTop: 5,
         width: '100%',
+        position: 'relative',
+        zIndex: -1
     },
     buttonContainer: {
         width: '60%',
@@ -71,9 +73,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center'
     },
-    eye: {
-        marginLeft: -30,
-        zIndex: 1000000000
+    eyeBtn: {
+        top: 18,
+        zIndex: 3,
+        right: 10,
+        position: 'absolute'
     }
 })
 

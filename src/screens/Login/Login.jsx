@@ -88,6 +88,7 @@ export default function Login ({navigation}) {
                     />
                     <TouchableOpacity
                         onPress={updateSecureDataEntry}
+                        style={styles.eyeBtn}
                     >
                     {
                         secureDataEntry ? 
@@ -95,14 +96,12 @@ export default function Login ({navigation}) {
                                 name="eye-off"
                                 color="grey"
                                 size={18}
-                                style={styles.eye}
                             />
                             :
                             <Feather 
                                 name="eye"
                                 color="grey"
                                 size={18}
-                                style={styles.eye}
                             />
                     }
                     </TouchableOpacity>
