@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, TextInput, KeyboardAvoidingView, Text, View, Image, Alert } from 'react-native';
 import styles from './RegisterStyles';
-import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithRedirect, signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword, 
+    updateProfile, 
+    GoogleAuthProvider, 
+    signInWithRedirect, 
+    signInWithPopup,
+    sendEmailVerification
+} from "firebase/auth";
 import auth from '../../../api/firebase/services/AuthService'
 import { AntDesign } from '@expo/vector-icons';
 
 function validate (user) {
     let errors = {};
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    // const strongPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.\$%\^&\*])(?=.{8,})");
 
     if (!user.username) {
         errors.username = 'Debes ingresar un nombre de usuario.'
@@ -48,8 +55,11 @@ export default function Register ({navigation}) {
                 updateProfile(auth.currentUser, {  
                     displayName: username    
                 });
+
+                sendEmailVerification(user)
                 
-                Alert.alert('Registro exitoso, bienvenido ', user.email) // o user.displayName (si no es asíncrono, sino .then())
+                Alert.alert('Registro exitoso.', 
+                    'Te enviamos un email con un link de confirmación.') // o user.displayName (si no es asíncrono, sino .then())
                 navigation.replace('Login');
             })
             .catch(e=> {

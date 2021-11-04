@@ -12,6 +12,11 @@ const styles = StyleSheet.create({
         height: 180,
         width: 180
     },
+    miniText: {
+        alignSelf: 'flex-start',
+        marginLeft: 40,
+        fontSize: 12
+    },
     inputContainer: {
         width: '80%',
     },
@@ -25,16 +30,19 @@ const styles = StyleSheet.create({
     buttonContainer: {
         width: '60%',
         justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 40
+        alignItems: 'flex-start',
+        marginTop: 4,
+        marginRight: 70
     },
     button: {
         backgroundColor: '#00BD9D',
-        width: '100%',
-        padding: 15,
+        width: '52%',
+        padding: 6,
         borderRadius: 6,
         alignItems: 'center',
-        marginTop: 5
+        justifyContent: 'center',
+        marginTop: 5,
+        flexDirection: 'row'
     },
     buttonOutline: {
         backgroundColor: 'white',
@@ -42,29 +50,16 @@ const styles = StyleSheet.create({
         borderColor: '#00BD9D',
         borderWidth: 2
     },
-    buttonText: {
-        color: 'white',
-        fontWeight: '700',
-        fontSize: 16
-    },
     buttonOutlineText: {
         color: '#00BD9D',
         fontWeight: '700',
         fontSize: 16
     },
-    mainPage: {
-        marginTop: 30,
-        color: '#00BD9D'
-    },
-    forgotPass: {
-        fontWeight: 'bold',
-        color: '#00BD9D',
-    },
-    btnFgtPass: {
+    closeX: {
         alignSelf: 'flex-start',
-        marginBottom: -16,
-        marginLeft: 39,
-        marginTop: 8,
+        marginTop: -200,
+        marginBottom: 160,
+        marginLeft: 10
     }
 })
 

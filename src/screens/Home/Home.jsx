@@ -8,6 +8,7 @@ import { Picker } from "@react-native-picker/picker";
 import auth from "../../../api/firebase/services/AuthService";
 import CardsFlat from "../../common/components/CardsFlat/CardsFlat";
 import { signOut } from "@firebase/auth";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function Home({navigation}) {
   const dispatch = useDispatch();
@@ -38,19 +39,15 @@ export default function Home({navigation}) {
   function logOut () {
       signOut(auth);
       dispatch(changeIsLogged(''));
-      Alert.alert('Sesión cerrada.');
+      Alert.alert('Has cerrado sesión.');
       navigation.replace('Onboarding'); // Acá vamos a tener que navegar desde el Stack y no desde el Tab, porque sino va a mostrar el TabBar
   }
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }} >
-      {
-        logged ?
-          <Button title="Logout" onPress={logOut}/>  
-          : null
-      }
-      
-      <View>
+           
+      <View style={styles.filterLogout}>
+  
         <Picker
           selectedValue={categ}
           onValueChange={(value, index) => handleFilterCategory(value)}
@@ -61,7 +58,15 @@ export default function Home({navigation}) {
             return <Picker.Item key={i} value={item} label={item} />;
           })}
         </Picker>
-        {/* <Text>Seleccionada: {categ}</Text> */}
+        
+        {
+        logged ?
+          <TouchableOpacity style={styles.logout} onPress={logOut}>
+            <Text style={styles.logOutText}>Cerrar sesión</Text>
+          </TouchableOpacity>
+          : null
+      }
+
       </View>
 
       <CardsFlat />

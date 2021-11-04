@@ -13,10 +13,9 @@ export default function Logo({ navigation }) {
     setTimeout(() => {
       const subscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
-          console.log('USER UID', user.uid);
           const uid = user.uid;
           dispatch(changeIsLogged(uid))
-          navigation.replace('TabBar');
+          navigation.replace('Loading');
         } else {
           navigation.replace("Onboarding");
         }

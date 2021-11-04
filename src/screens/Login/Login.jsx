@@ -77,6 +77,10 @@ export default function Login ({navigation}) {
                     style={styles.input}
                 />
             </View>
+            
+            <TouchableOpacity style={styles.btnFgtPass} onPress={()=>{navigation.navigate('ForgotPass')}}>
+                <Text style={styles.forgotPass}>¿Olvidaste tu contraseña?</Text>
+            </TouchableOpacity>
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
