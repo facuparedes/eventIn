@@ -1,12 +1,14 @@
-import { GeoPoint, Timestamp } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import Validator, { ValidationSchema } from "fastest-validator";
+<<<<<<< HEAD
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+=======
+import { GeoPoint, Timestamp } from "firebase/firestore";
+>>>>>>> 3a32f44643ad5d5890d3b92be88ee7c85335a754
 import Model from "./model";
 const v = new Validator();
 const opt = { optional: true };
-const updateV = new Validator({ defaults: { string: opt, boolean: opt, number: opt, enum: opt, object: opt, array: opt, url: opt } });
+const updateV = new Validator({ defaults: { string: opt, boolean: opt, number: opt, enum: opt, object: opt, url: opt } });
 
 /** @type {ValidationSchema} */
 const EventSchema = {
@@ -36,13 +38,8 @@ const EventSchema = {
     minProps: 2,
     props: { lat: "number", long: "number" },
   },
-  attachments: {
-    type: "array",
-    empty: false,
-    unique: true,
-    min: 1,
-    items: "string|empty:false|trim|min:1",
-  },
+  /** TEMPORAL PHOTO */
+  photo: "url|empty:false",
   $$strict: "remove",
 };
 
@@ -70,31 +67,6 @@ class Event extends Model {
     event.start = new Timestamp(event.start.seconds, event.start.nanoseconds).toDate();
     event.end = new Timestamp(event.end.seconds, event.end.nanoseconds).toDate();
     return event;
-  }
-
-  /**
-   * Upload images/videos.
-   *
-   * @param {string[]} uriFiles
-   * @returns {Promise<*>}
-   * @private
-   */
-  async __upload(uriFiles) {
-    const fileRef = ref(getStorage(), uuidv4());
-    const uploadFileAndGetURL = uriFiles.map((uri) =>
-      new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.onload = () => resolve(xhr.response);
-        xhr.onerror = (e) => reject(e);
-        xhr.responseType = "blob";
-        xhr.open("GET", uri, true);
-        xhr.send(null);
-      })
-        .then((blob) => uploadBytes(fileRef, blob).then(() => blob.close()))
-        .then(() => getDownloadURL(fileRef))
-    );
-
-    return await Promise.all(uploadFileAndGetURL);
   }
 
   /**
