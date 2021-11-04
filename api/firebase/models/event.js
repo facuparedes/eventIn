@@ -1,10 +1,5 @@
 import Validator, { ValidationSchema } from "fastest-validator";
-<<<<<<< HEAD
-import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
-=======
 import { GeoPoint, Timestamp } from "firebase/firestore";
->>>>>>> 3a32f44643ad5d5890d3b92be88ee7c85335a754
 import Model from "./model";
 const v = new Validator();
 const opt = { optional: true };
