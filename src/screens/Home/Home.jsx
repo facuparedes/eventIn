@@ -36,6 +36,13 @@ export default function Home({navigation}) {
     }
   }
 
+  function alertLogOut() {
+    Alert.alert(auth.currentUser.displayName, '¿Estas seguro de que deseas cerrar sesión?', [
+      {text: 'Cancelar', onPress: () => navigation.navigate('TabBar')},
+      {text: 'Aceptar', onPress: () => logOut()}
+    ])
+  }
+
   function logOut () {
       signOut(auth);
       dispatch(changeIsLogged(''));
@@ -61,7 +68,7 @@ export default function Home({navigation}) {
         
         {
         logged ?
-          <TouchableOpacity style={styles.logout} onPress={logOut}>
+          <TouchableOpacity style={styles.logout} onPress={alertLogOut}>
             <Text style={styles.logOutText}>Cerrar sesión</Text>
           </TouchableOpacity>
           : null
