@@ -51,6 +51,10 @@ const styles = StyleSheet.create({
         color: '#00BD9D',
         fontWeight: '700',
         fontSize: 16
+    },
+    mainPage: {
+        marginTop: 30,
+        color: '#00BD9D'
     }
 })
 

@@ -37,13 +37,18 @@ export default function Login ({navigation}) {
             signInWithEmailAndPassword(auth, email, password)
                 .then(data=>{
                     const user = data;
-                    Alert.alert('Bienvenido, ', user.user.displayName);
+                    Alert.alert(`Bienvenido, ${user.user.displayName}!`);
                     navigation.replace('TabBar');
                 })
                 .catch(e=> {
-                    console.log(e);
+                    console.log(e.message);
                     const errorMessage = e.message;
-                    Alert.alert(errorMessage);
+                    if (errorMessage === 'Firebase: Error (auth/wrong-password).') {
+                        Alert.alert('Contraseña incorrecta.')
+                    }
+                    if (errorMessage === 'Firebase: Error (auth/user-not-found).') {
+                        Alert.alert('Usuario inexistente.');
+                    }
                 });
         } else {
             return Alert.alert(`${Object.values(validation)[0]}`);
@@ -89,10 +94,9 @@ export default function Login ({navigation}) {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => { navigation.navigate('Home') }}
-                    style={styles.button}
+                    onPress={() => { navigation.navigate('TabBar') }}
                 >
-                    <Text style={styles.buttonText}>Home</Text>
+                    <Text style={styles.mainPage}>Ir a la página principal</Text>
                 </TouchableOpacity>
                 
             </View>

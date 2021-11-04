@@ -64,7 +64,7 @@ export default function Register ({navigation}) {
     // const googleProvider = new GoogleAuthProvider();
 
     function signInWithGoogle () {
-        Alert.alert('Coders are working, coming soon!');
+        Alert.alert('Coders trabajando, vuelva prontos!');
         // console.log('GOOGLE PROVIDER', googleProvider)
         // console.log('SIGN IN WITH POPUP', signInWithPopup);
         // console.log('SIGN IN WITH REDIRECT', signInWithRedirect)
