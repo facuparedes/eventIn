@@ -1,7 +1,8 @@
 import { GeoPoint, Timestamp } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import Validator, { ValidationSchema } from "fastest-validator";
-import uuid from "uuid";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 import Model from "./model";
 const v = new Validator();
 const opt = { optional: true };
@@ -78,13 +79,13 @@ class Event extends Model {
    * @returns {Promise<*>}
    * @private
    */
-  __upload(uriFiles) {
-    const fileRef = ref(getStorage(), uuid.v4());
+  async __upload(uriFiles) {
+    const fileRef = ref(getStorage(), uuidv4());
     const uploadFileAndGetURL = uriFiles.map((uri) =>
       new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
-        xhr.onload = () => resolve(xhr.responseText);
-        xhr.onerror = () => reject(xhr.responseText);
+        xhr.onload = () => resolve(xhr.response);
+        xhr.onerror = (e) => reject(e);
         xhr.responseType = "blob";
         xhr.open("GET", uri, true);
         xhr.send(null);
