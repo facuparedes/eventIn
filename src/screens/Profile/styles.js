@@ -24,6 +24,17 @@ export default styles = StyleSheet.create({
     imageContainer:{
         width: 100,
         height:200,
+    },
+    containerEdit:{
+        marginLeft:30,
+        marginTop:20,
+        marginRight:260
+    },
+    edit:{
+        borderWidth:1,
+        paddingHorizontal: 20,
+        
     }
+
 
 })
