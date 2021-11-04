@@ -47,7 +47,8 @@ export default function Home({navigation}) {
       signOut(auth);
       dispatch(changeIsLogged(''));
       Alert.alert('Has cerrado sesión.');
-      navigation.replace('Onboarding'); // Acá vamos a tener que navegar desde el Stack y no desde el Tab, porque sino va a mostrar el TabBar
+      // Por alguna razón, sin especificar nada, de acá se navega directamente al onBoarding.
+      // navigation.replace('Login'); // Acá vamos a tener que navegar desde el Stack y no desde el Tab, porque sino va a mostrar el TabBar
   }
 
   return (
