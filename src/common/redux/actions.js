@@ -30,8 +30,7 @@ export const getEventsByCategory = (category) => {
 
 export const getEventsByName = (title) => {
   return async function (dispatch) {
-    let result = await event.find(where("title", "==", title ));
-    // console.log('soy el getEventsByName' , result);
+    let result = await event.find(where("title", "==", title));
     return dispatch({
       type: GET_EVENTS_BY_TITLE,
       payload: result,

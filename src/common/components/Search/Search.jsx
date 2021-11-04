@@ -9,7 +9,7 @@ import { getEventsByName, getEvents } from "../../redux/actions";
 export default function Search() {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
-  console.log("soy el title", title);
+  //console.log("soy el title", title);
 
   function handleInputChange(text) {
     setTitle(text);
@@ -22,7 +22,7 @@ export default function Search() {
     } else {
       dispatch(getEventsByName(title));
     }
-    console.log("el boton", title);
+    //console.log("el boton", title);
     setTitle("");
   }
 

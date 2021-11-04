@@ -9,7 +9,8 @@ import Home from "../screens/Home/Home";
 import Search from "../common/components/Search/Search";
 
 import Profile from "../screens/Profile/Profile";
-
+import { View } from "react-native";
+import {styles} from './styles'
 
 const Tab = createBottomTabNavigator();
 
@@ -64,12 +65,14 @@ export default function TabBar({ navigation }) {
             </SafeAreaView>
           ),
           headerRight: () => (
-            <Search/>
-            // <TouchableOpacity>
-            //   <Text onPress={handleGoToForm} style={{ fontSize: 40, marginRight: 20 }}>
-            //     +
-            //   </Text>
-            // </TouchableOpacity>
+            <View style={styles.headerRight}>
+              <Search/>
+            <TouchableOpacity>
+              <Text onPress={handleGoToForm} style={{ fontSize: 40, marginRight: 20 }}>
+                +
+              </Text>
+            </TouchableOpacity>
+            </View>
           ),
         }}
       />
