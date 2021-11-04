@@ -20,7 +20,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 10,
         borderRadius: 6,
-        marginTop: 5
+        marginTop: 5,
+        width: '100%',
+        position: 'relative',
+        zIndex: -1
     },
     buttonContainer: {
         width: '60%',
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
         marginTop: 40
     },
     button: {
-        backgroundColor: '#6ad5ce',
+        backgroundColor: '#00BD9D',
         width: '100%',
         padding: 15,
         borderRadius: 6,
@@ -39,7 +42,7 @@ const styles = StyleSheet.create({
     buttonOutline: {
         backgroundColor: 'white',
         marginTop: 5,
-        borderColor: '#6ad5ce',
+        borderColor: '#00BD9D',
         borderWidth: 2
     },
     buttonText: {
@@ -48,9 +51,33 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     buttonOutlineText: {
-        color: '#6ad5ce',
+        color: '#00BD9D',
         fontWeight: '700',
         fontSize: 16
+    },
+    mainPage: {
+        marginTop: 30,
+        color: '#00BD9D'
+    },
+    forgotPass: {
+        fontWeight: 'bold',
+        color: '#00BD9D',
+    },
+    btnFgtPass: {
+        alignSelf: 'flex-start',
+        marginBottom: -16,
+        marginLeft: 39,
+        marginTop: 8,
+    },
+    passContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    eyeBtn: {
+        top: 18,
+        zIndex: 3,
+        right: 10,
+        position: 'absolute'
     }
 })
 

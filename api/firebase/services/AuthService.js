@@ -1,7 +1,12 @@
-class AuthService {
-  static signup() {}
-  static login() {}
-  static logout() {}
-}
+import { getAuth } from 'firebase/auth';
 
-export default AuthService;
+const auth = getAuth();
+export default auth;
+
+// class AuthService {
+//   static signup() {}
+//   static login() {}
+//   static logout() {}
+// }
+
+// export default AuthService;
