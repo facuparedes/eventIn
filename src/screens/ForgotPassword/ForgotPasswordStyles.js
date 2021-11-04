@@ -12,8 +12,14 @@ const styles = StyleSheet.create({
         height: 180,
         width: 180
     },
+    miniText: {
+        alignSelf: 'flex-start',
+        marginLeft: 40,
+        fontSize: 12
+    },
     inputContainer: {
         width: '80%',
+        flexDirection: 'row'
     },
     input: {
         backgroundColor: '#d7eae9',
@@ -26,63 +32,36 @@ const styles = StyleSheet.create({
     buttonContainer: {
         width: '60%',
         justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 40
+        alignItems: 'flex-start',
+        marginTop: 4,
+        marginRight: 76
     },
     button: {
         backgroundColor: '#00BD9D',
-        width: '100%',
-        padding: 15,
+        width: '52%',
+        padding: 6,
         borderRadius: 6,
         alignItems: 'center',
-        marginTop: 5
+        justifyContent: 'center',
+        marginTop: 5,
+        flexDirection: 'row'
     },
     buttonOutline: {
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
         marginTop: 5,
-        borderColor: '#6ad5ce',
+        borderColor: '#00BD9D',
         borderWidth: 2
     },
     buttonOutlineText: {
-        color: '#fff',
+        color: '#00BD9D',
         fontWeight: '700',
         fontSize: 16
     },
-    textCta: {
-        marginTop: 30
-    },
-    textToLg: {
-        marginTop: 30,
-        color: '#00BD9D',
-        marginLeft: 4,
-        fontWeight: '800'
-    },
-    loginTxts: {
-        flexDirection: 'row'
-    },
-    viewLine: {
-        width: '100%',
-        marginTop: 24,
-        borderBottomWidth: 1,
-    },
-    oText: {
-        marginTop: -14,
-        padding: 4,
-        backgroundColor: '#fff',
-        marginBottom: 3
-    },
-    buttonText: {
-        color: '#00BD9D',
-        fontWeight: 'bold'
-    },
-    googleLog: {
-        flexDirection: 'row'
-    },
-    googleIcon: {
-        marginRight: 14
-    },
-    inputAndIcon: {
-        flexDirection: 'row'
+    goBackBtn: {
+        alignSelf: 'flex-start',
+        marginTop: -200,
+        marginBottom: 160,
+        marginLeft: 10
     },
     icon: {
         marginLeft: -30,

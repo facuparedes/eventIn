@@ -4,7 +4,7 @@ import Card from "../Card/Card";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 
-export default function CardsFlat({ category }) {
+export default function CardsFlat() {
   const navigation = useNavigation();
 
   const allEvents = useSelector((state) => state.events);
