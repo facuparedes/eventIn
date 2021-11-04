@@ -19,20 +19,22 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         width: '80%',
+        flexDirection: 'row'
     },
     input: {
         backgroundColor: '#d7eae9',
         paddingHorizontal: 15,
         paddingVertical: 10,
         borderRadius: 6,
-        marginTop: 5
+        marginTop: 5,
+        width: '100%'
     },
     buttonContainer: {
         width: '60%',
         justifyContent: 'center',
         alignItems: 'flex-start',
         marginTop: 4,
-        marginRight: 70
+        marginRight: 76
     },
     button: {
         backgroundColor: '#00BD9D',
@@ -55,11 +57,15 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontSize: 16
     },
-    closeX: {
+    goBackBtn: {
         alignSelf: 'flex-start',
         marginTop: -200,
         marginBottom: 160,
         marginLeft: 10
+    },
+    icon: {
+        marginLeft: -30,
+        alignSelf: 'center'
     }
 })
 

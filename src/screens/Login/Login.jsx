@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, TextInput, KeyboardAvoidingView, Text, View, Image, Alert } from 'react-native';
+import { TouchableOpacity, TextInput, Text, View, Image, Alert } from 'react-native';
 import styles from './LoginStyles';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import auth from '../../../api/firebase/services/AuthService';
+import { Feather } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 function validate (user) {
     let errors = {}; 
@@ -22,7 +24,6 @@ function validate (user) {
 }
 
 export default function Login ({navigation}) {
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -56,7 +57,7 @@ export default function Login ({navigation}) {
     }
 
     return (
-        <KeyboardAvoidingView
+        <SafeAreaView
             style={styles.container}
             behaviour="padding"
         >
@@ -104,6 +105,6 @@ export default function Login ({navigation}) {
                 </TouchableOpacity>
                 
             </View>
-        </KeyboardAvoidingView>
+        </SafeAreaView>
     )
 }

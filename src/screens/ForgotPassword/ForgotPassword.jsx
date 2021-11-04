@@ -3,7 +3,8 @@ import { TouchableOpacity, TextInput, KeyboardAvoidingView, Text, View, Image, A
 import styles from './ForgotPasswordStyles';
 import auth from '../../../api/firebase/services/AuthService';
 import { sendPasswordResetEmail } from 'firebase/auth';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 function validate (email) {
     let errors = {}; 
@@ -20,9 +21,19 @@ function validate (email) {
 }
 
 export default function ForgotPass ({navigation}) {
-
     const [email, setEmail] = useState('');
+    const [checkEmail, setCheckEmail] = useState(false);
 
+    function onChangeEmail(text){
+        if(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(text)) {
+            setEmail(text);
+            setCheckEmail(true);
+        } else {
+            setEmail(text);
+            setCheckEmail(false);
+        }
+    }
+    
     function handleNext(){
         const validation = validate(email);
 
@@ -36,12 +47,12 @@ export default function ForgotPass ({navigation}) {
     }
 
     return (
-        <KeyboardAvoidingView
+        <SafeAreaView
             style={styles.container}
             behaviour="padding"
         >
 
-            <View style={styles.closeX}>
+            <View style={styles.goBackBtn}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Ionicons name="arrow-back" size={42} color="#00BD9D" />
                 </TouchableOpacity>
@@ -56,9 +67,19 @@ export default function ForgotPass ({navigation}) {
                 <TextInput
                     placeholder="Email"
                     value={email}
-                    onChangeText={text => setEmail(text)}
+                    onChangeText={text => onChangeEmail(text)}
                     style={styles.input}
                 />
+                {
+                    checkEmail ? (
+                    <Feather 
+                        name="check-circle"
+                        color="green"
+                        size={20}
+                        style={styles.icon}
+                    />
+                    ) : null
+                }
             </View>
 
             <View style={styles.buttonContainer}>
@@ -71,6 +92,6 @@ export default function ForgotPass ({navigation}) {
                 </TouchableOpacity>
 
             </View>
-        </KeyboardAvoidingView>
+        </SafeAreaView>
     )
 }

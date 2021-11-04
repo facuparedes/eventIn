@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 10,
         borderRadius: 6,
-        marginTop: 5
+        marginTop: 5,
+        width: '100%'
     },
     buttonContainer: {
         width: '60%',
@@ -79,6 +80,13 @@ const styles = StyleSheet.create({
     },
     googleIcon: {
         marginRight: 14
+    },
+    inputAndIcon: {
+        flexDirection: 'row'
+    },
+    icon: {
+        marginLeft: -30,
+        alignSelf: 'center'
     }
 })
 

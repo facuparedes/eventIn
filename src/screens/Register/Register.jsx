@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, TextInput, KeyboardAvoidingView, Text, View, Image, Alert } from 'react-native';
+import { TouchableOpacity, TextInput, Text, View, Image, Alert } from 'react-native';
 import styles from './RegisterStyles';
 import { createUserWithEmailAndPassword, 
     updateProfile, 
@@ -9,7 +9,8 @@ import { createUserWithEmailAndPassword,
     sendEmailVerification
 } from "firebase/auth";
 import auth from '../../../api/firebase/services/AuthService'
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Feather } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 function validate (user) {
     let errors = {};
@@ -18,6 +19,9 @@ function validate (user) {
 
     if (!user.username) {
         errors.username = 'Debes ingresar un nombre de usuario.'
+    }
+    if(user.username.length < 4) {
+        errors.username = 'Tu nombre de usuario debe tener al menos 4 caracteres.'
     }
     if(!user.email) {
         errors.email = 'Debes ingresar un email.'
@@ -39,6 +43,39 @@ export default function Register ({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
+    const [checkEmail, setCheckEmail] = useState(false);
+    const [checkPassword, setCheckPassword] = useState(false);
+    const [checkUsername, setCheckUsername] = useState(false)
+
+    function onChangeEmail(text){
+        if(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(text)) {
+            setEmail(text);
+            setCheckEmail(true);
+        } else {
+            setEmail(text);
+            setCheckEmail(false);
+        }
+    }
+
+    function onChangePassword(text){
+        if(text.length > 8) {
+            setPassword(text);
+            setCheckPassword(true);
+        } else {
+            setPassword(text);
+            setCheckPassword(false)
+        }
+    }
+
+    function onChangeUsername(text) {
+        if(text.length >= 4) {
+            setUsername(text);
+            setCheckUsername(true);
+        } else {
+            setUsername(text);
+            setCheckUsername(false);
+        }
+    }
     
     function registerUser () {
         if(!username || !email || !password) {
@@ -85,32 +122,70 @@ export default function Register ({navigation}) {
     }
 
     return (
-        <KeyboardAvoidingView
+        <SafeAreaView
             style={styles.container}
             behaviour="padding"
         >
             <Image style={styles.logoImage} source={require('../../assets/Logo.png')} />
 
             <View style={styles.inputContainer}>
+                <View style={styles.inputAndIcon}>
                     <TextInput
-                    placeholder="Nombre de Usuario"
-                    value={username}
-                    onChangeText={text => setUsername(text)}
-                    style={styles.input}
-                />
-                <TextInput
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={text => setEmail(text)}
-                    style={styles.input}
-                />
-                <TextInput
-                    placeholder="Contraseña"
-                    secureTextEntry
-                    value={password}
-                    onChangeText={text => setPassword(text)}
-                    style={styles.input}
-                />
+                        placeholder="Nombre de Usuario"
+                        value={username}
+                        onChangeText={text => onChangeUsername(text)}
+                        style={styles.input}
+                    />
+                    {
+                        checkUsername ? (
+                        <Feather 
+                            name="check-circle"
+                            color="green"
+                            size={20}
+                            style={styles.icon}
+                        />
+                        ) : null
+                    }
+                </View>
+
+                <View style={styles.inputAndIcon}>
+                    <TextInput
+                        placeholder="Email"
+                        value={email}
+                        onChangeText={text => onChangeEmail(text)}
+                        style={styles.input}
+                    />
+                    {
+                        checkEmail ? (
+                        <Feather 
+                            name="check-circle"
+                            color="green"
+                            size={20}
+                            style={styles.icon}
+                        />
+                        ) : null
+                    }
+                </View>
+                
+                <View style={styles.inputAndIcon}>
+                    <TextInput
+                        placeholder="Contraseña"
+                        secureTextEntry
+                        value={password}
+                        onChangeText={text => onChangePassword(text)}
+                        style={styles.input}
+                    />
+                    {
+                        checkPassword ? (
+                        <Feather 
+                            name="check-circle"
+                            color="green"
+                            size={20}
+                            style={styles.icon}
+                        />
+                        ) : null
+                    }
+                </View>
             </View>
 
             <View style={styles.buttonContainer}>
@@ -144,6 +219,6 @@ export default function Register ({navigation}) {
                 </View>
                 
             </View>
-        </KeyboardAvoidingView>
+        </SafeAreaView>
     )
 }
