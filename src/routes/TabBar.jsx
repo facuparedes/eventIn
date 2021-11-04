@@ -71,7 +71,7 @@ export default function TabBar({ navigation }) {
       />
 
       <Tab.Screen
-        name="Profile"
+        name="Perfil"
         component={Profile}
         options={{
           headerShown: false,

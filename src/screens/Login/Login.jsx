@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getEvents } from '../../common/redux/actions';
 import { TouchableOpacity, TextInput, Text, View, Image, Alert } from 'react-native';
 import styles from './LoginStyles';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
@@ -24,6 +26,8 @@ function validate (user) {
 }
 
 export default function Login ({navigation}) {
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [secureDataEntry, setSecureDataEntry] = useState(true);
@@ -128,7 +132,7 @@ export default function Login ({navigation}) {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => {navigation.navigate('Loading')}}
+                    onPress={() => {navigation.navigate('TabBar'); dispatch(getEvents())}}
                 >
                     <Text style={styles.mainPage}>Ir a la página principal</Text>
                 </TouchableOpacity>              
