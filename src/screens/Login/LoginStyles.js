@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingVertical: 10,
         borderRadius: 6,
-        marginTop: 5
+        marginTop: 5,
+        width: '100%',
     },
     buttonContainer: {
         width: '60%',
@@ -65,6 +66,14 @@ const styles = StyleSheet.create({
         marginBottom: -16,
         marginLeft: 39,
         marginTop: 8,
+    },
+    passContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    eye: {
+        marginLeft: -30,
+        zIndex: 1000000000
     }
 })
 

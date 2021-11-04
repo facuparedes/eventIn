@@ -3,8 +3,8 @@ import { TouchableOpacity, TextInput, Text, View, Image, Alert } from 'react-nat
 import styles from './LoginStyles';
 import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import auth from '../../../api/firebase/services/AuthService';
-import { Feather } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Feather } from '@expo/vector-icons';
 
 function validate (user) {
     let errors = {}; 
@@ -26,6 +26,11 @@ function validate (user) {
 export default function Login ({navigation}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [secureDataEntry, setSecureDataEntry] = useState(true);
+
+    function updateSecureDataEntry() {
+        setSecureDataEntry(!secureDataEntry);
+    }
 
     function signIn () {
         if(!email || !password) {
@@ -48,7 +53,10 @@ export default function Login ({navigation}) {
                         Alert.alert('Contraseña incorrecta.')
                     }
                     if (errorMessage === 'Firebase: Error (auth/user-not-found).') {
-                        Alert.alert('Usuario inexistente.');
+                        Alert.alert('Usuario no registrado.', '', [
+                            {text: 'Registrarme', onPress: () => navigation.navigate('Register')},
+                            {text: 'OK'}
+                        ]);
                     }
                 });
         } else {
@@ -70,13 +78,35 @@ export default function Login ({navigation}) {
                     onChangeText={text => setEmail(text)}
                     style={styles.input}
                 />
-                <TextInput
-                    placeholder="Contraseña"
-                    secureTextEntry
-                    value={password}
-                    onChangeText={text => setPassword(text)}
-                    style={styles.input}
-                />
+                <View style={styles.passContainer}>
+                    <TextInput
+                        placeholder="Contraseña"
+                        secureTextEntry={secureDataEntry ? true : false}
+                        value={password}
+                        onChangeText={text => setPassword(text)}
+                        style={styles.input}
+                    />
+                    <TouchableOpacity
+                        onPress={updateSecureDataEntry}
+                    >
+                    {
+                        secureDataEntry ? 
+                            <Feather 
+                                name="eye-off"
+                                color="grey"
+                                size={18}
+                                style={styles.eye}
+                            />
+                            :
+                            <Feather 
+                                name="eye"
+                                color="grey"
+                                size={18}
+                                style={styles.eye}
+                            />
+                    }
+                    </TouchableOpacity>
+                </View>
             </View>
             
             <TouchableOpacity style={styles.btnFgtPass} onPress={()=>{navigation.navigate('ForgotPass')}}>
@@ -99,10 +129,10 @@ export default function Login ({navigation}) {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => { navigation.navigate('TabBar') }}
+                    onPress={() => {navigation.navigate('Loading')}}
                 >
                     <Text style={styles.mainPage}>Ir a la página principal</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>              
                 
             </View>
         </SafeAreaView>
