@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Provider } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
@@ -17,10 +17,38 @@ import moment from "moment";
 import "moment/locale/es";
 import Profile from "./src/screens/Profile/Profile.jsx";
 import EditProfile from "./src/screens/Edit Profile/EditProfile.jsx";
+import AppLoading from "expo-app-loading";
+import * as Font from "expo-font";
 
 export default function App() {
   const Stack = createStackNavigator();
   moment.locale("es");
+
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!fontsLoaded) {
+      loadFonts();
+    }
+  });
+
+  const loadFonts = async () => {
+    await Font.loadAsync({
+      "Gotham-Bold": require("./src/assets/Fonts/GothamRounded-Bold.otf"),
+      "Gotham-BoldItalic": require("./src/assets/Fonts/GothamRounded-BoldItalic.otf"),
+      "Gotham-Book": require("./src/assets/Fonts/GothamRounded-Book.otf"),
+      "Gotham-BookItalic": require("./src/assets/Fonts/GothamRounded-BookItalic.otf"),
+      "Gotham-Light": require("./src/assets/Fonts/GothamRounded-Light.otf"),
+      "Gotham-LightItalic": require("./src/assets/Fonts/GothamRounded-LightItalic.otf"),
+      "Gotham-Medium": require("./src/assets/Fonts/GothamRounded-Medium.otf"),
+      "Gotham-MediumItalic": require("./src/assets/Fonts/GothamRounded-MediumItalic.otf"),
+    });
+    setFontsLoaded(true);
+  };
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
   return (
     <Provider store={store}>

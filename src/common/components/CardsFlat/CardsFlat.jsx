@@ -14,7 +14,6 @@ export default function CardsFlat() {
       <FlatList
         style={{ width: "100%", height: "100%" }}
         data={allEvents}
-        //horizontal
         renderItem={({ item }) => <Card id={item.id} navigation={navigation} title={item.title} description={item.description} date={item.start} photo={item.photo} />}
       />
     </View>
