@@ -34,6 +34,9 @@ const styles = StyleSheet.create({
   },
   btnLike: {
     position: "absolute",
+    alignSelf: "flex-end",
+    paddingTop: height * 0.351,
+    paddingRight: width * 0.068,
   },
   img: {
     position: "relative",
