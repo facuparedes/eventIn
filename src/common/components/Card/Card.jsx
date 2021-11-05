@@ -37,13 +37,14 @@ export default function Card({ id, title, description, date, photo, navigation }
           </View>
           <View style={styles.card_body}>
             <Image source={{ uri: photo }} style={styles.card_body_image} resizeMode={"cover"} />
-            <Text style={[styles.card_body_date, isToday ? styles.card_body_date_active : ""]}>{moment(date).toNow()}</Text>
+            <Text style={[styles.card_body_date, isToday ? styles.card_body_date_active : ""]}>{moment(date).fromNow()}</Text>
+            {console.log(moment(date).toNow())}
           </View>
         </TouchableOpacity>
       </View>
       <View style={styles.card_footer}>
-        <TouchableOpacity onPress={() => addFavourite}>
-          <AntDesign name={liked ? "heart" : "hearto"} size={24} color={liked ? "red" : "black"} />
+        <TouchableOpacity onPress={addFavourite}>
+          <AntDesign name={liked ? "heart" : "hearto"} size={24} color={liked ? "#E64141" : "black"} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => shared} style={{ marginLeft: 10 }}>
           <Ionicons name="share-social" size={24} color="black" />
