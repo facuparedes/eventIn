@@ -1,4 +1,4 @@
-import { GET_EVENTS, GET_DETAILS, GET_EVENTS_CATEGORY, IS_LOGGED } from "./actions";
+import { GET_EVENTS, GET_DETAILS, GET_EVENTS_CATEGORY, IS_LOGGED, GET_EVENTS_BY_TITLE } from "./actions";
 
 const initialState = {
   events: [],
@@ -19,6 +19,11 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         events: action.payload,
       };
+    case GET_EVENTS_BY_TITLE:
+      return {
+        ...state,
+        events: action.payload,
+      }
     case GET_DETAILS:
       return {
         ...state,

@@ -3,6 +3,7 @@ import { where } from "firebase/firestore"
 
 export const GET_EVENTS = "GET_EVENTS";
 export const GET_DETAILS = "GET_DETAILS";
+export const GET_EVENTS_BY_TITLE = "GET_EVENTS_BY_TITLE";
 export const GET_EVENTS_CATEGORY = "GET_EVENTS_CATEGORY"
 export const IS_LOGGED = "IS_LOGGED";
 
@@ -20,13 +21,22 @@ export const getEvents = () => {
 export const getEventsByCategory = (category) => {
   return async function (dispatch) {
     let result = await event.find(where("category", "==", category));
-
     return dispatch({
       type: GET_EVENTS_CATEGORY,
       payload: result,
     });
   };
 };
+
+export const getEventsByName = (title) => {
+  return async function (dispatch) {
+    let result = await event.find(where("title", "==", title));
+    return dispatch({
+      type: GET_EVENTS_BY_TITLE,
+      payload: result,
+    });
+  };
+}
 
 export const getDetails = (id) => {
   return {

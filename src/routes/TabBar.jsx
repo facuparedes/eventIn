@@ -6,7 +6,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from 'react-redux';
 
 import Home from "../screens/Home/Home";
+import Search from "../common/components/Search/Search";
+
 import Profile from "../screens/Profile/Profile";
+import { View } from "react-native";
+import {styles} from './styles'
 
 const Tab = createBottomTabNavigator();
 
@@ -31,7 +35,7 @@ export default function TabBar({ navigation }) {
       initialRouteName="Home"
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: "white",
+          backgroundColor: "#d7eae9",
           borderTopColor: "transparent",
           paddingBottom: 5,
           paddingTop: 5,
@@ -47,7 +51,7 @@ export default function TabBar({ navigation }) {
           headerTitle: "",
           tabBarIcon: ({ color, size }) => <Entypo name="home" color={color} size={size} />,
           headerBackground: () => (
-            <SafeAreaView style={{ backgroundColor: "white" }}>
+            <SafeAreaView style={{ backgroundColor: "#d7eae9" }}>
               <Image
                 style={{
                   resizeMode: "contain",
@@ -61,11 +65,14 @@ export default function TabBar({ navigation }) {
             </SafeAreaView>
           ),
           headerRight: () => (
+            <View style={styles.headerRight}>
+              <Search/>
             <TouchableOpacity>
               <Text onPress={handleGoToForm} style={{ fontSize: 40, marginRight: 20 }}>
                 +
               </Text>
             </TouchableOpacity>
+            </View>
           ),
         }}
       />
