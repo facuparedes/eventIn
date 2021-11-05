@@ -8,6 +8,8 @@ export const styles = StyleSheet.create({
   card: {
     flex: 1,
     backgroundColor: "#ffffff",
+    borderWidth: 0.5,
+    borderColor: "rgba(95, 95, 95, 0.1)",
     borderRadius: 20,
     elevation: 10,
     alignItems: "center",
@@ -38,8 +40,9 @@ export const styles = StyleSheet.create({
   },
   card_body_image: {
     position: "relative",
+    resizeMode: "cover",
     width: windowWidth / 1.17,
-    height: windowHeight / 3,
+    height: windowHeight / 3.7,
     borderRadius: 15,
   },
   card_footer: {
@@ -59,7 +62,7 @@ export const styles = StyleSheet.create({
     borderRadius: 100,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    backgroundColor: "rgba(255, 255, 255, 0.4)",
+    backgroundColor: "rgba(95, 95, 95, 0.6)",
   },
   card_body_date_active: {
     backgroundColor: "#6ad5ce",
