@@ -19,7 +19,9 @@ export default function Search() {
   function handleSubmit() {
     if (title === "todos") {
       dispatch(getEvents());
-    } else {
+    } else if(title === ""){
+      alert("Por favor escribe un Titulo")
+    }else {
       dispatch(getEventsByName(title));
     }
     //console.log("el boton", title);
@@ -28,7 +30,7 @@ export default function Search() {
 
   return (
     <View style={styles.container}>
-      <TextInput style={styles.textInput} placeholder="Search" placeholderTextColor="#fff" onChangeText={handleInputChange} />
+      <TextInput style={styles.textInput} placeholder="Buscar por Titulo" placeholderTextColor="#0808088f" onChangeText={handleInputChange} value={title}/>
       <TouchableOpacity style={styles.touchableOpacity} onPress={handleSubmit}>
         <Feather name="search" style={styles.iconStyle} />
       </TouchableOpacity>
