@@ -47,13 +47,13 @@ const estilos = StyleSheet.create({
         // alignItems: "center",
         justifyContent: "space-around",
         paddingHorizontal: 15,
-        paddingVertical:20,
+        paddingVertical:70,
         marginTop:10,
         marginBottom:10,
         // marginVertical: 45,
     },
     cardItems:{
-        alignItems:'center',
+        alignItems:'flex-start',
         justifyContent:'space-evenly',
         padding:7
     },
@@ -65,14 +65,14 @@ const estilos = StyleSheet.create({
     },
     card_header_title: {
         fontFamily: "Gotham-Medium",
-        fontSize: 15,
+        fontSize: 20,
         // color: "#000",
         color: '#298bc4',
     },
     card_header_description: {
         color: "#5c6066",
         fontFamily: "Gotham-Book",
-        fontSize: 13,
+        fontSize: 15,
       },
       card_body_date: {
         position: "absolute",
@@ -91,5 +91,11 @@ const estilos = StyleSheet.create({
         color: "white",
         
       },
+      card_boton:{
+        flexDirection:'row',
+        marginTop:5,
+        marginRight:250,
+        justifyContent:'space-evenly',
+      }
 })
 export default estilos

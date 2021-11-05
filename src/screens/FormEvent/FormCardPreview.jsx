@@ -8,7 +8,7 @@ import formStyles from "./FormStyles";
 import Event from '../../../api/firebase/models/event'
 import moment from "moment";
 import estilos from "./CardPreviewStyles";
-
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 const FormCardPreview = ({ navigation }) => {
   const eventInfo = useSelector((state) => state.eventForm);
 
@@ -34,15 +34,24 @@ const FormCardPreview = ({ navigation }) => {
       
         <View style={estilos.card_header}>
         <View style={estilos.cardItems}>
-          <Text style={estilos.card_header_title}>{eventInfo.title} TITULO</Text>
-          <Text numberOfLines={3} style={estilos.card_header_description}> {eventInfo.description} DESCRIPCION </Text>
+          <Text style={estilos.card_header_title}>{eventInfo.title}</Text>
+          <Text numberOfLines={3} style={estilos.card_header_description}> {eventInfo.description}</Text>
         </View>
         <View style={estilos.card_body}>
           <Image source={{ uri: eventInfo.photo }} style={estilos.card_body_image} resizeMode={"cover"} />
           <Text style={[estilos.card_body_date, isToday ? estilos.card_body_date_active : ""]}>{moment(eventInfo.start.date).toNow()}</Text>
         </View>
-        </View>
-      
+
+    <View style={estilos.card_boton}>
+        <TouchableOpacity >
+          <AntDesign name= "heart"  size={24} color="#E64141"  />
+        </TouchableOpacity>
+        <TouchableOpacity >
+          <Ionicons name="share-social" size={24} color="black" />
+        </TouchableOpacity>
+    </View>
+
+      </View>
       </View>
 
       <View style={formStyles.btnsContainer}>
