@@ -10,11 +10,13 @@
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@react-native-community/datetimepicker": "3.5.2",
+    "@react-native-picker/picker": "2.1.0",
     "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/core": "^6.1.0",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/stack": "^6.0.11",
     "expo": "~43.0.1",
+    "expo-image-picker": "~11.0.3",
     "expo-location": "~13.0.4",
     "expo-status-bar": "~1.1.0",
     "fastest-validator": "^1.12.0",
@@ -36,9 +38,7 @@
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.4.0",
-    "@react-native-picker/picker": "2.1.0",
-    "expo-image-picker": "~11.0.3"
+    "redux-thunk": "^2.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
