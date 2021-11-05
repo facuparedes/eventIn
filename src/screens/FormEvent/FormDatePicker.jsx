@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { addEventInfo } from "../../common/redux/actions";
 import { Alert, View, Image } from "react-native";
 import { Input, Text, LinearProgress } from "react-native-elements";
@@ -8,6 +8,20 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./FormStyles";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
+
+// Validate Function
+function validate(form) {
+  let errorsValidate = {};
+
+  if (!form.start.date || !form.start.time) {
+    errorsValidate.start = "Tu evento debe tener una fecha y hora de inicio.";
+  }
+  if (!form.end.date || !form.end.time) {
+    errorsValidate.end = "Tu evento debe tener una fecha y hora de finalización.";
+  }
+
+  return errorsValidate;
+}
 
 const FormDatePicker = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -99,19 +113,35 @@ const FormDatePicker = ({ navigation }) => {
     setShowTimeEnd(false);
   };
 
-  function handleNext () {
-    const partialEvent = {
+  function handleNext() {
+    // Form validation
+    let errorsForm = validate({
       start: {
         date: dateValueStart,
-        time: timeValueStart
+        time: timeValueStart,
       },
       end: {
-        date: dateValueEnd,
-        time: timeValueEnd
+        date: textDateEnd,
+        time: textTimeEnd,
       },
+    });
+
+    if (Object.keys(errorsForm).length === 0) {
+      const partialEvent = {
+        start: {
+          date: dateValueStart,
+          time: timeValueStart,
+        },
+        end: {
+          date: dateValueEnd,
+          time: timeValueEnd,
+        },
+      };
+      dispatch(addEventInfo(partialEvent));
+      navigation.navigate("FormMaps");
+    } else {
+      return Alert.alert('Error en la información ingresada.')
     }
-    dispatch(addEventInfo(partialEvent))
-    navigation.navigate("FormMaps");
   }
 
   return (
@@ -132,28 +162,64 @@ const FormDatePicker = ({ navigation }) => {
         }}
       >
         <View style={styles.horaCont}>
-          <Input label="Fecha de Inicio" placeholder="Fecha" onFocus={() => showMode("date")} showSoftInputOnFocus={false} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputHoraContainer} value={textDateStart} />
+          <Input
+            label="Fecha de Inicio"
+            placeholder="Fecha"
+            onFocus={() => showMode("date")}
+            showSoftInputOnFocus={false}
+            inputStyle={styles.input}
+            labelStyle={styles.label}
+            inputContainerStyle={styles.inputHoraContainer}
+            value={textDateStart}
+          />
           <TouchableOpacity onPress={() => showMode("date")}>
             <MaterialIcons name="date-range" size={40} color="black" style={styles.reloj} />
           </TouchableOpacity>
         </View>
 
         <View style={styles.horaCont}>
-          <Input label="Hora de Inicio" placeholder="Hora" onFocus={() => showMode("time")} showSoftInputOnFocus={false} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputHoraContainer} value={textTimeStart} />
+          <Input
+            label="Hora de Inicio"
+            placeholder="Hora"
+            onFocus={() => showMode("time")}
+            showSoftInputOnFocus={false}
+            inputStyle={styles.input}
+            labelStyle={styles.label}
+            inputContainerStyle={styles.inputHoraContainer}
+            value={textTimeStart}
+          />
           <TouchableOpacity onPress={() => showMode("time")}>
             <Feather name="clock" size={40} color="black" style={styles.reloj} />
           </TouchableOpacity>
         </View>
 
         <View style={styles.horaCont}>
-          <Input label="Fecha de Finalización" placeholder="Fecha" onFocus={() => showMode("dateEnd")} showSoftInputOnFocus={false} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputHoraContainer} value={textDateEnd} />
+          <Input
+            label="Fecha de Finalización"
+            placeholder="Fecha"
+            onFocus={() => showMode("dateEnd")}
+            showSoftInputOnFocus={false}
+            inputStyle={styles.input}
+            labelStyle={styles.label}
+            inputContainerStyle={styles.inputHoraContainer}
+            value={textDateEnd}
+          />
           <TouchableOpacity onPress={() => showMode("dateEnd")}>
             <MaterialIcons name="date-range" size={40} color="black" style={styles.reloj} />
           </TouchableOpacity>
         </View>
 
         <View style={styles.horaCont}>
-          <Input label="Hora de Finalización" placeholder="Hora" onFocus={() => showMode("timeEnd")} showSoftInputOnFocus={false} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputHoraContainer} value={textTimeEnd} />
+          <Input
+            label="Hora de Finalización"
+            placeholder="Hora"
+            onFocus={() => showMode("timeEnd")}
+            showSoftInputOnFocus={false}
+            inputStyle={styles.input}
+            labelStyle={styles.label}
+            inputContainerStyle={styles.inputHoraContainer}
+            value={textTimeEnd}
+          />
           <TouchableOpacity onPress={() => showMode("timeEnd")}>
             <Feather name="clock" size={40} color="black" style={styles.reloj} />
           </TouchableOpacity>
@@ -181,18 +247,12 @@ const FormDatePicker = ({ navigation }) => {
             onChange={onChangeDateEnd}
           />
         )}
-        {showTimeStart && <DateTimePicker 
-        testID="dateTimePicker" value={time} mode="time" is24Hour={true} display="default" onChange={onChangeTimeStart} />}
-        {showTimeEnd && <DateTimePicker 
-        testID="dateTimePicker" value={time} mode="time" is24Hour={true} display="default" onChange={onChangeTimeEnd} />}
+        {showTimeStart && <DateTimePicker testID="dateTimePicker" value={time} mode="time" is24Hour={true} display="default" onChange={onChangeTimeStart} />}
+        {showTimeEnd && <DateTimePicker testID="dateTimePicker" value={time} mode="time" is24Hour={true} display="default" onChange={onChangeTimeEnd} />}
       </View>
-     
+
       <View style={styles.btnsContainer}>
-        <TouchableOpacity 
-          title="Siguiente..." 
-          style={styles.btn}
-          onPress={handleNext}
-        >
+        <TouchableOpacity title="Siguiente..." style={styles.btn} onPress={handleNext}>
           <Text style={styles.textBtn}>Siguiente</Text>
         </TouchableOpacity>
       </View>

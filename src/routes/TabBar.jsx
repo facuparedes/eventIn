@@ -8,6 +8,7 @@ import Home from "../screens/Home/Home";
 import Login from "../screens/Login/Login";
 import Register from "../screens/Register/Register";
 import FormEvent from "../screens/FormEvent/FormEvent";
+import Title_Fee_Desc from "../screens/FormEvent/Title_Fee_Desc";
 
 const Tab = createBottomTabNavigator();
 
@@ -75,7 +76,7 @@ export default function TabBar({ navigation }) {
       />
       <Tab.Screen
         name="Create event"
-        component={FormEvent}
+        component={Title_Fee_Desc}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => <AntDesign name="form" color={color} size={size} />,

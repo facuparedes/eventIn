@@ -21,8 +21,8 @@ export const getDetails = (id) => {
   };
 };
 export const addEventInfo = (data) => {
-  return ({
+  return {
     type: ADD_EVENT_INFO,
-    payload: data
-  })
-}
+    payload: data,
+  };
+};
