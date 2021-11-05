@@ -17,9 +17,11 @@ export default function Search() {
   }
 
   function handleSubmit() {
-    if (title === "todos" || title === "") {
+    if (title === "todos") {
       dispatch(getEvents());
-    } else {
+    } else if(title === ""){
+      alert("Please write a title")
+    }else {
       dispatch(getEventsByName(title));
     }
     //console.log("el boton", title);
