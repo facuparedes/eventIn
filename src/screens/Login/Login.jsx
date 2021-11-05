@@ -1,14 +1,75 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, TextInput, KeyboardAvoidingView, Text, View, Image } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { getEvents } from '../../common/redux/actions';
+import { TouchableOpacity, TextInput, Text, View, Image, Alert } from 'react-native';
 import styles from './LoginStyles';
+import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import auth from '../../../api/firebase/services/AuthService';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Feather } from '@expo/vector-icons';
 
+function validate (user) {
+    let errors = {}; 
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+    if(!user.email) {
+        errors.email = 'Debes ingresar un email.'
+    }
+    if(!emailPattern.test(user.email)) {
+        errors.email = 'Por favor, ingresa un email válido.'
+    }
+    if(!user.password) {
+        errors.password = 'Debes ingresar una contraseña.'
+    }
+
+    return errors;
+}
 
 export default function Login ({navigation}) {
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [secureDataEntry, setSecureDataEntry] = useState(true);
+
+    function updateSecureDataEntry() {
+        setSecureDataEntry(!secureDataEntry);
+    }
+
+    function signIn () {
+        if(!email || !password) {
+            return Alert.alert('Debes ingresar tu email y contraseña.');
+        }
+
+        const validation = validate({email: email, password: password});
+
+        if(Object.keys(validation).length === 0) {
+            signInWithEmailAndPassword(auth, email, password)
+                .then(data=>{
+                    const user = data;
+                    Alert.alert(`Bienvenido, ${user.user.displayName}!`);
+                    navigation.replace('TabBar');
+                })
+                .catch(e=> {
+                    console.log(e.message);
+                    const errorMessage = e.message;
+                    if (errorMessage === 'Firebase: Error (auth/wrong-password).') {
+                        Alert.alert('Contraseña incorrecta.')
+                    }
+                    if (errorMessage === 'Firebase: Error (auth/user-not-found).') {
+                        Alert.alert('Usuario no registrado.', '', [
+                            {text: 'Registrarme', onPress: () => navigation.navigate('Register')},
+                            {text: 'OK'}
+                        ]);
+                    }
+                });
+        } else {
+            return Alert.alert(`${Object.values(validation)[0]}`);
+        }
+    }
 
     return (
-        <KeyboardAvoidingView
+        <SafeAreaView
             style={styles.container}
             behaviour="padding"
         >
@@ -21,18 +82,43 @@ export default function Login ({navigation}) {
                     onChangeText={text => setEmail(text)}
                     style={styles.input}
                 />
-                <TextInput
-                    placeholder="Contraseña"
-                    secureTextEntry
-                    value={password}
-                    onChangeText={text => setPassword(text)}
-                    style={styles.input}
-                />
+                <View style={styles.passContainer}>
+                    <TextInput
+                        placeholder="Contraseña"
+                        secureTextEntry={secureDataEntry ? true : false}
+                        value={password}
+                        onChangeText={text => setPassword(text)}
+                        style={styles.input}
+                    />
+                    <TouchableOpacity
+                        onPress={updateSecureDataEntry}
+                        style={styles.eyeBtn}
+                    >
+                    {
+                        secureDataEntry ? 
+                            <Feather 
+                                name="eye-off"
+                                color="grey"
+                                size={18}
+                            />
+                            :
+                            <Feather 
+                                name="eye"
+                                color="grey"
+                                size={18}
+                            />
+                    }
+                    </TouchableOpacity>
+                </View>
             </View>
+            
+            <TouchableOpacity style={styles.btnFgtPass} onPress={()=>{navigation.navigate('ForgotPass')}}>
+                <Text style={styles.forgotPass}>¿Olvidaste tu contraseña?</Text>
+            </TouchableOpacity>
 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
-                    onPress={() => { }}
+                    onPress={signIn}
                     style={styles.button}
                 >
                     <Text style={styles.buttonText}>Iniciar Sesión</Text>
@@ -46,13 +132,12 @@ export default function Login ({navigation}) {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => { navigation.navigate('Home') }}
-                    style={styles.button}
+                    onPress={() => {navigation.navigate('TabBar'); dispatch(getEvents())}}
                 >
-                    <Text style={styles.buttonText}>Home</Text>
-                </TouchableOpacity>
+                    <Text style={styles.mainPage}>Ir a la página principal</Text>
+                </TouchableOpacity>              
                 
             </View>
-        </KeyboardAvoidingView>
+        </SafeAreaView>
     )
 }

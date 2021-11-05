@@ -9,6 +9,7 @@ import Logo from "./src/screens/Logo/Logo";
 import OnBoarding from "./src/screens/Onboarding/OnBoarding";
 import Home from "./src/screens/Home/Home";
 import Login from "./src/screens/Login/Login";
+import ForgotPass from "./src/screens/ForgotPassword/ForgotPassword.jsx";
 import Register from "./src/screens/Register/Register";
 import Loading from "./src/screens/Loading/Loading";
 import CardDetail from "./src/screens/Card Detail/CardDetail";
@@ -19,6 +20,8 @@ import Title_Fee_Desc from './src/screens/FormEvent/Title_Fee_Desc'
 import FormDatePicker from "./src/screens/FormEvent/FormDatePicker.jsx";
 import FormMaps from "./src/screens/FormEvent/FormMaps.jsx";
 import FormCardPreview from "./src/screens/FormEvent/FormCardPreview.jsx";
+import Profile from "./src/screens/Profile/Profile.jsx";
+import EditProfile from "./src/screens/Edit Profile/EditProfile.jsx";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -40,7 +43,10 @@ export default function App() {
           <Stack.Screen name="FormMaps" component={FormMaps} />
           <Stack.Screen name="FormCardPreview" component={FormCardPreview} />
 
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="EditProfile" component={EditProfile} />
           <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="ForgotPass" component={ForgotPass} />
           <Stack.Screen name="Register" component={Register} />
         </Stack.Navigator>
       </NavigationContainer>

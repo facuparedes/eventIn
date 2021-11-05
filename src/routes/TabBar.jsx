@@ -1,13 +1,12 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Entypo, FontAwesome, AntDesign } from "@expo/vector-icons";
-import { TouchableOpacity, Text, Image, StyleSheet, Dimensions } from "react-native";
+import { TouchableOpacity, Text, Image, StyleSheet, Dimensions, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useSelector } from 'react-redux';
 
 import Home from "../screens/Home/Home";
-import Login from "../screens/Login/Login";
-import Register from "../screens/Register/Register";
-import FormEvent from "../screens/FormEvent/FormEvent";
+import Profile from "../screens/Profile/Profile";
 import Title_Fee_Desc from "../screens/FormEvent/Title_Fee_Desc";
 
 const Tab = createBottomTabNavigator();
@@ -15,6 +14,19 @@ const Tab = createBottomTabNavigator();
 const windowHeight = Dimensions.get("window").height;
 
 export default function TabBar({ navigation }) {
+  const logged = useSelector(state=>state.isLogged)
+
+  function handleGoToForm () {
+    if (logged) {
+      navigation.navigate("Form")
+    } else {
+      Alert.alert('Acceso denegado', 'Tenés que estar iniciar sesión para crear un evento.', [
+        {text: 'Ahora no'},
+        {text: 'Iniciar sesión', onPress: () => navigation.navigate('Login')}
+      ]); 
+    }
+  }
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -51,7 +63,7 @@ export default function TabBar({ navigation }) {
           ),
           headerRight: () => (
             <TouchableOpacity>
-              <Text onPress={() => navigation.navigate("Form")} style={{ fontSize: 40, marginRight: 20 }}>
+              <Text onPress={handleGoToForm} style={{ fontSize: 40, marginRight: 20 }}>
                 +
               </Text>
             </TouchableOpacity>
@@ -60,26 +72,11 @@ export default function TabBar({ navigation }) {
       />
 
       <Tab.Screen
-        name="Login"
-        component={Login}
-        options={{
-          tabBarIcon: ({ color, size }) => <Entypo name="login" color={color} size={size} />,
-        }}
-      />
-
-      <Tab.Screen
-        name="Register"
-        component={Register}
-        options={{
-          tabBarIcon: ({ color, size }) => <FontAwesome name="sign-in" color={color} size={size} />,
-        }}
-      />
-      <Tab.Screen
-        name="Create event"
-        component={Title_Fee_Desc}
+        name="Perfil"
+        component={Profile}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => <AntDesign name="form" color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => <AntDesign name="user" color={color} size={size} />,
         }}
       />
     </Tab.Navigator>
