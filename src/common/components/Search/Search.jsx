@@ -20,7 +20,7 @@ export default function Search() {
     if (title === "todos") {
       dispatch(getEvents());
     } else if(title === ""){
-      alert("Please write a title")
+      alert("Por favor escribe un Titulo")
     }else {
       dispatch(getEventsByName(title));
     }
