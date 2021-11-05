@@ -28,7 +28,7 @@ export default function Search() {
 
   return (
     <View style={styles.container}>
-      <TextInput style={styles.textInput} placeholder="Search" placeholderTextColor="#fff" onChangeText={handleInputChange} value={title}/>
+      <TextInput style={styles.textInput} placeholder="Search Title" placeholderTextColor="#0808088f" onChangeText={handleInputChange} value={title}/>
       <TouchableOpacity style={styles.touchableOpacity} onPress={handleSubmit}>
         <Feather name="search" style={styles.iconStyle} />
       </TouchableOpacity>
