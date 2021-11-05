@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+export const { width, height } = Dimensions.get("screen");
 
 
 export const styles = StyleSheet.create({
@@ -6,7 +8,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F0EEEE',
     height: 35,
     borderRadius: 4,
-    width: '50%',
+    width: width/2.0,
     flexDirection: 'row',
     marginTop: 2,
     //alignItems: 'center',
@@ -15,7 +17,7 @@ export const styles = StyleSheet.create({
   },
   textInput: {
     marginLeft: 10,
-    fontSize: 17,
+    fontSize: 15,
     flex: 1,
     color: '#080808',
   },
