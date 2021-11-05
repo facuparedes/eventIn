@@ -1,16 +1,16 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo, FontAwesome, AntDesign } from "@expo/vector-icons";
-import { TouchableOpacity, Text, Image, StyleSheet, Dimensions, Alert } from "react-native";
+import { Entypo, MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
+import { TouchableOpacity, Text, Image, Dimensions, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from 'react-redux';
 
 import Home from "../screens/Home/Home";
+import Profile from "../screens/Profile/Profile";
 import Search from "../common/components/Search/Search";
 
-import Profile from "../screens/Profile/Profile";
 import { View } from "react-native";
-import {styles} from './styles'
+import styles from './styles'
 
 const Tab = createBottomTabNavigator();
 
@@ -56,8 +56,8 @@ export default function TabBar({ navigation }) {
                 style={{
                   resizeMode: "contain",
                   height: "100%",
-                  width: windowHeight / 12,
-                  marginHorizontal: 10,
+                  width: windowHeight / 10,
+                  marginHorizontal: 16,
                   alignSelf: "flex-start",
                 }}
                 source={require("../assets/Logo.png")}
@@ -66,12 +66,15 @@ export default function TabBar({ navigation }) {
           ),
           headerRight: () => (
             <View style={styles.headerRight}>
-              <Search/>
-            <TouchableOpacity>
-              <Text onPress={handleGoToForm} style={{ fontSize: 40, marginRight: 20 }}>
-                +
-              </Text>
-            </TouchableOpacity>
+              <Search />
+            <TouchableOpacity onPress={handleGoToForm}>
+              <MaterialCommunityIcons 
+                name="plus" 
+                size={36} 
+                color="black" 
+                style={{marginRight: 12, marginTop: 2, marginLeft: -6}}
+                />
+              </TouchableOpacity>
             </View>
           ),
         }}
@@ -85,6 +88,25 @@ export default function TabBar({ navigation }) {
           tabBarIcon: ({ color, size }) => <AntDesign name="user" color={color} size={size} />,
         }}
       />
+      {
+        !logged &&
+        <Tab.Screen
+          name=" "
+          component={Home}
+          options={{
+            tabBarIcon: () => <TouchableOpacity 
+              onPress={()=>navigation.navigate('Login')
+            //     ()=>Alert.alert('Hola', 'Querés loggearte?', [
+            //   {text:'Si', onPress:()=>navigation.navigate('Login')}
+            // ])
+              } 
+            style={styles.button}   
+           >
+            <Text style={styles.logText}>Iniciar sesión</Text>
+          </TouchableOpacity>
+          }}
+        />
+      }
     </Tab.Navigator>
   );
 }
