@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  button: {
+  buttonLogin: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -14,15 +14,26 @@ const styles = StyleSheet.create({
     marginTop: 5,
     marginBottom: -10,
     marginRight: 10,
-    borderWidth: 1,
     borderRadius: 4
   },
-  logText: {
+  textLogin: {
     padding: 4,
     marginTop: -1,
     fontWeight: 'bold',
     alignSelf: 'center',
     color: 'white'
+  },
+  buttonLogout: {
+    backgroundColor: 'black',
+    width: 120,
+    borderRadius: 4,
+    marginRight: 7
+  },
+  textLogout: {
+    paddingVertical: 10,
+    color: 'white',
+    fontWeight: 'bold',
+    alignSelf: 'center',
   }
 })
 
