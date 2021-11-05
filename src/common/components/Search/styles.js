@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#C0C0C0',
+    backgroundColor: '#F0EEEE',
     height: 35,
     borderRadius: 4,
     width: '50%',
@@ -15,11 +15,12 @@ export const styles = StyleSheet.create({
   },
   textInput: {
     marginLeft: 10,
-    fontSize: 18,
+    fontSize: 17,
     flex: 1,
+    color: '#080808',
   },
   iconStyle: {
-    fontSize: 25,
+    fontSize: 24,
     alignSelf: 'center',
     marginHorizontal: 12,
   },
