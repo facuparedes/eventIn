@@ -17,7 +17,7 @@ export default function Search() {
   }
 
   function handleSubmit() {
-    if (title === "todos") {
+    if (title === "todos" || title === "") {
       dispatch(getEvents());
     } else {
       dispatch(getEventsByName(title));
