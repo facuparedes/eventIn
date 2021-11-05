@@ -6,6 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import formStyles from "./FormStyles";
 import {styles} from "../../common/components/Card/styles";
+import Event from '../../../api/firebase/models/event'
 import moment from "moment";
 
 const FormCardPreview = ({ navigation }) => {
@@ -14,6 +15,10 @@ const FormCardPreview = ({ navigation }) => {
   const diff = moment(moment.now()).diff(eventInfo.start.date, "hours");
   const isToday = diff < 24 && diff >= 0;
 
+  const handleAccept = async () => {
+    Event.create(eventInfo);
+    navigation.replace("Home")
+  }
   return (
     <SafeAreaView style={formStyles.container}>
       <LinearProgress color="lightgreen" variant="determinate" value={0.9} />
@@ -38,7 +43,7 @@ const FormCardPreview = ({ navigation }) => {
       </View>
 
       <View style={formStyles.btnsContainer}>
-        <TouchableOpacity title="Pago" onPress={() => navigation.replace("Home")} style={formStyles.btn}>
+        <TouchableOpacity title="Pago" onPress={handleAccept} style={formStyles.btn}>
           <Text style={formStyles.textBtn}>Aceptar</Text>
         </TouchableOpacity>
       </View>
