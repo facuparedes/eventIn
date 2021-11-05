@@ -38,7 +38,7 @@ export default function TabBar({ navigation }) {
 
   function alertLogOut() {
     Alert.alert(auth.currentUser.displayName, "¿Estas seguro de que deseas cerrar sesión?", [
-      { text: "Cancelar", onPress: () => navigation.navigate("Profile") },
+      { text: "Cancelar" },
       { text: "Aceptar", onPress: () => logOut() },
     ]);
   };
