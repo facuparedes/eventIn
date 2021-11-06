@@ -1,9 +1,12 @@
 import Validator, { ValidationSchema } from "fastest-validator";
 import { GeoPoint, Timestamp } from "firebase/firestore";
+import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 import Model from "./model";
 const v = new Validator();
 const opt = { optional: true };
-const updateV = new Validator({ defaults: { string: opt, boolean: opt, number: opt, enum: opt, object: opt, url: opt } });
+const updateV = new Validator({ defaults: { string: opt, boolean: opt, number: opt, enum: opt, object: opt, array: opt, url: opt } });
 
 /** @type {ValidationSchema} */
 const EventSchema = {
@@ -33,8 +36,13 @@ const EventSchema = {
     minProps: 2,
     props: { lat: "number", long: "number" },
   },
-  /** TEMPORAL PHOTO */
-  photo: "url|empty:false",
+  attachments: {
+    type: "array",
+    empty: false,
+    unique: true,
+    min: 1,
+    items: "string|empty:false|trim|min:1",
+  },
   $$strict: "remove",
 };
 
@@ -65,6 +73,31 @@ class Event extends Model {
   }
 
   /**
+   * Upload images/videos.
+   *
+   * @param {string[]} uriFiles
+   * @returns {Promise<*>}
+   * @private
+   */
+  async __upload(uriFiles) {
+    const fileRef = ref(getStorage(), uuidv4());
+    const uploadFileAndGetURL = uriFiles.map((uri) =>
+      new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = () => resolve(xhr.response);
+        xhr.onerror = (e) => reject(e);
+        xhr.responseType = "blob";
+        xhr.open("GET", uri, true);
+        xhr.send(null);
+      })
+        .then((blob) => uploadBytes(fileRef, blob).then(() => blob.close()))
+        .then(() => getDownloadURL(fileRef))
+    );
+
+    return await Promise.all(uploadFileAndGetURL);
+  }
+
+  /**
    * Create a new `event` on database.
    *
    * @param {*} event
@@ -77,6 +110,8 @@ class Event extends Model {
 
       try {
         if (errors) throw new Error(result);
+
+        event.attachments = await this.__upload(event.attachments);
 
         await super.create(this.__eventToFirebase(event));
         resolve();
