@@ -34,6 +34,15 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     alignSelf: 'center',
+  },
+  searchIcon: {
+    fontSize: 26,
+    alignSelf: 'center',
+    marginHorizontal: 12,
+  },
+  searchContainer: {
+    marginRight: 5,
+    marginTop: 3
   }
 })
 

@@ -6,7 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
 import { getEventsByName, getEvents } from "../../redux/actions";
 
-export default function Search() {
+export default function Search({display, setDisplay}) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   //console.log("soy el title", title);
@@ -20,7 +20,7 @@ export default function Search() {
     if (title === "todos") {
       dispatch(getEvents());
     } else if(title === ""){
-      alert("Por favor escribe un Titulo")
+      setDisplay(false);
     }else {
       dispatch(getEventsByName(title));
     }

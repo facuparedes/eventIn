@@ -8,11 +8,12 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F0EEEE',
     height: 35,
     borderRadius: 4,
-    width: width/2.2,
+    width: width / 2.2,
     flexDirection: 'row',
     marginTop: 2,
+    marginRight: 5,
     //alignItems: 'center',
-    marginHorizontal: 15,
+    // marginHorizontal: 15,
     //justifyContent: 'center',
   },
   textInput: {
@@ -22,12 +23,12 @@ export const styles = StyleSheet.create({
     color: '#080808',
   },
   iconStyle: {
-    fontSize: 24,
+    fontSize: 26,
     alignSelf: 'center',
     marginHorizontal: 12,
   },
   touchableOpacity: {
-    marginTop: 6,
+    marginTop: 4
   }
-  
+
 })
