@@ -7,6 +7,7 @@ import { Input, Text, LinearProgress, CheckBox } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker"
 
 // Validate Function
 function validate(form) {
@@ -36,8 +37,8 @@ function validate(form) {
     errorsValidate.category = "Debes seleccionar una categoría.";
   }
 
-  if (!form.photo) {
-    errorsValidate.photo = "Debes ingresar un link con una foto.";
+  if (!form.attachments) {
+    errorsValidate.photo = "Debes seleccionar una foto de tu galería.";
   }
   return errorsValidate;
 }
@@ -48,7 +49,9 @@ const Title_Fee_Desc = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [fee, setFee] = useState(0);
-  const [photo, setPhoto] = useState("");
+
+  const [attachments, setAttachments] = useState([]);
+
   const [isPublic, setIsPublic] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   // Categories states (not form)
@@ -72,10 +75,6 @@ const Title_Fee_Desc = ({ navigation }) => {
     setFee(value);
   };
 
-  const handlePhoto = (text) => {
-    setPhoto(text);
-  };
-
   const handleIsPublic = () => {
     setIsPublic(!isPublic);
   };
@@ -88,6 +87,20 @@ const Title_Fee_Desc = ({ navigation }) => {
     setShowCategories(!showCategories);
   };
 
+  let openImagePickerAsync = async()=>{
+    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if(permissionResult.granted === false){
+        alert("El permiso es requerido");
+        return;
+    }
+    let pickerResult = await ImagePicker.launchImageLibraryAsync()
+    if(pickerResult.cancelled=== true){
+        return;
+    }
+    setSelectedImage(attachments.push(pickerResult));
+  };
+
   function handleNext() {
     if (!isPublic && !isPrivate) return Alert.alert("Selecciona un tipo de evento.");
 
@@ -95,7 +108,7 @@ const Title_Fee_Desc = ({ navigation }) => {
       title,
       description,
       fee,
-      photo,
+      attachments,
       category: categories,
     });
 
@@ -105,7 +118,7 @@ const Title_Fee_Desc = ({ navigation }) => {
         title,
         description,
         fee: feeNum,
-        photo,
+        attachments,
         isPublic: isPublic ? true : false,
         category: categories,
       };
@@ -135,7 +148,22 @@ const Title_Fee_Desc = ({ navigation }) => {
 
         <Input label="Tarifa" placeholder="Tarifa" inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} onChangeText={handleFee} />
 
-        <Input label="Fotos" placeholder="Añadir link de la foto" inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} onChangeText={handlePhoto} />
+        <Input 
+          label="Fotos" 
+          placeholder="Presiona el botón para seleccionar una foto" 
+          inputStyle={styles.input} 
+          labelStyle={styles.label} 
+          inputContainerStyle={styles.inputCont} 
+        // onChangeText={handlePhoto}
+         />
+        <TouchableOpacity 
+          onPress={openImagePickerAsync}
+          style={{
+            borderWith: 2,
+          }}
+        >
+          <Text>Seleeciona una foto</Text>
+        </TouchableOpacity>
 
         <Text style={styles.textType}>Tipo de evento:</Text>
         <View style={styles.checkBox}>
