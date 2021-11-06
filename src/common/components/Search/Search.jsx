@@ -5,6 +5,7 @@ import { styles } from "./styles";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
 import { getEventsByName, getEvents } from "../../redux/actions";
+import * as Animatable from 'react-native-animatable';
 
 export default function Search({display, setDisplay}) {
   const dispatch = useDispatch();
@@ -30,7 +31,9 @@ export default function Search({display, setDisplay}) {
 
   return (
     <View style={styles.container}>
-      <TextInput style={styles.textInput} placeholder="Buscar por Titulo" placeholderTextColor="#0808088f" onChangeText={handleInputChange} value={title}/>
+      <Animatable.View animation='slideInRight' duration={1200}>
+        <TextInput style={styles.textInput} placeholder="Buscar por Titulo" placeholderTextColor="#0808088f" onChangeText={handleInputChange} value={title}/>
+      </Animatable.View>
       <TouchableOpacity style={styles.touchableOpacity} onPress={handleSubmit}>
         <Feather name="search" style={styles.iconStyle} />
       </TouchableOpacity>
