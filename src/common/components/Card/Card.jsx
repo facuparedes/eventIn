@@ -38,7 +38,6 @@ export default function Card({ id, title, description, date, photo, navigation }
           <View style={styles.card_body}>
             <Image source={{ uri: photo }} style={styles.card_body_image} resizeMode={"cover"} />
             <Text style={[styles.card_body_date, isToday ? styles.card_body_date_active : ""]}>{moment(date).fromNow()}</Text>
-            {console.log(moment(date).toNow())}
           </View>
         </TouchableOpacity>
       </View>

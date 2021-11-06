@@ -8,35 +8,44 @@ const styles = StyleSheet.create({
     flex: 1,
     alignContent: "center",
     justifyContent: "flex-start",
-    backgroundColor: "grey",
+    backgroundColor: "#ffffff",
   },
   viewCont: {
-    fontSize: 20,
     marginTop: 4,
   },
   header: {
     width: "100%",
-    height: height * 0.385,
+    height: height * 0.36,
     paddingTop: 20,
+  },
+  btnBackBg: {
+    position: "absolute",
+    paddingTop: height * 0.04,
+    paddingLeft: width * 0.03,
   },
   btnBack: {
     position: "absolute",
-    paddingTop: 30,
-    paddingLeft: 10,
+    paddingTop: height * 0.043,
+    paddingLeft: width * 0.035,
   },
   btnLikeBackground: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
     position: "absolute",
     alignSelf: "flex-end",
-    paddingTop: height * 0.335,
-    paddingRight: width * 0.05,
+    paddingTop: height * 0.23,
   },
   btnLike: {
     position: "absolute",
     alignSelf: "flex-end",
-    paddingTop: height * 0.351,
-    paddingRight: width * 0.068,
+    paddingTop: height * 0.246,
+    paddingRight: width * 0.037,
+  },
+  btnShare: {
+    position: "absolute",
+    alignSelf: "flex-end",
+    paddingTop: height * 0.303,
+    paddingRight: width * 0.04,
   },
   img: {
     position: "relative",
@@ -46,29 +55,78 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
   },
+  body: {
+    backgroundColor: "white",
+    width: "100%",
+    height: height * 0.615,
+    alignSelf: "center",
+    borderRadius: 30,
+  },
+  contentTitled: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   title: {
-    fontSize: 30,
-    marginBottom: 10,
-    borderTopWidth: 1,
-    marginLeft: 0,
-    paddingTop: 16,
-    borderTopColor: "#6ad5ce",
+    fontFamily: "Gotham-Medium",
+    fontSize: 26,
   },
-  viewTitle: {
-    alignSelf: "flex-start",
-    backgroundColor: "#d7eae9",
+  fee: {
+    fontFamily: "Gotham-Bold",
+    fontSize: 22,
   },
-  bold: {
-    fontWeight: "bold",
+  dataContain: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  textConts: {
-    marginLeft: 6,
+  textBody: {
+    fontFamily: "Gotham-Light",
+    fontSize: 15,
+  },
+  location: {
+    fontFamily: "Gotham-LightItalic",
+    fontSize: 15,
+    color: "blue",
+    textDecorationLine: "underline",
+  },
+  maps: {
+    height: height * 0.1,
+    width: width * 0.2,
+    borderRadius: 10,
+  },
+  descContent: {
+    flex: 2,
+  },
+  subTitle: {
+    fontFamily: "Gotham-Bold",
+    fontSize: 16,
     marginTop: 10,
   },
-  viewContLine: {
-    borderBottomWidth: 1,
-    borderBottomColor: "#6ad5ce",
-    marginLeft: 0,
+  gallery: {
+    flex: 3,
+    flexDirection: "row",
+  },
+  imgContent: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 10,
+  },
+  imgIzq: {
+    resizeMode: "contain",
+    width: width * 0.4,
+    height: height * 0.13,
+    borderRadius: 20,
+  },
+  imgDer: {
+    resizeMode: "contain",
+    width: width * 0.45,
+    height: height * 0.247,
+    borderRadius: 20,
   },
 });
 
