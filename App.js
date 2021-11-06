@@ -15,6 +15,11 @@ import Loading from "./src/screens/Loading/Loading";
 import CardDetail from "./src/screens/Card Detail/CardDetail";
 import moment from "moment";
 import "moment/locale/es";
+//imports del Form
+import Title_Fee_Desc from './src/screens/FormEvent/Title_Fee_Desc'
+import FormDatePicker from "./src/screens/FormEvent/FormDatePicker.jsx";
+import FormMaps from "./src/screens/FormEvent/FormMaps.jsx";
+import FormCardPreview from "./src/screens/FormEvent/FormCardPreview.jsx";
 import Profile from "./src/screens/Profile/Profile.jsx";
 import EditProfile from "./src/screens/Edit Profile/EditProfile.jsx";
 import AppLoading from "expo-app-loading";
@@ -60,9 +65,14 @@ export default function App() {
           <Stack.Screen name="TabBar" component={TabBar} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="CardDetail" component={CardDetail} />
+                          {/*FORM SECTION*/}
+          <Stack.Screen name="Form" component={Title_Fee_Desc} />
+          <Stack.Screen name="FormDatePicker" component={FormDatePicker} />
+          <Stack.Screen name="FormMaps" component={FormMaps} />
+          <Stack.Screen name="FormCardPreview" component={FormCardPreview} />
+
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
-          <Stack.Screen name="Form" component={FormEvent} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="ForgotPass" component={ForgotPass} />
           <Stack.Screen name="Register" component={Register} />

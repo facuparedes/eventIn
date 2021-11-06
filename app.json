@@ -2,6 +2,8 @@
   "expo": {
     "name": "EventIn",
     "slug": "proyecto-grupal",
+    "privacy": "public",
+    "description": "the best application",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/IconLogo.png",
@@ -13,12 +15,14 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
-      "package": "henry.eventin", 
+      "package": "henry.eventin",
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
