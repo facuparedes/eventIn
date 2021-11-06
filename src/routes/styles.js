@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   searchIcon: {
-    fontSize: 26,
+    fontSize: 28,
     alignSelf: 'center',
     marginHorizontal: 12,
     backgroundColor: '#F0EEEE',

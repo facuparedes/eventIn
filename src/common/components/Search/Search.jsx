@@ -32,7 +32,7 @@ export default function Search({display, setDisplay}) {
   return (
     <View style={styles.container}>
       <Animatable.View animation='zoomIn' duration={1200}>
-        <TextInput style={styles.textInput} placeholder="Buscar por Titulo" placeholderTextColor="#0808088f"  onChangeText={handleInputChange} value={title}/>
+        <TextInput style={styles.textInput} placeholder="Buscar por título..." placeholderTextColor="#0808088f"  onChangeText={handleInputChange} value={title}/>
       </Animatable.View>
       <TouchableOpacity style={styles.touchableOpacity} onPress={handleSubmit}>
         <Feather name="search" style={styles.iconStyle} />
