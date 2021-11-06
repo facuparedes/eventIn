@@ -1,9 +1,9 @@
-import { GET_EVENTS, GET_DETAILS, GET_EVENTS_CATEGORY, IS_LOGGED, GET_EVENTS_BY_TITLE } from "./actions";
+import { GET_EVENTS, GET_DETAILS, GET_EVENTS_CATEGORY, IS_LOGGED, GET_EVENTS_BY_TITLE, GET_EVENTS_DATE } from "./actions";
 
 const initialState = {
   events: [],
   detail: [],
-  isLogged: ''
+  isLogged: "",
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -23,7 +23,13 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         events: action.payload,
-      }
+      };
+
+    case GET_EVENTS_DATE:
+      return {
+        ...state,
+        events: action.payload,
+      };
     case GET_DETAILS:
       return {
         ...state,
@@ -33,8 +39,8 @@ export const rootReducer = (state = initialState, action) => {
     case IS_LOGGED:
       return {
         ...state,
-        isLogged: action.payload
-      }
+        isLogged: action.payload,
+      };
     default:
       return state;
   }
