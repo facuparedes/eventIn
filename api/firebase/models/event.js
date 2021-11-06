@@ -1,9 +1,12 @@
 import Validator, { ValidationSchema } from "fastest-validator";
 import { GeoPoint, Timestamp } from "firebase/firestore";
+import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
+import "react-native-get-random-values";
+import { v4 as uuidv4 } from "uuid";
 import Model from "./model";
 const v = new Validator();
 const opt = { optional: true };
-const updateV = new Validator({ defaults: { string: opt, boolean: opt, number: opt, enum: opt, object: opt, url: opt } });
+const updateV = new Validator({ defaults: { string: opt, boolean: opt, number: opt, enum: opt, object: opt, array: opt, url: opt } });
 
 /** @type {ValidationSchema} */
 const EventSchema = {
@@ -33,8 +36,13 @@ const EventSchema = {
     minProps: 2,
     props: { lat: "number", long: "number" },
   },
-  /** TEMPORAL PHOTO */
-  photo: "url|empty:false",
+  attachments: {
+    type: "array",
+    empty: false,
+    unique: true,
+    min: 1,
+    items: "string|empty:false|trim|min:1",
+  },
   $$strict: "remove",
 };
 
@@ -50,10 +58,11 @@ class Event extends Model {
   __mergeDateAndTime = super.__mergeDateAndTime;
 
   /** @private */
-  __eventToFirebase(event) {
+  async __eventToFirebase(event) {
     if (event.location) event.location = new GeoPoint(event.location.lat, event.location.long);
     if (event.start) event.start = this.__mergeDateAndTime(event.start.date, event.start.time);
     if (event.end) event.end = this.__mergeDateAndTime(event.end.date, event.end.time);
+    if (event.attachments) event.attachments = await this.__upload(event.attachments);
     return event;
   }
 
@@ -62,6 +71,31 @@ class Event extends Model {
     event.start = new Timestamp(event.start.seconds, event.start.nanoseconds).toDate();
     event.end = new Timestamp(event.end.seconds, event.end.nanoseconds).toDate();
     return event;
+  }
+
+  /**
+   * Upload images/videos.
+   *
+   * @param {string[]} uriFiles
+   * @returns {Promise<*>}
+   * @private
+   */
+  async __upload(uriFiles) {
+    const fileRef = ref(getStorage(), uuidv4());
+    const uploadFileAndGetURL = uriFiles.map((uri) =>
+      new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.onload = () => resolve(xhr.response);
+        xhr.onerror = (e) => reject(e);
+        xhr.responseType = "blob";
+        xhr.open("GET", uri, true);
+        xhr.send(null);
+      })
+        .then((blob) => uploadBytes(fileRef, blob).then(() => blob.close()))
+        .then(() => getDownloadURL(fileRef))
+    );
+
+    return await Promise.all(uploadFileAndGetURL);
   }
 
   /**
@@ -78,7 +112,7 @@ class Event extends Model {
       try {
         if (errors) throw new Error(result);
 
-        await super.create(this.__eventToFirebase(event));
+        await super.create(await this.__eventToFirebase(event));
         resolve();
       } catch (e) {
         if (errors) console.log("Invalid data!\nErrors:", result);
@@ -103,7 +137,7 @@ class Event extends Model {
         if (typeof id !== "string") throw new Error("Invalid id!");
         if (errors) throw new Error(result);
 
-        await super.update(id, this.__eventToFirebase(event));
+        await super.update(id, await this.__eventToFirebase(event));
         resolve();
       } catch (e) {
         if (errors) console.log("Invalid data!\nErrors:", result);

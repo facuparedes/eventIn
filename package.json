@@ -15,14 +15,13 @@
     "@react-navigation/core": "^6.1.0",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/stack": "^6.0.11",
-    "expo": "~43.0.1",
+    "expo": "~43.0.2",
     "expo-app-loading": "~1.2.1",
-    "expo-font": "~10.0.3",
     "expo-image-picker": "~11.0.3",
     "expo-location": "~13.0.4",
     "expo-status-bar": "~1.1.0",
     "fastest-validator": "^1.12.0",
-    "firebase": "^9.2.0",
+    "firebase": "^9.3.0",
     "moment": "^2.29.1",
     "react": "17.0.1",
     "react-dom": "17.0.1",
@@ -31,6 +30,7 @@
     "react-native-chooser": "^1.7.0",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
+    "react-native-get-random-values": "~1.7.0",
     "react-native-google-places-autocomplete": "^2.4.1",
     "react-native-maps": "^0.28.0",
     "react-native-onboarding-swiper": "^1.1.4",
@@ -41,7 +41,8 @@
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
     "redux-devtools-extension": "^2.13.9",
-    "redux-thunk": "^2.4.0"
+    "redux-thunk": "^2.4.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
