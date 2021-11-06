@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { changeIsLogged, getEvents, getEventsByCategory } from '../../common/redux/actions';
 import { onAuthStateChanged } from 'firebase/auth';
-import { View, Button, Alert, Text } from "react-native";
+import { View, Button, Alert, Text,  BackHandler } from "react-native";
 import { styles } from "./styles.js";
 import { Picker } from "@react-native-picker/picker";
 import auth from "../../../api/firebase/services/AuthService";
@@ -16,6 +16,27 @@ export default function Home({navigation}) {
 
   const [categ, setCateg] = useState("Categoría");
   const category = ["Categoría", "Bar", "Deportes", "Fiesta", "Musica", "Teatro"];
+
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert("Espera!", "Estás seguro de que quieres salir?", [
+        {
+          text: "Cancelar",
+          onPress: () => null,
+          style: "cancel"
+        },
+        { text: "SI!", onPress: () => BackHandler.exitApp() }
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+
+    return () => backHandler.remove();
+  }, []);
 
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, (user) => {

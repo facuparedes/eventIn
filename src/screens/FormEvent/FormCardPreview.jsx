@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Image, Alert } from "react-native";
+import { View, Image, Alert} from "react-native";
 import { Input, Text, LinearProgress } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -17,8 +17,10 @@ const FormCardPreview = ({ navigation }) => {
 
   const handleAccept = async () => {
     Event.create(eventInfo);
-    navigation.replace("Home")
+    navigation.replace('TabBar');
   }
+
+
   return (
     <SafeAreaView style={estilos.container}>
       <LinearProgress color="lightgreen" variant="determinate" value={0.9} />
