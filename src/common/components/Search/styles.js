@@ -25,7 +25,7 @@ export const styles = StyleSheet.create({
   iconStyle: {
     fontSize: 26,
     alignSelf: 'center',
-    marginHorizontal: 12,
+    marginHorizontal: 20,
   },
   touchableOpacity: {
     marginTop: 4

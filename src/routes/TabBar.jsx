@@ -94,7 +94,7 @@ export default function TabBar({ navigation }) {
               {
                 !display && 
                   <TouchableOpacity style={styles.searchContainer} onPress={() => setDisplay(true)}>
-                     <Feather name="search" style={styles.searchIcon} />
+                    <Feather name="search" style={styles.searchIcon} />
                   </TouchableOpacity>
               }
             <TouchableOpacity onPress={handleGoToForm}>
@@ -102,7 +102,7 @@ export default function TabBar({ navigation }) {
                 name="plus" 
                 size={36} 
                 color="black" 
-                style={{marginRight: 12, marginTop: 2, marginLeft: -6}}
+                style={{marginRight: 12, marginTop: 2, marginLeft: -6, borderRadius: 999, backgroundColor: "#F0EEEE"}}
                 />
               </TouchableOpacity>
             </View>

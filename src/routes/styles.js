@@ -39,6 +39,9 @@ const styles = StyleSheet.create({
     fontSize: 26,
     alignSelf: 'center',
     marginHorizontal: 12,
+    backgroundColor: '#F0EEEE',
+    borderRadius: 999,
+    padding: 4,
   },
   searchContainer: {
     marginRight: 5,
