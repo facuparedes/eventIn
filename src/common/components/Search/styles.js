@@ -7,27 +7,27 @@ export const styles = StyleSheet.create({
   container: {
     backgroundColor: '#F0EEEE',
     height: 35,
-    borderRadius: 4,
-    width: width/2.2,
     flexDirection: 'row',
     marginTop: 2,
-    //alignItems: 'center',
-    marginHorizontal: 15,
-    //justifyContent: 'center',
+    marginRight: 16,
+    borderRadius: 40
   },
   textInput: {
+    width: width / 2.5,
     marginLeft: 10,
     fontSize: 15,
     flex: 1,
     color: '#080808',
+    paddingLeft: 3,
   },
   iconStyle: {
-    fontSize: 24,
+    fontSize: 27,
     alignSelf: 'center',
-    marginHorizontal: 12,
+    marginRight: 6,
+    marginTop: -1
   },
   touchableOpacity: {
-    marginTop: 6,
+    marginTop: 4
   }
-  
+
 })
