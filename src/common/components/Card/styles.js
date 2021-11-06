@@ -11,11 +11,12 @@ export const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "rgba(95, 95, 95, 0.1)",
     borderRadius: 20,
-    elevation: 10,
+    elevation: 15,
     alignItems: "center",
     justifyContent: "space-around",
     paddingHorizontal: 15,
     marginVertical: 12,
+    marginHorizontal: 10,
   },
   btn_container: {
     flex: 1,

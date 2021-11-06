@@ -28,7 +28,7 @@ export default function DatePicker() {
   return (
     <View>
       <TouchableOpacity onPress={() => showMode("date")}>
-        <MaterialIcons name="date-range" size={70} color="#29adbf" style={{marginLeft: "30%"}} />
+        <MaterialIcons name="date-range" size={41} color="#29adbf" />
       </TouchableOpacity>
 
       {show && (
