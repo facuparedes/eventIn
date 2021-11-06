@@ -102,7 +102,7 @@ export default function TabBar({ navigation }) {
                 name="plus" 
                 size={36} 
                 color="black" 
-                style={{marginRight: 12, marginTop: 2, marginLeft: -6, borderRadius: 999, backgroundColor: "#F0EEEE"}}
+                style={{marginRight: 12, marginTop: 2, marginLeft: 0, borderRadius: 999, backgroundColor: "#F0EEEE"}}
                 />
               </TouchableOpacity>
             </View>
