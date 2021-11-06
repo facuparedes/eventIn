@@ -212,6 +212,30 @@ const styles = StyleSheet.create({
     },
     arrowIcon: {
         marginBottom: -4
+    },
+    photoBtn: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        backgroundColor: '#298bc4',
+        borderRadius: 4,
+        width: "40%",
+        flexDirection: 'row',
+        height: 38,
+        marginBottom: 20,
+        marginTop: -18,
+        marginLeft: 9
+    },
+    textPhotoBtn: {
+        marginLeft: 8,
+        color: 'white',
+        alignSelf: 'center',
+        fontWeight: 'bold'
     }
 })
 

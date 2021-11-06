@@ -94,11 +94,14 @@ const Title_Fee_Desc = ({ navigation }) => {
         alert("El permiso es requerido");
         return;
     }
-    let pickerResult = await ImagePicker.launchImageLibraryAsync()
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
     if(pickerResult.cancelled=== true){
         return;
     }
-    setSelectedImage(attachments.push(pickerResult));
+    console.log(pickerResult.uri);
+    await setAttachments([...attachments, pickerResult.uri]);
+
+    await console.log(attachments);
   };
 
   function handleNext() {
@@ -148,23 +151,16 @@ const Title_Fee_Desc = ({ navigation }) => {
 
         <Input label="Tarifa" placeholder="Tarifa" inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} onChangeText={handleFee} />
 
-        <Input 
-          label="Fotos" 
-          placeholder="Presiona el botón para seleccionar una foto" 
-          inputStyle={styles.input} 
-          labelStyle={styles.label} 
-          inputContainerStyle={styles.inputCont} 
-        // onChangeText={handlePhoto}
-         />
-        <TouchableOpacity 
-          onPress={openImagePickerAsync}
-          style={{
-            borderWith: 2,
-          }}
-        >
-          <Text>Seleeciona una foto</Text>
-        </TouchableOpacity>
-
+        <View>
+          <Text>Fotos</Text>
+          <TouchableOpacity 
+            onPress={openImagePickerAsync}
+            style={styles.photoBtn}
+          >
+            <Text style={styles.textPhotoBtn}>Selecciona una foto</Text>
+          </TouchableOpacity>
+        </View>
+        
         <Text style={styles.textType}>Tipo de evento:</Text>
         <View style={styles.checkBox}>
           {!isPublic && !isPrivate ? (
