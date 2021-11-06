@@ -3,8 +3,9 @@ import { where } from "firebase/firestore"
 
 export const GET_EVENTS = "GET_EVENTS";
 export const GET_DETAILS = "GET_DETAILS";
+export const ADD_EVENT_INFO = "ADD_EVENT_INFO";
+export const GET_EVENTS_CATEGORY = "GET_EVENTS_CATEGORY"
 export const GET_EVENTS_BY_TITLE = "GET_EVENTS_BY_TITLE";
-export const GET_EVENTS_CATEGORY = "GET_EVENTS_CATEGORY";
 export const IS_LOGGED = "IS_LOGGED";
 export const GET_EVENTS_DATE= "GET_EVENTS_DATE";
 
@@ -65,6 +66,12 @@ export const getDetails = (id) => {
   return {
     type: GET_DETAILS,
     payload: id,
+  };
+};
+export const addEventInfo = (data) => {
+  return {
+    type: ADD_EVENT_INFO,
+    payload: data,
   };
 };
 
