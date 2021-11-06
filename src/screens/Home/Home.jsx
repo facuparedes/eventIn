@@ -36,22 +36,25 @@ export default function Home({ navigation }) {
   }
   
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
-      <View style={styles.filterLogout}>
-        <Picker
-          selectedValue={categ}
-          onValueChange={(value, index) => handleFilterCategory(value)}
-          mode="dropdown" // Android only
-          style={styles.picker}
-        >
-          {category.map((item, i) => {
-            return <Picker.Item  key={i} value={item} label={item} />;
-          })}
-        </Picker>
+    <View style={styles.container}>
+      <View style={styles.filtersContainer}>
+        <View style={styles.viewPicker}>
+          <Picker
+            selectedValue={categ}
+            onValueChange={(value, index) => handleFilterCategory(value)}
+            mode="dropdown" // Android only
+            style={styles.picker}
+          >
+            {category.map((item, i) => {
+              return <Picker.Item  key={i} value={item} label={item} />;
+            })}
+          </Picker>
+        </View>
+        <View style={styles.datePicker}>
+          <DatePicker />
+        </View>
+        </View>
 
-        <DatePicker/>
-
-      </View>
       <View style={{ flex: 1, alignItems: "center", width: "100%" }}>
         <CardsFlat />
       </View>
