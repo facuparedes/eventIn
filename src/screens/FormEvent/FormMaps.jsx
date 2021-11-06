@@ -9,6 +9,7 @@ import MapView, { Callout, Marker } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import * as Location from "expo-location";
 import { useDispatch } from "react-redux";
+import { Ionicons } from '@expo/vector-icons';
 
 // IMPORTANTE-- TODAVIA NO ANDA LA BARRA DE BUSQUEDA,SOLO ANDA NAVEGANDO EN EL MAPA Y PONIENDO EL PIN
 //              EN EL LUGAR DESEADO
@@ -52,7 +53,7 @@ const FormMaps = ({ navigation }) => {
 
   const handleShowMap = () => {
     setShowMap(true);
-    Alert.alert("Para mover el pin debes precionarlo un momento");
+    Alert.alert("Importante!", "Para mover el pin debes mantenerlo presionado.");
   };
 
   const handleHideMap = () => {
@@ -73,11 +74,11 @@ const FormMaps = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <LinearProgress color="lightgreen" variant="determinate" value={0.6} />
 
-      <Text>FORM MAP</Text>
+      <Text h3 style={styles.textLoc}>Elige una ubicación:</Text>
       {/* <ScrollView> */}
       <View style={{ marginTop: 50 }}>
         <TouchableOpacity title="elegir ubicacion" onPress={handleShowMap} style={styles.btn2}>
-          <Text>elegir ubicacion en el mapa</Text>
+          <Text style={styles.textMaps}>Mostrar mapa</Text>
         </TouchableOpacity>
         <GooglePlacesAutocomplete
           placeholder="Search"
@@ -102,7 +103,14 @@ const FormMaps = ({ navigation }) => {
             location: `${region.latitude},${region.longitude}`,
           }}
           styles={{
-            container: { flex: 0, width: "100%", zIndex: 1 },
+            container: { 
+              flex: 0, 
+              width: "100%", 
+              zIndex: 1, 
+              borderWidth: 1, 
+              borderRadius: 6, 
+              height: 50 
+            },
             listView: { backgroundColor: "white" },
           }}
         />
@@ -142,14 +150,24 @@ const FormMaps = ({ navigation }) => {
             </Marker>
           </MapView>
         )}
-
-        <TouchableOpacity title="sacar mapa" onPress={handleHideMap} style={styles.btn2}>
-          <Text>sacar mapa</Text>
-        </TouchableOpacity>
+        { showMap &&
+          <TouchableOpacity title="sacar mapa" onPress={handleHideMap} style={styles.btn2}>
+            <Text style={styles.textMaps}>Ocultar mapa</Text>
+          </TouchableOpacity>
+        }
       </View>
       <View style={styles.btnsContainer}>
-        <TouchableOpacity title="Siguiente..." onPress={handleNext} style={styles.btn}>
+        <TouchableOpacity 
+            title="Siguiente..." 
+            onPress={handleNext} 
+            style={[
+              styles.btn, 
+              {flexDirection: 'row', 
+              justifyContent: 'center'
+              }
+              ]}>
           <Text style={styles.textBtn}>Siguiente</Text>
+          <Ionicons name="arrow-forward" size={28} color="#fff" style={styles.arrowIcon}/>
         </TouchableOpacity>
       </View>
       {/* </ScrollView> */}

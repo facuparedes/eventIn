@@ -173,19 +173,45 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         marginLeft: 8
     },
-    btn2:{
-        backgroundColor: '#298bc4',
-        height: 35,
-        width: '100%',
-        // paddingLeft: 5,
+    btn2: {
+        // backgroundColor: '#298bc4',
+        backgroundColor: '#fff',
+        height: 42,
+        width: '44%',
         paddingHorizontal: 4,
         paddingBottom: 10,
-        // paddingRight: 5,
         paddingTop: 10,
         borderRadius: 6,
-        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'center',
+        marginLeft: 14,
         marginTop: 5,
         marginBottom: 15,
+        borderWidth: 1,
+        borderColor: '#298bc4',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    textMaps: {
+        color: 'black',
+        alignSelf: 'center',
+        marginTop: -3,
+        fontWeight: 'bold',
+        fontSize: 16
+    },
+    textLoc: {
+        fontWeight: 'bold',
+        marginTop: 20,
+        marginBottom: -20
+    },
+    arrowIcon: {
+        marginBottom: -4
     }
 })
 
