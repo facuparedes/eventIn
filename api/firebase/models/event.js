@@ -58,10 +58,11 @@ class Event extends Model {
   __mergeDateAndTime = super.__mergeDateAndTime;
 
   /** @private */
-  __eventToFirebase(event) {
+  async __eventToFirebase(event) {
     if (event.location) event.location = new GeoPoint(event.location.lat, event.location.long);
     if (event.start) event.start = this.__mergeDateAndTime(event.start.date, event.start.time);
     if (event.end) event.end = this.__mergeDateAndTime(event.end.date, event.end.time);
+    if (event.attachments) event.attachments = await this.__upload(event.attachments);
     return event;
   }
 
@@ -111,9 +112,7 @@ class Event extends Model {
       try {
         if (errors) throw new Error(result);
 
-        event.attachments = await this.__upload(event.attachments);
-
-        await super.create(this.__eventToFirebase(event));
+        await super.create(await this.__eventToFirebase(event));
         resolve();
       } catch (e) {
         if (errors) console.log("Invalid data!\nErrors:", result);
@@ -138,7 +137,7 @@ class Event extends Model {
         if (typeof id !== "string") throw new Error("Invalid id!");
         if (errors) throw new Error(result);
 
-        await super.update(id, this.__eventToFirebase(event));
+        await super.update(id, await this.__eventToFirebase(event));
         resolve();
       } catch (e) {
         if (errors) console.log("Invalid data!\nErrors:", result);
