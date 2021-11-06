@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo, MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
+import { Entypo, MaterialCommunityIcons, AntDesign, Feather } from "@expo/vector-icons";
 import { TouchableOpacity, Text, Image, Dimensions, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from 'react-redux';
@@ -23,6 +23,7 @@ const windowHeight = Dimensions.get("window").height;
 
 export default function TabBar({ navigation }) {
   const logged = useSelector(state=>state.isLogged);
+  const [display, setDisplay] = useState(false);
   const dispatch = useDispatch();
 
   function handleGoToForm () {
@@ -87,13 +88,21 @@ export default function TabBar({ navigation }) {
           ),
           headerRight: () => (
             <View style={styles.headerRight}>
-              <Search />
+              {
+                display && <Search display={display} setDisplay={setDisplay}/>
+              } 
+              {
+                !display && 
+                  <TouchableOpacity style={styles.searchContainer} onPress={() => setDisplay(true)}>
+                    <Feather name="search" style={styles.searchIcon} />
+                  </TouchableOpacity>
+              }
             <TouchableOpacity onPress={handleGoToForm}>
               <MaterialCommunityIcons 
                 name="plus" 
                 size={36} 
                 color="black" 
-                style={{marginRight: 12, marginTop: 2, marginLeft: -6}}
+                style={{marginRight: 12, marginTop: 2, marginLeft: 0, borderRadius: 999, backgroundColor: "#F0EEEE"}}
                 />
               </TouchableOpacity>
             </View>
