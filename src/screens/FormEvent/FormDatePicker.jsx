@@ -7,7 +7,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./FormStyles";
-import { MaterialIcons, Feather } from "@expo/vector-icons";
+import { MaterialIcons, Feather, Ionicons } from "@expo/vector-icons";
 
 // Validate Function
 function validate(form) {
@@ -252,10 +252,20 @@ const FormDatePicker = ({ navigation }) => {
       </View>
 
       <View style={styles.btnsContainer}>
-        <TouchableOpacity title="Siguiente..." style={styles.btn} onPress={handleNext}>
-          <Text style={styles.textBtn}>Siguiente</Text>
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity 
+          title="Siguiente..." 
+          onPress={handleNext}
+          style={[
+            styles.btn,
+            {
+              flexDirection: 'row'
+            }
+          ]} 
+          >
+            <Text style={[styles.textBtn, {marginLeft: 40}]}>Siguiente</Text>
+            <Ionicons name="arrow-forward" size={28} color="#fff" style={styles.arrowIcon}/>
+          </TouchableOpacity>
+        </View>
     </SafeAreaView>
   );
 };

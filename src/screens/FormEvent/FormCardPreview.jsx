@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { View, Image, Alert} from "react-native";
 import { Input, Text, LinearProgress } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -9,6 +9,7 @@ import Event from '../../../api/firebase/models/event'
 import moment from "moment";
 import estilos from "./CardPreviewStyles";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
+
 const FormCardPreview = ({ navigation }) => {
   const eventInfo = useSelector((state) => state.eventForm);
 
@@ -17,6 +18,8 @@ const FormCardPreview = ({ navigation }) => {
 
   const handleAccept = async () => {
     Event.create(eventInfo);
+    // ESTO HAY QUE SACARLO CUANDO PONGAMOS PASARELA DE PAGO!! ES SOLO PARA LA SEGUNDA DEMO.
+    Alert.alert('Tu evento ha sido creado!')
     navigation.replace('TabBar');
   }
 
@@ -26,9 +29,9 @@ const FormCardPreview = ({ navigation }) => {
       <LinearProgress color="lightgreen" variant="determinate" value={0.9} />
       <View style={(estilos.textAndImg)}>
         <Text h4 style={estilos.titleText}>
-          Preview del Evento
+          Vista previa del Evento:
         </Text>
-        <Image source={require("../../assets/Logo.png")} style={estilos.logoImage} />
+        <Image source={require("../../assets/Logo.png")} style={[estilos.logoImage, {marginLeft: 40}]} />
       </View>
       
       <View style={estilos.cardContainer}>

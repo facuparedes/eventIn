@@ -6,7 +6,7 @@ import { Alert, View, Image, ScrollView } from "react-native";
 import { Input, Text, LinearProgress, CheckBox } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { MaterialIcons, Feather } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 
 // Validate Function
 function validate(form) {
@@ -268,8 +268,18 @@ const Title_Fee_Desc = ({ navigation }) => {
         ) : null}
 
         <View style={styles.btnsContainer}>
-          <TouchableOpacity title="Siguiente..." style={styles.btn} onPress={handleNext}>
-            <Text style={styles.textBtn}>Siguiente</Text>
+          <TouchableOpacity 
+          title="Siguiente..." 
+          onPress={handleNext}
+          style={[
+            styles.btn,
+            {
+              flexDirection: 'row'
+            }
+          ]} 
+          >
+            <Text style={[styles.textBtn, {marginLeft: 40}]}>Siguiente</Text>
+            <Ionicons name="arrow-forward" size={28} color="#fff" style={styles.arrowIcon}/>
           </TouchableOpacity>
         </View>
       </ScrollView>
