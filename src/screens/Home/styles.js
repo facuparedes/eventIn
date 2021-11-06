@@ -1,30 +1,32 @@
 import { StyleSheet } from "react-native";
+import { color } from "react-native-elements/dist/helpers";
+import { height, width } from "../Onboarding/styles";
 
 export const styles = StyleSheet.create({
 
   picker: {
-    backgroundColor: "#29adbf",
-    color: "black",
-    marginVertical: 5,
-    width: "45%",
-    marginLeft: "2%",
-    color: 'white'
+
+    alignSelf:"center",
+    width:"100%",
+    color:"#6ad5ce",
+    
   },
   filterLogout: {
-    flexDirection: 'row',
+    borderWidth:2,
+    display:"flex",
+    alignItems:"center",
+    width:"38%",
+    flexDirection:"column",
+    height:40,
+    justifyContent:"center",
+    borderRadius:5,
+    marginLeft: 10,
+    borderColor:"#6ad5ce",
+    marginVertical: 20,
+   
+    
+    
+    
   },
-  logout: {
-    backgroundColor: '#29adbf',
-    width: '100%',
-    padding: 15,
-    borderRadius: 6,
-    alignItems: 'center',
-    marginTop: 5,
-    marginLeft: 30
-  },
-  logOutText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'white'
-  }
+  
 });
