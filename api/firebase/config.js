@@ -2,6 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { setLogLevel } from "@firebase/firestore";
 import { initializeFirestore } from "@firebase/firestore";
+import { LogBox } from "react-native";
+LogBox.ignoreLogs(['Setting a timer']);
 // setLogLevel('debug')
 
 const firebaseConfig = {
