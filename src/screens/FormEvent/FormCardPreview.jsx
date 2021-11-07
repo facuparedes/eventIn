@@ -19,7 +19,7 @@ const FormCardPreview = ({ navigation }) => {
   const handleAccept = async () => {
     Event.create(eventInfo);
     // ESTO HAY QUE SACARLO CUANDO PONGAMOS PASARELA DE PAGO!! ES SOLO PARA LA SEGUNDA DEMO.
-    Alert.alert('Tu evento ha sido creado!')
+    Alert.alert('Tu evento ha sido creado!');
     navigation.replace('TabBar');
   }
 
