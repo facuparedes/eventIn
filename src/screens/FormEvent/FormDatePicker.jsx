@@ -93,7 +93,11 @@ const FormDatePicker = ({ navigation }) => {
     setTime(currentTime);
 
     let tempTime = new Date(currentTime);
-    let fTime = tempTime.getHours() + ":" + tempTime.getMinutes();
+    let minutes = tempTime.getMinutes();
+    let hours = tempTime.getHours();
+    if (minutes.toString().length === 1) minutes = '0' + minutes.toString();
+    if (hours < 10 ) hours = '0' +  hours.toString();
+    let fTime = hours + ":" + minutes;
     setTextTimeStart(fTime);
     setTimeValueStart(tempTime);
     setShowTimeStart(false);
@@ -107,7 +111,11 @@ const FormDatePicker = ({ navigation }) => {
     setTime(currentTime);
 
     let tempTime = new Date(currentTime);
-    let fTime = tempTime.getHours() + ":" + tempTime.getMinutes();
+    let minutes = tempTime.getMinutes();
+    let hours = tempTime.getHours();
+    if (minutes.toString().length === 1) minutes = '0' + minutes.toString();    
+    if (hours < 10) hours = '0' +  hours.toString();
+    let fTime = hours + ":" + minutes;
     setTextTimeEnd(fTime);
     setTimeValueEnd(tempTime);
     setShowTimeEnd(false);
@@ -117,8 +125,8 @@ const FormDatePicker = ({ navigation }) => {
     // Form validation
     let errorsForm = validate({
       start: {
-        date: dateValueStart,
-        time: timeValueStart,
+        date: textDateStart, 
+        time: textTimeStart,
       },
       end: {
         date: textDateEnd,
