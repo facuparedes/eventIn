@@ -4,7 +4,7 @@ const initialState = {
   events: [],
   detail: [],
   eventForm: {},
-  isLogged: "",
+  isLogged: {},
 };
 
 export const rootReducer = (state = initialState, action) => {

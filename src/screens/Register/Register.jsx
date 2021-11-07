@@ -191,7 +191,7 @@ export default function Register ({navigation}) {
                         checkPassword ? (
                         <Feather 
                             name="check-circle"
-                            color={colorPass === "yellow" ? "#FFC300" : "green"}
+                            color={colorPass === "yellow" ? "#ffb400" : "green"}
                             size={24}
                             style={styles.icon}
                         />

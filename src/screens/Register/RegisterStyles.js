@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         marginBottom: -5
     },
     passWarnYellow: {
-        color: '#FFC300',
+        color: '#ffb400',
         fontSize: 12,
         marginLeft: 8,
         marginBottom: -17
