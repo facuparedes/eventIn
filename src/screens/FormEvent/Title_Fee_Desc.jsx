@@ -37,7 +37,7 @@ function validate(form) {
     errorsValidate.category = "Debes seleccionar una categoría.";
   }
 
-  if (!form.attachments) {
+  if (form.attachments.length === 0) {
     errorsValidate.photo = "Debes seleccionar una foto de tu galería.";
   }
   return errorsValidate;
@@ -109,7 +109,7 @@ const Title_Fee_Desc = ({ navigation }) => {
       title,
       description,
       fee,
-      attachments,
+      attachments: attachments,
       category: categories,
     });
 
@@ -126,7 +126,7 @@ const Title_Fee_Desc = ({ navigation }) => {
       dispatch(addEventInfo(partialEvent));
       navigation.navigate("FormDatePicker");
     } else {
-      return Alert.alert("Error en la información ingresada.");
+      return Alert.alert(`${Object.values(errorsForm)[0]}`);
     }
     if (fee === 0) Alert.alert("Tu evento será gratuito");
   }

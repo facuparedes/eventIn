@@ -16,26 +16,26 @@ export default function Home({ navigation }) {
   const [categ, setCateg] = useState("Categoría");
   const category = ["Categoría", "Todas",  "Bar", "Deportes", "Fiesta", "Musica", "Teatro"];
 
-  useEffect(() => {
-    const backAction = () => {
-      Alert.alert("Espera!", "Estás seguro de que quieres salir?", [
-        {
-          text: "Cancelar",
-          onPress: () => null,
-          style: "cancel"
-        },
-        { text: "SI!", onPress: () => BackHandler.exitApp() }
-      ]);
-      return true;
-    };
+  // useEffect(() => {
+  //   const backAction = () => {
+  //     Alert.alert("Espera!", "Estás seguro de que quieres salir?", [
+  //       {
+  //         text: "Cancelar",
+  //         onPress: () => null,
+  //         style: "cancel"
+  //       },
+  //       { text: "SI!", onPress: () => BackHandler.exitApp() }
+  //     ]);
+  //     return true;
+  //   };
 
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
+  //   const backHandler = BackHandler.addEventListener(
+  //     "hardwareBackPress",
+  //     backAction
+  //   );
 
-    return () => backHandler.remove();
-  }, []);
+  //   return () => backHandler.remove();
+  // }, []);
 
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, (user) => {

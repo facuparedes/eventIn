@@ -140,7 +140,7 @@ const FormDatePicker = ({ navigation }) => {
       dispatch(addEventInfo(partialEvent));
       navigation.navigate("FormMaps");
     } else {
-      return Alert.alert('Error en la información ingresada.')
+      return Alert.alert(`${Object.values(errorsForm)[0]}`);
     }
   }
 

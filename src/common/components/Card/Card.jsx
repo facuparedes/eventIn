@@ -10,7 +10,6 @@ export default function Card({ id, title, description, date, attachments, naviga
 
   const [liked, setLiked] = useState(false);
 
-  console.log(attachments);
   const addFavourite = () => {
     setLiked(!liked);
     //acá iría el dispatch a addFavourite

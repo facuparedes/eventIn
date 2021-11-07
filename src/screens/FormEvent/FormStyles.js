@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     btn: {
-        backgroundColor: '#6ad5ce',
+        backgroundColor: '#00BD9D',
         height: 50,
         width: 200,
         // paddingLeft: 5,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginBottom: 15,
         borderWidth: 1.5,
-        borderColor: '#6ad5ce'
+        borderColor: '#d7eae9'
     },
     catIcon: {
         marginRight: 8,
