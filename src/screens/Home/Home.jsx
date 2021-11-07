@@ -8,7 +8,7 @@ import { Picker } from "@react-native-picker/picker";
 import auth from "../../../api/firebase/services/AuthService";
 import CardsFlat from "../../common/components/CardsFlat/CardsFlat";
 import DatePicker from "../../common/components/DatePicker/DatePicker";
-import {categoryArray} from '../../screens/FormEvent/categorys.js'
+import {categoryArray} from '../../screens/FormEvent/categories.js'
 
 
 
@@ -19,7 +19,7 @@ export default function Home({ navigation }) {
   var categArray2=[...categoryArray];
   categArray2.splice(1,0,"Todas");
 
-    useEffect(() => {
+  useEffect(() => {
     const subscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const presentUser = {

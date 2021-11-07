@@ -9,7 +9,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker"
 import { Picker } from "@react-native-picker/picker";///
-import {categoryArray} from './categorys.js'
+import {categoryArray} from './categories.js'
 
 // Validate Function
 function validate(form) {
