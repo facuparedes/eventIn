@@ -8,36 +8,18 @@ import { Picker } from "@react-native-picker/picker";
 import auth from "../../../api/firebase/services/AuthService";
 import CardsFlat from "../../common/components/CardsFlat/CardsFlat";
 import DatePicker from "../../common/components/DatePicker/DatePicker";
+import {categoryArray} from '../../screens/FormEvent/categorys.js'
+
 
 
 export default function Home({ navigation }) {
   const dispatch = useDispatch();
   
   const [categ, setCateg] = useState("Categoría");
-  const category = ["Categoría", "Todas",  "Bar", "Deportes", "Fiesta", "Musica", "Teatro"];
+  var categArray2=[...categoryArray];
+  categArray2.splice(1,0,"Todas");
 
-  // useEffect(() => {
-  //   const backAction = () => {
-  //     Alert.alert("Espera!", "Estás seguro de que quieres salir?", [
-  //       {
-  //         text: "Cancelar",
-  //         onPress: () => null,
-  //         style: "cancel"
-  //       },
-  //       { text: "SI!", onPress: () => BackHandler.exitApp() }
-  //     ]);
-  //     return true;
-  //   };
-
-  //   const backHandler = BackHandler.addEventListener(
-  //     "hardwareBackPress",
-  //     backAction
-  //   );
-
-  //   return () => backHandler.remove();
-  // }, []);
-
-  useEffect(() => {
+    useEffect(() => {
     const subscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         const presentUser = {
@@ -70,7 +52,7 @@ export default function Home({ navigation }) {
             mode="dropdown" // Android only
             style={styles.picker}
           >
-            {category.map((item, i) => {
+            {categArray2.map((item, i) => {
               return <Picker.Item  key={i} value={item} label={item} />;
             })}
           </Picker>
