@@ -35,16 +35,16 @@ export const getEventsByCategory = (category) => {
 };
 
 export const getEventsByDate = (date) => {
-  console.log("ACTION: ", date)
+  var filterDate= [];
   return async function (dispatch) {
-    let resultDate = await event.find(where("start", "==", date));
-    console.log("EVENTO X FECHA: ",resultDate)
-    if(resultDate.length>0){
+    let resultDate = await event.findAll();
+    filterDate = resultDate.filter((d) => d.start.toLocaleDateString() === date.toLocaleDateString());
+    if(filterDate.length>0){
       return dispatch({
         type: GET_EVENTS_DATE,
-        payload: resultDate,
+        payload: filterDate,
       });
-    }else alert("no hay eventos en esa fecha")
+    }else alert("no hay eventos en esa fecha");
   };
 };
 
