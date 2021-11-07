@@ -69,12 +69,28 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         // borderWidth: 1,
         // borderColor: 'black'
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     categoriesView: {
         flex: 1,
         flexDirection: 'row'
     },
     btnCategories: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 3,
         backgroundColor: '#fff',
         height: 36,
         width: 134,
@@ -213,6 +229,14 @@ const styles = StyleSheet.create({
     arrowIcon: {
         marginBottom: -4
     },
+    photosContainer: {
+        flexDirection: 'column'
+    },
+    photosText: {
+        marginLeft: 10,
+        fontSize: 15,
+        marginBottom: 10
+    },
     photoBtn: {
         shadowColor: "#000",
         shadowOffset: {
@@ -228,7 +252,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 38,
         marginBottom: 20,
-        marginTop: -18,
         marginLeft: 9
     },
     textPhotoBtn: {
@@ -236,6 +259,10 @@ const styles = StyleSheet.create({
         color: 'white',
         alignSelf: 'center',
         fontWeight: 'bold'
+    },
+    selectedPhotosText: {
+        marginLeft: 9,
+        marginBottom: 6
     }
 })
 

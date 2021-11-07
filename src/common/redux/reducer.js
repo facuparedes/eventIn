@@ -44,7 +44,6 @@ export const rootReducer = (state = initialState, action) => {
       for (const prop in newEventData) {
         eventData[prop] = newEventData[prop];
       }
-      console.log(eventData);
 
       return {
         ...state,

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEventInfo } from "../../common/redux/actions";
 import styles from "./FormStyles";
-import { Alert, View, Image, ScrollView } from "react-native";
+import { Alert, View, Image, ScrollView, FlatList } from "react-native";
 import { Input, Text, LinearProgress, CheckBox } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -98,10 +98,8 @@ const Title_Fee_Desc = ({ navigation }) => {
     if(pickerResult.cancelled=== true){
         return;
     }
-    console.log(pickerResult.uri);
-    await setAttachments([...attachments, pickerResult.uri]);
 
-    await console.log(attachments);
+    await setAttachments([...attachments, pickerResult.uri]);
   };
 
   function handleNext() {
@@ -151,8 +149,16 @@ const Title_Fee_Desc = ({ navigation }) => {
 
         <Input label="Tarifa" placeholder="Tarifa" inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} onChangeText={handleFee} />
 
-        <View>
-          <Text>Fotos</Text>
+        <View style={styles.photosContainer}>
+          <Text style={styles.photosText}>Fotos</Text>
+          { 
+            attachments.length === 1 && 
+            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto</Text>
+          }
+          {
+            attachments.length > 1 && 
+            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos</Text>
+          }
           <TouchableOpacity 
             onPress={openImagePickerAsync}
             style={styles.photoBtn}
