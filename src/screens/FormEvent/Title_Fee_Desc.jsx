@@ -7,9 +7,9 @@ import { Input, Text, LinearProgress, CheckBox } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
-import * as ImagePicker from "expo-image-picker"
-import { Picker } from "@react-native-picker/picker";///
-import {categoryArray} from './categories.js'
+import * as ImagePicker from "expo-image-picker";
+import { Picker } from "@react-native-picker/picker"; ///
+import { categoryArray } from "./../../common/categories";
 
 // Validate Function
 function validate(form) {
@@ -35,7 +35,7 @@ function validate(form) {
   if (form.fee < 0) {
     errorsValidate.feeM = "La tarifa no puede ser menor a 0.";
   }
-  if (form.category==="Categoría") {
+  if (form.category === "Categoría") {
     errorsValidate.category = "Debes seleccionar una categoría.";
   }
 
@@ -48,7 +48,7 @@ function validate(form) {
 const Title_Fee_Desc = ({ navigation }) => {
   const dispatch = useDispatch();
 
-  const [categ, setCateg] = useState("Categoría");///
+  const [categ, setCateg] = useState("Categoría"); ///
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -58,7 +58,7 @@ const Title_Fee_Desc = ({ navigation }) => {
 
   const [isPublic, setIsPublic] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
-  
+
   const handleTitle = (text) => {
     setTitle(text);
   };
@@ -79,35 +79,35 @@ const Title_Fee_Desc = ({ navigation }) => {
     setIsPrivate(!isPrivate);
   };
 
-  let openImagePickerAsync = async()=>{
+  let openImagePickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if(permissionResult.granted === false){
-        alert("El permiso es requerido");
-        return;
+    if (permissionResult.granted === false) {
+      alert("El permiso es requerido");
+      return;
     }
     let pickerResult = await ImagePicker.launchImageLibraryAsync();
 
-    if(pickerResult.cancelled=== true){
-        return;
+    if (pickerResult.cancelled === true) {
+      return;
     }
 
     await setAttachments([...attachments, pickerResult.uri]);
   };
 
-  let openVideoPickerAsync = async()=>{
+  let openVideoPickerAsync = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-    if(permissionResult.granted === false){
-        alert("El permiso es requerido");
-        return;
+    if (permissionResult.granted === false) {
+      alert("El permiso es requerido");
+      return;
     }
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: 'Videos'
+      mediaTypes: "Videos",
     });
-    
-    if(pickerResult.cancelled=== true){
-        return;
+
+    if (pickerResult.cancelled === true) {
+      return;
     }
 
     await setAttachments([...attachments, pickerResult.uri]);
@@ -162,32 +162,19 @@ const Title_Fee_Desc = ({ navigation }) => {
 
         <View style={styles.photosContainer}>
           <Text style={styles.photosText}>Fotos y Videos</Text>
-          { 
-            attachments.length === 1 && 
-            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto/video</Text>
-          }
-          {
-            attachments.length > 1 && 
-            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos/videos</Text>
-          }
+          {attachments.length === 1 && <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto/video</Text>}
+          {attachments.length > 1 && <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos/videos</Text>}
           <View style={styles.multimediaBtns}>
-            <TouchableOpacity 
-              onPress={openImagePickerAsync}
-              style={styles.photoBtn}
-            >
+            <TouchableOpacity onPress={openImagePickerAsync} style={styles.photoBtn}>
               <Text style={styles.textPhotoBtn}>Selecciona una foto</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity 
-              onPress={openVideoPickerAsync}
-              style={styles.videoBtn}
-            >
+            <TouchableOpacity onPress={openVideoPickerAsync} style={styles.videoBtn}>
               <Text style={styles.textVideoBtn}>Selecciona un video</Text>
             </TouchableOpacity>
           </View>
-
         </View>
-        
+
         <Text style={styles.textType}>Tipo de evento:</Text>
         <View style={styles.checkBox}>
           {!isPublic && !isPrivate ? (
@@ -202,34 +189,36 @@ const Title_Fee_Desc = ({ navigation }) => {
           )}
         </View>
 
-        <View >
+        <View>
           <Text style={styles.textType}>Categoría del evento:</Text>
           <Picker
-            style={{ height: 50, width: 200, color: "black", backgroundColor:"#d7eae9"}}
+            style={{ height: 50, width: 200, color: "black", backgroundColor: "#d7eae9" }}
             selectedValue={categ}
-            onValueChange={(value, index) => {setCateg(value)}}
+            onValueChange={(value, index) => {
+              setCateg(value);
+            }}
             mode="dropdown" // Android only
             //style={styles.picker}
           >
             {categoryArray.map((item, i) => {
-              return <Picker.Item  style={{color:"blue"}} key={i} value={item} label={item} />;
+              return <Picker.Item style={{ color: "blue" }} key={i} value={item} label={item} />;
             })}
           </Picker>
         </View>
 
         <View style={styles.btnsContainer}>
-          <TouchableOpacity 
-          title="Siguiente..." 
-          onPress={handleNext}
-          style={[
-            styles.btn,
-            {
-              flexDirection: 'row'
-            }
-          ]} 
+          <TouchableOpacity
+            title="Siguiente..."
+            onPress={handleNext}
+            style={[
+              styles.btn,
+              {
+                flexDirection: "row",
+              },
+            ]}
           >
-            <Text style={[styles.textBtn, {marginLeft: 40}]}>Siguiente</Text>
-            <Ionicons name="arrow-forward" size={28} color="#fff" style={styles.arrowIcon}/>
+            <Text style={[styles.textBtn, { marginLeft: 40 }]}>Siguiente</Text>
+            <Ionicons name="arrow-forward" size={28} color="#fff" style={styles.arrowIcon} />
           </TouchableOpacity>
         </View>
       </ScrollView>
