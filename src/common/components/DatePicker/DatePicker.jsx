@@ -17,7 +17,8 @@ export default function DatePicker() {
     setShow(Platform.OS === "ios");
     setDate(currentDate);
     console.log("Fecha elegida: ", date);
-    dispatch(getEventsByDate(date));
+    dispatch(getEventsByDate(selectedDate));
+    setDate(new Date());
   };
 
   const showMode = (currentMode) => {
