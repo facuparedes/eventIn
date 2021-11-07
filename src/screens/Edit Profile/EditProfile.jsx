@@ -5,10 +5,11 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import styles from "./styles"
 import { Feather , AntDesign } from '@expo/vector-icons'; 
 import * as ImagePicker from "expo-image-picker"
-
-
+import { useSelector } from 'react-redux';
 
 export default function EditProfile({navigation}) {
+const user = useSelector(state=>state.isLogged);
+
     const [selectedImage, setSelectedImage] = useState(null)
     let openImagePickerAsync = async()=>{
         let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -36,8 +37,8 @@ export default function EditProfile({navigation}) {
             <View >
             <TouchableOpacity onPress={openImagePickerAsync}><Text style={{color:"#306BAC", fontWeight: 'bold'}} >Cambia tu foto de perfil</Text></TouchableOpacity>
             </View>
-            <Input label="Nombre" placeholder="Escribe tu nombre">Juan Jausoro</Input>
-            <Input label="Mail" placeholder="Escribe tu mail">juanjauso@gmail.com</Input>
+            <Input label="Nombre" placeholder="Escribe tu nombre">{user.username}</Input>
+            <Input label="Mail" placeholder="Escribe tu mail">{user.email}</Input>
             </View>
         </SafeAreaView>
     )

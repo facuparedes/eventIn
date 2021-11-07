@@ -128,7 +128,7 @@ const Title_Fee_Desc = ({ navigation }) => {
     } else {
       return Alert.alert(`${Object.values(errorsForm)[0]}`);
     }
-    if (fee === 0) Alert.alert("Tu evento será gratuito");
+    if (fee === 0) Alert.alert("Tu evento será gratuito, podés volver atrás para cambiarlo.");
   }
 
   return (
