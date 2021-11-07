@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   header: {
     width: "100%",
-    height: height * 0.36,
+    height: height * 0.37,
     paddingTop: 20,
   },
   btnBackBg: {
@@ -33,7 +33,14 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     position: "absolute",
     alignSelf: "flex-end",
-    paddingTop: height * 0.23,
+    paddingTop: height * 0.232,
+  },
+  btnShareBackground: {
+    flex: 1,
+    flexDirection: "column",
+    position: "absolute",
+    alignSelf: "flex-end",
+    paddingTop: height * 0.29,
   },
   btnLike: {
     position: "absolute",
@@ -58,19 +65,19 @@ const styles = StyleSheet.create({
   body: {
     backgroundColor: "white",
     width: "100%",
-    height: height * 0.615,
     alignSelf: "center",
-    borderRadius: 30,
+    borderRadius: 25,
   },
   contentTitled: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    paddingVertical: 10,
   },
   title: {
     fontFamily: "Gotham-Medium",
-    fontSize: 26,
+    fontSize: 25,
   },
   fee: {
     fontFamily: "Gotham-Bold",
@@ -94,39 +101,22 @@ const styles = StyleSheet.create({
   },
   maps: {
     height: height * 0.1,
-    width: width * 0.2,
+    width: width * 0.225,
     borderRadius: 10,
   },
   descContent: {
-    flex: 2,
+    flex: 4,
   },
   subTitle: {
     fontFamily: "Gotham-Bold",
     fontSize: 16,
     marginTop: 10,
   },
-  gallery: {
-    flex: 3,
-    flexDirection: "row",
-  },
-  imgContent: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: 10,
-  },
-  imgIzq: {
-    resizeMode: "contain",
-    width: width * 0.4,
-    height: height * 0.13,
+  flatList: {
+    height: height * 0.3,
+    width: width * 0.875,
     borderRadius: 20,
-  },
-  imgDer: {
-    resizeMode: "contain",
-    width: width * 0.45,
-    height: height * 0.247,
-    borderRadius: 20,
+    marginHorizontal: 5,
   },
 });
 

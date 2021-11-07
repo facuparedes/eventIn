@@ -43,7 +43,7 @@ export const styles = StyleSheet.create({
     position: "relative",
     resizeMode: "cover",
     width: windowWidth / 1.17,
-    height: windowHeight / 3.7,
+    height: windowHeight / 3,
     borderRadius: 15,
   },
   card_footer: {
