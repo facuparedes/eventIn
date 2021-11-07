@@ -4,7 +4,7 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { styles } from "./styles.js";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 
-export default function Card({ id, title, description, date, photo, navigation }) {
+export default function Card({ id, title, description, date, attachments, navigation }) {
   const diff = moment(date).diff(moment.now(), "hours");
   const isToday = diff < 24 && diff >= 0;
 
@@ -36,7 +36,7 @@ export default function Card({ id, title, description, date, photo, navigation }
             </Text>
           </View>
           <View style={styles.card_body}>
-            <Image source={{ uri: photo }} style={styles.card_body_image} resizeMode={"cover"} />
+            <Image source={{ uri: attachments }} style={styles.card_body_image} resizeMode={"cover"} />
             <Text style={[styles.card_body_date, isToday ? styles.card_body_date_active : ""]}>{moment(date).fromNow()}</Text>
           </View>
         </TouchableOpacity>

@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEventInfo } from "../../common/redux/actions";
 import styles from "./FormStyles";
-import { Alert, View, Image, ScrollView } from "react-native";
+import { Alert, View, Image, ScrollView, FlatList } from "react-native";
 import { Input, Text, LinearProgress, CheckBox } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import * as ImagePicker from "expo-image-picker"
 
 // Validate Function
 function validate(form) {
@@ -36,8 +37,8 @@ function validate(form) {
     errorsValidate.category = "Debes seleccionar una categoría.";
   }
 
-  if (!form.photo) {
-    errorsValidate.photo = "Debes ingresar un link con una foto.";
+  if (form.attachments.length === 0) {
+    errorsValidate.photo = "Debes seleccionar una foto de tu galería.";
   }
   return errorsValidate;
 }
@@ -48,7 +49,9 @@ const Title_Fee_Desc = ({ navigation }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [fee, setFee] = useState(0);
-  const [photo, setPhoto] = useState("");
+
+  const [attachments, setAttachments] = useState([]);
+
   const [isPublic, setIsPublic] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   // Categories states (not form)
@@ -72,10 +75,6 @@ const Title_Fee_Desc = ({ navigation }) => {
     setFee(value);
   };
 
-  const handlePhoto = (text) => {
-    setPhoto(text);
-  };
-
   const handleIsPublic = () => {
     setIsPublic(!isPublic);
   };
@@ -88,6 +87,40 @@ const Title_Fee_Desc = ({ navigation }) => {
     setShowCategories(!showCategories);
   };
 
+  let openImagePickerAsync = async()=>{
+    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if(permissionResult.granted === false){
+        alert("El permiso es requerido");
+        return;
+    }
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+    if(pickerResult.cancelled=== true){
+        return;
+    }
+
+    await setAttachments([...attachments, pickerResult.uri]);
+  };
+
+  let openVideoPickerAsync = async()=>{
+    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if(permissionResult.granted === false){
+        alert("El permiso es requerido");
+        return;
+    }
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: 'Videos'
+    });
+    
+    if(pickerResult.cancelled=== true){
+        return;
+    }
+
+    await setAttachments([...attachments, pickerResult.uri]);
+  };
+
   function handleNext() {
     if (!isPublic && !isPrivate) return Alert.alert("Selecciona un tipo de evento.");
 
@@ -95,7 +128,7 @@ const Title_Fee_Desc = ({ navigation }) => {
       title,
       description,
       fee,
-      photo,
+      attachments: attachments,
       category: categories,
     });
 
@@ -105,16 +138,16 @@ const Title_Fee_Desc = ({ navigation }) => {
         title,
         description,
         fee: feeNum,
-        photo,
+        attachments,
         isPublic: isPublic ? true : false,
         category: categories,
       };
       dispatch(addEventInfo(partialEvent));
       navigation.navigate("FormDatePicker");
     } else {
-      return Alert.alert("Error en la información ingresada.");
+      return Alert.alert(`${Object.values(errorsForm)[0]}`);
     }
-    if (fee === 0) Alert.alert("Tu evento será gratuito");
+    if (fee === 0) Alert.alert("Tu evento será gratuito, podés volver atrás para cambiarlo.");
   }
 
   return (
@@ -135,8 +168,34 @@ const Title_Fee_Desc = ({ navigation }) => {
 
         <Input label="Tarifa" placeholder="Tarifa" inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} onChangeText={handleFee} />
 
-        <Input label="Fotos" placeholder="Añadir link de la foto" inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} onChangeText={handlePhoto} />
+        <View style={styles.photosContainer}>
+          <Text style={styles.photosText}>Fotos y Videos</Text>
+          { 
+            attachments.length === 1 && 
+            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto/video</Text>
+          }
+          {
+            attachments.length > 1 && 
+            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos/videos</Text>
+          }
+          <View style={styles.multimediaBtns}>
+            <TouchableOpacity 
+              onPress={openImagePickerAsync}
+              style={styles.photoBtn}
+            >
+              <Text style={styles.textPhotoBtn}>Selecciona una foto</Text>
+            </TouchableOpacity>
 
+            <TouchableOpacity 
+              onPress={openVideoPickerAsync}
+              style={styles.videoBtn}
+            >
+              <Text style={styles.textVideoBtn}>Selecciona un video</Text>
+            </TouchableOpacity>
+          </View>
+
+        </View>
+        
         <Text style={styles.textType}>Tipo de evento:</Text>
         <View style={styles.checkBox}>
           {!isPublic && !isPrivate ? (

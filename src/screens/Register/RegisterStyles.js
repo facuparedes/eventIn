@@ -85,8 +85,27 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     icon: {
-        marginLeft: -30,
-        alignSelf: 'center'
+        marginLeft: -32,
+        alignSelf: 'center',
+        marginBottom: -5
+    },
+    passWarnYellow: {
+        color: '#ffb400',
+        fontSize: 12,
+        marginLeft: 8,
+        marginBottom: -17
+    },
+    passWarnGreen: {
+        color: 'green',
+        fontSize: 12,
+        marginLeft: 8,
+        marginBottom: -17
+    },
+    passWarnRed: {
+        color: '#b70000',
+        fontSize: 12,
+        marginLeft: 8,
+        marginBottom: -17
     }
 })
 

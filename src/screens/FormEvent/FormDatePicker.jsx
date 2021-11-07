@@ -93,7 +93,11 @@ const FormDatePicker = ({ navigation }) => {
     setTime(currentTime);
 
     let tempTime = new Date(currentTime);
-    let fTime = tempTime.getHours() + ":" + tempTime.getMinutes();
+    let minutes = tempTime.getMinutes();
+    let hours = tempTime.getHours();
+    if (minutes.toString().length === 1) minutes = '0' + minutes.toString();
+    if (hours < 10 ) hours = '0' +  hours.toString();
+    let fTime = hours + ":" + minutes;
     setTextTimeStart(fTime);
     setTimeValueStart(tempTime);
     setShowTimeStart(false);
@@ -107,7 +111,11 @@ const FormDatePicker = ({ navigation }) => {
     setTime(currentTime);
 
     let tempTime = new Date(currentTime);
-    let fTime = tempTime.getHours() + ":" + tempTime.getMinutes();
+    let minutes = tempTime.getMinutes();
+    let hours = tempTime.getHours();
+    if (minutes.toString().length === 1) minutes = '0' + minutes.toString();    
+    if (hours < 10) hours = '0' +  hours.toString();
+    let fTime = hours + ":" + minutes;
     setTextTimeEnd(fTime);
     setTimeValueEnd(tempTime);
     setShowTimeEnd(false);
@@ -117,8 +125,8 @@ const FormDatePicker = ({ navigation }) => {
     // Form validation
     let errorsForm = validate({
       start: {
-        date: dateValueStart,
-        time: timeValueStart,
+        date: textDateStart, 
+        time: textTimeStart,
       },
       end: {
         date: textDateEnd,
@@ -140,7 +148,7 @@ const FormDatePicker = ({ navigation }) => {
       dispatch(addEventInfo(partialEvent));
       navigation.navigate("FormMaps");
     } else {
-      return Alert.alert('Error en la información ingresada.')
+      return Alert.alert(`${Object.values(errorsForm)[0]}`);
     }
   }
 
@@ -148,10 +156,17 @@ const FormDatePicker = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <LinearProgress color="lightgreen" variant="determinate" value={0.3} />
       <View style={(styles.textAndImg, { padding: 10 })}>
-        <Text h4 style={styles.titleText}>
-          Selecciona Fecha y Hora para tu Evento
+        <Text h4 style={[styles.titleText, {marginBottom: 65}]}>
+          Selecciona fecha y hora de tu Evento
         </Text>
-        <Image source={require("../../assets/Logo.png")} style={styles.logoImage} />
+        {/* <Image 
+          source={require("../../assets/Logo.png")} 
+          style={[styles.logoImage, {
+            marginTop: -46,
+            alignSelf: 'flex-end',
+            marginRight: 20,
+            marginBottom: 30
+          }]} /> */}
       </View>
       <View
         style={{

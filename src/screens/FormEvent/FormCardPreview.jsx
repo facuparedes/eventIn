@@ -19,7 +19,7 @@ const FormCardPreview = ({ navigation }) => {
   const handleAccept = async () => {
     Event.create(eventInfo);
     // ESTO HAY QUE SACARLO CUANDO PONGAMOS PASARELA DE PAGO!! ES SOLO PARA LA SEGUNDA DEMO.
-    Alert.alert('Tu evento ha sido creado!')
+    Alert.alert('Tu evento ha sido creado!');
     navigation.replace('TabBar');
   }
 
@@ -43,7 +43,7 @@ const FormCardPreview = ({ navigation }) => {
           <Text numberOfLines={3} style={estilos.card_header_description}> {eventInfo.description}</Text>
         </View>
         <View style={estilos.card_body}>
-          <Image source={{ uri: eventInfo.photo }} style={estilos.card_body_image} resizeMode={"cover"} />
+          <Image source={{ uri: eventInfo.attachments[0] }} style={estilos.card_body_image} resizeMode={"cover"} />
           <Text style={[estilos.card_body_date, isToday ? estilos.card_body_date_active : ""]}>{moment(eventInfo.start.date).toNow()}</Text>
         </View>
 

@@ -12,11 +12,13 @@ const styles = StyleSheet.create({
     },
     textAndImg: {
         flexDirection: 'row',
-        height: 60
+        height: 60,
+        marginVertical: 30,
+        marginLeft: 8
     },
     titleText: {
         textAlign: 'left',
-        marginTop: 10
+        marginVertical: 10
     },
     logoImage: {
         resizeMode: 'contain',
@@ -55,7 +57,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     btn: {
-        backgroundColor: '#6ad5ce',
+        backgroundColor: '#00BD9D',
         height: 50,
         width: 200,
         // paddingLeft: 5,
@@ -69,12 +71,28 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         // borderWidth: 1,
         // borderColor: 'black'
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
     },
     categoriesView: {
         flex: 1,
         flexDirection: 'row'
     },
     btnCategories: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 3,
         backgroundColor: '#fff',
         height: 36,
         width: 134,
@@ -84,7 +102,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginBottom: 15,
         borderWidth: 1.5,
-        borderColor: '#6ad5ce'
+        borderColor: '#d7eae9'
     },
     catIcon: {
         marginRight: 8,
@@ -212,6 +230,67 @@ const styles = StyleSheet.create({
     },
     arrowIcon: {
         marginBottom: -4
+    },
+    photosContainer: {
+        flexDirection: 'column'
+    },
+    photosText: {
+        marginLeft: 10,
+        fontSize: 15,
+        marginBottom: 10
+    },
+    photoBtn: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        backgroundColor: '#298bc4',
+        borderRadius: 4,
+        width: "100%",
+        flexDirection: 'row',
+        height: 38,
+        marginBottom: 20,
+        marginLeft: 9
+    },
+    textPhotoBtn: {
+        marginLeft: 8,
+        color: 'white',
+        alignSelf: 'center',
+        fontWeight: 'bold'
+    },
+    selectedPhotosText: {
+        marginLeft: 9,
+        marginBottom: 6
+    },
+    multimediaBtns: {
+        flexDirection: 'row'
+    },
+    videoBtn: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        backgroundColor: '#298bc4',
+        borderRadius: 4,
+        width: "83%",
+        flexDirection: 'row',
+        height: 38,
+        marginBottom: 20,
+        marginLeft: 40
+    },
+    textVideoBtn: {
+        marginLeft: 8,
+        color: 'white',
+        alignSelf: 'center',
+        fontWeight: 'bold'
     }
 })
 

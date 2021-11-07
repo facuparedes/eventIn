@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { changeIsLogged, getEvents, getEventsByCategory } from '../../common/redux/actions';
 import { onAuthStateChanged } from 'firebase/auth';
-import { View, Alert, BackHandler } from "react-native";
+import { View } from "react-native";
 import { styles } from "./styles.js";
 import { Picker } from "@react-native-picker/picker";
 import auth from "../../../api/firebase/services/AuthService";
@@ -16,32 +16,36 @@ export default function Home({ navigation }) {
   const [categ, setCateg] = useState("Categoría");
   const category = ["Categoría", "Todas",  "Bar", "Deportes", "Fiesta", "Musica", "Teatro"];
 
-  useEffect(() => {
-    const backAction = () => {
-      Alert.alert("Espera!", "Estás seguro de que quieres salir?", [
-        {
-          text: "Cancelar",
-          onPress: () => null,
-          style: "cancel"
-        },
-        { text: "SI!", onPress: () => BackHandler.exitApp() }
-      ]);
-      return true;
-    };
+  // useEffect(() => {
+  //   const backAction = () => {
+  //     Alert.alert("Espera!", "Estás seguro de que quieres salir?", [
+  //       {
+  //         text: "Cancelar",
+  //         onPress: () => null,
+  //         style: "cancel"
+  //       },
+  //       { text: "SI!", onPress: () => BackHandler.exitApp() }
+  //     ]);
+  //     return true;
+  //   };
 
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
+  //   const backHandler = BackHandler.addEventListener(
+  //     "hardwareBackPress",
+  //     backAction
+  //   );
 
-    return () => backHandler.remove();
-  }, []);
+  //   return () => backHandler.remove();
+  // }, []);
 
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        const uid = user.uid;
-        dispatch(changeIsLogged(uid));
+        const presentUser = {
+          uid: user.uid,
+          email: user.email,
+          username: user.displayName
+        }
+        dispatch(changeIsLogged(presentUser));
       }
     });
     return subscribe;

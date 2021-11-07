@@ -4,7 +4,7 @@ const initialState = {
   events: [],
   detail: [],
   eventForm: {},
-  isLogged: "",
+  isLogged: {},
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -44,7 +44,6 @@ export const rootReducer = (state = initialState, action) => {
       for (const prop in newEventData) {
         eventData[prop] = newEventData[prop];
       }
-      console.log(eventData);
 
       return {
         ...state,

@@ -30,7 +30,7 @@ export default function CardDetail({ route, navigation }) {
       {details.length ? (
         <View style={styles.viewCont}>
           <View style={styles.header}>
-            <Image style={styles.img} source={{ uri: `${details[0].photo}` }} />
+            <Image style={styles.img} source={{ uri: `${details[0].attachments[0]}` }} />
             <View style={styles.btnBackBg}>
               <AntDesign name="leftcircle" size={35} color="rgba(255, 255, 255, 0.8)" />
             </View>
