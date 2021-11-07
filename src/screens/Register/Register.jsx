@@ -15,7 +15,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 function validate (user) {
     let errors = {};
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    // const strongPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.\$%\^&\*])(?=.{8,})");
 
     if (!user.username) {
         errors.username = 'Debes ingresar un nombre de usuario.'
@@ -45,7 +44,10 @@ export default function Register ({navigation}) {
     const [username, setUsername] = useState('');
     const [checkEmail, setCheckEmail] = useState(false);
     const [checkPassword, setCheckPassword] = useState(false);
-    const [checkUsername, setCheckUsername] = useState(false)
+    const [checkUsername, setCheckUsername] = useState(false);
+    const [colorPass, setColorPass] = useState('')
+
+    const strongPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.\$%\^&\*])(?=.{8,})");
 
     function onChangeEmail(text){
         if(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(text)) {
@@ -58,12 +60,22 @@ export default function Register ({navigation}) {
     }
 
     function onChangePassword(text){
-        if(text.length > 8) {
+        if (text.length < 8 && text.length > 0) {
+            setPassword(text);
+            setCheckPassword(false);
+            setColorPass('red');
+        } else if (text.length > 8 && strongPassword.test(text)) {
             setPassword(text);
             setCheckPassword(true);
+            setColorPass('green');
+        } else if (text.length >= 8) {
+            setPassword(text);
+            setCheckPassword(true);
+            setColorPass('yellow');            
         } else {
             setPassword(text);
-            setCheckPassword(false)
+            setCheckPassword(false);
+            setColorPass('');
         }
     }
 
@@ -141,7 +153,7 @@ export default function Register ({navigation}) {
                         <Feather 
                             name="check-circle"
                             color="green"
-                            size={20}
+                            size={24}
                             style={styles.icon}
                         />
                         ) : null
@@ -160,7 +172,7 @@ export default function Register ({navigation}) {
                         <Feather 
                             name="check-circle"
                             color="green"
-                            size={20}
+                            size={24}
                             style={styles.icon}
                         />
                         ) : null
@@ -179,13 +191,39 @@ export default function Register ({navigation}) {
                         checkPassword ? (
                         <Feather 
                             name="check-circle"
-                            color="green"
-                            size={20}
+                            color={colorPass === "yellow" ? "#FFC300" : "green"}
+                            size={24}
                             style={styles.icon}
                         />
                         ) : null
                     }
+                    { colorPass === 'red' && 
+                        <AntDesign 
+                            name="closecircleo" 
+                            size={24} 
+                            color="#b70000" 
+                            style={styles.icon}
+                        />
+                    }
                 </View>
+                    {
+                        colorPass === 'yellow' && 
+                        <Text style={styles.passWarnYellow}>
+                            Contraseña de seguridad media.
+                        </Text>
+                    }
+                    {
+                        colorPass === 'green' && 
+                        <Text style={styles.passWarnGreen}>
+                            Contraseña segura.
+                        </Text>
+                    }
+                    {
+                        colorPass === 'red' && 
+                        <Text style={styles.passWarnRed}>
+                            Contraseña muy débil.
+                        </Text>
+                    }
             </View>
 
             <View style={styles.buttonContainer}>
