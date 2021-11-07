@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
         elevation: 5,
         backgroundColor: '#298bc4',
         borderRadius: 4,
-        width: "40%",
+        width: "100%",
         flexDirection: 'row',
         height: 38,
         marginBottom: 20,
@@ -265,6 +265,32 @@ const styles = StyleSheet.create({
     selectedPhotosText: {
         marginLeft: 9,
         marginBottom: 6
+    },
+    multimediaBtns: {
+        flexDirection: 'row'
+    },
+    videoBtn: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        backgroundColor: '#298bc4',
+        borderRadius: 4,
+        width: "83%",
+        flexDirection: 'row',
+        height: 38,
+        marginBottom: 20,
+        marginLeft: 40
+    },
+    textVideoBtn: {
+        marginLeft: 8,
+        color: 'white',
+        alignSelf: 'center',
+        fontWeight: 'bold'
     }
 })
 

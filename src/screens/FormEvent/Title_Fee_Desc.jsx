@@ -95,6 +95,25 @@ const Title_Fee_Desc = ({ navigation }) => {
         return;
     }
     let pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+    if(pickerResult.cancelled=== true){
+        return;
+    }
+
+    await setAttachments([...attachments, pickerResult.uri]);
+  };
+
+  let openVideoPickerAsync = async()=>{
+    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if(permissionResult.granted === false){
+        alert("El permiso es requerido");
+        return;
+    }
+    let pickerResult = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: 'Videos'
+    });
+    
     if(pickerResult.cancelled=== true){
         return;
     }
@@ -150,21 +169,31 @@ const Title_Fee_Desc = ({ navigation }) => {
         <Input label="Tarifa" placeholder="Tarifa" inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} onChangeText={handleFee} />
 
         <View style={styles.photosContainer}>
-          <Text style={styles.photosText}>Fotos</Text>
+          <Text style={styles.photosText}>Fotos y Videos</Text>
           { 
             attachments.length === 1 && 
-            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto</Text>
+            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto/video</Text>
           }
           {
             attachments.length > 1 && 
-            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos</Text>
+            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos/videos</Text>
           }
-          <TouchableOpacity 
-            onPress={openImagePickerAsync}
-            style={styles.photoBtn}
-          >
-            <Text style={styles.textPhotoBtn}>Selecciona una foto</Text>
-          </TouchableOpacity>
+          <View style={styles.multimediaBtns}>
+            <TouchableOpacity 
+              onPress={openImagePickerAsync}
+              style={styles.photoBtn}
+            >
+              <Text style={styles.textPhotoBtn}>Selecciona una foto</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity 
+              onPress={openVideoPickerAsync}
+              style={styles.videoBtn}
+            >
+              <Text style={styles.textVideoBtn}>Selecciona un video</Text>
+            </TouchableOpacity>
+          </View>
+
         </View>
         
         <Text style={styles.textType}>Tipo de evento:</Text>
