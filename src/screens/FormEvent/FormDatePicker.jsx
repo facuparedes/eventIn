@@ -157,9 +157,16 @@ const FormDatePicker = ({ navigation }) => {
       <LinearProgress color="lightgreen" variant="determinate" value={0.3} />
       <View style={(styles.textAndImg, { padding: 10 })}>
         <Text h4 style={styles.titleText}>
-          Selecciona Fecha y Hora para tu Evento
+          Selecciona fecha y hora de tu Evento
         </Text>
-        <Image source={require("../../assets/Logo.png")} style={styles.logoImage} />
+        <Image 
+          source={require("../../assets/Logo.png")} 
+          style={[styles.logoImage, {
+            marginTop: -46,
+            alignSelf: 'flex-end',
+            marginRight: 20,
+            marginBottom: 30
+          }]} />
       </View>
       <View
         style={{

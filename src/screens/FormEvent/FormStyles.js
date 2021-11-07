@@ -12,11 +12,13 @@ const styles = StyleSheet.create({
     },
     textAndImg: {
         flexDirection: 'row',
-        height: 60
+        height: 60,
+        marginVertical: 30,
+        marginLeft: 8
     },
     titleText: {
         textAlign: 'left',
-        marginTop: 10
+        marginVertical: 10
     },
     logoImage: {
         resizeMode: 'contain',
