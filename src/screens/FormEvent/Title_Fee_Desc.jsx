@@ -8,6 +8,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker"
+import { Picker } from "@react-native-picker/picker";///
+import {categoryArray} from './categories.js'
 
 // Validate Function
 function validate(form) {
@@ -33,7 +35,7 @@ function validate(form) {
   if (form.fee < 0) {
     errorsValidate.feeM = "La tarifa no puede ser menor a 0.";
   }
-  if (!form.category) {
+  if (form.category==="Categoría") {
     errorsValidate.category = "Debes seleccionar una categoría.";
   }
 
@@ -46,6 +48,8 @@ function validate(form) {
 const Title_Fee_Desc = ({ navigation }) => {
   const dispatch = useDispatch();
 
+  const [categ, setCateg] = useState("Categoría");///
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [fee, setFee] = useState(0);
@@ -54,15 +58,7 @@ const Title_Fee_Desc = ({ navigation }) => {
 
   const [isPublic, setIsPublic] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
-  // Categories states (not form)
-  const [showCategories, setShowCategories] = useState(false);
-  const [categories, setCategories] = useState("");
-  const [bar, setBar] = useState(false);
-  const [deportes, setDeportes] = useState(false);
-  const [fiesta, setFiesta] = useState(false);
-  const [teatro, setTeatro] = useState(false);
-  const [musica, setMusica] = useState(false);
-
+  
   const handleTitle = (text) => {
     setTitle(text);
   };
@@ -81,10 +77,6 @@ const Title_Fee_Desc = ({ navigation }) => {
 
   const handleIsPrivate = () => {
     setIsPrivate(!isPrivate);
-  };
-
-  const handleCategories = () => {
-    setShowCategories(!showCategories);
   };
 
   let openImagePickerAsync = async()=>{
@@ -129,7 +121,7 @@ const Title_Fee_Desc = ({ navigation }) => {
       description,
       fee,
       attachments: attachments,
-      category: categories,
+      category: categ,
     });
 
     if (Object.keys(errorsForm).length === 0) {
@@ -140,7 +132,7 @@ const Title_Fee_Desc = ({ navigation }) => {
         fee: feeNum,
         attachments,
         isPublic: isPublic ? true : false,
-        category: categories,
+        category: categ,
       };
       dispatch(addEventInfo(partialEvent));
       navigation.navigate("FormDatePicker");
@@ -210,121 +202,20 @@ const Title_Fee_Desc = ({ navigation }) => {
           )}
         </View>
 
-        <TouchableOpacity style={styles.btnCategories} onPress={handleCategories}>
-          <View style={styles.categoriesView}>
-            <Text style={styles.textCat}>Categorias</Text>
-            <MaterialIcons name="arrow-drop-down" size={30} color="black" style={styles.catIcon} />
-          </View>
-        </TouchableOpacity>
-        {showCategories && !bar && !deportes && !musica && !teatro && !fiesta ? (
-          <View>
-            <CheckBox
-              title="Bar"
-              onPress={() => {
-                setCategories("Bar");
-                setBar(!bar);
-                if (bar) return setCategories("");
-              }}
-              checked={bar}
-              containerStyle={styles.boxCont}
-            />
-            <CheckBox
-              title="Deportes"
-              onPress={() => {
-                setCategories("Deportes");
-                setDeportes(!deportes);
-                if (deportes) return setCategories("");
-              }}
-              checked={deportes}
-              containerStyle={styles.boxCont}
-            />
-            <CheckBox
-              title="Fiesta"
-              onPress={() => {
-                setCategories("Fiesta");
-                setFiesta(!fiesta);
-                if (fiesta) return setCategories("");
-              }}
-              checked={fiesta}
-              containerStyle={styles.boxCont}
-            />
-            <CheckBox
-              title="Musica"
-              onPress={() => {
-                setCategories("Musica");
-                setMusica(!musica);
-                if (musica) return setCategories("");
-              }}
-              checked={musica}
-              containerStyle={styles.boxCont}
-            />
-            <CheckBox
-              title="Teatro"
-              onPress={() => {
-                setCategories("Teatro");
-                setTeatro(!teatro);
-                if (teatro) return setCategories("");
-              }}
-              checked={teatro}
-              containerStyle={styles.boxCont}
-            />
-          </View>
-        ) : bar ? (
-          <CheckBox
-            title="Bar"
-            onPress={() => {
-              setCategories("Bar");
-              setBar(!bar);
-              if (bar) return setCategories("");
-            }}
-            checked={bar}
-            containerStyle={styles.boxCont}
-          />
-        ) : deportes ? (
-          <CheckBox
-            title="Deportes"
-            onPress={() => {
-              setCategories("Deportes");
-              setDeportes(!deportes);
-              if (deportes) return setCategories("");
-            }}
-            checked={deportes}
-            containerStyle={styles.boxCont}
-          />
-        ) : fiesta ? (
-          <CheckBox
-            title="Fiesta"
-            onPress={() => {
-              setCategories("Fiesta");
-              setFiesta(!fiesta);
-              if (fiesta) return setCategories("");
-            }}
-            checked={fiesta}
-            containerStyle={styles.boxCont}
-          />
-        ) : musica ? (
-          <CheckBox
-            title="Musica"
-            onPress={() => {
-              setCategories("Musica");
-              setMusica(!musica);
-              if (musica) return setCategories("");
-            }}
-            checked={musica}
-            containerStyle={styles.boxCont}
-          />
-        ) : teatro ? (
-          <CheckBox
-            title="Teatro"
-            onPress={() => {
-              setCategories("Teatro");
-              setTeatro(!teatro);
-              if (teatro) return setCategories("");
-            }}
-            checked={teatro}
-            containerStyle={styles.boxCont}
-          />
-        ) : null}
+        <View >
+          <Text style={styles.textType}>Categoría del evento:</Text>
+          <Picker
+            style={{ height: 50, width: 200, color: "black", backgroundColor:"#d7eae9"}}
+            selectedValue={categ}
+            onValueChange={(value, index) => {setCateg(value)}}
+            mode="dropdown" // Android only
+            //style={styles.picker}
+          >
+            {categoryArray.map((item, i) => {
+              return <Picker.Item  style={{color:"blue"}} key={i} value={item} label={item} />;
+            })}
+          </Picker>
+        </View>
 
         <View style={styles.btnsContainer}>
           <TouchableOpacity 

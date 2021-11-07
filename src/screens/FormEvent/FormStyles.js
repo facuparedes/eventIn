@@ -118,7 +118,8 @@ const styles = StyleSheet.create({
     btnsContainer: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginTop: "10%"
     },
     textBtn: {
         color: 'white',
