@@ -53,7 +53,7 @@ export const getEventsByName = (title) => {
     let result = await event.find(where("title", "==", title));
     console.log('soy el result', result);
     if(result.length === 0){
-      return
+      return alert('Ese evento no existe')
     }else{
     return dispatch({
       type: GET_EVENTS_BY_TITLE,
