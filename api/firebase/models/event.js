@@ -4,6 +4,7 @@ import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import Model from "./model";
+import { categoryArray } from "../../../src/common/categories";
 const v = new Validator();
 const opt = { optional: true };
 const updateV = new Validator({ defaults: { string: opt, boolean: opt, number: opt, enum: opt, object: opt, array: opt, url: opt } });
@@ -16,7 +17,7 @@ const EventSchema = {
   isPublic: "boolean",
   category: {
     type: "enum",
-    values: ["Bar", "Deportes", "Fiesta", "Musica", "Teatro"],
+    values: categoryArray.slice(1),
   },
   start: {
     type: "object",
