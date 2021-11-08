@@ -10,7 +10,7 @@ import CardsFlat from "../../common/components/CardsFlat/CardsFlat";
 import DatePicker from "../../common/components/DatePicker/DatePicker";
 import { categoryArray } from "../../common/categories";
 
-export default function Home({ navigation }) {
+export default function Home() {
   const dispatch = useDispatch();
 
   const [categ, setCateg] = useState("Categoría");
