@@ -9,12 +9,20 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: 'black',
+    backgroundColor: '#306BAC',
     width: 120,
     marginTop: 5,
     marginBottom: -10,
     marginRight: 10,
-    borderRadius: 4
+    borderRadius: 4,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   textLogin: {
     padding: 4,

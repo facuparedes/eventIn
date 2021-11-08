@@ -88,7 +88,11 @@ export default function CardDetail({ route, navigation }) {
                   <Text style={styles.subTitle}>Galería del evento</Text>
                   {attachments.length ? (
                     <View style={{ paddingVertical: 10 }}>
-                      <FlatList data={attachments} horizontal renderItem={({ item }) => <Image source={{ uri: item }} style={styles.flatList} />} />
+                      <FlatList 
+                        data={attachments} 
+                        horizontal renderItem={({ item, id }) => <Image source={{ uri: item }} style={styles.flatList} />} 
+                        keyExtractor={item => item.id}
+                        />
                     </View>
                   ) : (
                     <View>

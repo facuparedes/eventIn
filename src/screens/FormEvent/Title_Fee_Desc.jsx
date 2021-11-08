@@ -191,31 +191,28 @@ const Title_Fee_Desc = ({ navigation }) => {
 
         <View>
           <Text style={styles.textType}>Categoría del evento:</Text>
-          <Picker
-            style={{ height: 50, width: 200, color: "black", backgroundColor: "#d7eae9" }}
-            selectedValue={categ}
-            onValueChange={(value, index) => {
-              setCateg(value);
-            }}
-            mode="dropdown" // Android only
-            //style={styles.picker}
-          >
-            {categoryArray.map((item, i) => {
-              return <Picker.Item style={{ color: "blue" }} key={i} value={item} label={item} />;
-            })}
-          </Picker>
+          <View style={styles.pickerContainer}>
+            <Picker
+              style={styles.picker}
+              selectedValue={categ}
+              onValueChange={(value, index) => {
+                setCateg(value);
+              }}
+              mode="dropdown" // Android only
+              //style={styles.picker}
+            >
+              {categoryArray.map((item, i) => {
+                return <Picker.Item style={{ color: "black" }} key={i} value={item} label={item} />;
+              })}
+            </Picker>
+          </View>
         </View>
 
         <View style={styles.btnsContainer}>
           <TouchableOpacity
             title="Siguiente..."
             onPress={handleNext}
-            style={[
-              styles.btn,
-              {
-                flexDirection: "row",
-              },
-            ]}
+            style={[ styles.btn,{ flexDirection: "row"}]}
           >
             <Text style={[styles.textBtn, { marginLeft: 40 }]}>Siguiente</Text>
             <Ionicons name="arrow-forward" size={28} color="#fff" style={styles.arrowIcon} />

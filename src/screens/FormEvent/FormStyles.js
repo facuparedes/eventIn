@@ -292,6 +292,58 @@ const styles = StyleSheet.create({
         color: 'white',
         alignSelf: 'center',
         fontWeight: 'bold'
+    },
+    pickerContainer: {
+        backgroundColor: '#fff',
+        marginTop: 3,
+        alignItems: "center",
+        width: "38%",
+        height: 30,
+        justifyContent: "center",
+        borderRadius: 5,
+        paddingBottom: 2,
+        borderWidth: 2,
+        borderColor: '#298bc4',
+        marginLeft: 9,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 3,
+    },
+    picker: {
+        alignSelf: "center",
+        width: "100%",
+        color: "black"
+    },
+    cancelBtn: {
+        backgroundColor: '#eee',
+        height: 50,
+        width: 200,
+        paddingHorizontal: 4,
+        paddingBottom: 10,
+        paddingTop: 10,
+        borderRadius: 6,
+        alignItems: 'center',
+        marginTop: 5,
+        marginBottom: 15,
+        shadowColor: "black",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    cancelTextBtn: {
+        color: 'black',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 20
     }
 })
 
