@@ -191,7 +191,7 @@ const Title_Fee_Desc = ({ navigation }) => {
 
         <View style={styles.category}>
           <Text style={styles.textType}>Categoría del evento:</Text>
-          <View style={styles.container_picker}>
+          <View style={styles.pickerContainer}>
           <Picker
             style={styles.picker}
             selectedValue={categ}

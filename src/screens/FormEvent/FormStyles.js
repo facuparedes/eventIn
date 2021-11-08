@@ -303,23 +303,30 @@ const styles = StyleSheet.create({
   category: {
     alignItems: "center",
   },
-  picker: {
-    // height: 10,
-    width: 200,
-    color: "black",
-    backgroundColor: "#d7eae9",
+  pickerContainer: {
+    backgroundColor: '#fff',
+    marginTop: 3,
+    width: "40%",
+    height: 35,
+    justifyContent: "center",
+    borderRadius: 5,
+    paddingBottom: 1,
+    borderWidth: 2,
+    borderColor: '#29adbf',
     shadowColor: "#000",
     shadowOffset: {
-      width: 0,
-      height: 2,
+        width: 0,
+        height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5
-  },
-  container_picker: {
-    height: 30,
-  }
+    elevation: 3,
+},
+picker: {
+    alignSelf: "center",
+    width: "100%",
+    color: "black"
+},
 });
 
 export default styles;
