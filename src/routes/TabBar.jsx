@@ -16,6 +16,7 @@ import Search from "../common/components/Search/Search";
 
 import { View } from "react-native";
 import styles from './styles'
+import { createNavigatorFactory } from "@react-navigation/core";
 
 const Tab = createBottomTabNavigator();
 
@@ -28,7 +29,7 @@ export default function TabBar({ navigation }) {
 
   function handleGoToForm () {
     if (logged) {
-      navigation.navigate("Form")
+      navigation.navigate("Form");
     } else {
       Alert.alert('Acceso denegado', 'Tenés que iniciar sesión para crear un evento.', [
         {text: 'Ahora no'},
@@ -46,7 +47,7 @@ export default function TabBar({ navigation }) {
 
   function logOut() {
     signOut(auth);
-    dispatch(changeIsLogged({}));
+    dispatch(changeIsLogged(false));
     Alert.alert("Has cerrado sesión.");
     // Por alguna razón, sin especificar nada, de acá se navega directamente al onBoarding.
     // navigation.replace('Login'); // Acá vamos a tener que navegar desde el Stack y no desde el Tab, porque sino va a mostrar el TabBar

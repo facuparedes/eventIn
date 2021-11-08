@@ -292,6 +292,32 @@ const styles = StyleSheet.create({
         color: 'white',
         alignSelf: 'center',
         fontWeight: 'bold'
+    },
+    pickerContainer: {
+        backgroundColor: '#fff',
+        marginTop: 3,
+        alignItems: "center",
+        width: "38%",
+        height: 30,
+        justifyContent: "center",
+        borderRadius: 5,
+        paddingBottom: 2,
+        borderWidth: 2,
+        borderColor: '#298bc4',
+        marginLeft: 9,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 3,
+    },
+    picker: {
+        alignSelf: "center",
+        width: "100%",
+        color: "black"
     }
 })
 
