@@ -318,6 +318,32 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         width: "100%",
         color: "black"
+    },
+    cancelBtn: {
+        backgroundColor: '#eee',
+        height: 50,
+        width: 200,
+        paddingHorizontal: 4,
+        paddingBottom: 10,
+        paddingTop: 10,
+        borderRadius: 6,
+        alignItems: 'center',
+        marginTop: 5,
+        marginBottom: 15,
+        shadowColor: "black",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    cancelTextBtn: {
+        color: 'black',
+        textAlign: 'center',
+        fontWeight: 'bold',
+        fontSize: 20
     }
 })
 

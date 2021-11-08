@@ -21,6 +21,13 @@ const FormCardPreview = ({ navigation }) => {
     // ESTO HAY QUE SACARLO CUANDO PONGAMOS PASARELA DE PAGO!! ES SOLO PARA LA SEGUNDA DEMO.
     Alert.alert('Tu evento ha sido creado!');
     navigation.replace('TabBar');
+  };
+
+  const handleCancel = () => {
+    Alert.alert('¿Estás seguro de que deseas salir?', 'Se perderán todos los cambios.', [
+      {text: 'Si', onPress: () => navigation.popToTop()},
+      {text: 'No'}
+    ])
   }
 
 
@@ -62,6 +69,9 @@ const FormCardPreview = ({ navigation }) => {
       <View style={formStyles.btnsContainer}>
         <TouchableOpacity title="Pago" onPress={handleAccept} style={formStyles.btn}>
           <Text style={formStyles.textBtn}>Aceptar</Text>
+        </TouchableOpacity>
+        <TouchableOpacity title="Pago" onPress={handleCancel} style={formStyles.cancelBtn}>
+          <Text style={formStyles.cancelTextBtn}>Cancelar</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
