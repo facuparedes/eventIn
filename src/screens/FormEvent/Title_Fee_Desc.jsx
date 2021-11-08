@@ -154,14 +154,14 @@ const Title_Fee_Desc = ({ navigation }) => {
           <Image source={require("../../assets/Logo.png")} style={styles.logoImage} />
         </View>
 
-        <Input label="Nombre" placeholder="Nombre del evento" onChangeText={handleTitle} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} />
+        <Input label="Nombre:" placeholder="Nombre del evento" onChangeText={handleTitle} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} />
 
-        <Input label="Descripción" placeholder="Descripción..." onChangeText={handleDescription} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} />
+        <Input label="Descripción:" placeholder="Descripción..." onChangeText={handleDescription} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} />
 
-        <Input label="Tarifa" placeholder="Tarifa" inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} onChangeText={handleFee} />
+        <Input label="Tarifa:" placeholder="Tarifa" inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} onChangeText={handleFee} />
 
         <View style={styles.photosContainer}>
-          <Text style={styles.photosText}>Fotos y Videos</Text>
+          <Text style={styles.photosText}>Fotos y Videos:</Text>
           {attachments.length === 1 && <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto/video</Text>}
           {attachments.length > 1 && <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos/videos</Text>}
           <View style={styles.multimediaBtns}>
@@ -189,10 +189,11 @@ const Title_Fee_Desc = ({ navigation }) => {
           )}
         </View>
 
-        <View>
+        <View style={styles.category}>
           <Text style={styles.textType}>Categoría del evento:</Text>
+          <View style={styles.container_picker}>
           <Picker
-            style={{ height: 50, width: 200, color: "black", backgroundColor: "#d7eae9" }}
+            style={styles.picker}
             selectedValue={categ}
             onValueChange={(value, index) => {
               setCateg(value);
@@ -201,9 +202,10 @@ const Title_Fee_Desc = ({ navigation }) => {
             //style={styles.picker}
           >
             {categoryArray.map((item, i) => {
-              return <Picker.Item style={{ color: "blue" }} key={i} value={item} label={item} />;
+              return <Picker.Item style={{ color: "black" }} key={i} value={item} label={item} />;
             })}
           </Picker>
+          </View>
         </View>
 
         <View style={styles.btnsContainer}>
