@@ -66,7 +66,7 @@ export default function CardDetail({ route, navigation }) {
                     <Text style={styles.title}>{details[0].title}</Text>
                   </View>
                   <View style={{ flex: 1 }}>
-                    <Text style={styles.fee}>${details[0].fee}</Text>
+                    <Text style={styles.fee}>{details[0].fee === 0 ? "Gratis" : `$${details[0].fee}`}</Text>
                   </View>
                 </View>
                 <View style={styles.dataContain}>
@@ -88,11 +88,7 @@ export default function CardDetail({ route, navigation }) {
                   <Text style={styles.subTitle}>Galería del evento</Text>
                   {attachments.length ? (
                     <View style={{ paddingVertical: 10 }}>
-                      <FlatList 
-                        data={attachments} 
-                        horizontal renderItem={({ item, id }) => <Image source={{ uri: item }} style={styles.flatList} />} 
-                        keyExtractor={item => item.id}
-                        />
+                      <FlatList data={attachments} horizontal renderItem={({ item, id }) => <Image source={{ uri: item }} style={styles.flatList} />} keyExtractor={(item) => item.id} />
                     </View>
                   ) : (
                     <View>

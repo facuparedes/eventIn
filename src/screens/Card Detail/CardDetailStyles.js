@@ -1,4 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { color } from "react-native-elements/dist/helpers";
 import { colorPallete } from "../Onboarding/styles";
 
 const { width, height } = Dimensions.get("window");
@@ -77,11 +78,13 @@ const styles = StyleSheet.create({
   },
   title: {
     fontFamily: "Gotham-Medium",
-    fontSize: 25,
+    fontSize: 24,
+    color: colorPallete.second,
   },
   fee: {
     fontFamily: "Gotham-Bold",
-    fontSize: 22,
+    fontSize: 20,
+    color: colorPallete.third,
   },
   dataContain: {
     flex: 1,
@@ -94,9 +97,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   location: {
-    fontFamily: "Gotham-LightItalic",
+    fontFamily: "Gotham-BoldItalic",
     fontSize: 15,
-    color: "blue",
+    color: colorPallete.third,
     textDecorationLine: "underline",
   },
   maps: {
