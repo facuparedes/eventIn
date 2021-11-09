@@ -84,6 +84,12 @@ const styles = StyleSheet.create({
     inputAndIcon: {
         flexDirection: 'row'
     },
+    eyeBtn: {
+        top: 19,
+        zIndex: 3,
+        right: 10,
+        position: 'absolute'
+    },
     icon: {
         marginLeft: -32,
         alignSelf: 'center',
