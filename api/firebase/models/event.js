@@ -52,7 +52,7 @@ const updateCheck = updateV.compile(EventSchema);
 
 class Event extends Model {
   constructor() {
-    super(Event.name);
+    super('event');
   }
 
   /** @private */
