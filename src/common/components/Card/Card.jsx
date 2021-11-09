@@ -53,7 +53,7 @@ export default function Card({ id, title, description, date, attachments, naviga
               {description}
             </Text>
             {
-              admin && <Button title='X' onPress={deleteEvent}/>
+              admin.email === 'admin@gmail.com' && <Button title='X' onPress={deleteEvent}/>
             }
           </View>
           <View style={styles.card_body}>

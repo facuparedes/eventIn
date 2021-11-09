@@ -112,7 +112,9 @@ export default function Register ({navigation}) {
                 navigation.replace('Login');
             })
             .catch(e=> {
-                console.log(e);
+                if (e === 'Firebase: Error (auth/email-already-in-use).') {
+                    return Alert.alert('Ya existe un usuario registrado con ese email.')
+                }
                 Alert.alert('Algo salió mal.')
             })
         } else {

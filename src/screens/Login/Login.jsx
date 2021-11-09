@@ -47,6 +47,7 @@ export default function Login ({navigation}) {
             signInWithEmailAndPassword(auth, email, password)
                 .then(data=>{
                     const user = data;
+                    console.log(user);
                     Alert.alert(`Bienvenido, ${user.user.displayName}!`);
                     navigation.replace('TabBar');
                 })
