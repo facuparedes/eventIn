@@ -45,7 +45,12 @@ export default function Register ({navigation}) {
     const [checkEmail, setCheckEmail] = useState(false);
     const [checkPassword, setCheckPassword] = useState(false);
     const [checkUsername, setCheckUsername] = useState(false);
-    const [colorPass, setColorPass] = useState('')
+    const [colorPass, setColorPass] = useState('');
+    const [secureDataEntry, setSecureDataEntry] = useState(true);
+
+    function updateSecureDataEntry() {
+        setSecureDataEntry(!secureDataEntry);
+    }
 
     const strongPassword = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#.\$%\^&\*])(?=.{8,})");
 
@@ -112,7 +117,9 @@ export default function Register ({navigation}) {
                 navigation.replace('Login');
             })
             .catch(e=> {
-                console.log(e);
+                if (e === 'Firebase: Error (auth/email-already-in-use).') {
+                    return Alert.alert('Ya existe un usuario registrado con ese email.')
+                }
                 Alert.alert('Algo salió mal.')
             })
         } else {
@@ -182,11 +189,31 @@ export default function Register ({navigation}) {
                 <View style={styles.inputAndIcon}>
                     <TextInput
                         placeholder="Contraseña"
-                        secureTextEntry
+                        secureTextEntry={secureDataEntry ? true : false}
                         value={password}
                         onChangeText={text => onChangePassword(text)}
                         style={styles.input}
+                        
                     />
+                     <TouchableOpacity
+                        onPress={updateSecureDataEntry}
+                        style={[styles.eyeBtn, colorPass && {marginRight: 30}]}
+                    >
+                    {
+                        secureDataEntry ? 
+                            <Feather 
+                                name="eye-off"
+                                color="grey"
+                                size={18}
+                            />
+                            :
+                            <Feather 
+                                name="eye"
+                                color="grey"
+                                size={18}
+                            />
+                    }
+                    </TouchableOpacity>
                     {
                         checkPassword ? (
                         <Feather 
