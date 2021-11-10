@@ -57,26 +57,25 @@ export default function EditProfile({navigation}) {
             const authCredential = EmailAuthProvider.credential(auth.currentUser.email, oldPassword);
 
             reauthenticateWithCredential(auth.currentUser, authCredential)
-            .then(res => {
-                updatePassword(auth.currentUser, newPassword)
-            })
-            .then(res => {
-                return Alert.alert('Contraseña actualizada.');
-            })
-            .catch(e => {
-                const errorMessage = e.message;
-                if (errorMessage === 'Firebase: Error (auth/internal-error).') {
-                    return Alert.alert('Por favor, ingresa tu contraseña actual.');
-                }
-                if (errorMessage === 'Firebase: Error (auth/wrong-password).') {
-                    return Alert.alert('Contraseña actual incorrecta.');
-                }
-            })
+                .then(res => {
+                    updatePassword(auth.currentUser, newPassword)
+                })
+                .then(res => {
+                    return Alert.alert('Contraseña actualizada.');
+                })
+                .catch(e => {
+                    const errorMessage = e.message;
+                    if (errorMessage === 'Firebase: Error (auth/internal-error).') {
+                        return Alert.alert('Por favor, ingresa tu contraseña actual.');
+                    }
+                    if (errorMessage === 'Firebase: Error (auth/wrong-password).') {
+                        return Alert.alert('Contraseña actual incorrecta.');
+                    }
+                })
         } else {
             return Alert.alert(`${Object.values(validation)[0]}`);
         }
     }
-    
     
     return(
         <SafeAreaView>
@@ -106,7 +105,7 @@ export default function EditProfile({navigation}) {
             </View>
             <TouchableOpacity style={{alignSelf: 'center', margin: 10, borderWidth: 2}}onPress={changePassword}>
                 <Text>Cambiar contraseña</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> 
         </SafeAreaView>
     )
 }

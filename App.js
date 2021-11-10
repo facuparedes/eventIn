@@ -65,7 +65,7 @@ export default function App() {
           <Stack.Screen name="TabBar" component={TabBar} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="CardDetail" component={CardDetail} />
-                          {/*FORM SECTION*/}
+          {/*FORM SECTION*/}
           <Stack.Screen name="Form" component={Title_Fee_Desc} />
           <Stack.Screen name="FormDatePicker" component={FormDatePicker} />
           <Stack.Screen name="FormMaps" component={FormMaps} />
