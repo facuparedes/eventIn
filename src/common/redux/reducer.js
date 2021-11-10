@@ -10,16 +10,26 @@ const initialState = {
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_EVENTS:
+      var orderEvents= action.payload;
+      orderEvents.sort((a,b)=> a.start > b.start);
+
       return {
         ...state,
-        events: action.payload,
+        events: orderEvents,
       };
 
     case GET_EVENTS_CATEGORY:
-      return {
-        ...state,
-        events: action.payload,
-      };
+      var cat= action.payload;
+      var today= new Date();
+      var filterCat= cat.filter( c => c.end > today);
+      
+      if(filterCat){
+        return {
+          ...state,
+          events: filterCat,
+        };
+      } else alert ("no hay eventos próximos en esa categoría")
+
     case GET_EVENTS_BY_TITLE:
       return {
         ...state,
