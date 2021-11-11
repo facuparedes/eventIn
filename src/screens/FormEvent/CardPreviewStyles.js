@@ -92,7 +92,7 @@ const estilos = StyleSheet.create({
   },
   card_boton: {
     flexDirection: "row",
-    marginTop: 5,
+    // marginTop: 1,
     marginRight: 250,
     justifyContent: "space-evenly",
   },
