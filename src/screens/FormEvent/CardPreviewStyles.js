@@ -92,9 +92,15 @@ const estilos = StyleSheet.create({
   },
   card_boton: {
     flexDirection: "row",
-    marginTop: 5,
+    // marginTop: 1,
     marginRight: 250,
     justifyContent: "space-evenly",
   },
+  header: {
+    alignItems: 'center',
+  },
+  textHeader: {
+      fontSize: 20,
+  }
 });
 export default estilos;

@@ -6,7 +6,7 @@ import { Alert, View, Image, ScrollView, FlatList } from "react-native";
 import { Input, Text, LinearProgress, CheckBox } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, Ionicons, AntDesign} from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { Picker } from "@react-native-picker/picker"; ///
 import { categoryArray } from "./../../common/categories";
@@ -140,12 +140,18 @@ const Title_Fee_Desc = ({ navigation }) => {
       return Alert.alert(`${Object.values(errorsForm)[0]}`);
     }
     if (fee === 0) Alert.alert("Tu evento será gratuito, podés volver atrás para cambiarlo.");
+  };
+  function handleBack() {
+    navigation.goBack();
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <LinearProgress color="lightgreen" variant="determinate" value={0} />
+        <LinearProgress color="#00BD9D" variant="determinate" value={0} style={{height:10}}/>
+        <View style={styles.header}>
+        <Text style={styles.textHeader}>Paso 1 de 4</Text>
+        </View>
 
         <View style={styles.textAndImg}>
           <Text h4 style={styles.titleText}>
@@ -209,12 +215,29 @@ const Title_Fee_Desc = ({ navigation }) => {
         </View>
 
         <View style={styles.btnsContainer}>
+        <TouchableOpacity 
+            title="Atras" 
+            onPress={handleBack}
+            style={[
+              styles.btn,
+              {
+                flexDirection: 'row',
+                backgroundColor:'gray',
+                marginRight: 10,
+                
+              }
+            ]} 
+            >
+              
+              <AntDesign name="arrowleft" size={24} color="#fff" style={{marginLeft: 40}} />
+              <Text style={[styles.textBtn, {marginRight: 30}]}>Salir</Text>
+            </TouchableOpacity>
           <TouchableOpacity
             title="Siguiente..."
             onPress={handleNext}
             style={[ styles.btn,{ flexDirection: "row"}]}
           >
-            <Text style={[styles.textBtn, { marginLeft: 40 }]}>Siguiente</Text>
+            <Text style={[styles.textBtn, { marginLeft: 20 }]}>Siguiente</Text>
             <Ionicons name="arrow-forward" size={28} color="#fff" style={styles.arrowIcon} />
           </TouchableOpacity>
         </View>

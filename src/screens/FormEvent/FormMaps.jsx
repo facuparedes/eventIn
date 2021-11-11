@@ -9,7 +9,7 @@ import MapView, { Callout, Marker } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import * as Location from "expo-location";
 import { useDispatch } from "react-redux";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 
 // IMPORTANTE-- TODAVIA NO ANDA LA BARRA DE BUSQUEDA,SOLO ANDA NAVEGANDO EN EL MAPA Y PONIENDO EL PIN
 //              EN EL LUGAR DESEADO
@@ -70,9 +70,16 @@ const FormMaps = ({ navigation }) => {
     dispatch(addEventInfo(partialEvent));
     navigation.navigate("FormCardPreview")
   };
+  function handleBack() {
+    navigation.goBack();
+  }
+
   return (
     <SafeAreaView style={styles.container}>
-      <LinearProgress color="lightgreen" variant="determinate" value={0.6} />
+      <LinearProgress color="#00BD9D" variant="determinate" value={0.6} style={{height:10}} />
+      <View style={styles.header}>
+        <Text style={styles.textHeader}>Paso 3 de 4</Text>
+        </View>
 
       <Text h3 style={styles.textLoc}>Elige una ubicación:</Text>
       {/* <ScrollView> */}
@@ -109,11 +116,12 @@ const FormMaps = ({ navigation }) => {
               zIndex: 1, 
               borderWidth: 1, 
               borderRadius: 6, 
-              height: 50 
+              height: 50 ,
             },
             listView: { backgroundColor: "white" },
           }}
         />
+        <View style={styles.containerMap}>
         {showMap && (
           <MapView
             style={estilos.map}
@@ -150,13 +158,30 @@ const FormMaps = ({ navigation }) => {
             </Marker>
           </MapView>
         )}
+        </View>
         { showMap &&
           <TouchableOpacity title="sacar mapa" onPress={handleHideMap} style={styles.btn2}>
             <Text style={styles.textMaps}>Ocultar mapa</Text>
           </TouchableOpacity>
         }
       </View>
-      <View style={styles.btnsContainer}>
+      <View style={styles.btnsContainerMaps}>
+              <TouchableOpacity 
+                title="Atras" 
+                onPress={handleBack}
+                style={[
+                  styles.btn,
+                  {
+                    flexDirection: 'row',
+                    backgroundColor:'gray',
+                    marginRight: 10,
+                  }
+                ]} 
+                >
+                  
+                  <AntDesign name="arrowleft" size={28} color="#fff" style={{marginLeft: 40}} />
+                  <Text style={[styles.textBtn, {marginRight: 30}]}>Atras</Text>
+                </TouchableOpacity>
         <TouchableOpacity 
             title="Siguiente..." 
             onPress={handleNext} 
@@ -180,10 +205,14 @@ const estilos = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    
   },
   map: {
+    marginTop: 10,
     width: "100%",
-    height: 400,
+    height: 250,
+    
+    
   },
 });
 export default FormMaps;

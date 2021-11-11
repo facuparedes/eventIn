@@ -7,7 +7,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./FormStyles";
-import { MaterialIcons, Feather, Ionicons } from "@expo/vector-icons";
+import { MaterialIcons, Feather, Ionicons, AntDesign } from "@expo/vector-icons";
 
 // Validate Function
 function validate(form) {
@@ -151,10 +151,18 @@ const FormDatePicker = ({ navigation }) => {
       return Alert.alert(`${Object.values(errorsForm)[0]}`);
     }
   }
+  function handleBack() {
+    navigation.goBack();
+  }
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearProgress color="lightgreen" variant="determinate" value={0.3} />
+      
+      <LinearProgress color="#00BD9D" variant="determinate" value={0.3} style={{height:10}}  />
+      <View style={styles.header}>
+        <Text style={styles.textHeader}>Paso 2 de 4</Text>
+        </View>
+      
       <View style={(styles.textAndImg, { padding: 10 })}>
         <Text h4 style={[styles.titleText, {marginBottom: 65}]}>
           Selecciona fecha y hora de tu Evento
@@ -267,6 +275,23 @@ const FormDatePicker = ({ navigation }) => {
       </View>
 
       <View style={styles.btnsContainer}>
+            <TouchableOpacity 
+            title="Atras" 
+            onPress={handleBack}
+            style={[
+              styles.btn,
+              {
+                flexDirection: 'row',
+                backgroundColor:'gray',
+                marginRight: 10,
+                
+              }
+            ]} 
+            >
+              
+              <AntDesign name="arrowleft" size={24} color="#fff" style={{marginLeft: 40}} />
+              <Text style={[styles.textBtn, {marginRight: 30}]}>Atras</Text>
+            </TouchableOpacity>
           <TouchableOpacity 
           title="Siguiente..." 
           onPress={handleNext}
@@ -277,7 +302,7 @@ const FormDatePicker = ({ navigation }) => {
             }
           ]} 
           >
-            <Text style={[styles.textBtn, {marginLeft: 40}]}>Siguiente</Text>
+            <Text style={[styles.textBtn, {marginLeft: 20}]}>Siguiente</Text>
             <Ionicons name="arrow-forward" size={28} color="#fff" style={styles.arrowIcon}/>
           </TouchableOpacity>
         </View>
