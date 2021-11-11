@@ -1,16 +1,17 @@
 import moment from "moment";
 import React, { useState } from "react";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { View, Text, Image, TouchableOpacity, Button, Alert } from "react-native";
 import { styles } from "./styles.js";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import Event from "../../../../api/firebase/models/event.js";
 
-export default function Card({ id, title, description, date, attachments, navigation }) {
-  const admin = useSelector(state => state.isLogged)
-  const diff = moment(date).diff(moment.now(), "hours");
-  const isToday = diff < 24 && diff >= 0;
+export default function Card({ id, title, description, dateStart, dateEnd, attachments, navigation }) {
+  const admin = useSelector((state) => state.isLogged);
 
+  const diffStart = moment(dateStart).diff(moment.now(), "hours");
+  const isToday = diffStart < 24 && diffStart >= 0;
+ 
   const [liked, setLiked] = useState(false);
 
   const addFavourite = () => {
@@ -24,18 +25,21 @@ export default function Card({ id, title, description, date, attachments, naviga
   };
 
   const deleteEvent = () => {
-    Alert.alert('Advertencia', 'Estás seguro de que deseas eliminar este evento?', [
-      {text: 'Aceptar', onPress: () => {
-        try {
-          Event.delete(id);
-          Alert.alert(`El evento con id ${id} ha sido eliminado`)
-        } catch(e) {
-          console.log('DELETE EVENT ERROR', e);
-        }
-      }},
-      {text: 'Cancelar'}
-    ])
-  }
+    Alert.alert("Advertencia", "Estás seguro de que deseas eliminar este evento?", [
+      {
+        text: "Aceptar",
+        onPress: () => {
+          try {
+            Event.delete(id);
+            Alert.alert(`El evento con id ${id} ha sido eliminado`);
+          } catch (e) {
+            console.log("DELETE EVENT ERROR", e);
+          }
+        },
+      },
+      { text: "Cancelar" },
+    ]);
+  };
 
   return (
     <View style={styles.card}>
@@ -52,13 +56,14 @@ export default function Card({ id, title, description, date, attachments, naviga
             <Text numberOfLines={3} style={styles.card_header_description}>
               {description}
             </Text>
-            {
-              admin.email === 'admin@gmail.com' && <Button title='X' onPress={deleteEvent}/>
-            }
+            {admin.email === "admin@gmail.com" && <Button title="X" onPress={deleteEvent} />}
           </View>
           <View style={styles.card_body}>
             <Image source={{ uri: attachments }} style={styles.card_body_image} resizeMode={"cover"} />
-            <Text style={[styles.card_body_date, isToday ? styles.card_body_date_active : ""]}>{moment(date).fromNow()}</Text>
+            <Text style={[styles.card_body_date, isToday ? styles.card_body_date_active : ""]}>Inicio: {moment(dateStart).fromNow()}</Text>
+            {dateStart.toLocaleDateString() !== dateEnd.toLocaleDateString() ?
+            <Text style={[styles.card_body_date, styles.card_body_date2]}>Fin: {moment(dateEnd).fromNow()}</Text>
+            : <Text>""</Text>}
           </View>
         </TouchableOpacity>
       </View>

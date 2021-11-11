@@ -14,7 +14,7 @@ export default function CardsFlat() {
       <FlatList
         style={{ width: "100%", height: "100%" }}
         data={allEvents}
-        renderItem={({ item }) => <Card id={item.id} navigation={navigation} title={item.title} description={item.description} date={item.start} attachments={item.attachments[0]} />}
+        renderItem={({ item }) => <Card id={item.id} navigation={navigation} title={item.title} description={item.description} dateStart={item.start} dateEnd={item.end} attachments={item.attachments[0]} />}
       />
     </View>
   );

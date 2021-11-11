@@ -65,6 +65,9 @@ export const styles = StyleSheet.create({
     paddingVertical: 5,
     backgroundColor: "rgba(95, 95, 95, 0.6)",
   },
+    card_body_date2: {
+      marginVertical: 40,
+  },
   card_body_date_active: {
     backgroundColor: "#6ad5ce",
     color: "white",
