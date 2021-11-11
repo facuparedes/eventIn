@@ -6,12 +6,13 @@ import { styles } from "./styles.js";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import Event from "../../../../api/firebase/models/event.js";
 
-export default function Card({ id, title, description, dateStart, dateEnd, attachments, navigation }) {
+export default function Card({ id, title, description, dateStart, attachments, navigation }) {
   const admin = useSelector((state) => state.isLogged);
 
   const diffStart = moment(dateStart).diff(moment.now(), "hours");
   const isToday = diffStart < 24 && diffStart >= 0;
- 
+  var today = new Date();
+
   const [liked, setLiked] = useState(false);
 
   const addFavourite = () => {
@@ -60,10 +61,13 @@ export default function Card({ id, title, description, dateStart, dateEnd, attac
           </View>
           <View style={styles.card_body}>
             <Image source={{ uri: attachments }} style={styles.card_body_image} resizeMode={"cover"} />
-            <Text style={[styles.card_body_date, isToday ? styles.card_body_date_active : ""]}>Inicio: {moment(dateStart).fromNow()}</Text>
-            {dateStart.toLocaleDateString() !== dateEnd.toLocaleDateString() ?
-            <Text style={[styles.card_body_date, styles.card_body_date2]}>Fin: {moment(dateEnd).fromNow()}</Text>
-            : <Text>""</Text>}
+
+            {dateStart > today ? (
+              <Text style={[styles.card_body_date, isToday ? styles.card_body_date_active : ""]}>{moment(dateStart).fromNow()}</Text>
+            ) : (
+              <Text style={[styles.card_body_date, styles.card_body_date_active]}>en curso</Text>
+            )}
+
           </View>
         </TouchableOpacity>
       </View>
