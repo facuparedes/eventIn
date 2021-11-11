@@ -9,6 +9,7 @@ import Event from "../../../api/firebase/models/event";
 import moment from "moment";
 import estilos from "./CardPreviewStyles";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
+import styles from "./FormStyles";
 
 const FormCardPreview = ({ navigation }) => {
   const eventInfo = useSelector((state) => state.eventForm);
@@ -26,6 +27,10 @@ const FormCardPreview = ({ navigation }) => {
   const handleCancel = () => {
     Alert.alert("¿Estás seguro de que deseas salir?", "Se perderán todos los cambios.", [{ text: "Si", onPress: () => navigation.popToTop() }, { text: "No" }]);
   };
+
+  function handleBack() {
+    navigation.goBack();
+  }
 
   return (
     <SafeAreaView style={estilos.container}>
@@ -67,7 +72,23 @@ const FormCardPreview = ({ navigation }) => {
       </View>
 
       <View style={formStyles.btnsContainer}>
-        <TouchableOpacity title="Pago" onPress={handleAccept} style={formStyles.btnAceptar}>
+      <TouchableOpacity 
+                title="Atras" 
+                onPress={handleBack}
+                style={[
+                  styles.btnCancelarPrewiew,
+                  {
+                    flexDirection: 'row',
+                    backgroundColor:'gray',
+                    marginRight: 10,
+                  }
+                ]} 
+                >
+                  
+                  <AntDesign name="arrowleft" size={28} color="#fff" style={{marginLeft: 15}} />
+                  <Text style={[styles.textBtn, {marginRight: 10}]}>Atras</Text>
+                </TouchableOpacity>
+        <TouchableOpacity title="Pago" onPress={handleAccept} style={formStyles.btnAceptarPrewiew}>
           <Text style={formStyles.textBtn}>Aceptar</Text>
         </TouchableOpacity>
         <TouchableOpacity title="Pago" onPress={handleCancel} style={formStyles.cancelBtn}>

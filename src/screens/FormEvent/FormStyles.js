@@ -83,6 +83,30 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5,
     },
+    btnCancelarPrewiew: {
+        backgroundColor: '#00BD9D',
+        height: 50,
+        width: 120,
+        // paddingLeft: 5,
+        paddingHorizontal: 4,
+        paddingBottom: 10,
+        // paddingRight: 5,
+        paddingTop: 10,
+        borderRadius: 6,
+        alignItems: 'center',
+        marginTop: 5,
+        marginBottom: 15,
+        // borderWidth: 1,
+        // borderColor: 'black'
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
     categoriesView: {
         flex: 1,
         flexDirection: 'row'
@@ -124,8 +148,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: "10%",
-        // marginBottom: 40
+        //marginBottom: "70%"
 
+    },
+    btnsContainerMaps: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        //marginTop: "10%",
+        marginBottom: "10%"
     },
     textBtn: {
         color: 'white',
@@ -223,6 +255,16 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+    },
+    containerMap: {
+        shadowColor: "#000",
+        shadowOffset: {
+            width:2,
+            height: 4,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 4,
     },
     textMaps: {
         color: 'black',
@@ -331,7 +373,7 @@ const styles = StyleSheet.create({
     cancelBtn: {
         backgroundColor: '#eee',
         height: 50,
-        width: 160,
+        width: 120,
         paddingHorizontal: 4,
         paddingBottom: 10,
         paddingTop: 10,
@@ -353,6 +395,26 @@ const styles = StyleSheet.create({
         backgroundColor: '#00BD9D',
         height: 50,
         width: 160,
+        paddingHorizontal: 4,
+        paddingBottom: 10,
+        paddingTop: 10,
+        borderRadius: 6,
+        alignItems: 'center',
+        marginTop: 5,
+        marginBottom: 15,
+        shadowColor: "black",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    btnAceptarPrewiew: {
+        backgroundColor: '#00BD9D',
+        height: 50,
+        width: 120,
         paddingHorizontal: 4,
         paddingBottom: 10,
         paddingTop: 10,

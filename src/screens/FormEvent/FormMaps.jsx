@@ -116,11 +116,12 @@ const FormMaps = ({ navigation }) => {
               zIndex: 1, 
               borderWidth: 1, 
               borderRadius: 6, 
-              height: 50 
+              height: 50 ,
             },
             listView: { backgroundColor: "white" },
           }}
         />
+        <View style={styles.containerMap}>
         {showMap && (
           <MapView
             style={estilos.map}
@@ -157,13 +158,14 @@ const FormMaps = ({ navigation }) => {
             </Marker>
           </MapView>
         )}
+        </View>
         { showMap &&
           <TouchableOpacity title="sacar mapa" onPress={handleHideMap} style={styles.btn2}>
             <Text style={styles.textMaps}>Ocultar mapa</Text>
           </TouchableOpacity>
         }
       </View>
-      <View style={styles.btnsContainer}>
+      <View style={styles.btnsContainerMaps}>
               <TouchableOpacity 
                 title="Atras" 
                 onPress={handleBack}
@@ -203,10 +205,14 @@ const estilos = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    
   },
   map: {
+    marginTop: 10,
     width: "100%",
-    height: 400,
+    height: 250,
+    
+    
   },
 });
 export default FormMaps;
