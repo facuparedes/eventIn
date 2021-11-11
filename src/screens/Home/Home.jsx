@@ -16,13 +16,14 @@ export default function Home() {
   const [refreshing, setRefreshing] = useState(false);
 
   const wait = (timeout) => {
-    return new Promise(resolve => setTimeout(resolve, timeout));
-  }
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     dispatch(getEvents());
     wait(2000).then(() => setRefreshing(false));
+    setCateg("Categoría")
   }, []);
 
   const [categ, setCateg] = useState("Categoría");
@@ -54,33 +55,24 @@ export default function Home() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }
-      >
-      
-        <View style={styles.filtersContainer}>
-          <View style={styles.viewPicker}>
-            <Picker
-              selectedValue={categ}
-              onValueChange={(value, index) => handleFilterCategory(value)}
-              mode="dropdown" // Android only
-              style={styles.picker}
-            >
-              {categArray2.map((item, i) => {
-                return <Picker.Item key={i} value={item} label={item} />;
-              })}
-            </Picker>
-          </View>
-          <View style={styles.datePicker}>
-            <DatePicker />
-          </View>
+      <View style={styles.filtersContainer}>
+        <View style={styles.viewPicker}>
+          <Picker
+            selectedValue={categ}
+            onValueChange={(value, index) => handleFilterCategory(value)}
+            mode="dropdown" // Android only
+            style={styles.picker}
+          >
+            {categArray2.map((item, i) => {
+              return <Picker.Item key={i} value={item} label={item} />;
+            })}
+          </Picker>
         </View>
-
+        <View style={styles.datePicker}>
+          <DatePicker />
+        </View>
+      </View>
+      <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
         <View style={{ flex: 1, alignItems: "center", width: "100%" }}>
           <CardsFlat />
         </View>
