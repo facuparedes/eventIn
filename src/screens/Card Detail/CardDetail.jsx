@@ -14,8 +14,9 @@ export default function CardDetail({ route, navigation }) {
   }, [dispatch]);
 
   const details = useSelector((state) => state.detail);
-
   const [liked, setLiked] = useState(false);
+  // console.log('latitud',details[0].location.latitude)
+  // console.log('longitud',details[0].location.longitude)
 
   const addFavourite = () => {
     setLiked(!liked);
@@ -77,7 +78,9 @@ export default function CardDetail({ route, navigation }) {
                     <Text style={styles.location}>Acá iría la dirección</Text>
                   </View>
                   <View style={{ flex: 1, alignItems: "center", borderRadius: 10, elevation: 10 }}>
+                    <TouchableOpacity onPress={() => navigation.navigate("MapDetail", {id: id,})}>
                     <Image style={styles.maps} source={require("../../assets/maps.jpg")} />
+                    </TouchableOpacity>
                   </View>
                 </View>
                 <View style={styles.descContent}>

@@ -13,6 +13,8 @@ import ForgotPass from "./src/screens/ForgotPassword/ForgotPassword.jsx";
 import Register from "./src/screens/Register/Register";
 import Loading from "./src/screens/Loading/Loading";
 import CardDetail from "./src/screens/Card Detail/CardDetail";
+import MapDetail from './src/screens/Card Detail/MapDetail'
+
 import moment from "moment";
 import "moment/locale/es";
 //imports del Form
@@ -76,6 +78,7 @@ export default function App() {
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="ForgotPass" component={ForgotPass} />
           <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="MapDetail" component={MapDetail} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
