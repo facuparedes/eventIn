@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Image, Alert } from "react-native";
+import React, {useState} from "react";
+import { View, Image, Alert, Modal } from "react-native";
 import { Input, Text, LinearProgress } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -10,6 +10,8 @@ import moment from "moment";
 import estilos from "./CardPreviewStyles";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import styles from "./FormStyles";
+import { WebView } from 'react-native-webview';
+import axios from "axios";
 
 const FormCardPreview = ({ navigation }) => {
   const eventInfo = useSelector((state) => state.eventForm);
@@ -17,11 +19,16 @@ const FormCardPreview = ({ navigation }) => {
   const diff = moment(moment.now()).diff(eventInfo.start.date, "hours");
   const isToday = diff < 24 && diff >= 0;
 
+  const [pay, setPay] = useState(false);
+
   const handleAccept = async () => {
-    Event.create(eventInfo);
-    // ESTO HAY QUE SACARLO CUANDO PONGAMOS PASARELA DE PAGO!! ES SOLO PARA LA SEGUNDA DEMO.
-    Alert.alert("Tu evento ha sido creado!");
-    navigation.replace("TabBar");
+    // Event.create(eventInfo);
+    // // ESTO HAY QUE SACARLO CUANDO PONGAMOS PASARELA DE PAGO!! ES SOLO PARA LA SEGUNDA DEMO.
+    // Alert.alert("Tu evento ha sido creado!");
+    // navigation.replace("TabBar");
+    const post = await axios.post('http://192.168.0.4:3001/checkout', {title: eventInfo.title })//tengo que pasarle la cantidad de dias para calcular el monto
+    setPay(true)
+
   };
 
   const handleCancel = () => {
@@ -38,6 +45,14 @@ const FormCardPreview = ({ navigation }) => {
       <View style={estilos.header}>
         <Text style={estilos.textHeader}>Paso 4 de 4</Text>
         </View>
+        <Modal
+          visible={pay}
+          onRequestClose={() => setPay(false)}
+        >
+          <WebView
+            source={{ uri: "http://192.168.0.4:3001/checkout" }}
+          />
+        </Modal>
       <View style={estilos.textAndImg}>
         <Text h4 style={estilos.titleText}>
           Vista previa del Evento:
@@ -88,9 +103,10 @@ const FormCardPreview = ({ navigation }) => {
                   <AntDesign name="arrowleft" size={28} color="#fff" style={{marginLeft: 15}} />
                   <Text style={[styles.textBtn, {marginRight: 10}]}>Atras</Text>
                 </TouchableOpacity>
-        <TouchableOpacity title="Pago" onPress={handleAccept} style={formStyles.btnAceptarPrewiew}>
+        <TouchableOpacity title="Pago" onPress={() => setPay(true)} style={formStyles.btnAceptarPrewiew}>
           <Text style={formStyles.textBtn}>Aceptar</Text>
         </TouchableOpacity>
+
         <TouchableOpacity title="Pago" onPress={handleCancel} style={formStyles.cancelBtn}>
           <Text style={formStyles.cancelTextBtn}>Cancelar</Text>
         </TouchableOpacity>
@@ -100,3 +116,9 @@ const FormCardPreview = ({ navigation }) => {
 };
 
 export default FormCardPreview;
+
+
+<WebView
+          style={{width: '100%', height: '100%', alignSelf: 'center', position: 'absolute'}}
+          source={{uri:"http://192.168.0.4:3001/chekout"}}
+          />
