@@ -1,17 +1,18 @@
 import event from "../../../api/firebase/models/event";
-import { where } from "firebase/firestore"
+import { where } from "firebase/firestore";
 
 export const GET_EVENTS = "GET_EVENTS";
 export const GET_DETAILS = "GET_DETAILS";
 export const ADD_EVENT_INFO = "ADD_EVENT_INFO";
-export const GET_EVENTS_CATEGORY = "GET_EVENTS_CATEGORY"
+export const GET_EVENTS_CATEGORY = "GET_EVENTS_CATEGORY";
 export const GET_EVENTS_BY_TITLE = "GET_EVENTS_BY_TITLE";
 export const IS_LOGGED = "IS_LOGGED";
 export const GET_EVENTS_DATE = "GET_EVENTS_DATE";
 
 export const getEvents = () => {
+  let today = new Date();
   return async function (dispatch) {
-    let result = await event.findAll();
+    let result = await event.find(where("end", ">", today));
 
     return dispatch({
       type: GET_EVENTS,
@@ -22,15 +23,15 @@ export const getEvents = () => {
 
 export const getEventsByCategory = (category) => {
   return async function (dispatch) {
-    var resultCat = []
+    var resultCat = [];
     resultCat = await event.find(where("category", "==", category));
     if (resultCat.length > 0) {
-      console.log("PROP start FIREBASE", resultCat[0].start)
+      //console.log("PROP start FIREBASE", resultCat[0].start);
       return dispatch({
         type: GET_EVENTS_CATEGORY,
         payload: resultCat,
       });
-    } else alert("No hay eventos en esa Categoría")
+    } else alert("No hay eventos en esa Categoría");
   };
 };
 
@@ -52,16 +53,15 @@ export const getEventsByName = (title) => {
   return async function (dispatch) {
     let allEvents = await event.findAll();
     title = title.toLowerCase();
-    let eventsTitle = allEvents.filter(e => e.title.toLowerCase().includes(title));
+    let eventsTitle = allEvents.filter((e) => e.title.toLowerCase().includes(title));
     if (eventsTitle.length) {
       return dispatch({
         type: GET_EVENTS_BY_TITLE,
-        payload: eventsTitle
-      })
-    } else alert("No se han encontrado eventos.")
+        payload: eventsTitle,
+      });
+    } else alert("No se han encontrado eventos.");
   };
 };
-
 
 export const getDetails = (id) => {
   return {
@@ -79,6 +79,6 @@ export const addEventInfo = (data) => {
 export const changeIsLogged = (id) => {
   return {
     type: IS_LOGGED,
-    payload: id
-  }
-}
+    payload: id,
+  };
+};
