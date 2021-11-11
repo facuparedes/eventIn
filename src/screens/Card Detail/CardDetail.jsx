@@ -4,7 +4,6 @@ import { getDetails } from "../../common/redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./CardDetailStyles";
 import { AntDesign, FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
-import moment from "moment";
 
 export default function CardDetail({ route, navigation }) {
   const dispatch = useDispatch();
@@ -73,13 +72,16 @@ export default function CardDetail({ route, navigation }) {
                 <View style={styles.dataContain}>
                   <View style={{ flex: 3 }}>
                     <Text style={styles.textBody}>
-                      {details[0].start.toString().slice(4, 15)} {details[0].start.toString().slice(16, 24)}
+                      <Text style={{ fontFamily: "Gotham-Medium" }}>Inicia:</Text> {details[0].start.toString().slice(4, 15)} - {details[0].start.toString().slice(16, 21)}hs
+                    </Text>
+                    <Text style={styles.textBody}>
+                      <Text style={{ fontFamily: "Gotham-Medium" }}>Finaliza:</Text> {details[0].end.toString().slice(4, 15)} - {details[0].end.toString().slice(16, 21)}hs
                     </Text>
                     <Text style={styles.location}>Acá iría la dirección</Text>
                   </View>
-                  <View style={{ flex: 1, alignItems: "center", borderRadius: 10, elevation: 10 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate("MapDetail", {id: id,})}>
-                    <Image style={styles.maps} source={require("../../assets/maps.jpg")} />
+                  <View style={{ flex: 1, alignItems: "center", borderRadius: 10, elevation: 10, backgroundColor: "white" }}>
+                    <TouchableOpacity onPress={() => navigation.navigate("MapDetail", { id: id })}>
+                      <Image style={styles.maps} source={require("../../assets/maps.jpg")} />
                     </TouchableOpacity>
                   </View>
                 </View>
