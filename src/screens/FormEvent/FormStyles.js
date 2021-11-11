@@ -35,16 +35,19 @@ const styles = StyleSheet.create({
         // borderWidth: 1,
         alignItems: 'center',
         //borderBottomColor: 'green'
+        fontSize: 15,
     },
     label: {
         marginBottom: 1,
         color: 'black',
         fontWeight: 'normal',
         // fontFamily: 'asd'
+        fontSize: 18
     },
     inputCont: {
         // borderBottomWidth: 0,
-        marginRight: 46
+        marginRight: 46,
+        
     },
     inputError: {
         backgroundColor: '#d7eae9',
@@ -59,7 +62,7 @@ const styles = StyleSheet.create({
     btn: {
         backgroundColor: '#00BD9D',
         height: 50,
-        width: 200,
+        width: 160,
         // paddingLeft: 5,
         paddingHorizontal: 4,
         paddingBottom: 10,
@@ -117,9 +120,12 @@ const styles = StyleSheet.create({
     },
     btnsContainer: {
         flex: 1,
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: "10%"
+        marginTop: "10%",
+        // marginBottom: 40
+
     },
     textBtn: {
         color: 'white',
@@ -140,6 +146,7 @@ const styles = StyleSheet.create({
     checkBox: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
+        
     },
     boxCont: {
         borderWidth: 0,
@@ -233,7 +240,8 @@ const styles = StyleSheet.create({
         marginBottom: -4
     },
     photosContainer: {
-        flexDirection: 'column'
+        flexDirection: 'column',
+        
     },
     photosText: {
         marginLeft: 10,
@@ -249,7 +257,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        backgroundColor: '#298bc4',
+        backgroundColor: '#00BD9D',
         borderRadius: 4,
         width: "100%",
         flexDirection: 'row',
@@ -265,7 +273,8 @@ const styles = StyleSheet.create({
     },
     selectedPhotosText: {
         marginLeft: 9,
-        marginBottom: 6
+        marginBottom: 6,
+        
     },
     multimediaBtns: {
         flexDirection: 'row'
@@ -279,7 +288,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        backgroundColor: '#298bc4',
+        backgroundColor: '#00BD9D',
         borderRadius: 4,
         width: "83%",
         flexDirection: 'row',
@@ -322,7 +331,28 @@ const styles = StyleSheet.create({
     cancelBtn: {
         backgroundColor: '#eee',
         height: 50,
-        width: 200,
+        width: 160,
+        paddingHorizontal: 4,
+        paddingBottom: 10,
+        paddingTop: 10,
+        borderRadius: 6,
+        marginLeft: 8,
+        alignItems: 'center',
+        marginTop: 5,
+        marginBottom: 15,
+        shadowColor: "black",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+    btnAceptar: {
+        backgroundColor: '#00BD9D',
+        height: 50,
+        width: 160,
         paddingHorizontal: 4,
         paddingBottom: 10,
         paddingTop: 10,
@@ -344,6 +374,17 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: 'bold',
         fontSize: 20
+    },
+    btnsContaineratras: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 200
+    },
+    header: {
+        alignItems: 'center',
+    },
+    textHeader: {
+        fontSize: 20,
     }
 })
 

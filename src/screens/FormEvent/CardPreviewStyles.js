@@ -96,5 +96,11 @@ const estilos = StyleSheet.create({
     marginRight: 250,
     justifyContent: "space-evenly",
   },
+  header: {
+    alignItems: 'center',
+  },
+  textHeader: {
+      fontSize: 20,
+  }
 });
 export default estilos;

@@ -29,7 +29,10 @@ const FormCardPreview = ({ navigation }) => {
 
   return (
     <SafeAreaView style={estilos.container}>
-      <LinearProgress color="lightgreen" variant="determinate" value={0.9} />
+      <LinearProgress color="#00BD9D" variant="determinate" value={0.9} style={{height:10}} />
+      <View style={estilos.header}>
+        <Text style={estilos.textHeader}>Paso 4 de 4</Text>
+        </View>
       <View style={estilos.textAndImg}>
         <Text h4 style={estilos.titleText}>
           Vista previa del Evento:
@@ -64,7 +67,7 @@ const FormCardPreview = ({ navigation }) => {
       </View>
 
       <View style={formStyles.btnsContainer}>
-        <TouchableOpacity title="Pago" onPress={handleAccept} style={formStyles.btn}>
+        <TouchableOpacity title="Pago" onPress={handleAccept} style={formStyles.btnAceptar}>
           <Text style={formStyles.textBtn}>Aceptar</Text>
         </TouchableOpacity>
         <TouchableOpacity title="Pago" onPress={handleCancel} style={formStyles.cancelBtn}>
