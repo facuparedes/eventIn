@@ -9,7 +9,7 @@ import {Entypo} from "@expo/vector-icons";
 export default function MapDetail({ route, navigation }) {
     const dispatch = useDispatch();
     const { id } = route.params;
-    console.log('el ID',id)
+    // console.log('el ID',id)
     useEffect(() => {
       dispatch(getDetails(id));
     }, [dispatch]);
