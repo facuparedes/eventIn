@@ -4,6 +4,10 @@ import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import auth from "../../../api/firebase/services/AuthService";
 import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "@firebase/auth";
 import { useState } from "react";
+import { Input } from "react-native-elements";
+import styles from "./styles";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
 
 function validate(passwords) {
   let errors = {};
@@ -25,6 +29,8 @@ function validate(passwords) {
 export default function UpdatePassword() {
   const [newPassword, setNewPassword] = useState("");
   const [oldPassword, setOldPassword] = useState("");
+  const [secureDataEntry, setSecureDataEntry] = useState(true);
+  const navigation = useNavigation();
 
   const changePassword = () => {
     const validation = validate({ oldPassword: oldPassword, newPassword: newPassword });
@@ -52,20 +58,28 @@ export default function UpdatePassword() {
       return Alert.alert(`${Object.values(validation)[0]}`);
     }
   };
+  function updateSecureDataEntry() {
+    setSecureDataEntry(!secureDataEntry);
+  }
 
   return (
-    <View>
-      <View style={{ justifyContent: "center", marginTop: 100 }}>
-        <View style={{ alignSelf: "center" }}>
-          <TextInput placeholder="Contraseña actual" onChangeText={(text) => setOldPassword(text)} />
+    <SafeAreaView>
+      <View style={{ marginTop: 40 }}>
+        <View style={{ marginBottom: 50, marginLeft: 10 }}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back-outline" size={30} color="black" />
+          </TouchableOpacity>
         </View>
-        <View style={{ alignSelf: "center" }}>
-          <TextInput placeholder="Contraseña nueva" onChangeText={(text) => setNewPassword(text)} />
+        <View>
+          <Input secureTextEntry={true} placeholder="Escribe tu contraseña actual" onChangeText={(text) => setOldPassword(text)} />
         </View>
-        <TouchableOpacity style={{ alignSelf: "center", margin: 10, borderWidth: 2 }} onPress={changePassword}>
-          <Text>Cambiar contraseña</Text>
+        <View>
+          <Input secureTextEntry={true} placeholder="Escribe tu contraseña nueva" onChangeText={(text) => setNewPassword(text)} />
+        </View>
+        <TouchableOpacity style={styles.updateBtn} onPress={changePassword}>
+          <Text style={styles.textStyle}>Actualizar contraseña</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState, createRef } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo, MaterialCommunityIcons, AntDesign, Feather } from "@expo/vector-icons";
+import { Entypo, MaterialCommunityIcons, AntDesign, Feather, Ionicons, FontAwesome5, SimpleLineIcons } from "@expo/vector-icons";
 import { TouchableOpacity, Text, Image, Dimensions, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
@@ -133,20 +133,38 @@ export default function TabBar({ navigation }) {
                   </Text>
                 </TouchableOpacity>
                 <ActionSheet ref={actionSheetRef}>
-                  <View style={styles.containerEdit}>
+                  <View>
+                    {/* Editar Perfil */}
                     <TouchableOpacity
                       style={styles.buttonLogout}
                       onPress={() => {
                         navigation.navigate("EditProfile");
                       }}
                     >
-                      <Text style={styles.textLogout}>Editar perfil</Text>
+                      <View style={styles.direction}>
+                        <View style={{ marginVertical: 10, marginHorizontal: 10 }}>
+                          <FontAwesome5 name="user-edit" size={24} color="white" />
+                        </View>
+                        <Text style={styles.textLogout}>Editar perfil</Text>
+                      </View>
                     </TouchableOpacity>
+                    {/* Editar contraseña */}
                     <TouchableOpacity onPress={() => navigation.navigate("UpdatePassword")} style={styles.buttonLogout}>
-                      <Text style={styles.textLogout}>Editar contraseña</Text>
+                      <View style={styles.direction}>
+                        <View style={{ marginVertical: 10, marginHorizontal: 10 }}>
+                          <Ionicons name="key" size={24} color="white" />
+                        </View>
+                        <Text style={styles.textLogout}>Editar contraseña</Text>
+                      </View>
                     </TouchableOpacity>
+                    {/* Cerrar sesion */}
                     <TouchableOpacity onPress={() => alertLogOut()} style={styles.buttonLogout}>
-                      <Text style={styles.textLogout}>Cerrar Sesión</Text>
+                      <View style={styles.direction}>
+                        <View style={{ marginVertical: 10, marginHorizontal: 10 }}>
+                          <SimpleLineIcons name="logout" size={24} color="white" />
+                        </View>
+                        <Text style={styles.textLogout}>Cerrar Sesión</Text>
+                      </View>
                     </TouchableOpacity>
                   </View>
                 </ActionSheet>
