@@ -1,16 +1,14 @@
 import React, {useState} from "react";
-import { View, Image, Alert, Modal } from "react-native";
+import { View, Image, Alert } from "react-native";
 import { Input, Text, LinearProgress } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import formStyles from "./FormStyles";
-import Event from "../../../api/firebase/models/event";
 import moment from "moment";
 import estilos from "./CardPreviewStyles";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import styles from "./FormStyles";
-import { WebView } from 'react-native-webview';
 import axios from "axios";
 
 const FormCardPreview = ({ navigation }) => {
@@ -19,28 +17,13 @@ const FormCardPreview = ({ navigation }) => {
   const diff = moment(moment.now()).diff(eventInfo.start.date, "hours");
   const isToday = diff < 24 && diff >= 0;
 
-  const [pay, setPay] = useState(false);
-  const [redirectUrl, setRedirectUrl] = useState('');
-
-  const handleResponse = (data) => {
-    if(data.includes('/success')){
-      setPay(false);
-      Alert.alert('Su evento ha sido creado.');
-      navigation.replace("TabBar");
-      Event.create(eventInfo);
-    }
-    if(data.includes('/cancel')){
-      setPay(false);
-      Alert.alert('El pago ha sido rechazado.');
-      navigation.replace("TabBar");
-    }
-  }
-
   const handleAccept = async () => {
     const post = await axios.post('http://192.168.0.10:3001/checkout', { title: eventInfo.title });//tengo que pasarle la cantidad de dias para calcular el monto
     await console.log(post.data);
-    await setRedirectUrl(post.data); // or sth like that
-    setPay(true);
+    const redirectUrl = post.data;
+    navigation.navigate('MercadoPagoCard', redirectUrl);
+    // await setRedirectUrl(post.data); // or sth like that
+    // setPay(true);
   };
 
   const handleCancel = () => {
@@ -56,16 +39,7 @@ const FormCardPreview = ({ navigation }) => {
       <LinearProgress color="#00BD9D" variant="determinate" value={0.9} style={{height:10}} />
       <View style={estilos.header}>
         <Text style={estilos.textHeader}>Paso 4 de 4</Text>
-        </View>
-        <Modal
-          visible={pay}
-          onRequestClose={() => setPay(false)}
-        >
-          <WebView
-            source={{ uri: redirectUrl }}
-            onNavigationStateChange={(data) => handleResponse(data.url)}
-          />
-        </Modal>
+      </View>
       <View style={estilos.textAndImg}>
         <Text h4 style={estilos.titleText}>
           Vista previa del Evento:
@@ -129,9 +103,3 @@ const FormCardPreview = ({ navigation }) => {
 };
 
 export default FormCardPreview;
-
-
-<WebView
-          style={{width: '100%', height: '100%', alignSelf: 'center', position: 'absolute'}}
-          source={{uri:"http://192.168.0.4:3001/chekout"}}
-          />

@@ -11,8 +11,9 @@ mercadopago.configure({
   access_token: "TEST-6106850900617467-110906-6a1010cb301a9877ecbec20a69859fe1-44380919",
 });
 
-app.post("/checkout", (req, res) => {
+app.post('/checkout', (req, res) => {
   let preference = {
+    external_reference: '1234567890',
     items: [
       {
         title: req.body.title,
@@ -29,7 +30,7 @@ app.post("/checkout", (req, res) => {
   mercadopago.preferences
     .create(preference)
     .then(function (response) {
-
+      console.log(response.body);
       res.send(response.body.sandbox_init_point);
 
     })
@@ -39,13 +40,20 @@ app.post("/checkout", (req, res) => {
 });
 
 app.get('/success', (req, res) => {
+  console.log('QUERYYYYY', req.query)
+  console.log('PARAMSSSS', req.params)
+  console.log('BODYYYYYY', req.body);
   res.send('Approved')
 })
 
-app.get('cancel', (req, res) => {
+app.get('/cancel', (req, res) => {
   res.send('Cancel')
 })
 
+app.get('/payment', (req, res) => {
+  const id = req.body.id;
+
+})
 app.listen(3001, () => {
   console.log("Server Running");
 });
