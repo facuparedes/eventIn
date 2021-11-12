@@ -21,14 +21,23 @@ const FormCardPreview = ({ navigation }) => {
 
   const [pay, setPay] = useState(false);
 
-  const handleAccept = async () => {
-    // Event.create(eventInfo);
-    // // ESTO HAY QUE SACARLO CUANDO PONGAMOS PASARELA DE PAGO!! ES SOLO PARA LA SEGUNDA DEMO.
-    // Alert.alert("Tu evento ha sido creado!");
-    // navigation.replace("TabBar");
-    const post = await axios.post('http://192.168.0.4:3001/checkout', {title: eventInfo.title })//tengo que pasarle la cantidad de dias para calcular el monto
-    setPay(true)
+  const handleResponse = (data) => {
+    if(data.includes('/success')){
+      setPay(false)
+      Alert.alert('Su evento ha sido creado')
+      navigation.replace("TabBar");
+      Event.create(eventInfo)
+    }
+    if(data.includes('/cancel')){
+      setPay(false)
+      Alert.alert('Se ha rechazado el pago')
+      navigation.replace("TabBar");
+    }
+  }
 
+  const handleAccept = async () => {
+    setPay(true)
+    return await axios.post('http://192.168.0.4:3001/checkout', {title: eventInfo.title })//tengo que pasarle la cantidad de dias para calcular el monto
   };
 
   const handleCancel = () => {
@@ -51,6 +60,7 @@ const FormCardPreview = ({ navigation }) => {
         >
           <WebView
             source={{ uri: "http://192.168.0.4:3001/checkout" }}
+            onNavigationStateChange={(data) => handleResponse(data.url)}
           />
         </Modal>
       <View style={estilos.textAndImg}>
@@ -103,7 +113,7 @@ const FormCardPreview = ({ navigation }) => {
                   <AntDesign name="arrowleft" size={28} color="#fff" style={{marginLeft: 15}} />
                   <Text style={[styles.textBtn, {marginRight: 10}]}>Atras</Text>
                 </TouchableOpacity>
-        <TouchableOpacity title="Pago" onPress={() => setPay(true)} style={formStyles.btnAceptarPrewiew}>
+        <TouchableOpacity title="Pago" onPress={handleAccept} style={formStyles.btnAceptarPrewiew}>
           <Text style={formStyles.textBtn}>Aceptar</Text>
         </TouchableOpacity>
 
