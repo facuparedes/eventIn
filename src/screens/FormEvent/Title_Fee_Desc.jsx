@@ -197,7 +197,6 @@ const Title_Fee_Desc = ({ navigation }) => {
             </TouchableOpacity>
               
               </View> )}
-              
             </View>
              </ScrollView>
         </View>
