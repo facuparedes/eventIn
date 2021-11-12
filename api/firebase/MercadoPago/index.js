@@ -21,8 +21,8 @@ app.post("/checkout", (req, res) => {
       },
     ],
     back_urls: {
-      success: 'http://192.168.0.4:3001/success',
-      failure: 'http://192.168.0.4:3001/cancel'
+      success: 'https://eventin-app.herokuapp.com/success',
+      failure: 'https://eventin-app.herokuapp.com/cancel'
     },
     auto_return: 'approved',
   };
