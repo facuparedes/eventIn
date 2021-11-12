@@ -21,8 +21,8 @@ app.post("/checkout", (req, res) => {
       },
     ],
     back_urls: {
-      success: 'http://192.168.0.10:3001/success',
-      failure: 'http://192.168.0.10:3001/cancel'
+      success: 'http://192.168.0.4:3001/success',
+      failure: 'http://192.168.0.4:3001/cancel'
     },
     auto_return: 'approved',
   };
@@ -46,6 +46,6 @@ app.get('cancel', (req, res) => {
   res.send('Cancel')
 })
 
-app.listen(3001, () => {
+app.listen( process.env.PORT || 3001, () => {
   console.log("Server Running");
 });

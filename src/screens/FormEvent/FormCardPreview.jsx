@@ -37,7 +37,7 @@ const FormCardPreview = ({ navigation }) => {
   }
 
   const handleAccept = async () => {
-    const post = await axios.post('http://192.168.0.10:3001/checkout', { title: eventInfo.title });//tengo que pasarle la cantidad de dias para calcular el monto
+    const post = await axios.post('http://192.168.0.4:3001/checkout', { title: eventInfo.title });//tengo que pasarle la cantidad de dias para calcular el monto
     await console.log(post.data);
     await setRedirectUrl(post.data); // or sth like that
     setPay(true);
