@@ -42,7 +42,7 @@ app.get('/success', (req, res) => {
   res.send('Approved')
 })
 
-app.get('cancel', (req, res) => {
+app.get('/cancel', (req, res) => {
   res.send('Cancel')
 })
 
