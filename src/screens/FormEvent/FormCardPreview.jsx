@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React from "react";
 import { View, Image, Alert } from "react-native";
-import { Input, Text, LinearProgress } from "react-native-elements";
+import { Text, LinearProgress } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
@@ -19,15 +19,16 @@ const FormCardPreview = ({ navigation }) => {
 
   const handleAccept = async () => {
     const post = await axios.post('http://192.168.0.10:3001/checkout', { title: eventInfo.title });//tengo que pasarle la cantidad de dias para calcular el monto
-    await console.log(post.data);
+    // await console.log(post.data);
     const redirectUrl = post.data;
     navigation.navigate('MercadoPagoCard', redirectUrl);
-    // await setRedirectUrl(post.data); // or sth like that
-    // setPay(true);
   };
 
   const handleCancel = () => {
-    Alert.alert("¿Estás seguro de que deseas salir?", "Se perderán todos los cambios.", [{ text: "Si", onPress: () => navigation.popToTop() }, { text: "No" }]);
+    Alert.alert("¿Estás seguro de que deseas salir?", "Se perderán todos los cambios.", [
+      { text: "Si", onPress: () => navigation.popToTop() },
+      { text: "No" }
+    ]);
   };
 
   function handleBack() {

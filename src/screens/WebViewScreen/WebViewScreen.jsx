@@ -6,7 +6,7 @@ import WVSNavigation from "../../common/components/WVSNavigation/WVSNavigation";
 import * as Progress from 'react-native-progress';
 import Event from '../../../api/firebase/models/event'
 
-// CREDIT CARD NUMBER = 4013 5406 8274 6260
+// TEST CREDIT CARD NUMBER = 4013 5406 8274 6260
 export default function WebViewScreen ({navigation, redirectUrl}) {
     const eventInfo = useSelector((state) => state.eventForm);
     const webViewRef = useRef();
@@ -29,16 +29,12 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
     useEffect(() => {
         if (currentUrl.includes('/success')) {
             console.log('URL SUCCESS', currentUrl);
-            console.log('EVENT INFO', eventInfo);
-
             Alert.alert('Tu evento ha sido creado.')<
             navigation.replace('TabBar', currentUrl);
             Event.create(eventInfo);
         }
         if (currentUrl.includes('/cancel')) {
             console.log('URL FAILURE', currentUrl);
-            console.log('EVENT INFO', eventInfo);
-
             Alert.alert('El pago ha sido rechazado.');
             navigation.replace('TabBar', currentUrl);
         }
@@ -63,7 +59,7 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
                 onLoadEnd={() => setLoaded(true)}
                 onLoadProgress={event => setProgress(event.nativeEvent.progress)}
                 onNavigationStateChange={state => {
-                    console.log('STATE', state.url);
+                    // console.log('STATE', state.url);
                     const url = state.url;
                     setCurrentUrl(url);
                     const back = state.canGoBack;
@@ -79,27 +75,3 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
         </View>
     )
 }
-
-// const handleResponse = (data) => {
-//     if(data.includes('/success')){
-//       setPay(false);
-//       Alert.alert('Su evento ha sido creado.');
-//       navigation.replace("TabBar");
-//       Event.create(eventInfo);
-//     }
-//     if(data.includes('/cancel')){
-//       setPay(false);
-//       Alert.alert('El pago ha sido rechazado.');
-//       navigation.replace("TabBar");
-//     }
-//   }
-
-//    {/* <Modal
-//           visible={pay}
-//           onRequestClose={() => setPay(false)}
-//         >
-//           <WebView
-//             source={{ uri: redirectUrl }}
-//             onNavigationStateChange={(data) => handleResponse(data.url)}
-//           />
-//         </Modal> */}
