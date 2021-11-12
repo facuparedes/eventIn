@@ -145,6 +145,12 @@ const Title_Fee_Desc = ({ navigation }) => {
     navigation.goBack();
   }
 
+  
+  
+  function handleFilter(e) {
+    Alert.alert("Eliminar imagen", "¿esta seguro que desea eliminar esta imagen?", [{ text: "Si", onPress: () => setAttachments (attachments.filter( img => img !== e)) }, { text: "No" }]);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -178,7 +184,22 @@ const Title_Fee_Desc = ({ navigation }) => {
             <TouchableOpacity onPress={openVideoPickerAsync} style={styles.videoBtn}>
               <Text style={styles.textVideoBtn}>Selecciona un video</Text>
             </TouchableOpacity>
-          </View>
+
+              </View>
+            <ScrollView horizontal={true}>
+            <View style={{flexDirection:'row'}}>
+            {attachments.length!==0 && attachments.map((img) =>
+             <View>
+            
+            <TouchableOpacity style={styles.btnX} onPress={() =>{handleFilter(img)}}>
+                <Image source={{ uri: img }} style={{width:130,height:95,marginLeft:3}}  resizeMode={"cover"} />
+            
+            </TouchableOpacity>
+              
+              </View> )}
+              
+            </View>
+             </ScrollView>
         </View>
 
         <Text style={styles.textType}>Tipo de evento:</Text>
