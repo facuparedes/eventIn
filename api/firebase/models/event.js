@@ -82,9 +82,10 @@ class Event extends Model {
    * @private
    */
   async __upload(uriFiles) {
-    const fileRef = ref(getStorage(), uuidv4());
-    const uploadFileAndGetURL = uriFiles.map((uri) =>
-      new Promise((resolve, reject) => {
+    const uploadFileAndGetURL = uriFiles.map((uri) => {
+      const fileRef = ref(getStorage(), uuidv4());
+
+      return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
         xhr.onload = () => resolve(xhr.response);
         xhr.onerror = (e) => reject(e);
@@ -93,8 +94,8 @@ class Event extends Model {
         xhr.send(null);
       })
         .then((blob) => uploadBytes(fileRef, blob).then(() => blob.close()))
-        .then(() => getDownloadURL(fileRef))
-    );
+        .then(() => getDownloadURL(fileRef));
+    });
 
     return await Promise.all(uploadFileAndGetURL);
   }
