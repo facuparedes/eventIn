@@ -8,7 +8,7 @@ import Event from '../../../api/firebase/models/event'
 
 // CREDIT CARD NUMBER = 4013 5406 8274 6260
 export default function WebViewScreen ({navigation, redirectUrl}) {
-    const eventInfo = useSelector(state => state.eventInfo);
+    const eventInfo = useSelector((state) => state.eventForm);
     const webViewRef = useRef();
 
     const [progress, setProgress] = useState(0);
@@ -28,17 +28,21 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
 
     useEffect(() => {
         if (currentUrl.includes('/success')) {
-            console.log(currentUrl);
+            console.log('URL SUCCESS', currentUrl);
+            console.log('EVENT INFO', eventInfo);
+
             Alert.alert('Tu evento ha sido creado.')<
             navigation.replace('TabBar', currentUrl);
             Event.create(eventInfo);
         }
         if (currentUrl.includes('/cancel')) {
-            console.log(currentUrl);
+            console.log('URL FAILURE', currentUrl);
+            console.log('EVENT INFO', eventInfo);
+
             Alert.alert('El pago ha sido rechazado.');
             navigation.replace('TabBar', currentUrl);
         }
-    }, [currentUrl]);
+    }, [currentUrl, eventInfo]);
 
     return (
         <View style={{flex: 1, resizeMode: 'contain'}}>
