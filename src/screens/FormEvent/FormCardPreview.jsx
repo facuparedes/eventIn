@@ -20,24 +20,27 @@ const FormCardPreview = ({ navigation }) => {
   const isToday = diff < 24 && diff >= 0;
 
   const [pay, setPay] = useState(false);
+  const [redirectUrl, setRedirectUrl] = useState('');
 
   const handleResponse = (data) => {
     if(data.includes('/success')){
-      setPay(false)
-      Alert.alert('Su evento ha sido creado')
+      setPay(false);
+      Alert.alert('Su evento ha sido creado.');
       navigation.replace("TabBar");
-      Event.create(eventInfo)
+      Event.create(eventInfo);
     }
     if(data.includes('/cancel')){
-      setPay(false)
-      Alert.alert('Se ha rechazado el pago')
+      setPay(false);
+      Alert.alert('El pago ha sido rechazado.');
       navigation.replace("TabBar");
     }
   }
 
   const handleAccept = async () => {
-    setPay(true)
-    return await axios.post('http://192.168.0.4:3001/checkout', {title: eventInfo.title })//tengo que pasarle la cantidad de dias para calcular el monto
+    const post = await axios.post('http://192.168.0.4:3001/checkout', { title: eventInfo.title });//tengo que pasarle la cantidad de dias para calcular el monto
+    await console.log(post.data);
+    await setRedirectUrl(post.data); // or sth like that
+    setPay(true);
   };
 
   const handleCancel = () => {
@@ -59,7 +62,7 @@ const FormCardPreview = ({ navigation }) => {
           onRequestClose={() => setPay(false)}
         >
           <WebView
-            source={{ uri: "http://192.168.0.4:3001/checkout" }}
+            source={{ uri: redirectUrl }}
             onNavigationStateChange={(data) => handleResponse(data.url)}
           />
         </Modal>
