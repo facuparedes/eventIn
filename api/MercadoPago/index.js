@@ -15,22 +15,22 @@ app.get("/checkout", (req, res) => {
   let preference = {
     items: [
       {
-        title:req.body.title,
+        title: req.body.title,
         unit_price: 100,
         quantity: 1,
       },
     ],
     back_urls: {
-			"success": 'http://192.168.0.4:3001/success',
-			"failure": 'http://192.168.0.4:3001/cancel'
-		},
-		auto_return: 'approved',
+      "success": 'http://192.168.0.4:3001/success',
+      "failure": 'http://192.168.0.4:3001/cancel'
+    },
+    auto_return: 'approved',
   };
   mercadopago.preferences
     .create(preference)
     .then(function (response) {
 
-        res.redirect(response.body.sandbox_init_point)
+      res.redirect(response.body.sandbox_init_point)
 
     })
     .catch(function (error) {
