@@ -132,7 +132,7 @@ export default function TabBar({ navigation }) {
                     <Feather name="menu" size={24} color="black" />
                   </Text>
                 </TouchableOpacity>
-                <ActionSheet containerStyle={{ backgroundColor: "#d7eae9" }} indicatorColor="#00BD9D" gestureEnabled={true} ref={actionSheetRef} animated={true}>
+                <ActionSheet containerStyle={{ backgroundColor: "#d7eae9" }} indicatorColor="#00BD9D" gestureEnabled={true} ref={actionSheetRef}>
                   <View>
                     {/* Editar Perfil */}
                     <View style={styles.display}>
@@ -141,6 +141,7 @@ export default function TabBar({ navigation }) {
                           style={styles.buttonLogout}
                           onPress={() => {
                             navigation.navigate("EditProfile");
+                            actionSheetRef.current?.hide();
                           }}
                         >
                           <View style={styles.direction}>
@@ -155,7 +156,13 @@ export default function TabBar({ navigation }) {
                       </View>
                       {/* Editar contraseña */}
                       <View>
-                        <TouchableOpacity onPress={() => navigation.navigate("UpdatePassword")} style={styles.buttonLogout}>
+                        <TouchableOpacity
+                          onPress={() => {
+                            navigation.navigate("UpdatePassword");
+                            actionSheetRef.current?.hide();
+                          }}
+                          style={styles.buttonLogout}
+                        >
                           <View style={styles.direction}>
                             <View style={styles.icon}>
                               <Ionicons name="key" size={24} color="white" />
@@ -168,7 +175,13 @@ export default function TabBar({ navigation }) {
                       </View>
                       {/* Cerrar sesion */}
                       <View>
-                        <TouchableOpacity onPress={() => alertLogOut()} style={styles.buttonLogout}>
+                        <TouchableOpacity
+                          onPress={() => {
+                            alertLogOut();
+                            actionSheetRef.current?.hide();
+                          }}
+                          style={styles.buttonLogout}
+                        >
                           <View style={styles.direction}>
                             <View style={styles.icon}>
                               <SimpleLineIcons name="logout" size={24} color="white" />

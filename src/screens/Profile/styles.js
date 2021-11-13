@@ -7,24 +7,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   image: {
-    width: 120,
-    height: 120,
+    width: width * 0.3,
+    height: height * 0.15,
     borderRadius: 60,
     borderWidth: 1,
   },
   profileInfo: {
     display: "flex",
     flexDirection: "row",
-    marginTop: 100,
-    paddingHorizontal: 29,
+    marginTop: height * 0.05,
+    paddingHorizontal: width * 0.07,
   },
   info: {
-    marginLeft: 40,
-    marginTop: 50,
-  },
-  imageContainer: {
-    width: 100,
-    height: 200,
+    marginLeft: width * 0.1,
+    marginTop: height * 0.05,
   },
   containerEdit: {
     flexDirection: "row",
