@@ -132,40 +132,67 @@ export default function TabBar({ navigation }) {
                     <Feather name="menu" size={24} color="black" />
                   </Text>
                 </TouchableOpacity>
-                <ActionSheet ref={actionSheetRef}>
+                <ActionSheet containerStyle={{ backgroundColor: "#d7eae9" }} indicatorColor="#00BD9D" gestureEnabled={true} ref={actionSheetRef}>
                   <View>
                     {/* Editar Perfil */}
-                    <TouchableOpacity
-                      style={styles.buttonLogout}
-                      onPress={() => {
-                        navigation.navigate("EditProfile");
-                      }}
-                    >
-                      <View style={styles.direction}>
-                        <View style={{ marginVertical: 10, marginHorizontal: 10 }}>
-                          <FontAwesome5 name="user-edit" size={24} color="white" />
-                        </View>
-                        <Text style={styles.textLogout}>Editar perfil</Text>
+                    <View style={styles.display}>
+                      <View>
+                        <TouchableOpacity
+                          style={styles.buttonLogout}
+                          onPress={() => {
+                            navigation.navigate("EditProfile");
+                            actionSheetRef.current?.hide();
+                          }}
+                        >
+                          <View style={styles.direction}>
+                            <View style={styles.icon}>
+                              <FontAwesome5 name="user-edit" size={24} color="white" />
+                            </View>
+                            <View style={styles.text}>
+                              <Text style={styles.textLogout}>Editar perfil</Text>
+                            </View>
+                          </View>
+                        </TouchableOpacity>
                       </View>
-                    </TouchableOpacity>
-                    {/* Editar contraseña */}
-                    <TouchableOpacity onPress={() => navigation.navigate("UpdatePassword")} style={styles.buttonLogout}>
-                      <View style={styles.direction}>
-                        <View style={{ marginVertical: 10, marginHorizontal: 10 }}>
-                          <Ionicons name="key" size={24} color="white" />
-                        </View>
-                        <Text style={styles.textLogout}>Editar contraseña</Text>
+                      {/* Editar contraseña */}
+                      <View>
+                        <TouchableOpacity
+                          onPress={() => {
+                            navigation.navigate("UpdatePassword");
+                            actionSheetRef.current?.hide();
+                          }}
+                          style={styles.buttonLogout}
+                        >
+                          <View style={styles.direction}>
+                            <View style={styles.icon}>
+                              <Ionicons name="key" size={24} color="white" />
+                            </View>
+                            <View style={styles.text}>
+                              <Text style={styles.textLogout}>Editar contraseña</Text>
+                            </View>
+                          </View>
+                        </TouchableOpacity>
                       </View>
-                    </TouchableOpacity>
-                    {/* Cerrar sesion */}
-                    <TouchableOpacity onPress={() => alertLogOut()} style={styles.buttonLogout}>
-                      <View style={styles.direction}>
-                        <View style={{ marginVertical: 10, marginHorizontal: 10 }}>
-                          <SimpleLineIcons name="logout" size={24} color="white" />
-                        </View>
-                        <Text style={styles.textLogout}>Cerrar Sesión</Text>
+                      {/* Cerrar sesion */}
+                      <View>
+                        <TouchableOpacity
+                          onPress={() => {
+                            alertLogOut();
+                            actionSheetRef.current?.hide();
+                          }}
+                          style={styles.buttonLogout}
+                        >
+                          <View style={styles.direction}>
+                            <View style={styles.icon}>
+                              <SimpleLineIcons name="logout" size={24} color="white" />
+                            </View>
+                            <View style={styles.text}>
+                              <Text style={styles.textLogout}>Cerrar Sesión</Text>
+                            </View>
+                          </View>
+                        </TouchableOpacity>
                       </View>
-                    </TouchableOpacity>
+                    </View>
                   </View>
                 </ActionSheet>
               </View>
