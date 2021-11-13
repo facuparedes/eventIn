@@ -447,7 +447,8 @@ const styles = StyleSheet.create({
     },
     textHeader: {
         fontSize: 20,
-    }
+    },
+    btnX:{}
 })
 
 export default styles;
