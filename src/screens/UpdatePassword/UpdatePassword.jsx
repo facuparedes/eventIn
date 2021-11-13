@@ -64,7 +64,7 @@ export default function UpdatePassword() {
 
   return (
     <SafeAreaView>
-      <View style={{ marginTop: 40 }}>
+      <View style={styles.all}>
         <View style={{ marginBottom: 50, marginLeft: 10 }}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
             <Ionicons name="arrow-back-outline" size={30} color="black" />
@@ -76,9 +76,11 @@ export default function UpdatePassword() {
         <View>
           <Input secureTextEntry={true} placeholder="Escribe tu contraseña nueva" onChangeText={(text) => setNewPassword(text)} />
         </View>
-        <TouchableOpacity style={styles.updateBtn} onPress={changePassword}>
-          <Text style={styles.textStyle}>Actualizar contraseña</Text>
-        </TouchableOpacity>
+        <View style={styles.display}>
+          <TouchableOpacity style={styles.updateBtn} onPress={changePassword}>
+            <Text style={styles.textStyle}>Actualizar contraseña</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
