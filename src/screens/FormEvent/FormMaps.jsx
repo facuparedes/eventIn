@@ -76,9 +76,9 @@ const FormMaps = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearProgress color="#00BD9D" variant="determinate" value={0.6} style={{height:10}} />
+      <LinearProgress color="#00BD9D" variant="determinate" value={0.4} style={{height:10}} />
       <View style={styles.header}>
-        <Text style={styles.textHeader}>Paso 3 de 4</Text>
+        <Text style={styles.textHeader}>Paso 3 de 5</Text>
         </View>
 
       <Text h3 style={styles.textLoc}>Elige una ubicación:</Text>

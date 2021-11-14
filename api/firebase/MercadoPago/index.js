@@ -24,8 +24,8 @@ app.post('/checkout', (req, res) => {
       },
     ],
     back_urls: {
-      success: 'https://eventin-app.herokuapp.com/success',
-      failure: 'https://eventin-app.herokuapp.com/cancel'
+      success: 'http://192.168.0.10:3001/success',
+      failure: 'http://192.168.0.10:3001/cancel'
     },
     auto_return: 'approved',
   };
@@ -56,7 +56,7 @@ app.get('/payment', (req, res) => {
 
 })
 
-app.listen( process.env.PORT || 3001, () => {
+app.listen(process.env.PORT || 3001, () => {
 
   console.log("Server Running");
 

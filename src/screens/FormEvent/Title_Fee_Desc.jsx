@@ -156,7 +156,7 @@ const Title_Fee_Desc = ({ navigation }) => {
       <ScrollView>
         <LinearProgress color="#00BD9D" variant="determinate" value={0} style={{height:10}}/>
         <View style={styles.header}>
-        <Text style={styles.textHeader}>Paso 1 de 4</Text>
+        <Text style={styles.textHeader}>Paso 1 de 5</Text>
         </View>
 
         <View style={styles.textAndImg}>
