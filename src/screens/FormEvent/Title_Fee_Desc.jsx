@@ -8,7 +8,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, Ionicons, AntDesign} from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { Picker } from "@react-native-picker/picker"; ///
+import { Picker } from "@react-native-picker/picker"; 
 import { categoryArray } from "./../../common/categories";
 
 // Validate Function

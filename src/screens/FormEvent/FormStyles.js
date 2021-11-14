@@ -30,11 +30,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderColor: 'black',
         borderRadius: 4,
-        // paddingLeft: 9,
-        // marginBottom: 2,
-        // borderWidth: 1,
         alignItems: 'center',
-        //borderBottomColor: 'green'
         fontSize: 15,
     },
     label: {
