@@ -77,7 +77,7 @@ export default function PaymentCalc({ navigation }) {
 
     const handleAccept = async () => {
 
-        const validation = validate({date: date, price: price});
+        const validation = validate({date: textDate, price: price});
 
         if (Object.keys(validation).length === 0) {
             // const partialEvent = {
@@ -100,6 +100,7 @@ export default function PaymentCalc({ navigation }) {
     };
 
     const handleCancel = () => {
+        console.log('HOLAAAAA', textDate);
         Alert.alert("¿Estás seguro de que deseas salir?", "Se perderán todos los cambios.", [
             { text: "Si", onPress: () => navigation.popToTop() },
             { text: "No" }
