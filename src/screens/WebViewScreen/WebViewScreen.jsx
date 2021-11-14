@@ -29,7 +29,7 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
     useEffect(() => {
         if (currentUrl.includes('/success')) {
             console.log('URL SUCCESS', currentUrl);
-            Alert.alert('Tu evento ha sido creado.')<
+            Alert.alert('Tu evento ha sido creado.')
             navigation.replace('TabBar', currentUrl);
             Event.create(eventInfo);
         }
