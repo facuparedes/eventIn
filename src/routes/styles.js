@@ -1,4 +1,6 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
+
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   headerRight: {
@@ -33,18 +35,16 @@ const styles = StyleSheet.create({
   },
   buttonLogout: {
     backgroundColor: "#00BD9D",
-    width: 200,
+    width: width * 0.6,
     borderRadius: 4,
-    marginHorizontal: 100,
+    marginHorizontal: 63,
     marginVertical: 15,
   },
   textLogout: {
-    display: "flex",
     flexDirection: "row",
     paddingVertical: 10,
     color: "white",
     fontWeight: "bold",
-    alignSelf: "center",
   },
   searchIcon: {
     fontSize: 28,
@@ -64,7 +64,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
   },
-  direction: { display: "flex", flexDirection: "row", padding: 10, alignSelf: "center" },
+  direction: { display: "flex", flexDirection: "row", padding: 8, alignSelf: "center" },
+  display: {
+    alignItems: "center",
+    flexDirection: "column",
+    marginBottom: height * 0.2,
+    marginTop: height * 0.1,
+    height: height * 0.25,
+  },
+  text: {
+    flex: 2,
+    justifyContent: "center",
+  },
+  icon: {
+    flex: 1,
+    justifyContent: "center",
+  },
 });
 
 export default styles;
