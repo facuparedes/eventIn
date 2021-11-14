@@ -16,7 +16,7 @@ function validate (data) {
         errors.date = 'Elige una fecha de publicación para tu evento.'
     }
     if(!data.price) {
-        errors.price = 'Valor Incorrecto.'
+        errors.price = 'Valor incorrecto.'
     }
     return errors;
 }
@@ -33,7 +33,6 @@ export default function PaymentCalc({ navigation }) {
     const [price, setPrice] = useState(100);
 
     const daysArray = ['1 día', '3 días', '5 días', '7 días', '14 días', '30 días', '60 días', '90 días']
-
 
     const onChangeDate = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -81,12 +80,14 @@ export default function PaymentCalc({ navigation }) {
         const validation = validate({date: date, price: price});
 
         if (Object.keys(validation).length === 0) {
-            const partialEvent = {
-                publishDate: date,
-                price: price
-            }
-            dispatch(addEventInfo(partialEvent));
-            const post = await axios.post('https://event-in2.herokuapp.com/checkout', { 
+            // const partialEvent = {
+            //     publishDate: date,
+            //     price: price
+            // };
+
+            // dispatch(addEventInfo(partialEvent));
+
+            const post = await axios.post('https://eventin-app.herokuapp.com/checkout', { 
                 title: eventInfo.title,
                 price: eventInfo.price
             });

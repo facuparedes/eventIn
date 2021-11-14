@@ -141,11 +141,10 @@ const Title_Fee_Desc = ({ navigation }) => {
     }
     if (fee === 0) Alert.alert("Tu evento será gratuito, podés volver atrás para cambiarlo.");
   };
+
   function handleBack() {
     navigation.goBack();
   }
-
-  
   
   function handleFilter(e) {
     Alert.alert("Eliminar imagen", "¿esta seguro que desea eliminar esta imagen?", [{ text: "Si", onPress: () => setAttachments (attachments.filter( img => img !== e)) }, { text: "No" }]);

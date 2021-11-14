@@ -70,6 +70,7 @@ const FormMaps = ({ navigation }) => {
     dispatch(addEventInfo(partialEvent));
     navigation.navigate("FormCardPreview")
   };
+  
   function handleBack() {
     navigation.goBack();
   }
