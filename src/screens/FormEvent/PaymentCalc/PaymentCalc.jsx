@@ -89,7 +89,7 @@ export default function PaymentCalc({ navigation }) {
 
             const post = await axios.post('https://eventin-app.herokuapp.com/checkout', { 
                 title: eventInfo.title,
-                price: eventInfo.price
+                price: price
             });
             // await console.log(post.data);
             const redirectUrl = post.data;
