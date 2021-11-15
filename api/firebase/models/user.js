@@ -12,11 +12,11 @@ const updateV = new Validator({ defaults: { uuid: opt, string: opt, boolean: opt
 /** @type {ValidationSchema} */
 const UserSchema = {
   uuid: "string|empty:false|trim|min:10|max:100",
-  name: "string|empty:false|trim|min:1|max:100",
-  lastname: "string|empty:false|trim|min:1|max:100",
-  years: "number|min:0|max:100",
-  phone: "string|min:6|max:20",
-  photo: "string|empty:false|trim|min:1|max:1000",
+  name: "string|empty:false|trim|min:1|max:100|optional",
+  lastname: "string|empty:false|trim|min:1|max:100|optional",
+  years: "number|min:0|max:100|optional",
+  phone: "string|min:6|max:20|optional",
+  photo: "string|empty:false|trim|min:1|max:1000|optional",
   $$strict: "remove",
 };
 
@@ -57,7 +57,7 @@ class User extends Model {
    * @param {*} user
    * @returns {Promise<*>}
    */
-  create(user) {
+  create(user = {}) {
     return new Promise(async (resolve, reject) => {
       const result = check(user);
       const errors = Array.isArray(result) ? result : null;
@@ -83,7 +83,7 @@ class User extends Model {
    * @param {string} id
    * @param {*} user
    */
-  update(id, user) {
+  update(id, user = {}) {
     return new Promise(async (resolve, reject) => {
       const result = updateCheck(user);
       const errors = Array.isArray(result) ? result : null;
@@ -154,7 +154,7 @@ class User extends Model {
     });
   }
 
-  addRelation(modelName, relationName, relationData) {
+  addRelation(modelName, relationName, relationData = {}) {
     return new Promise(async (resolve, reject) => {
       const result = relationCheck(relationData);
       const errors = Array.isArray(result) ? result : null;
