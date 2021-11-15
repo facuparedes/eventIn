@@ -110,7 +110,7 @@ class Event extends Model {
    * @param {*} event
    * @returns {Promise<*>}
    */
-  create(event) {
+  create(event = {}) {
     return new Promise(async (resolve, reject) => {
       const result = check(event);
       const errors = Array.isArray(result) ? result : null;
@@ -136,7 +136,7 @@ class Event extends Model {
    * @param {string} id
    * @param {*} event
    */
-  update(id, event) {
+  update(id, event = {}) {
     return new Promise(async (resolve, reject) => {
       const result = updateCheck(event);
       const errors = Array.isArray(result) ? result : null;
@@ -207,7 +207,7 @@ class Event extends Model {
     });
   }
 
-  addRelation(modelName, relationName, relationData) {
+  addRelation(modelName, relationName, relationData = {}) {
     return new Promise(async (resolve, reject) => {
       const result = relationCheck(relationData);
       const errors = Array.isArray(result) ? result : null;

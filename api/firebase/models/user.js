@@ -57,7 +57,7 @@ class User extends Model {
    * @param {*} user
    * @returns {Promise<*>}
    */
-  create(user) {
+  create(user = {}) {
     return new Promise(async (resolve, reject) => {
       const result = check(user);
       const errors = Array.isArray(result) ? result : null;
@@ -83,7 +83,7 @@ class User extends Model {
    * @param {string} id
    * @param {*} user
    */
-  update(id, user) {
+  update(id, user = {}) {
     return new Promise(async (resolve, reject) => {
       const result = updateCheck(user);
       const errors = Array.isArray(result) ? result : null;
@@ -154,7 +154,7 @@ class User extends Model {
     });
   }
 
-  addRelation(modelName, relationName, relationData) {
+  addRelation(modelName, relationName, relationData = {}) {
     return new Promise(async (resolve, reject) => {
       const result = relationCheck(relationData);
       const errors = Array.isArray(result) ? result : null;
