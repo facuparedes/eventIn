@@ -1,15 +1,13 @@
 import React from "react";
 import { View, Image, Alert } from "react-native";
-import { Input, Text, LinearProgress } from "react-native-elements";
+import { Text, LinearProgress } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import formStyles from "./FormStyles";
-import Event from "../../../api/firebase/models/event";
 import moment from "moment";
 import estilos from "./CardPreviewStyles";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
-import styles from "./FormStyles";
 
 const FormCardPreview = ({ navigation }) => {
   const eventInfo = useSelector((state) => state.eventForm);
@@ -17,30 +15,15 @@ const FormCardPreview = ({ navigation }) => {
   const diff = moment(moment.now()).diff(eventInfo.start.date, "hours");
   const isToday = diff < 24 && diff >= 0;
 
-  const handleAccept = async () => {
-    Event.create(eventInfo);
-    // ESTO HAY QUE SACARLO CUANDO PONGAMOS PASARELA DE PAGO!! ES SOLO PARA LA SEGUNDA DEMO.
-    Alert.alert("Tu evento ha sido creado!");
-    navigation.replace("TabBar");
-  };
-
-  const handleCancel = () => {
-    Alert.alert("¿Estás seguro de que deseas salir?", "Se perderán todos los cambios.", [{ text: "Si", onPress: () => navigation.popToTop() }, { text: "No" }]);
-  };
-
-  function handleBack() {
-    navigation.goBack();
-  }
-
   return (
     <SafeAreaView style={estilos.container}>
-      <LinearProgress color="#00BD9D" variant="determinate" value={0.9} style={{height:10}} />
+      <LinearProgress color="#00BD9D" variant="determinate" value={0.6} style={{height:10}} />
       <View style={estilos.header}>
-        <Text style={estilos.textHeader}>Paso 4 de 4</Text>
-        </View>
+        <Text style={estilos.textHeader}>Paso 4 de 5</Text>
+      </View>
       <View style={estilos.textAndImg}>
         <Text h4 style={estilos.titleText}>
-          Vista previa del Evento:
+          Vista previa del Evento
         </Text>
         <Image source={require("../../assets/Logo.png")} style={[estilos.logoImage, { marginLeft: 40 }]} />
       </View>
@@ -71,12 +54,12 @@ const FormCardPreview = ({ navigation }) => {
         </View>
       </View>
 
-      <View style={formStyles.btnsContainer}>
-      <TouchableOpacity 
+      <View style={formStyles.btnsContainerMaps}>
+              <TouchableOpacity 
                 title="Atras" 
-                onPress={handleBack}
+                onPress={() => navigation.goBack()}
                 style={[
-                  styles.btnCancelarPrewiew,
+                  formStyles.btn,
                   {
                     flexDirection: 'row',
                     backgroundColor:'gray',
@@ -85,14 +68,20 @@ const FormCardPreview = ({ navigation }) => {
                 ]} 
                 >
                   
-                  <AntDesign name="arrowleft" size={28} color="#fff" style={{marginLeft: 15}} />
-                  <Text style={[styles.textBtn, {marginRight: 10}]}>Atras</Text>
+                  <AntDesign name="arrowleft" size={28} color="#fff" style={{marginLeft: 40}} />
+                  <Text style={[formStyles.textBtn, {marginRight: 30}]}>Atras</Text>
                 </TouchableOpacity>
-        <TouchableOpacity title="Pago" onPress={handleAccept} style={formStyles.btnAceptarPrewiew}>
-          <Text style={formStyles.textBtn}>Aceptar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity title="Pago" onPress={handleCancel} style={formStyles.cancelBtn}>
-          <Text style={formStyles.cancelTextBtn}>Cancelar</Text>
+        <TouchableOpacity 
+            title="Siguiente..." 
+            onPress={() => navigation.navigate('PaymentCalc')} 
+            style={[
+              formStyles.btn, 
+              {flexDirection: 'row', 
+              justifyContent: 'center'
+              }
+              ]}>
+          <Text style={formStyles.textBtn}>Siguiente</Text>
+          <Ionicons name="arrow-forward" size={28} color="#fff" style={formStyles.arrowIcon}/>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

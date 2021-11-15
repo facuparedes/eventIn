@@ -8,7 +8,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, Ionicons, AntDesign} from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { Picker } from "@react-native-picker/picker"; ///
+import { Picker } from "@react-native-picker/picker"; 
 import { categoryArray } from "./../../common/categories";
 
 // Validate Function
@@ -141,11 +141,10 @@ const Title_Fee_Desc = ({ navigation }) => {
     }
     if (fee === 0) Alert.alert("Tu evento será gratuito, podés volver atrás para cambiarlo.");
   };
+
   function handleBack() {
     navigation.goBack();
   }
-
-  
   
   function handleFilter(e) {
     Alert.alert("Eliminar imagen", "¿esta seguro que desea eliminar esta imagen?", [{ text: "Si", onPress: () => setAttachments (attachments.filter( img => img !== e)) }, { text: "No" }]);
@@ -156,7 +155,7 @@ const Title_Fee_Desc = ({ navigation }) => {
       <ScrollView>
         <LinearProgress color="#00BD9D" variant="determinate" value={0} style={{height:10}}/>
         <View style={styles.header}>
-        <Text style={styles.textHeader}>Paso 1 de 4</Text>
+        <Text style={styles.textHeader}>Paso 1 de 5</Text>
         </View>
 
         <View style={styles.textAndImg}>

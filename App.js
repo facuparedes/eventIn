@@ -15,6 +15,9 @@ import Loading from "./src/screens/Loading/Loading";
 import CardDetail from "./src/screens/Card Detail/CardDetail";
 import MapDetail from './src/screens/Card Detail/MapDetail'
 
+import WebViewScreen from "./src/screens/WebViewScreen/WebViewScreen.jsx";
+import MercadoPagoCard from "./src/screens/MercadoPagoCard/MercadoPagoCard.jsx";
+
 import moment from "moment";
 import "moment/locale/es";
 //imports del Form
@@ -27,6 +30,7 @@ import EditProfile from "./src/screens/Edit Profile/EditProfile.jsx";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import UpdatePassword from "./src/screens/UpdatePassword/UpdatePassword.jsx";
+import PaymentCalc from "./src/screens/FormEvent/PaymentCalc/PaymentCalc.jsx";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -67,12 +71,15 @@ export default function App() {
           <Stack.Screen name="Loading" component={Loading} />
           <Stack.Screen name="TabBar" component={TabBar} />
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="WebViewScreen" component={WebViewScreen} />
+          <Stack.Screen name="MercadoPagoCard" component={MercadoPagoCard} />
           <Stack.Screen name="CardDetail" component={CardDetail} />
           {/*FORM SECTION*/}
           <Stack.Screen name="Form" component={Title_Fee_Desc} />
           <Stack.Screen name="FormDatePicker" component={FormDatePicker} />
           <Stack.Screen name="FormMaps" component={FormMaps} />
           <Stack.Screen name="FormCardPreview" component={FormCardPreview} />
+          <Stack.Screen name="PaymentCalc" component={PaymentCalc} />
 
           <Stack.Screen name="Profile" component={Profile} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
