@@ -28,9 +28,17 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
 
     useEffect(() => {
         if (currentUrl.includes('/success')) {
+            let paramsUrl = (new URL(currentUrl)).searchParams;
+            console.log('PARAMSURL', paramsUrl);
+            let payment_id = paramsUrl.get('payment_id');
+            console.log('PAYMENTID', payment_id);
+            let payment_status = paramsUrl.get('status');
+            let eventInfoDB = {...eventInfo, payment_id, payment_status};
+            
             console.log('URL SUCCESS', currentUrl);
-            Alert.alert('Tu evento ha sido creado.')
+            Alert.alert('Tu evento ha sido creado.');
             navigation.replace('TabBar', currentUrl);
+            console.log('FINAL EVENT', eventInfo);
             Event.create(eventInfo);
         }
         if (currentUrl.includes('/cancel')) {
@@ -59,7 +67,7 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
                 onLoadEnd={() => setLoaded(true)}
                 onLoadProgress={event => setProgress(event.nativeEvent.progress)}
                 onNavigationStateChange={state => {
-                    // console.log('STATE', state.url);
+                    console.log('STATE', state.url);
                     const url = state.url;
                     setCurrentUrl(url);
                     const back = state.canGoBack;

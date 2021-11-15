@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, TextInput, Text, View, Image, Alert } from 'react-native';
 import styles from './RegisterStyles';
+import user from '../../../api/firebase/models/user';
 import { createUserWithEmailAndPassword, 
     updateProfile, 
     GoogleAuthProvider, 
@@ -99,7 +100,7 @@ export default function Register ({navigation}) {
             return Alert.alert('Por favor, llená todos los campos requieridos.')
         };
         
-        const validation = validate({username: username, email: email, password: password})
+        const validation = validate({username: username, email: email, password: password});
         
         if(Object.keys(validation).length === 0) {
             createUserWithEmailAndPassword(auth, email, password)
@@ -110,7 +111,9 @@ export default function Register ({navigation}) {
                     displayName: username    
                 });
 
-                sendEmailVerification(user)
+                user.create({uuid: auth.currentUser.uuid});
+
+                sendEmailVerification(user);
                 
                 Alert.alert('Registro exitoso.', 
                     'Te enviamos un email con un link de confirmación.') // o user.displayName (si no es asíncrono, sino .then())
