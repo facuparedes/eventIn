@@ -12,11 +12,11 @@ const updateV = new Validator({ defaults: { uuid: opt, string: opt, boolean: opt
 /** @type {ValidationSchema} */
 const UserSchema = {
   uuid: "string|empty:false|trim|min:10|max:100",
-  name: "string|empty:false|trim|min:1|max:100",
-  lastname: "string|empty:false|trim|min:1|max:100",
-  years: "number|min:0|max:100",
-  phone: "string|min:6|max:20",
-  photo: "string|empty:false|trim|min:1|max:1000",
+  name: "string|empty:false|trim|min:1|max:100|optional",
+  lastname: "string|empty:false|trim|min:1|max:100|optional",
+  years: "number|min:0|max:100|optional",
+  phone: "string|min:6|max:20|optional",
+  photo: "string|empty:false|trim|min:1|max:1000|optional",
   $$strict: "remove",
 };
 
