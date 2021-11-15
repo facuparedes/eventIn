@@ -5,6 +5,7 @@ import { WebView } from 'react-native-webview';
 import WVSNavigation from "../../common/components/WVSNavigation/WVSNavigation";
 import * as Progress from 'react-native-progress';
 import Event from '../../../api/firebase/models/event'
+import { URL } from 'react-native-url-polyfill';
 
 // TEST CREDIT CARD NUMBER = 4013 5406 8274 6260
 export default function WebViewScreen ({navigation, redirectUrl}) {
@@ -33,13 +34,13 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
             let payment_id = paramsUrl.get('payment_id');
             console.log('PAYMENTID', payment_id);
             let payment_status = paramsUrl.get('status');
-            let eventInfoDB = {...eventInfo, payment_id, payment_status};
+            const eventInfoDB = {...eventInfo, payment_id, payment_status};
             
             console.log('URL SUCCESS', currentUrl);
             Alert.alert('Tu evento ha sido creado.');
             navigation.replace('TabBar', currentUrl);
-            console.log('FINAL EVENT', eventInfo);
-            Event.create(eventInfo);
+            console.log('FINAL EVENT', eventInfoDB);
+            Event.create(eventInfoDB);
         }
         if (currentUrl.includes('/cancel')) {
             console.log('URL FAILURE', currentUrl);
