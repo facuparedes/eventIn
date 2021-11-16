@@ -23,7 +23,7 @@ export default function Home() {
     setRefreshing(true);
     dispatch(getEvents());
     wait(2000).then(() => setRefreshing(false));
-    setCateg("Categoría")
+    setCateg("Categoría");
   }, []);
 
   const [categ, setCateg] = useState("Categoría");
