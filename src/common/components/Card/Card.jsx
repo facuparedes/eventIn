@@ -5,7 +5,7 @@ import { View, Text, Image, TouchableOpacity, Button, Alert } from "react-native
 import { styles } from "./styles.js";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import Event from "../../../../api/firebase/models/event.js";
-import User from '../../../../api/firebase/models/user.js';
+import user from '../../../../api/firebase/models/user.js';
 import auth from '../../../../api/firebase/services/AuthService';
 
 export default function Card({ id, title, description, dateStart, attachments, navigation }) {

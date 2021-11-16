@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, View, Image, TouchableOpacity, SafeAreaView, ScrollView, FlatList } from "react-native";
 import { getDetails } from "../../common/redux/actions";
 import { useDispatch, useSelector } from "react-redux";
