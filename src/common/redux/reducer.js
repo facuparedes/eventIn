@@ -1,4 +1,12 @@
-import { GET_EVENTS, GET_DETAILS, GET_EVENTS_CATEGORY, IS_LOGGED, GET_EVENTS_BY_TITLE, GET_EVENTS_DATE, ADD_EVENT_INFO } from "./actions";
+import {
+  GET_EVENTS,
+  GET_DETAILS,
+  GET_EVENTS_CATEGORY,
+  IS_LOGGED,
+  GET_EVENTS_BY_TITLE,
+  GET_EVENTS_DATE,
+  ADD_EVENT_INFO,
+} from "./actions";
 
 const initialState = {
   events: [],
@@ -10,8 +18,8 @@ const initialState = {
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_EVENTS:
-      var orderEvents= action.payload;
-      orderEvents.sort((a,b)=> a.start > b.start);
+      var orderEvents = action.payload;
+      orderEvents.sort((a, b) => a.start > b.start);
 
       return {
         ...state,
@@ -19,16 +27,16 @@ export const rootReducer = (state = initialState, action) => {
       };
 
     case GET_EVENTS_CATEGORY:
-      var cat= action.payload;
-      var today= new Date();
-      var filterCat= cat.filter( c => c.end > today);
-      
-      if(filterCat){
+      var cat = action.payload;
+      var today = new Date();
+      var filterCat = cat.filter(c => c.end > today);
+
+      if (filterCat) {
         return {
           ...state,
           events: filterCat,
         };
-      } else alert ("no hay eventos próximos en esa categoría")
+      } else alert("no hay eventos próximos en esa categoría")
 
     case GET_EVENTS_BY_TITLE:
       return {
@@ -65,6 +73,8 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         isLogged: action.payload,
       };
+    case ADD_LIKE:
+      return { ...state }
     default:
       return state;
   }

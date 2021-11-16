@@ -133,7 +133,7 @@ export default function PaymentCalc({ navigation }) {
             dispatch(addEventInfo(partialEvent));
             console.log(eventInfo);
 
-            const post = await axios.post('https://eventin-app.herokuapp.com/checkout', { 
+            const post = await axios.post('https://event-in2.herokuapp.com/checkout', { 
                 title: eventInfo.title,
                 price: price
             });

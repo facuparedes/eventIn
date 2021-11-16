@@ -29,25 +29,34 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
 
     useEffect(() => {
         if (currentUrl.includes('/success')) {
+            console.log('URL SUCCESS', currentUrl);
             let paramsUrl = (new URL(currentUrl)).searchParams;
             console.log('PARAMSURL', paramsUrl);
             let payment_id = paramsUrl.get('payment_id');
             console.log('PAYMENTID', payment_id);
             let payment_status = paramsUrl.get('status');
+
             const eventInfoDB = {...eventInfo, payment_id, payment_status};
-            
-            console.log('URL SUCCESS', currentUrl);
-            Alert.alert('Tu evento ha sido creado.');
-            navigation.replace('TabBar', currentUrl);
             console.log('FINAL EVENT', eventInfoDB);
-            Event.create(eventInfoDB);
+            
+            Event.create(eventInfoDB)
+                .then(res=>{
+                    console.log(res)
+                    Alert.alert('Tu evento ha sido creado.');
+                    navigation.replace('TabBar', currentUrl);
+                })
+                .catch(e=> {
+                    console.log(e);
+                    Alert.alert('Ha ocurrido un error.');
+                    navigation.replace('TabBar', currentUrl);
+                }); 
         }
         if (currentUrl.includes('/cancel')) {
             console.log('URL FAILURE', currentUrl);
             Alert.alert('El pago ha sido rechazado.');
             navigation.replace('TabBar', currentUrl);
         }
-    }, [currentUrl, eventInfo]);
+    }, [currentUrl, eventInfo, Event]);
 
     return (
         <View style={{flex: 1, resizeMode: 'contain'}}>
@@ -64,7 +73,7 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
                 ref={webViewRef}
                 style={{width: '100%', height: '100%', alignSelf: 'center'}}
                 source={{ uri: redirectUrl }} 
-                onError={event => alert(`WebView Error ${event.nativeEvent.description}`)}
+                // onError={event => alert(`WebView Error ${event.nativeEvent.description}`)}
                 onLoadEnd={() => setLoaded(true)}
                 onLoadProgress={event => setProgress(event.nativeEvent.progress)}
                 onNavigationStateChange={state => {

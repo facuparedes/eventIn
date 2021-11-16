@@ -10,21 +10,22 @@ app.use(morgan('dev'));
 const mercadopago = require("mercadopago");
 // Agrega credenciales
 mercadopago.configure({
-  access_token: "APP_USR-8797079102082173-111305-a9e47385ea6a686ea7b8fc22a1da2125-1018242337",
+  access_token: "TEST-6106850900617467-110906-6a1010cb301a9877ecbec20a69859fe1-44380919",
 });
 
 app.post('/checkout', (req, res) => {
   let preference = {
+    external_reference: '1234567890',
     items: [
       {
         title: req.body.title,
-        unit_price: req.body.price,
+        unit_price: 100,
         quantity: 1,
       },
     ],
     back_urls: {
-      success: 'https://eventin-app.herokuapp.com/success',
-      failure: 'https://eventin-app.herokuapp.com/cancel'
+      success: 'http://192.168.0.10:3001/success',
+      failure: 'http://192.168.0.10:3001/cancel'
     },
     auto_return: 'approved',
   };
@@ -41,7 +42,9 @@ app.post('/checkout', (req, res) => {
 });
 
 app.get('/success', (req, res) => {
-  console.log('QUERYYYYY', req.query);
+  console.log('QUERYYYYY', req.query)
+  console.log('PARAMSSSS', req.params)
+  console.log('BODYYYYYY', req.body);
   res.send('Approved')
 })
 

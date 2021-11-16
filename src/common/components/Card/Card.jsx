@@ -1,10 +1,12 @@
 import moment from "moment";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { View, Text, Image, TouchableOpacity, Button, Alert } from "react-native";
 import { styles } from "./styles.js";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import Event from "../../../../api/firebase/models/event.js";
+import User from '../../../../api/firebase/models/user.js';
+import auth from '../../../../api/firebase/services/AuthService';
 
 export default function Card({ id, title, description, dateStart, attachments, navigation }) {
   const admin = useSelector((state) => state.isLogged);
@@ -15,10 +17,15 @@ export default function Card({ id, title, description, dateStart, attachments, n
 
   const [liked, setLiked] = useState(false);
 
-  const addFavourite = () => {
-    console.log(id);
-    setLiked(!liked);
-    //acá iría el dispatch a addFavourite
+  const addLike = () => {
+    if(!liked) {
+      console.log(id);
+      console.log(auth.currentUser.uid);
+      User.addRelation('events', 'liked', {eventUUID: id, userUUID: auth.currentUser.uid})
+        .then(res=> console.log(res))
+        .catch(e=>console.log(e));
+      setLiked(!liked);
+    }
   };
 
   const shared = () => {
@@ -71,7 +78,7 @@ export default function Card({ id, title, description, dateStart, attachments, n
         </TouchableOpacity>
       </View>
       <View style={styles.card_footer}>
-        <TouchableOpacity onPress={addFavourite}>
+        <TouchableOpacity onPress={addLike}>
           <AntDesign name={liked ? "heart" : "hearto"} size={24} color={liked ? "#E64141" : "black"} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => shared} style={{ marginLeft: 10 }}>

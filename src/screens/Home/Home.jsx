@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { changeIsLogged, getEvents, getEventsByCategory } from "../../common/redux/actions";
 import { onAuthStateChanged } from "firebase/auth";
-import { View, SafeAreaView, RefreshControl, ScrollView } from "react-native";
+import { View, SafeAreaView, RefreshControl, ScrollView, TouchableOpacity, Text } from "react-native";
 import { styles } from "./styles.js";
 import { Picker } from "@react-native-picker/picker";
 import auth from "../../../api/firebase/services/AuthService";
@@ -10,6 +10,7 @@ import CardsFlat from "../../common/components/CardsFlat/CardsFlat";
 import DatePicker from "../../common/components/DatePicker/DatePicker";
 import { categoryArray } from "../../common/categories";
 import user from "../../../api/firebase/models/user";
+import { findDOMNode } from "react-dom";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -21,7 +22,6 @@ export default function Home() {
   };
 
   const onRefresh = React.useCallback(() => {
-    user.create();
     setRefreshing(true);
     dispatch(getEvents());
     wait(2000).then(() => setRefreshing(false));
@@ -73,6 +73,14 @@ export default function Home() {
         <View style={styles.datePicker}>
           <DatePicker />
         </View>
+        <TouchableOpacity onPress={()=>{
+          console.log(auth.currentUser.uid)
+          user.include('events', 'liked', auth.currentUser.uid).find()
+            .then(res=>console.log(res))
+            .catch(e=>console.log(e))
+        }}>
+          <Text>RELATION</Text>
+        </TouchableOpacity>
       </View>
       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
         <View style={{ flex: 1, alignItems: "center", width: "100%" }}>
