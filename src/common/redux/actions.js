@@ -9,6 +9,7 @@ export const GET_EVENTS_CATEGORY = "GET_EVENTS_CATEGORY";
 export const GET_EVENTS_BY_TITLE = "GET_EVENTS_BY_TITLE";
 export const IS_LOGGED = "IS_LOGGED";
 export const GET_EVENTS_DATE = "GET_EVENTS_DATE";
+export const GET_LIKED_EVENTS = "GET_LIKED_EVENTS";
 
 
 export const getEvents = () => {
@@ -84,3 +85,28 @@ export const changeIsLogged = (id) => {
     payload: id,
   };
 };
+
+export const getLikedEvents = (id) => {
+  return async function (dispatch) {
+    let eventsLiked = await User.include('events', 'liked', id).find();
+    let eventsUUIDs = eventsLiked["events-liked"].map(e => e.eventUUID);
+
+    let event1 = await getLikedEventById(eventsUUIDs);
+
+    if (event1) {
+      return dispatch({
+        type: GET_LIKED_EVENTS,
+        payload: event1
+      })
+    }
+  }
+}
+
+async function getLikedEventById(array) {
+  let events = [];
+  for (let i = 0; i < array.length; i++) {
+    let eventById = await event.findById(array[i])
+    events.push(eventById);
+  }
+  return events;
+}

@@ -6,10 +6,12 @@ import {
   GET_EVENTS_BY_TITLE,
   GET_EVENTS_DATE,
   ADD_EVENT_INFO,
+  GET_LIKED_EVENTS
 } from "./actions";
 
 const initialState = {
   events: [],
+  likedEvents: [],
   detail: [],
   eventForm: {},
   isLogged: false
@@ -73,6 +75,11 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         isLogged: action.payload,
       };
+    case GET_LIKED_EVENTS:
+      return {
+        ...state,
+        likedEvents: action.payload
+      }
     default:
       return state;
   }

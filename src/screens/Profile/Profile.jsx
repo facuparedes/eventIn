@@ -1,13 +1,26 @@
-import React, { createRef } from "react";
+import React from "react";
 import { SafeAreaView, Text, View, TouchableOpacity, Image } from "react-native";
 import styles from "./styles";
 import { useNavigation } from "@react-navigation/core";
-import { useSelector } from "react-redux";
-import ActionSheet from "react-native-actions-sheet";
+import { useSelector, useDispatch } from "react-redux";
+import { getLikedEvents } from "../../common/redux/actions";
+import auth from '../../../api/firebase/services/AuthService';
 
 export default function Profile() {
   const user = useSelector((state) => state.isLogged);
+  const likedEvents = useSelector(state => state.likedEvents);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  if (likedEvents) {
+    console.log('LIKED EVENTS', likedEvents);
+  }
+
+  function handleLikedPress () {
+    dispatch(getLikedEvents(auth.currentUser.uid));
+  }
+
+  
 
   return (
     <SafeAreaView>
@@ -17,6 +30,11 @@ export default function Profile() {
           <Text>{user.username}</Text>
           <Text style={{ color: "lightgrey" }}>{user.email}</Text>
         </View>
+      </View>
+      <View>
+        <TouchableOpacity onPress={handleLikedPress}>
+          <Text>EVENTOS LIKEADOS</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
