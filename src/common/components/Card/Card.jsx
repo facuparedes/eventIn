@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { View, Text, Image, TouchableOpacity, Button, Alert } from "react-native";
 import { styles } from "./styles.js";
@@ -16,6 +16,17 @@ export default function Card({ id, title, description, dateStart, attachments, n
   var today = new Date();
 
   const [liked, setLiked] = useState(false);
+
+  useEffect(() => {
+    user.include('events', 'liked', auth.currentUser.uid).find()
+      .then(data => {
+        let likedEvent = data["events-liked"].find(e => e.eventUUID === id);
+        if (likedEvent) {
+          setLiked(true)
+        }
+      })
+      .catch(e=>console.log(e))
+  }, [setLiked, user])
 
   const addLike = () => {
     if (logged) {
