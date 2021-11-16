@@ -23,9 +23,48 @@ export default styles = StyleSheet.create({
     btn:{
         display:"flex",
         margin: 25,
-        marginTop:30,
+        marginTop:35,
         flexDirection:"row",
         justifyContent:"space-between"
-    }
+    },
+    containerInput:{
+        flexDirection:"row",
+        marginTop:10,
+        marginBottom:10,
+        borderBottomWidth:1,
+        borderBottomColor:"black",
+        paddingBottom:5,
+        width:"90%"
+        
+    },
+    textInput:{
+        flex:1,
+        marginTop:-3,
+        paddingLeft:10,
+        color: '#05375a',
+
+    },
+    commandButton: {
+        width: 180,
+        height: 40,
+        padding: 8,
+        borderRadius: 10,
+        backgroundColor: '#00BD9D',
+        alignItems: 'center',
+        marginTop: 10,
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    btnSubir: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        //backgroundColor: 'black',
+        height: 50,
+        marginLeft: 10,
+    },
+    // containerTxt:{
+    //     alignItems: 'center',
+    // }
+
 
 })

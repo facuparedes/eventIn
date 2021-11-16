@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { View, Text, Image, SafeAreaView, Alert } from "react-native";
+import { View, Text, Image, SafeAreaView, Alert, ImageBackground } from "react-native";
 import { Input } from "react-native-elements";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import styles from "./styles";
-import { Feather, AntDesign } from "@expo/vector-icons";
+import { Feather, AntDesign, FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useSelector } from "react-redux";
 
@@ -32,29 +32,95 @@ export default function EditProfile({ navigation }) {
           onPress={() => {
             navigation.goBack();
           }}
+          style={{
+            flexDirection: "row",
+          }}
         >
-          <Feather name="x" size={30} color="black" />
+          <AntDesign name="left" size={20} color="black" />
+          <Text style={{ fontSize: 15 }}>Atras</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        {/* <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
           <AntDesign name="check" size={30} color="black" />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        <View style={{ marginRight: 134 }}>
+          <Text style={{ fontSize: 18, fontWeight: "bold" }}>Editar Perfil</Text>
+        </View>
       </View>
+      <View style={{ alignItems: "center" }}>
+        <TouchableOpacity onPress={openImagePickerAsync}>
+          <View
+            style={{
+              height: 100,
+              width: 100,
+              borderRadius: 15,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ImageBackground
+              source={{ uri: selectedImage !== null ? selectedImage.localUri : "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" }}
+              style={{ height: 100, width: 100 }}
+              imageStyle={{ borderRadius: 15 }}
+            >
+              <View
+                style={{
+                  // flex: 1,
+                  justifyContent: "flex-start",
+                  alignItems: "flex-start",
+                }}
+              >
+                <FontAwesome
+                  name="camera"
+                  size={25}
+                  color="#fff"
+                  style={{
+                    opacity: 0.8,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderWidth: 1,
+                    borderColor: "#fff",
+                    borderRadius: 10,
+                  }}
+                />
+              </View>
+            </ImageBackground>
+          </View>
+        </TouchableOpacity>
+        <Text style={{ marginTop: 10, fontSize: 18, fontWeight: "bold" }}>{user.username}</Text>
+      </View>
+
       <View style={styles.profileInfo}>
-        <Image
+        {/* <Image
           style={styles.image}
           source={{ uri: selectedImage !== null ? selectedImage.localUri : "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" }}
-        />
-        <View>
+        /> */}
+        {/* <View>
           <TouchableOpacity onPress={openImagePickerAsync}>
             <Text style={{ color: "#306BAC", fontWeight: "bold" }}>Cambia tu foto de perfil</Text>
           </TouchableOpacity>
+        </View> */}
+        <View style={styles.containerInput}>
+          <FontAwesome name="user-o" size={20} color="black" />
+          <TextInput label="Nombre" placeholder="Escribe tu nombre" placeholderTextColor="#666666" style={styles.textInput} autoCorrect={false}>
+            {user.username}
+          </TextInput>
         </View>
-        <Input label="Nombre" placeholder="Escribe tu nombre">
-          {user.username}
-        </Input>
-        <Input label="Mail" placeholder="Escribe tu mail">
-          {user.email}
-        </Input>
+        <View style={styles.containerInput}>
+          <FontAwesome name="envelope-o" size={20} color="black" />
+          <TextInput label="Mail" placeholder="Escribe tu mail" style={styles.textInput} autoCorrect={false} keyboardType="email-address">
+            {user.email}
+          </TextInput>
+        </View>
+      </View>
+      <View style={styles.btnSubir}>
+        <TouchableOpacity style={styles.commandButton} onPress={() => {navigation.goBack()}}>
+          <MaterialIcons name="system-update" size={24} color="white" />
+          <Text style={{ color: "white", fontWeight: "bold", fontSize: 20 }}>Actualizar</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
