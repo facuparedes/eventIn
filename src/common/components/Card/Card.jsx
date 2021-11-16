@@ -1,6 +1,6 @@
 import moment from "moment";
 import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { View, Text, Image, TouchableOpacity, Button, Alert } from "react-native";
 import { styles } from "./styles.js";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
@@ -8,7 +8,7 @@ import Event from "../../../../api/firebase/models/event.js";
 import user from '../../../../api/firebase/models/user.js';
 import auth from '../../../../api/firebase/services/AuthService';
 
-export default function Card({ id, title, description, dateStart, attachments, navigation }) {
+export default function Card({ id, title, description, dateStart, attachments, navigation, likedEvent }) {
   const logged = useSelector((state) => state.isLogged); 
 
   const diffStart = moment(dateStart).diff(moment.now(), "hours");
@@ -18,15 +18,22 @@ export default function Card({ id, title, description, dateStart, attachments, n
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
-    user.include('events', 'liked', auth.currentUser.uid).find()
-      .then(data => {
-        let likedEvent = data["events-liked"].find(e => e.eventUUID === id);
-        if (likedEvent) {
-          setLiked(true)
-        }
-      })
-      .catch(e=>console.log(e))
-  }, [setLiked, user])
+    console.log(likedEvent);
+    if (likedEvent) {
+      setLiked(true);
+    }
+  }, [likedEvent, setLiked]);
+
+  // useEffect(() => {
+  //   user.include('events', 'liked', auth.currentUser.uid).find()
+  //     .then(data => {
+  //       let likedEvent = data["events-liked"].find(e => e.eventUUID === id);
+  //       if (likedEvent) {
+  //         setLiked(true);
+  //       }
+  //     })
+  //     .catch(e=>console.log('ESTE ERROR LO TIRA CUANDO EVALUA LA CARD DEL EVENTO Y EL EVENTO NO ESTÁ LIKEADO', e));
+  // }, [setLiked, user])
 
   const addLike = () => {
     if (logged) {
