@@ -9,6 +9,7 @@ import auth from '../../../api/firebase/services/AuthService';
 export default function Profile() {
   const user = useSelector((state) => state.isLogged);
   const likedEvents = useSelector(state => state.likedEvents);
+
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
@@ -19,8 +20,6 @@ export default function Profile() {
   function handleLikedPress () {
     dispatch(getLikedEvents(auth.currentUser.uid));
   }
-
-  
 
   return (
     <SafeAreaView>

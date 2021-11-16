@@ -89,14 +89,21 @@ export const changeIsLogged = (id) => {
 export const getLikedEvents = (id) => {
   return async function (dispatch) {
     let eventsLiked = await User.include('events', 'liked', id).find();
-    let eventsUUIDs = eventsLiked["events-liked"].map(e => e.eventUUID);
+    if (eventsLiked) {
+      let eventsUUIDs = eventsLiked["events-liked"].map(e => e.eventUUID);
 
-    let event1 = await getLikedEventById(eventsUUIDs);
+      let eventsFound = await getLikedEventById(eventsUUIDs);
 
-    if (event1) {
+      if (eventsFound) {
+        return dispatch({
+          type: GET_LIKED_EVENTS,
+          payload: eventsFound
+        })
+      }
+    } else {
       return dispatch({
         type: GET_LIKED_EVENTS,
-        payload: event1
+        payload: []
       })
     }
   }
