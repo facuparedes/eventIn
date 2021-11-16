@@ -65,9 +65,9 @@ class User extends Model {
       try {
         if (errors) throw new Error(result);
 
-        const userRef;
+        let userRef;
         if (user.photo) user.photo = await this.__upload(user.photo, user.UUID);
-        if (user.uuid) userRef = collection(super.__getDB(), super.__getCollectionName(), user.uuid)
+        if (user.uuid) userRef = collection(super.__getDB(), super.__getCollectionName(), user.uuid);
 
         await super.create(user, userRef);
         resolve();
