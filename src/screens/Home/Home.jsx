@@ -35,7 +35,6 @@ export default function Home() {
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user);
         const presentUser = {
           uid: user.uid,
           email: user.email,
@@ -74,14 +73,6 @@ export default function Home() {
         <View style={styles.datePicker}>
           <DatePicker />
         </View>
-        <TouchableOpacity onPress={()=>{
-          console.log(auth.currentUser.uid)
-          user.include('events', 'liked', auth.currentUser.uid).find()
-            .then(res=>console.log(res))
-            .catch(e=>console.log(e))
-        }}>
-          <Text>RELATION</Text>
-        </TouchableOpacity>
       </View>
       <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
         <View style={{ flex: 1, alignItems: "center", width: "100%" }}>

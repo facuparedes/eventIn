@@ -9,7 +9,7 @@ import User from '../../../../api/firebase/models/user.js';
 import auth from '../../../../api/firebase/services/AuthService';
 
 export default function Card({ id, title, description, dateStart, attachments, navigation }) {
-  const admin = useSelector((state) => state.isLogged); 
+  const logged = useSelector((state) => state.isLogged); 
 
   const diffStart = moment(dateStart).diff(moment.now(), "hours");
   const isToday = diffStart < 24 && diffStart >= 0;
@@ -18,13 +18,29 @@ export default function Card({ id, title, description, dateStart, attachments, n
   const [liked, setLiked] = useState(false);
 
   const addLike = () => {
-    if(!liked) {
-      console.log(id);
-      console.log(auth.currentUser.uid);
-      User.addRelation('events', 'liked', {eventUUID: id, userUUID: auth.currentUser.uid})
-        .then(res=> console.log(res))
-        .catch(e=>console.log(e));
-      setLiked(!liked);
+    if (logged) {
+      if(!liked) {
+        user.addRelation('events', 'liked', {eventUUID: id, userUUID: auth.currentUser.uid})
+          .then(res=> console.log(res))
+          .catch(e=>console.log(e));
+        setLiked(!liked);
+      } else {
+        user.include('events', 'liked', auth.currentUser.uid).find()
+          .then(data => {
+            let likedEvent = data["events-liked"].find(e => e.eventUUID === id);
+            let docId = likedEvent.id;
+            user.deleteRelation('events', 'liked', auth.currentUser.uid, docId);
+          })
+          .then(res => console.log(res))
+          .catch(e => console.log(e));
+
+        setLiked(!liked);
+      }
+    } else {
+      Alert.alert("Hola invitado", "Tenés que iniciar sesión para likear un evento.", [
+        { text: "Ahora no" }, 
+        { text: "Iniciar sesión", onPress: () => navigation.navigate("Login") }
+      ])
     }
   };
 
@@ -64,7 +80,7 @@ export default function Card({ id, title, description, dateStart, attachments, n
             <Text numberOfLines={3} style={styles.card_header_description}>
               {description}
             </Text>
-            {admin.email === "admin@gmail.com" && <Button title="X" onPress={deleteEvent} />}
+            {logged.email === "admin@gmail.com" && <Button title="X" onPress={deleteEvent} />}
           </View>
           <View style={styles.card_body}>
             <Image source={{ uri: attachments }} style={styles.card_body_image} resizeMode={"cover"} />

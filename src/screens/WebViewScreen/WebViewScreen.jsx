@@ -31,9 +31,7 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
         if (currentUrl.includes('/success')) {
             console.log('URL SUCCESS', currentUrl);
             let paramsUrl = (new URL(currentUrl)).searchParams;
-            console.log('PARAMSURL', paramsUrl);
             let payment_id = paramsUrl.get('payment_id');
-            console.log('PAYMENTID', payment_id);
             let payment_status = paramsUrl.get('status');
 
             const eventInfoDB = {...eventInfo, payment_id, payment_status};
@@ -41,7 +39,7 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
             
             Event.create(eventInfoDB)
                 .then(res=>{
-                    console.log(res)
+                    console.log(res);
                     Alert.alert('Tu evento ha sido creado.');
                     navigation.replace('TabBar', currentUrl);
                 })
@@ -77,7 +75,7 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
                 onLoadEnd={() => setLoaded(true)}
                 onLoadProgress={event => setProgress(event.nativeEvent.progress)}
                 onNavigationStateChange={state => {
-                    console.log('STATE', state.url);
+                    // console.log('STATE', state.url);
                     const url = state.url;
                     setCurrentUrl(url);
                     const back = state.canGoBack;
