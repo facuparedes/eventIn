@@ -118,8 +118,7 @@ class Event extends Model {
       try {
         if (errors) throw new Error(result);
 
-        const eventRef = doc(super.__collection);
-
+        const eventRef = doc(super.__getCollection());
         await super.create(await this.__eventToFirebase(event, eventRef.id), eventRef);
         resolve();
       } catch (e) {
