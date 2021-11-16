@@ -1,5 +1,5 @@
 import Validator, { ValidationSchema } from "fastest-validator";
-import { GeoPoint, Timestamp } from "firebase/firestore";
+import { collection, GeoPoint, Timestamp } from "firebase/firestore";
 import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
@@ -65,9 +65,11 @@ class User extends Model {
       try {
         if (errors) throw new Error(result);
 
+        const userRef;
         if (user.photo) user.photo = await this.__upload(user.photo, user.UUID);
+        if (user.uuid) userRef = collection(super.__getDB(), super.__getCollectionName(), user.uuid)
 
-        await super.create(user);
+        await super.create(user, userRef);
         resolve();
       } catch (e) {
         if (errors) console.log("Invalid data!\nErrors:", result);

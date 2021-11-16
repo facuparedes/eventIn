@@ -1,4 +1,5 @@
 import { addDoc, collection, updateDoc, doc, getDoc, getDocs, serverTimestamp, Timestamp, QueryDocumentSnapshot, query, deleteDoc, setDoc, DocumentReference } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
 import db from "../config";
@@ -19,6 +20,21 @@ class Model {
   constructor(collectionName) {
     this.collectionName = collectionName.toLowerCase().concat("s");
     this.__collection = collection(db, this.collectionName);
+  }
+
+  /** @private */
+  __getCollectionName() {
+    return this.collectionName;
+  }
+
+  /** @private */
+  __getCollection() {
+    return this.__collection;
+  }
+
+  /** @private */
+  __getDB() {
+    return db;
   }
 
   /**
@@ -56,7 +72,7 @@ class Model {
   async __upload(uriFile, folderUUID, additionalPath = "") {
     const fileRef = ref(getStorage(), `${this.collectionName}/${folderUUID}/${additionalPath ? `${additionalPath}/${uuidv4()}` : uuidv4()}`);
 
-    return await Promise((resolve, reject) => {
+    return await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = () => resolve(xhr.response);
       xhr.onerror = (e) => reject(e);
@@ -163,10 +179,15 @@ class Model {
     return addDoc(collection(db, collectionName, id, relationName), data);
   }
 
-  include(modelName, relationName, userId) {
+  deleteRelation(modelName, relationName, mainID, relationID) {
     const collectionName = `relation-${this.collectionName}-${modelName}`;
-    this.pendingRelations.push({ get: getDocs(collection(db, collectionName, userId, relationName)), relationName: `${modelName}-${relationName}` });
-    return { include: this.include, find: () => this.findById(userId) };
+    return deleteDoc(doc(db, collectionName, mainID, relationName, relationID));
+  }
+
+  include(modelName, relationName, mainID) {
+    const collectionName = `relation-${this.collectionName}-${modelName}`;
+    this.pendingRelations.push({ get: getDocs(collection(db, collectionName, mainID, relationName)), relationName: `${modelName}-${relationName}` });
+    return { include: this.include, find: () => this.findById(mainID) };
   }
 }
 
