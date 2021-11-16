@@ -3,7 +3,6 @@ import { Provider } from "react-redux";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import store from "./src/common/redux/store.js";
-import FormEvent from "./src/screens/FormEvent/FormEvent";
 import TabBar from "./src/routes/TabBar";
 import Logo from "./src/screens/Logo/Logo";
 import OnBoarding from "./src/screens/Onboarding/OnBoarding";
@@ -20,6 +19,7 @@ import MercadoPagoCard from "./src/screens/MercadoPagoCard/MercadoPagoCard.jsx";
 
 import moment from "moment";
 import "moment/locale/es";
+
 //imports del Form
 import Title_Fee_Desc from "./src/screens/FormEvent/Title_Fee_Desc";
 import FormDatePicker from "./src/screens/FormEvent/FormDatePicker.jsx";

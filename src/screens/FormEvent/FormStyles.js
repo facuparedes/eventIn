@@ -444,7 +444,11 @@ const styles = StyleSheet.create({
     textHeader: {
         fontSize: 20,
     },
-    btnX: {}
+    pickedImg: {
+        width: 130,
+        height: 95,
+        marginLeft: 3
+    }
 })
 
 export default styles;
