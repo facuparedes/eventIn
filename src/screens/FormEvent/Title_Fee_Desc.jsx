@@ -147,7 +147,10 @@ const Title_Fee_Desc = ({ navigation }) => {
   }
   
   function handleFilter(e) {
-    Alert.alert("Eliminar imagen", "¿esta seguro que desea eliminar esta imagen?", [{ text: "Si", onPress: () => setAttachments (attachments.filter( img => img !== e)) }, { text: "No" }]);
+    Alert.alert("Eliminar imagen", "¿esta seguro que desea eliminar esta imagen?", [
+      { text: "Si", onPress: () => setAttachments (attachments.filter( img => img !== e)) }, 
+      { text: "No" }
+    ]);
   }
 
   return (
@@ -165,16 +168,41 @@ const Title_Fee_Desc = ({ navigation }) => {
           <Image source={require("../../assets/Logo.png")} style={styles.logoImage} />
         </View>
 
-        <Input label="Nombre" placeholder="Nombre del evento" onChangeText={handleTitle} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} />
+        <Input 
+          label="Nombre" 
+          placeholder="Nombre del evento" 
+          onChangeText={handleTitle} 
+          inputStyle={styles.input} 
+          labelStyle={styles.label} 
+          inputContainerStyle={styles.inputCont} 
+        />
 
-        <Input label="Descripción" placeholder="Descripción..." onChangeText={handleDescription} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} />
+        <Input 
+          label="Descripción" 
+          placeholder="Descripción..." 
+          onChangeText={handleDescription} 
+          inputStyle={styles.input} 
+          labelStyle={styles.label} 
+          inputContainerStyle={styles.inputCont} 
+        />
 
-        <Input label="Tarifa" placeholder="Tarifa" inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} onChangeText={handleFee} />
+        <Input 
+          label="Tarifa" 
+          placeholder="Tarifa" 
+          inputStyle={styles.input} 
+          labelStyle={styles.label} 
+          inputContainerStyle={styles.inputCont} 
+          onChangeText={handleFee} 
+        />
 
         <View style={styles.photosContainer}>
           <Text style={styles.photosText}>Fotos y Videos</Text>
-          {attachments.length === 1 && <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto/video</Text>}
-          {attachments.length > 1 && <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos/videos</Text>}
+          {attachments.length === 1 && 
+            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto/video</Text>
+          }
+          {attachments.length > 1 && 
+            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos/videos</Text>
+          }
           <View style={styles.multimediaBtns}>
             <TouchableOpacity onPress={openImagePickerAsync} style={styles.photoBtn}>
               <Text style={styles.textPhotoBtn}>Selecciona una foto</Text>
@@ -184,33 +212,55 @@ const Title_Fee_Desc = ({ navigation }) => {
               <Text style={styles.textVideoBtn}>Selecciona un video</Text>
             </TouchableOpacity>
 
-              </View>
+          </View>
             <ScrollView horizontal={true}>
             <View style={{flexDirection:'row'}}>
-            {attachments.length!==0 && attachments.map((img) =>
-             <View>
-            
-            <TouchableOpacity style={styles.btnX} onPress={() =>{handleFilter(img)}}>
-                <Image source={{ uri: img }} style={{width:130,height:95,marginLeft:3}}  resizeMode={"cover"} />
-            
-            </TouchableOpacity>
-              
-              </View> )}
+            {
+              attachments.length !== 0 && attachments.map((img, i) =>
+            <View key={i}>
+              <TouchableOpacity style={styles.btnX} onPress={() =>{handleFilter(img)}}>
+                <Image source={{ uri: img }} style={styles.pickedImg}  resizeMode={"cover"} />
+              </TouchableOpacity>
+            </View> 
+            )}
             </View>
              </ScrollView>
         </View>
 
         <Text style={styles.textType}>Tipo de evento:</Text>
         <View style={styles.checkBox}>
-          {!isPublic && !isPrivate ? (
+          {
+            !isPublic && !isPrivate ? (
             <View style={styles.checkBox}>
-              <CheckBox title="Público" onPress={handleIsPublic} size={20} checked={isPublic} containerStyle={styles.boxCont} />
-              <CheckBox title="Privado" onPress={handleIsPrivate} checked={isPrivate} containerStyle={styles.boxCont} />
+              <CheckBox 
+                title="Público" 
+                onPress={handleIsPublic} 
+                size={20} 
+                checked={isPublic} 
+                containerStyle={styles.boxCont} 
+              />
+              <CheckBox 
+                title="Privado" 
+                onPress={handleIsPrivate} 
+                checked={isPrivate} 
+                containerStyle={styles.boxCont} 
+              />
             </View>
           ) : isPublic ? (
-            <CheckBox title="Publico" onPress={handleIsPublic} size={20} checked={isPublic} containerStyle={styles.boxCont} />
+            <CheckBox 
+              title="Publico" 
+              onPress={handleIsPublic} 
+              size={20} 
+              checked={isPublic} 
+              containerStyle={styles.boxCont} 
+            />
           ) : (
-            <CheckBox title="Privado" onPress={handleIsPrivate} checked={isPrivate} containerStyle={styles.boxCont} />
+            <CheckBox 
+              title="Privado" 
+              onPress={handleIsPrivate} 
+              checked={isPrivate}
+              containerStyle={styles.boxCont} 
+            />
           )}
         </View>
 
@@ -224,7 +274,6 @@ const Title_Fee_Desc = ({ navigation }) => {
                 setCateg(value);
               }}
               mode="dropdown" // Android only
-              //style={styles.picker}
             >
               {categoryArray.map((item, i) => {
                 return <Picker.Item style={{ color: "black" }} key={i} value={item} label={item} />;

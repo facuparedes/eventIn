@@ -33,7 +33,10 @@ export default function TabBar({ navigation }) {
     if (logged) {
       navigation.navigate("Form");
     } else {
-      Alert.alert("Acceso denegado", "Tenés que iniciar sesión para crear un evento.", [{ text: "Ahora no" }, { text: "Iniciar sesión", onPress: () => navigation.navigate("Login") }]);
+      Alert.alert("Acceso denegado", "Tenés que iniciar sesión para crear un evento.", [
+        { text: "Ahora no" }, 
+        { text: "Iniciar sesión", onPress: () => navigation.navigate("Login") }
+      ]);
     }
   }
 

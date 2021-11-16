@@ -1,4 +1,5 @@
 import event from "../../../api/firebase/models/event";
+import User from "../../../api/firebase/models/user";
 import { where } from "firebase/firestore";
 
 export const GET_EVENTS = "GET_EVENTS";
@@ -8,6 +9,7 @@ export const GET_EVENTS_CATEGORY = "GET_EVENTS_CATEGORY";
 export const GET_EVENTS_BY_TITLE = "GET_EVENTS_BY_TITLE";
 export const IS_LOGGED = "IS_LOGGED";
 export const GET_EVENTS_DATE = "GET_EVENTS_DATE";
+
 
 export const getEvents = () => {
   let today = new Date();

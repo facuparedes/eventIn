@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, TextInput, Text, View, Image, Alert } from 'react-native';
 import styles from './RegisterStyles';
+import User from '../../../api/firebase/models/user';
 import { createUserWithEmailAndPassword, 
     updateProfile, 
     GoogleAuthProvider, 
@@ -99,18 +100,20 @@ export default function Register ({navigation}) {
             return Alert.alert('Por favor, llená todos los campos requieridos.')
         };
         
-        const validation = validate({username: username, email: email, password: password})
+        const validation = validate({username: username, email: email, password: password});
         
         if(Object.keys(validation).length === 0) {
             createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                const user = userCredential.user;
+                const userCred = userCredential.user;
                 
                 updateProfile(auth.currentUser, {  
                     displayName: username    
                 });
 
-                sendEmailVerification(user)
+                User.create({uuid: auth.currentUser.uid})
+                
+                sendEmailVerification(userCred);
                 
                 Alert.alert('Registro exitoso.', 
                     'Te enviamos un email con un link de confirmación.') // o user.displayName (si no es asíncrono, sino .then())
@@ -120,6 +123,7 @@ export default function Register ({navigation}) {
                 if (e === 'Firebase: Error (auth/email-already-in-use).') {
                     return Alert.alert('Ya existe un usuario registrado con ese email.')
                 }
+                console.log(e);
                 Alert.alert('Algo salió mal.')
             })
         } else {
