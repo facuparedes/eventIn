@@ -29,18 +29,18 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
 
     useEffect(() => {
         if (currentUrl.includes('/success')) {
-            console.log('URL SUCCESS', currentUrl);
+            // console.log('URL SUCCESS', currentUrl);
             let paramsUrl = (new URL(currentUrl)).searchParams;
             let payment_id = paramsUrl.get('payment_id');
             let payment_status = paramsUrl.get('status');
 
             const eventInfoDB = {...eventInfo, payment_id, payment_status};
-            console.log('FINAL EVENT', eventInfoDB);
+            // console.log('FINAL EVENT', eventInfoDB);
             
             Event.create(eventInfoDB)
                 .then(res=>{
                     console.log(res);
-                    Alert.alert('Tu evento ha sido creado.');
+                    Alert.alert('Tu evento ha sido creado', 'Te enviamos un email con la información.');
                     navigation.replace('TabBar', currentUrl);
                 })
                 .catch(e=> {
@@ -50,7 +50,7 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
                 }); 
         }
         if (currentUrl.includes('/cancel')) {
-            console.log('URL FAILURE', currentUrl);
+            // console.log('URL FAILURE', currentUrl);
             Alert.alert('El pago ha sido rechazado.');
             navigation.replace('TabBar', currentUrl);
         }

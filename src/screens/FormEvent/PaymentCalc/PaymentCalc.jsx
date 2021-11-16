@@ -131,11 +131,11 @@ export default function PaymentCalc({ navigation }) {
             };
             
             dispatch(addEventInfo(partialEvent));
-            console.log(eventInfo);
 
-            const post = await axios.post('https://event-in2.herokuapp.com/checkout', { 
+            const post = await axios.post('https://eventin-app.herokuapp.com/checkout', { 
                 title: eventInfo.title,
-                price: price
+                price: price,
+                email: auth.currentUser.email,
             });
             // await console.log(post.data);
             const redirectUrl = post.data;
