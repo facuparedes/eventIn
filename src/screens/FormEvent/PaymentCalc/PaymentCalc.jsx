@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { addEventInfo } from '../../../common/redux/actions';
 import { View, TouchableOpacity, Alert } from 'react-native';
 import { Text, Input } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearProgress } from "react-native-elements";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker"; 
+import auth from '../../../../api/firebase/services/AuthService';
 import axios from "axios";
 import styles from './PaymentCalcStyles';
 
 function validate (data) {
     let errors = {};
-    if(!data.date) {
+    if(!data.publishDate.textDate) {
         errors.date = 'Elige una fecha de publicación para tu evento.'
+    }
+    if(!data.publishDate.textTime) {
+        errors.time = 'Elige una hora de inicio para la publicación para tu evento.'
     }
     if(!data.price) {
         errors.price = 'Valor incorrecto.'
@@ -26,13 +31,26 @@ export default function PaymentCalc({ navigation }) {
     const dispatch = useDispatch();
 
     const [showCalendar, setShowCalendar] = useState(false);
+    const [showClock, setShowClock] = useState(false);
     const [dateValue, setDateValue] = useState(new Date());
+    const [timeValue, setTimeValue] = useState(new Date());
     const [textDate, setTextDate] = useState("");
+    const [textTime, setTextTime] = useState("")
     const [date, setDate] = useState(new Date());
+    const [time, setTime] = useState(new Date())
     const [days, setDays] = useState(0);
     const [price, setPrice] = useState(100);
 
-    const daysArray = ['1 día', '3 días', '5 días', '7 días', '14 días', '30 días', '60 días', '90 días']
+    const daysArray = ['1 día', '3 días', '5 días', '7 días', '14 días', '30 días', '60 días', '90 días'];
+
+    const showMode = (currentMode) => {
+        if (currentMode === "date") {
+          setShowCalendar(true);
+        }
+        if (currentMode === "time") {
+          setShowClock(true);
+        }
+    }
 
     const onChangeDate = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -46,6 +64,23 @@ export default function PaymentCalc({ navigation }) {
         setDateValue(tempDate);
         setShowCalendar(false);
     };
+
+    const onChangeTime = (event, selectedTime) => {
+        const currentTime = selectedTime || time;
+    
+        setShowClock(Platform.OS === "ios"); // why this?
+        setTime(currentTime);
+    
+        let tempTime = new Date(currentTime);
+        let minutes = tempTime.getMinutes();
+        let hours = tempTime.getHours();
+        if (minutes.toString().length === 1) minutes = '0' + minutes.toString();
+        if (hours < 10 ) hours = '0' +  hours.toString();
+        let fTime = hours + ":" + minutes;
+        setTextTime(fTime);
+        setTimeValue(tempTime);
+        setShowClock(false);
+      };
 
     const handlePickerChange = (value) => {
         setDays(value);
@@ -77,21 +112,31 @@ export default function PaymentCalc({ navigation }) {
 
     const handleAccept = async () => {
 
-        const validation = validate({date: textDate, price: price});
+        const validation = validate({
+            publishDate: {
+                textDate, 
+                textTime
+            },
+            price: price
+        });
 
         if (Object.keys(validation).length === 0) {
-            // const partialEvent = {
-            //     publishDate: date,
-            //     price: price
-            // };
-
-            // dispatch(addEventInfo(partialEvent));
+            const partialEvent = {
+                publishDate: {
+                    date: date,
+                    time: time
+                },
+                payment_price: price,
+                createdBy: auth.currentUser.uid
+            };
+            
+            dispatch(addEventInfo(partialEvent));
 
             const post = await axios.post('https://eventin-app.herokuapp.com/checkout', { 
                 title: eventInfo.title,
                 price: price,
                 description: eventInfo.description,
-                email: eventInfo.isLogged.email,
+                email: eventInfo.isLogged.email
             });
             // await console.log(post.data);
             const redirectUrl = post.data;
@@ -102,7 +147,6 @@ export default function PaymentCalc({ navigation }) {
     };
 
     const handleCancel = () => {
-        console.log('HOLAAAAA', textDate);
         Alert.alert("¿Estás seguro de que deseas salir?", "Se perderán todos los cambios.", [
             { text: "Si", onPress: () => navigation.popToTop() },
             { text: "No" }
@@ -125,16 +169,32 @@ export default function PaymentCalc({ navigation }) {
                 <Input
                     label="Fecha de publicación de tu evento"
                     placeholder="Fecha"
-                    onFocus={() => setShowCalendar(true)}
+                    onFocus={() => showMode('date')}
                     showSoftInputOnFocus={false}
                     inputStyle={styles.input}
                     labelStyle={styles.label}
                     inputContainerStyle={styles.dateInput}
                     value={textDate}
                 />
-                <TouchableOpacity onPress={() => setShowCalendar(true)}>
+                <TouchableOpacity onPress={() => showMode('date')}>
                     <MaterialIcons name="date-range" size={40} color="black" style={styles.calendar} />
                 </TouchableOpacity>
+            </View>
+
+            <View style={styles.timeCont}>
+            <Input
+                label="Hora inicio de la publicación"
+                placeholder="Hora"
+                onFocus={() => showMode("time")}
+                showSoftInputOnFocus={false}
+                inputStyle={styles.input}
+                labelStyle={styles.label}
+                inputContainerStyle={styles.timeInput}
+                value={textTime}
+            />
+            <TouchableOpacity onPress={() => showMode("time")}>
+                <Feather name="clock" size={40} color="black" style={styles.clock} />
+            </TouchableOpacity>
             </View>
 
             { showCalendar &&
@@ -145,6 +205,17 @@ export default function PaymentCalc({ navigation }) {
                     display="default"
                     minimumDate={new Date()}
                     onChange={onChangeDate}
+                />
+            }
+
+            { showClock && 
+                <DateTimePicker 
+                    testID="dateTimePicker" 
+                    value={time} 
+                    mode="time" 
+                    is24Hour={true} 
+                    display="default" 
+                    onChange={onChangeTime} 
                 />
             }
 
