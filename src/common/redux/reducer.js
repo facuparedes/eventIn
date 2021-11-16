@@ -73,8 +73,6 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         isLogged: action.payload,
       };
-    case ADD_LIKE:
-      return { ...state }
     default:
       return state;
   }

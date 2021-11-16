@@ -9,7 +9,7 @@ import User from '../../../../api/firebase/models/user.js';
 import auth from '../../../../api/firebase/services/AuthService';
 
 export default function Card({ id, title, description, dateStart, attachments, navigation }) {
-  const admin = useSelector((state) => state.isLogged);
+  const admin = useSelector((state) => state.isLogged); 
 
   const diffStart = moment(dateStart).diff(moment.now(), "hours");
   const isToday = diffStart < 24 && diffStart >= 0;

@@ -35,6 +35,7 @@ export default function Home() {
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        console.log(user);
         const presentUser = {
           uid: user.uid,
           email: user.email,
