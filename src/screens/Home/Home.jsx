@@ -9,7 +9,6 @@ import auth from "../../../api/firebase/services/AuthService";
 import CardsFlat from "../../common/components/CardsFlat/CardsFlat";
 import DatePicker from "../../common/components/DatePicker/DatePicker";
 import { categoryArray } from "../../common/categories";
-import user from "../../../api/firebase/models/user";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -21,7 +20,6 @@ export default function Home() {
   };
 
   const onRefresh = React.useCallback(() => {
-    user.create();
     setRefreshing(true);
     dispatch(getEvents());
     wait(2000).then(() => setRefreshing(false));

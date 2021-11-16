@@ -37,9 +37,11 @@ class Model {
    */
   __parseFetchedData(data) {
     const parsedData = data.data({ serverTimestamps: "estimate" });
-    parsedData.id = data.id;
-    parsedData.createdAt = new Timestamp(parsedData.createdAt.seconds, parsedData.createdAt.nanoseconds).toDate();
-    parsedData.updatedAt = new Timestamp(parsedData.updatedAt.seconds, parsedData.updatedAt.nanoseconds).toDate();
+    if (parsedData) {
+      parsedData.id = data.id;
+      parsedData.createdAt = new Timestamp(parsedData.createdAt.seconds, parsedData.createdAt.nanoseconds).toDate();
+      parsedData.updatedAt = new Timestamp(parsedData.updatedAt.seconds, parsedData.updatedAt.nanoseconds).toDate();
+    }
     return parsedData;
   }
 
@@ -95,7 +97,7 @@ class Model {
   async findById(id, additionalMap) {
     const getPromise = getDoc(doc(db, this.collectionName, id)).then((data) => {
       const parsedData = this.__parseFetchedData(data);
-      return typeof additionalMap === "function" ? additionalMap(parsedData) : parsedData;
+      return typeof additionalMap === "function" && parsedData ? additionalMap(parsedData) : parsedData;
     });
 
     const relations = this.pendingRelations.map(({ get }) => get);
@@ -124,7 +126,7 @@ class Model {
     return getDocs(q).then(({ docs }) =>
       docs.map((data) => {
         const parsedData = this.__parseFetchedData(data);
-        return typeof additionalMap === "function" ? additionalMap(parsedData) : parsedData;
+        return typeof additionalMap === "function" && parsedData ? additionalMap(parsedData) : parsedData;
       })
     );
   }
@@ -137,7 +139,7 @@ class Model {
     return getDocs(this.__collection).then(({ docs }) =>
       docs.map((data) => {
         const parsedData = this.__parseFetchedData(data);
-        return typeof additionalMap === "function" ? additionalMap(parsedData) : parsedData;
+        return typeof additionalMap === "function" && parsedData ? additionalMap(parsedData) : parsedData;
       })
     );
   }
@@ -164,7 +166,7 @@ class Model {
   include(modelName, relationName, userId) {
     const collectionName = `relation-${this.collectionName}-${modelName}`;
     this.pendingRelations.push({ get: getDocs(collection(db, collectionName, userId, relationName)), relationName: `${modelName}-${relationName}` });
-    return { find: () => this.findById(userId) };
+    return { include: this.include, find: () => this.findById(userId) };
   }
 }
 
