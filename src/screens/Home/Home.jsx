@@ -9,7 +9,6 @@ import auth from "../../../api/firebase/services/AuthService";
 import CardsFlat from "../../common/components/CardsFlat/CardsFlat";
 import DatePicker from "../../common/components/DatePicker/DatePicker";
 import { categoryArray } from "../../common/categories";
-import event from "../../../api/firebase/models/event";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -21,36 +20,6 @@ export default function Home() {
   };
 
   const onRefresh = React.useCallback(() => {
-    event.create({
-      attachments: [
-        "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252Fproyecto-grupal-d1f2cfa3-5664-4d16-91e3-0db99867ead5/ImagePicker/85975369-97e8-4f94-902b-8dc41b2e4e38.jpg",
-      ],
-      category: "Académico",
-      createdBy: "sDYSwFOTjJScO6lngjYkW5QZbzH3",
-      description: "BBBBBBBBBBB",
-      end: {
-        date: new Date("2021-11-24T23:30:39.909Z"),
-        time: new Date("2021-11-15T10:30:39.909Z"),
-      },
-      fee: 999999,
-      isPublic: true,
-      location: {
-        lat: -34.4528335,
-        long: -58.8974308,
-      },
-      payment_id: "1243490651",
-      payment_price: 400,
-      payment_status: "approved",
-      publishDate: {
-        date: new Date("2021-11-25T23:30:49.144Z"),
-        time: new Date("2021-11-15T09:30:49.144Z"),
-      },
-      start: {
-        date: new Date("2021-11-21T23:30:39.909Z"),
-        time: new Date("2021-11-15T23:30:39.909Z"),
-      },
-      title: "Aaaaaaa",
-    });
     setRefreshing(true);
     dispatch(getEvents());
     wait(2000).then(() => setRefreshing(false));
