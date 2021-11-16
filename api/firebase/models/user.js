@@ -1,10 +1,7 @@
 import Validator, { ValidationSchema } from "fastest-validator";
-import { collection, GeoPoint, Timestamp } from "firebase/firestore";
-import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
+import { doc } from "firebase/firestore";
 import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
 import Model from "./model";
-import { categoryArray } from "../../../src/common/categories";
 const v = new Validator();
 const opt = { optional: true };
 const updateV = new Validator({ defaults: { uuid: opt, string: opt, boolean: opt, number: opt, enum: opt, object: opt, array: opt, url: opt } });
@@ -67,7 +64,7 @@ class User extends Model {
 
         let userRef;
         if (user.photo) user.photo = await this.__upload(user.photo, user.UUID);
-        if (user.uuid) userRef = collection(super.__getDB(), super.__getCollectionName(), user.uuid);
+        if (user.uuid) userRef = doc(super.__getDB(), super.__getCollectionName(), user.uuid);
 
         await super.create(user, userRef);
         resolve();
