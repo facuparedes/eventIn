@@ -11,12 +11,12 @@ const slides = [
   {
     id: 2,
     image: require("../../assets/onboarding2.png"),
-    title: "¡Agendá los que más te gusten!",
+    title: "¡Likeá y guardá tus eventos favoritos!",
   },
   {
     id: 3,
     image: require("../../assets/onboarding3.png"),
-    title: "¡Creá tu propio evento!",
+    title: "¡Organizá y promocioná tus propios eventos!",
   },
 ];
 
@@ -52,18 +52,18 @@ export default function OnBoarding({ navigation }) {
 
   const RenderButtons = () => {
     return (
-      <View style={{ height: height * 0.25, justifyContent: "space-between", paddingHorizontal: 30, marginBottom: 10 }}>
+      <View style={{ height: height * 0.25, justifyContent: "space-between", paddingHorizontal: 80, marginBottom: 10 }}>
         <View style={{ flexDirection: "column" }}>
           <TouchableOpacity style={styles.btnStart} onPress={() => navigation.replace("Loading")}>
-            <Text style={{ fontSize: 28, color: colorPallete.third, textAlign: "center", marginTop: 4 }}>Empezar</Text>
+            <Text style={[styles.textBtn, { color: colorPallete.third, textAlign: "center", marginTop: 6 }]}>Empezar</Text>
           </TouchableOpacity>
           <View style={{ height: 15 }} />
           <TouchableOpacity style={styles.btnLogin} onPress={() => navigation.replace("Login")}>
-            <Text style={{ fontSize: 28, color: colorPallete.third, textAlign: "center", marginTop: 4 }}>Iniciar Sesión</Text>
+            <Text style={[styles.textBtn, { color: colorPallete.third, textAlign: "center", marginTop: 5 }]}>Iniciar Sesión</Text>
           </TouchableOpacity>
           <View style={{ height: 15 }} />
           <TouchableOpacity style={styles.btnRegister} onPress={() => navigation.replace("Register")}>
-            <Text style={{ fontSize: 28, color: "white", textAlign: "center", marginTop: 4 }}>Registrarse</Text>
+            <Text style={[styles.textBtn, { color: colorPallete.fifth, textAlign: "center", marginTop: 6 }]}>Registrarse</Text>
           </TouchableOpacity>
         </View>
       </View>
