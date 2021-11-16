@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        marginVertical: 30,
+        marginTop: 30,
         marginLeft: 30,
         width: '90%'
     },
@@ -50,6 +50,21 @@ const styles = StyleSheet.create({
     daysCont: {
         marginLeft: 10,
         marginBottom: 20,
+    },
+    timeCont: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        marginVertical: 20,
+        marginLeft: 30,
+        width: '90%'
+    },
+    clock: {
+        marginRight: 40,
+        marginBottom: 8
+    },
+    timeInput: {
+        marginRight: 40,
     },
     pickerContainer: {
         backgroundColor: '#fff',

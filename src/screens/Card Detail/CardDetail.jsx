@@ -4,21 +4,48 @@ import { getDetails } from "../../common/redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./CardDetailStyles";
 import { AntDesign, FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
+import user from "../../../api/firebase/models/user";
+import auth from '../../../api/firebase/services/AuthService';
 
 export default function CardDetail({ route, navigation }) {
   const dispatch = useDispatch();
+  const details = useSelector((state) => state.detail);
+  const logged = useSelector(state => state.isLogged);
+  const [liked, setLiked] = useState(false);
   const { id } = route.params;
+
   useEffect(() => {
     dispatch(getDetails(id));
   }, [dispatch]);
 
-  const details = useSelector((state) => state.detail);
-  const [liked, setLiked] = useState(false);
   // console.log('latitud',details[0].location.latitude)
   // console.log('longitud',details[0].location.longitude)
 
-  const addFavourite = () => {
-    setLiked(!liked);
+  const addLike = () => {
+    if (logged) {
+      if(!liked) {
+        user.addRelation('events', 'liked', {eventUUID: id, userUUID: auth.currentUser.uid})
+          .then(res=> console.log(res))
+          .catch(e=>console.log(e));
+        setLiked(!liked);
+      } else {
+        user.include('events', 'liked', auth.currentUser.uid).find()
+          .then(data => {
+            let likedEvent = data["events-liked"].find(e => e.eventUUID === id);
+            let docId = likedEvent.id;
+            user.deleteRelation('events', 'liked', auth.currentUser.uid, docId);
+          })
+          .then(res => console.log(res))
+          .catch(e => console.log(e));
+
+        setLiked(!liked);
+      }
+    } else {
+      Alert.alert("Hola invitado", "Tenés que iniciar sesión para likear un evento.", [
+        { text: "Ahora no" }, 
+        { text: "Iniciar sesión", onPress: () => navigation.navigate("Login") }
+      ])
+    }
   };
 
   const share = () => {
@@ -49,7 +76,7 @@ export default function CardDetail({ route, navigation }) {
                 <FontAwesome name="circle" size={45} color="rgba(255, 255, 255, 0.8)" style={{ marginRight: 8 }} />
               </View>
               <View style={styles.btnLike}>
-                <TouchableOpacity onPress={addFavourite}>
+                <TouchableOpacity onPress={addLike}>
                   <AntDesign name={liked ? "heart" : "hearto"} size={24} color={liked ? "#E64141" : "rgba(0, 0, 0, 0.7)"} />
                 </TouchableOpacity>
               </View>
