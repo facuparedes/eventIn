@@ -35,22 +35,34 @@ export default function Profile() {
         <Text style={{ color: "lightgrey" }}>{user.email}</Text>
       </View>
       {/* {likedEvents.length ? ( */}
-      <View style={{ height: 500 }}>
-        <Text>Eventos favoritos:</Text>
-        <FlatList
-          data={likedEvents}
-          horizontal
-          renderItem={(itemData) => (
-            <View>
-              <Text>{itemData.item.title}</Text>
-              <Text>{itemData.item.description}</Text>
-              <View>
-                <Image source={{ uri: `${itemData.item.attachments[0]}` }} style={{ width: 50, height: 50 }} />
+      <View style={styles.favs}>
+        <View style={{ flex: 1, paddingHorizontal: 10, paddingTop: 5 }}>
+          <Text>Eventos favoritos:</Text>
+        </View>
+        <View style={styles.containerFlatList}>
+          <FlatList
+            // style={{ width: "100%", height: "100%" }}
+            showsHorizontalScrollIndicator={false}
+            data={likedEvents}
+            horizontal
+            renderItem={(itemData) => (
+              <View style={styles.borderF}>
+                <View style={{ flex: 2, paddingHorizontal: 10, paddingTop: 7 }}>
+                  <Text style={styles.title}>{itemData.item.title}</Text>
+                  <Text style={styles.description}>{itemData.item.description}</Text>
+                </View>
+                <View style={{ flex: 6, paddingTop: 3 }}>
+                  <Image source={{ uri: `${itemData.item.attachments[0]}` }} style={styles.imgFlat} />
+                </View>
               </View>
-            </View>
-          )}
-        />
+            )}
+          />
+        </View>
+        {/* <View>
+          <Text>HOLAAAA</Text>
+        </View> */}
       </View>
+
       {/* ) : (
           <View>
             <Text>No existe ningun evento</Text>
