@@ -87,7 +87,7 @@ export default function Home() {
       dispatch(getEventsByCategory(value));
     }
   }
-  setTimeout(() => {
+  setInterval(() => {
     const todayEvents = allLikedEvents.filter((ev) => {
       let diff = Math.abs(new Date().getTime() - ev.start.getTime());
       let days = diff / (1000 * 60 * 60 * 24);
@@ -110,7 +110,7 @@ export default function Home() {
       body: JSON.stringify({
         to: token,
         title: "¡Corre, no te lo pierdas!",
-        body: "Uno de tus elementos likeados se realiza hoy!",
+        body: "Uno de tus Eventos favoritos se realiza hoy!",
         data: { data: "goes here" },
         _displayInForeground: true,
       }),
