@@ -9,8 +9,6 @@ export default function CardsFlat() {
   const navigation = useNavigation();
 
   const allEvents = useSelector((state) => state.events);
-  // console.log('ALL EVENTS CARD', allEvents);
-  // console.log('ALL EVENTS CARDS FLAT', allEvents)
 
   return (
     <View>

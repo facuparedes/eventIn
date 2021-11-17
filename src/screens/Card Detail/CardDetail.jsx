@@ -13,7 +13,6 @@ export default function CardDetail({ route, navigation }) {
   const details = useSelector((state) => state.detail);
   const logged = useSelector(state => state.isLogged);
   const [liked, setLiked] = useState(likedAct);
-  console.log(details.likedActive)
 
   useEffect(() => {
     dispatch(getDetails(id));
