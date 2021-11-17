@@ -35,10 +35,9 @@ const estilos = StyleSheet.create({
   titleText: {
     textAlign: "left",
     marginTop: 10,
-    marginLeft:"3%",
+    marginLeft: "3%",
     fontSize: 19,
-    fontWeight: 'bold'
-
+    fontWeight: "bold",
   },
   card_body: {
     width: "100%",
@@ -47,13 +46,11 @@ const estilos = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     borderRadius: 10,
-    elevation: 8,
+    elevation: 7,
     justifyContent: "space-around",
     paddingHorizontal: 3,
-    paddingVertical: 10,
-    marginTop: 0,
-    marginBottom: 10,
-  
+    marginHorizontal: 10,
+    marginVertical: 15,
   },
   cardItems: {
     alignItems: "flex-start",
@@ -100,10 +97,10 @@ const estilos = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   header: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   textHeader: {
-      fontSize: 20,
-  }
+    fontSize: 20,
+  },
 });
 export default estilos;
