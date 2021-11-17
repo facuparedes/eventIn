@@ -1,25 +1,31 @@
 import React from "react";
-import { SafeAreaView, Text, View, TouchableOpacity, Image } from "react-native";
+import { SafeAreaView, Text, View, TouchableOpacity, Image, FlatList, ScrollView } from "react-native";
 import styles from "./styles";
 import { useNavigation } from "@react-navigation/core";
 import { useSelector, useDispatch } from "react-redux";
 import { getLikedEvents } from "../../common/redux/actions";
-import auth from '../../../api/firebase/services/AuthService';
+import auth from "../../../api/firebase/services/AuthService";
+import { useEffect } from "react";
+import Card from "../../common/components/Card/Card";
 
 export default function Profile() {
   const user = useSelector((state) => state.isLogged);
-  const likedEvents = useSelector(state => state.likedEvents);
+  const likedEvents = useSelector((state) => state.likedEvents);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  if (likedEvents) {
-    console.log('LIKED EVENTS', likedEvents);
-  }
-
-  function handleLikedPress () {
+  useEffect(() => {
     dispatch(getLikedEvents(auth.currentUser.uid));
-  }
+  }, []);
+
+  // if (likedEvents) {
+  //   console.log("LIKED EVENTS", likedEvents);
+  // }
+
+  // function handleLikedPress() {
+  //   dispatch(getLikedEvents(auth.currentUser.uid));
+  // }
 
   return (
     <SafeAreaView>
@@ -30,11 +36,28 @@ export default function Profile() {
           <Text style={{ color: "lightgrey" }}>{user.email}</Text>
         </View>
       </View>
-      <View>
-        <TouchableOpacity onPress={handleLikedPress}>
-          <Text>EVENTOS LIKEADOS</Text>
-        </TouchableOpacity>
+      {/* {likedEvents.length ? ( */}
+      <View style={{ height: 500 }}>
+        <Text>Eventos favoritos:</Text>
+        <FlatList
+          data={likedEvents}
+          horizontal
+          renderItem={(itemData) => (
+            <View>
+              <Text>{itemData.item.title}</Text>
+              <Text>{itemData.item.description}</Text>
+              <View>
+                <Image source={{ uri: `${itemData.item.attachments[0]}` }} style={{ width: 50, height: 50 }} />
+              </View>
+            </View>
+          )}
+        />
       </View>
+      {/* ) : (
+          <View>
+            <Text>No existe ningun evento</Text>
+          </View>
+        )} */}
     </SafeAreaView>
   );
 }
