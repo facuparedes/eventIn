@@ -11,6 +11,7 @@ export const GET_EVENTS_BY_TITLE = "GET_EVENTS_BY_TITLE";
 export const IS_LOGGED = "IS_LOGGED";
 export const GET_EVENTS_DATE = "GET_EVENTS_DATE";
 export const CLEAN_EVENTS = "CLEAN_EVENTS";
+export const GET_LIKED_EVENTS = "GET_LIKED_EVENTS";
 
 
 export const getEvents = () => {
@@ -117,4 +118,36 @@ export const updateEventsSignOut = () => {
     type: CLEAN_EVENTS,
     payload: []
   }
+}
+
+export const getLikedEvents = (id) => {
+  return async function (dispatch) {
+    let eventsLiked = await user.include('events', 'liked', id).find();
+    if (eventsLiked) {
+      let eventsUUIDs = eventsLiked["events-liked"].map(e => e.eventUUID);
+
+      let eventsFound = await getLikedEventById(eventsUUIDs);
+
+      if (eventsFound) {
+        return dispatch({
+          type: GET_LIKED_EVENTS,
+          payload: eventsFound
+        })
+      }
+    } else {
+      return dispatch({
+        type: GET_LIKED_EVENTS,
+        payload: []
+      })
+    }
+  }
+}
+
+async function getLikedEventById(array) {
+  let events = [];
+  for (let i = 0; i < array.length; i++) {
+    let eventById = await event.findById(array[i]);
+    events.push(eventById);
+  }
+  return events;
 }

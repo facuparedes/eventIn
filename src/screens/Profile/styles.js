@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
+import { colorPallete } from "../Onboarding/styles";
 
 const { height, width } = Dimensions.get("window");
 
@@ -9,14 +10,15 @@ const styles = StyleSheet.create({
   image: {
     width: width * 0.3,
     height: height * 0.15,
-    borderRadius: 60,
-    borderWidth: 1,
+    // borderWidth: 1,
+    borderRadius: width * 0.3,
   },
   profileInfo: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     marginTop: height * 0.05,
-    paddingHorizontal: width * 0.07,
+    //paddingHorizontal: width * 0.07,
+    alignItems: "center",
   },
   info: {
     marginLeft: width * 0.1,
@@ -41,6 +43,44 @@ const styles = StyleSheet.create({
     paddingTop: 3,
     color: "white",
     fontWeight: "bold",
+  },
+  username: {
+    fontSize: 20,
+    justifyContent: "center",
+    marginTop: height * 0.01,
+  },
+  favs: {
+    height: height * 0.45,
+  },
+  containerFlatList: {
+    flex: 6,
+  },
+  borderF: {
+    borderWidth: 1,
+    borderRadius: 15,
+    marginHorizontal: width * 0.025,
+    height: "95%",
+    width: width * 0.95,
+    backgroundColor: "white",
+    borderColor: "white",
+    elevation: 7,
+  },
+  imgFlat: {
+    resizeMode: "cover",
+    position: "relative",
+    width: width / 1.2,
+    height: height / 4.2,
+    borderRadius: 10,
+    alignSelf: "center",
+  },
+  title: {
+    color: colorPallete.second,
+    fontSize: 15,
+    fontFamily: "Gotham-Medium",
+  },
+  description: {
+    color: "#5c6066",
+    fontFamily: "Gotham-Book",
   },
 });
 
