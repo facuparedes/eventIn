@@ -50,10 +50,11 @@ const styles = StyleSheet.create({
     marginTop: height * 0.01,
   },
   favs: {
-    height: height * 0.45,
+    height: height * 0.6,
   },
   containerFlatList: {
-    flex: 6,
+    flex: 20,
+    marginBottom:30
   },
   borderF: {
     borderWidth: 1,
