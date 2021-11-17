@@ -120,7 +120,7 @@ class Event extends Model {
 
         const eventRef = doc(super.__getCollection());
         await super.create(await this.__eventToFirebase(event, eventRef.id), eventRef);
-        resolve();
+        resolve(eventRef.id);
       } catch (e) {
         if (errors) console.log("Invalid data!\nErrors:", result);
         reject(e);
