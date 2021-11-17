@@ -10,6 +10,7 @@ export const GET_EVENTS_CATEGORY = "GET_EVENTS_CATEGORY";
 export const GET_EVENTS_BY_TITLE = "GET_EVENTS_BY_TITLE";
 export const IS_LOGGED = "IS_LOGGED";
 export const GET_EVENTS_DATE = "GET_EVENTS_DATE";
+export const CLEAN_EVENTS = "CLEAN_EVENTS";
 
 
 export const getEvents = () => {
@@ -110,3 +111,10 @@ export const changeIsLogged = (id) => {
     payload: id,
   };
 };
+
+export const updateEventsSignOut = () => {
+  return {
+    type: CLEAN_EVENTS,
+    payload: []
+  }
+}

@@ -6,6 +6,7 @@ import {
   GET_EVENTS_BY_TITLE,
   GET_EVENTS_DATE,
   ADD_EVENT_INFO,
+  CLEAN_EVENTS
 } from "./actions";
 
 const initialState = {
@@ -73,6 +74,11 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         isLogged: action.payload,
       };
+    case CLEAN_EVENTS:
+      return {
+        state,
+        events: action.payload
+      }
     default:
       return state;
   }

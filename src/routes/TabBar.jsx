@@ -5,7 +5,7 @@ import { TouchableOpacity, Text, Image, Dimensions, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { changeIsLogged } from "../common/redux/actions";
+import { changeIsLogged, updateEventsSignOut } from "../common/redux/actions";
 
 import auth from "../../api/firebase/services/AuthService";
 import { signOut } from "@firebase/auth";
@@ -16,7 +16,6 @@ import Search from "../common/components/Search/Search";
 
 import { View } from "react-native";
 import styles from "./styles";
-import { createNavigatorFactory, useNavigation } from "@react-navigation/core";
 import ActionSheet from "react-native-actions-sheet";
 
 const Tab = createBottomTabNavigator();
@@ -46,6 +45,7 @@ export default function TabBar({ navigation }) {
 
   function logOut() {
     signOut(auth);
+    dispatch(updateEventsSignOut())
     dispatch(changeIsLogged(false));
     Alert.alert("Has cerrado sesión.");
     // Por alguna razón, sin especificar nada, de acá se navega directamente al onBoarding.
