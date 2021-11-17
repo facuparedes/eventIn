@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./CardDetailStyles";
 import { AntDesign, FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
 import user from "../../../api/firebase/models/user";
-import auth from '../../../api/firebase/services/AuthService';
+import auth from "../../../api/firebase/services/AuthService";
 
 export default function CardDetail({ route, navigation }) {
   const dispatch = useDispatch();
   const { id, likedAct } = route.params;
   const details = useSelector((state) => state.detail);
-  const logged = useSelector(state => state.isLogged);
+  const logged = useSelector((state) => state.isLogged);
   const [liked, setLiked] = useState(likedAct);
 
   useEffect(() => {
@@ -20,28 +20,28 @@ export default function CardDetail({ route, navigation }) {
 
   const addLike = () => {
     if (logged) {
-      if(!liked) {
-        user.addRelation('events', 'liked', {eventUUID: id, userUUID: auth.currentUser.uid})
-          .then(()=> dispatch(getLikedEvents(auth.currentUser.uid)))
-          .catch(e=>console.log(e));
+      if (!liked) {
+        user
+          .addRelation("events", "liked", { eventUUID: id, userUUID: auth.currentUser.uid })
+          .then(() => dispatch(getLikedEvents(auth.currentUser.uid)))
+          .catch((e) => console.log(e));
         setLiked(!liked);
       } else {
-        user.include('events', 'liked', auth.currentUser.uid).find()
-          .then(data => {
-            let likedEvent = data["events-liked"].find(e => e.eventUUID === id);
+        user
+          .include("events", "liked", auth.currentUser.uid)
+          .find()
+          .then((data) => {
+            let likedEvent = data["events-liked"].find((e) => e.eventUUID === id);
             let docId = likedEvent.id;
-            user.deleteRelation('events', 'liked', auth.currentUser.uid, docId);
+            user.deleteRelation("events", "liked", auth.currentUser.uid, docId);
           })
           .then(() => dispatch(getLikedEvents(auth.currentUser.uid)))
-          .catch(e => console.log(e));
+          .catch((e) => console.log(e));
 
         setLiked(!liked);
       }
     } else {
-      Alert.alert("Hola invitado", "Tenés que iniciar sesión para likear un evento.", [
-        { text: "Ahora no" }, 
-        { text: "Iniciar sesión", onPress: () => navigation.navigate("Login") }
-      ])
+      Alert.alert("Hola invitado", "Tenés que iniciar sesión para likear un evento.", [{ text: "Ahora no" }, { text: "Iniciar sesión", onPress: () => navigation.navigate("Login") }]);
     }
   };
 
@@ -101,7 +101,6 @@ export default function CardDetail({ route, navigation }) {
                     <Text style={styles.textBody}>
                       <Text style={{ fontFamily: "Gotham-Medium" }}>Finaliza:</Text> {details[0].end.toString().slice(4, 15)} - {details[0].end.toString().slice(16, 21)}hs
                     </Text>
-                    <Text style={styles.location}>Acá iría la dirección</Text>
                   </View>
                   <View style={{ flex: 1, alignItems: "center", borderRadius: 10, elevation: 10, backgroundColor: "white" }}>
                     <TouchableOpacity onPress={() => navigation.navigate("MapDetail", { id: id })}>

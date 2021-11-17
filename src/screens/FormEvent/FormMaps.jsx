@@ -9,7 +9,7 @@ import MapView, { Callout, Marker } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import * as Location from "expo-location";
 import { useDispatch } from "react-redux";
-import { Ionicons, AntDesign } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 
 // IMPORTANTE-- TODAVIA NO ANDA LA BARRA DE BUSQUEDA,SOLO ANDA NAVEGANDO EN EL MAPA Y PONIENDO EL PIN
 //              EN EL LUGAR DESEADO
@@ -68,27 +68,29 @@ const FormMaps = ({ navigation }) => {
       },
     };
     dispatch(addEventInfo(partialEvent));
-    navigation.navigate("FormCardPreview")
+    navigation.navigate("FormCardPreview");
   };
-  
+
   function handleBack() {
     navigation.goBack();
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearProgress color="#00BD9D" variant="determinate" value={0.4} style={{height:10}} />
+      <LinearProgress color="#00BD9D" variant="determinate" value={0.4} style={{ height: 10 }} />
       <View style={styles.header}>
         <Text style={styles.textHeader}>Paso 3 de 5</Text>
-        </View>
+      </View>
 
-      <Text h3 style={styles.textLoc}>Elige una ubicación:</Text>
+      <Text h3 style={styles.textLoc}>
+        Elige una ubicación:
+      </Text>
       {/* <ScrollView> */}
       <View style={{ marginTop: 50 }}>
         <TouchableOpacity title="elegir ubicacion" onPress={handleShowMap} style={styles.btn2}>
           <Text style={styles.textMaps}>Mostrar mapa</Text>
         </TouchableOpacity>
-        <GooglePlacesAutocomplete
+        {/* <GooglePlacesAutocomplete
           placeholder="Search"
           onPress={(data, details = null) => {
             // 'details' is provided when fetchDetails = true
@@ -121,79 +123,70 @@ const FormMaps = ({ navigation }) => {
             },
             listView: { backgroundColor: "white" },
           }}
-        />
+        /> */}
         <View style={styles.containerMap}>
-        {showMap && (
-          <MapView
-            style={estilos.map}
-            initialRegion={{
-              latitude: pin.latitude,
-              longitude: pin.longitude,
-              latitudeDelta: 0.0000000000000004,
-              longitudeDelta: 0.003421,
-            }}
-            provider="google"
-          >
-            {/* <Marker coordinate={{latitude: region.latitude, longitude: region.longitude}}> 
+          {showMap && (
+            <MapView
+              style={estilos.map}
+              initialRegion={{
+                latitude: pin.latitude,
+                longitude: pin.longitude,
+                latitudeDelta: 0.0000000000000004,
+                longitudeDelta: 0.003421,
+              }}
+              provider="google"
+            >
+              {/* <Marker coordinate={{latitude: region.latitude, longitude: region.longitude}}> 
           <Callout>
                 <Text> estadio </Text>
               </Callout>
               </Marker> */}
 
-            <Marker
-              coordinate={pin}
-              draggable={true}
-              // onDragStart={(e) => {
-              //     console.log("Drag start", e.nativeEvent.coordinate);
-              //   }}
-              onDragEnd={(e) => {
-                setPin({
-                  latitude: e.nativeEvent.coordinate.latitude,
-                  longitude: e.nativeEvent.coordinate.longitude,
-                });
-              }}
-            >
-              <Callout>
-                <Text>el mejor estadio del mundo</Text>
-              </Callout>
-            </Marker>
-          </MapView>
-        )}
+              <Marker
+                coordinate={pin}
+                draggable={true}
+                // onDragStart={(e) => {
+                //     console.log("Drag start", e.nativeEvent.coordinate);
+                //   }}
+                onDragEnd={(e) => {
+                  setPin({
+                    latitude: e.nativeEvent.coordinate.latitude,
+                    longitude: e.nativeEvent.coordinate.longitude,
+                  });
+                }}
+              >
+                <Callout>
+                  <Text>el mejor estadio del mundo</Text>
+                </Callout>
+              </Marker>
+            </MapView>
+          )}
         </View>
-        { showMap &&
+        {showMap && (
           <TouchableOpacity title="sacar mapa" onPress={handleHideMap} style={styles.btn2}>
             <Text style={styles.textMaps}>Ocultar mapa</Text>
           </TouchableOpacity>
-        }
+        )}
       </View>
       <View style={styles.btnsContainerMaps}>
-              <TouchableOpacity 
-                title="Atras" 
-                onPress={handleBack}
-                style={[
-                  styles.btn,
-                  {
-                    flexDirection: 'row',
-                    backgroundColor:'gray',
-                    marginRight: 10,
-                  }
-                ]} 
-                >
-                  
-                  <AntDesign name="arrowleft" size={28} color="#fff" style={{marginLeft: 40}} />
-                  <Text style={[styles.textBtn, {marginRight: 30}]}>Atras</Text>
-                </TouchableOpacity>
-        <TouchableOpacity 
-            title="Siguiente..." 
-            onPress={handleNext} 
-            style={[
-              styles.btn, 
-              {flexDirection: 'row', 
-              justifyContent: 'center'
-              }
-              ]}>
+        <TouchableOpacity
+          title="Atras"
+          onPress={handleBack}
+          style={[
+            styles.btn,
+            {
+              flexDirection: "row",
+              backgroundColor: "gray",
+              marginRight: 10,
+            },
+          ]}
+        >
+          <AntDesign name="arrowleft" size={28} color="#fff" style={{ marginLeft: 40 }} />
+          <Text style={[styles.textBtn, { marginRight: 30 }]}>Atras</Text>
+        </TouchableOpacity>
+        <TouchableOpacity title="Siguiente..." onPress={handleNext} style={[styles.btn, { flexDirection: "row", justifyContent: "center" }]}>
           <Text style={styles.textBtn}>Siguiente</Text>
-          <Ionicons name="arrow-forward" size={28} color="#fff" style={styles.arrowIcon}/>
+          <Ionicons name="arrow-forward" size={28} color="#fff" style={styles.arrowIcon} />
         </TouchableOpacity>
       </View>
       {/* </ScrollView> */}
@@ -206,14 +199,11 @@ const estilos = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    
   },
   map: {
     marginTop: 10,
     width: "100%",
     height: 250,
-    
-    
   },
 });
 export default FormMaps;
