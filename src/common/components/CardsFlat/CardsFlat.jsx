@@ -9,25 +9,26 @@ import auth from '../../../../api/firebase/services/AuthService';
 export default function CardsFlat() {
   const navigation = useNavigation();
 
-  let allEvents = useSelector((state) => state.events);
+  const allEvents = useSelector((state) => state.events);
+  console.log('ALL EVENTS CARDS FLAT', allEvents)
 
-  let likedEventsUUIDs= [];
+  // let likedEventsUUIDs= [];
 
-  useEffect(() => {
-    user.include('events', 'liked', auth.currentUser.uid).find()
-      .then(data => {
-        likedEventsUUIDs = data["events-liked"].map(e => e.eventUUID);
-      })
-      .then(() => {
-        allEvents.map(e => {
-          let likedEvent = likedEventsUUIDs.find(id => id === e.id);
-          if (likedEvent) {
-            e.liked = 'true';
-          }
-        })
-      })
-      .catch(e=>console.log('ESTE ERROR ES DE LIKED X EVENTO', e));
-  }, [user, likedEventsUUIDs, allEvents]);
+  // useEffect(() => {
+  //   user.include('events', 'liked', auth.currentUser.uid).find()
+  //     .then(data => {
+  //       likedEventsUUIDs = data["events-liked"].map(e => e.eventUUID);
+  //     })
+  //     .then(() => {
+  //       allEvents.map(e => {
+  //         let likedEvent = likedEventsUUIDs.find(id => id === e.id);
+  //         if (likedEvent) {
+  //           e.liked = 'true';
+  //         }
+  //       })
+  //     })
+  //     .catch(e=>console.log('ESTE ERROR ES DE LIKED X EVENTO', e));
+  // }, [user, likedEventsUUIDs, allEvents]);
 
   return (
     <View>

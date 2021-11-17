@@ -43,7 +43,7 @@ export default function Home() {
       }
     });
     return subscribe;
-  });
+  }, []);
 
   function handleFilterCategory(value) {
     setCateg(value);

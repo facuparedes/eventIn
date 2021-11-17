@@ -15,14 +15,16 @@ export default function Card({ id, title, description, dateStart, attachments, n
   const isToday = diffStart < 24 && diffStart >= 0;
   var today = new Date();
 
-  const [liked, setLiked] = useState(false);
-
-  useEffect(() => {
-    console.log(likedEvent);
-    if (likedEvent) {
-      setLiked(true);
-    }
-  }, [likedEvent, setLiked]);
+  const [liked, setLiked] = useState(likedEvent);
+  console.log('LIKED', liked)
+  
+  console.log('LIKED PROPPP', likedEvent)
+  
+  // useEffect(() => {
+  //   if (likedEvent) {
+  //     setLiked(true);
+  //   }
+  // }, [likedEvent, setLiked]);
 
   // useEffect(() => {
   //   user.include('events', 'liked', auth.currentUser.uid).find()
@@ -39,7 +41,9 @@ export default function Card({ id, title, description, dateStart, attachments, n
     if (logged) {
       if(!liked) {
         user.addRelation('events', 'liked', {eventUUID: id, userUUID: auth.currentUser.uid})
-          .then(res=> console.log(res))
+          .then(()=> {
+            console.log('Liked')
+          })
           .catch(e=>console.log(e));
         setLiked(!liked);
       } else {
