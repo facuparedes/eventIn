@@ -6,6 +6,7 @@ import styles from "./CardDetailStyles";
 import { AntDesign, FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
 import user from "../../../api/firebase/models/user";
 import auth from '../../../api/firebase/services/AuthService';
+import { Video, AVPlaybackStatus } from 'expo-av';
 
 export default function CardDetail({ route, navigation }) {
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ export default function CardDetail({ route, navigation }) {
   };
 
   const attachments = details.length && details[0].attachments.slice(1, details[0].attachments.length);
-
+console.log(attachments)
   return (
     <View style={styles.view}>
       {details.length ? (
@@ -119,14 +120,31 @@ export default function CardDetail({ route, navigation }) {
                   <Text style={styles.textBody}>{details[0].category}</Text>
                   <Text style={styles.subTitle}>Galería del evento</Text>
                   {attachments.length ? (
-                    <View style={{ paddingVertical: 10 }}>
-                      <FlatList data={attachments} horizontal renderItem={({ item, id }) => <Image source={{ uri: item }} style={styles.flatList} />} keyExtractor={(item) => item.id} />
-                    </View>
+                    
+                     <ScrollView horizontal={true}> 
+                     <View style={{flexDirection:'row'}}>
+                     {
+              attachments.length !== 0 && attachments.map((vid,i) => 
+              <View key={i}>
+              <View style={{flexDirection:'row'}}>
+              <View style={{flexDirection:'row'}}>
+                <Image style={{width: 200,height: 200,margin:5}} source={{uri: vid}}  resizeMode="contain" />
+              </View>
+              <View style={{flexDirection:'row'}}>
+                <Video style={{width: 200,height: 200,margin:5}} source={{uri: vid}} useNativeControls resizeMode="contain" isLooping/>
+              </View>
+              </View>
+              </View>
+              )}
+               </View>
+               </ScrollView>
+                    
                   ) : (
                     <View>
                       <Text style={styles.textBody}>No hay contenido disponible.</Text>
                     </View>
                   )}
+                  
                 </View>
               </View>
             </View>
