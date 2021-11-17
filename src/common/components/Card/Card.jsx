@@ -23,10 +23,7 @@ export default function Card({ id, title, description, dateStart, attachments, n
     if (logged) {
       if(!liked) {
         user.addRelation('events', 'liked', {eventUUID: id, userUUID: auth.currentUser.uid})
-          .then(()=> {
-            dispatch(getLikedEvents(auth.currentUser.uid))
-            console.log('Liked')
-          })
+          .then(()=> dispatch(getLikedEvents(auth.currentUser.uid)))
           .catch(e=>console.log(e));
         setLiked(!liked);
       } else {
@@ -36,7 +33,7 @@ export default function Card({ id, title, description, dateStart, attachments, n
             let docId = likedEvent.id;
             user.deleteRelation('events', 'liked', auth.currentUser.uid, docId);
           })
-          .then(res => dispatch(getLikedEvents(auth.currentUser.uid)))
+          .then(() => dispatch(getLikedEvents(auth.currentUser.uid)))
           .catch(e => console.log(e));
 
         setLiked(!liked);
