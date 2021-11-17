@@ -9,14 +9,16 @@ const styles = StyleSheet.create({
   image: {
     width: width * 0.3,
     height: height * 0.15,
-    borderRadius: 60,
-    borderWidth: 1,
+    // borderWidth: 1,
+    borderRadius: width * 0.3,
   },
   profileInfo: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     marginTop: height * 0.05,
-    paddingHorizontal: width * 0.07,
+    //paddingHorizontal: width * 0.07,
+    alignItems: "center",
+    
   },
   info: {
     marginLeft: width * 0.1,
@@ -42,6 +44,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
   },
+  username: {
+    fontSize: 20,
+    justifyContent: "center",
+    marginTop: height * 0.01,
+  }
 });
 
 export default styles;

@@ -6,6 +6,7 @@ export const colorPallete = { first: "#2968c0", second: "#298bc4", third: "#29ad
 
 export const styles = StyleSheet.create({
   title: {
+    fontFamily: "Gotham-Light",
     fontSize: 18,
     textAlign: "center",
   },
@@ -26,12 +27,11 @@ export const styles = StyleSheet.create({
   },
   btnStart: {
     height: 50,
-    borderRadius: 7,
     backgroundColor: "transparent",
   },
   btnLogin: {
     height: 50,
-    borderRadius: 30,
+    borderRadius: 10,
     borderStyle: "solid",
     borderWidth: 2,
     borderColor: colorPallete.third,
@@ -39,7 +39,11 @@ export const styles = StyleSheet.create({
   },
   btnRegister: {
     height: 50,
-    borderRadius: 30,
+    borderRadius: 10,
     backgroundColor: colorPallete.third,
+  },
+  textBtn: {
+    fontFamily: "Gotham-Medium",
+    fontSize: 25,
   },
 });
