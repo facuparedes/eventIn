@@ -184,16 +184,6 @@ const FormEvent = ({ navigation }) => {
         inputContainerStyle={styles.inputCont}
         onChangeText={handleFee}/>
 
-        {/* DATE/TIME PICKER */}
-        
-
-        {/* FINISH DATE/TIME PICKER */}
-        
-        {/* CATEGORIES CHECKBOXES */}
-        
-
-
-
         <Input 
           label="Ubicación" 
           placeholder="Ingresar dirección" 
@@ -202,8 +192,6 @@ const FormEvent = ({ navigation }) => {
           labelStyle={styles.label}
           inputContainerStyle={styles.inputCont}
         />
-
-        
 
         
         {/* FINISH CATEGORIES CHECKBOXES */}
