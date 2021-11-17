@@ -1,7 +1,7 @@
 import event from "../../../api/firebase/models/event";
 import user from "../../../api/firebase/models/user";
 import { where } from "firebase/firestore";
-// import auth from "../../../api/firebase/services/AuthService";
+import auth from "../../../api/firebase/services/AuthService";
 
 export const GET_EVENTS = "GET_EVENTS";
 export const GET_DETAILS = "GET_DETAILS";
@@ -14,13 +14,11 @@ export const GET_EVENTS_DATE = "GET_EVENTS_DATE";
 
 export const getEvents = () => {
   let today = new Date();
-  return async function (dispatch, getState) {
-    let isLogged = getState().isLogged;
-    // console.log(isLogged);
+  return async function (dispatch) {
     let likedEventsUUIDs = [];
     let result = await event.find(where("end", ">", today));
-    if (isLogged) {
-      user.include('events', 'liked', isLogged).find()
+    if (auth.currentUser) {
+      user.include('events', 'liked', auth.currentUser.uid).find()
         .then(data => {
           likedEventsUUIDs = data["events-liked"].map(e => e.eventUUID);
         })
@@ -28,17 +26,26 @@ export const getEvents = () => {
           result.map(e => {
             let likedEvent = likedEventsUUIDs.find(id => id === e.id);
             if (likedEvent) {
-              e.liked = 'true';
+              e.likedActive = 'true';
             }
           })
-          console.log('ALL EVENTS ACTIONNNNNNN', result)
+          return result;
+        })
+        .then(result => {
+          return dispatch({
+            type: GET_EVENTS,
+            payload: result,
+          })
+
         })
         .catch(e => console.log('ESTE ERROR ES DE LIKED X EVENTO', e));
+    } else {
+      return dispatch({
+        type: GET_EVENTS,
+        payload: result,
+      })
     }
-    return dispatch({
-      type: GET_EVENTS,
-      payload: result,
-    })
+
   };
 };
 

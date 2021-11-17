@@ -9,17 +9,15 @@ import auth from '../../../api/firebase/services/AuthService';
 
 export default function CardDetail({ route, navigation }) {
   const dispatch = useDispatch();
+  const { id, likedAct } = route.params;
   const details = useSelector((state) => state.detail);
   const logged = useSelector(state => state.isLogged);
-  const [liked, setLiked] = useState(false);
-  const { id } = route.params;
+  const [liked, setLiked] = useState(likedAct);
+  console.log(details.likedActive)
 
   useEffect(() => {
     dispatch(getDetails(id));
   }, [dispatch]);
-
-  // console.log('latitud',details[0].location.latitude)
-  // console.log('longitud',details[0].location.longitude)
 
   const addLike = () => {
     if (logged) {

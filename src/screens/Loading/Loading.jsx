@@ -23,7 +23,7 @@ export default function Loading({ navigation }) {
     });
     dispatch(getEvents());
     return subscribe;
-  }, [dispatch]);
+  }, [dispatch, auth, onAuthStateChanged]);
 
   return (
     <View style={styles.container}>

@@ -8,34 +8,14 @@ import Event from "../../../../api/firebase/models/event.js";
 import user from '../../../../api/firebase/models/user.js';
 import auth from '../../../../api/firebase/services/AuthService';
 
-export default function Card({ id, title, description, dateStart, attachments, navigation, likedEvent }) {
+export default function Card({ id, title, description, dateStart, attachments, navigation, likedActive }) {
   const logged = useSelector((state) => state.isLogged); 
 
   const diffStart = moment(dateStart).diff(moment.now(), "hours");
   const isToday = diffStart < 24 && diffStart >= 0;
   var today = new Date();
 
-  const [liked, setLiked] = useState(likedEvent);
-  console.log('LIKED', liked)
-  
-  console.log('LIKED PROPPP', likedEvent)
-  
-  // useEffect(() => {
-  //   if (likedEvent) {
-  //     setLiked(true);
-  //   }
-  // }, [likedEvent, setLiked]);
-
-  // useEffect(() => {
-  //   user.include('events', 'liked', auth.currentUser.uid).find()
-  //     .then(data => {
-  //       let likedEvent = data["events-liked"].find(e => e.eventUUID === id);
-  //       if (likedEvent) {
-  //         setLiked(true);
-  //       }
-  //     })
-  //     .catch(e=>console.log('ESTE ERROR LO TIRA CUANDO EVALUA LA CARD DEL EVENTO Y EL EVENTO NO ESTÁ LIKEADO', e));
-  // }, [setLiked, user])
+  const [liked, setLiked] = useState(likedActive);
 
   const addLike = () => {
     if (logged) {
@@ -93,6 +73,7 @@ export default function Card({ id, title, description, dateStart, attachments, n
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("CardDetail", {
+              likedAct: liked,
               id: id,
             })
           }
