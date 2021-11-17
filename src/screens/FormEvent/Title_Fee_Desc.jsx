@@ -196,21 +196,21 @@ const Title_Fee_Desc = ({ navigation }) => {
         />
 
         <View style={styles.photosContainer}>
-          <Text style={styles.photosText}>Fotos y Videos</Text>
+          <Text style={styles.photosText}>Fotos</Text>
           {attachments.length === 1 && 
-            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto/video</Text>
+            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto</Text>
           }
           {attachments.length > 1 && 
-            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos/videos</Text>
+            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos</Text>
           }
           <View style={styles.multimediaBtns}>
             <TouchableOpacity onPress={openImagePickerAsync} style={styles.photoBtn}>
               <Text style={styles.textPhotoBtn}>Selecciona una foto</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={openVideoPickerAsync} style={styles.videoBtn}>
+            {/* <TouchableOpacity onPress={openVideoPickerAsync} style={styles.videoBtn}>
               <Text style={styles.textVideoBtn}>Selecciona un video</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
           </View>
             <ScrollView horizontal={true}>

@@ -85,6 +85,7 @@ export const rootReducer = (state = initialState, action) => {
       let eventsWithLikeAct = action.payload;
       if (eventsWithLikeAct.length) {
         eventsWithLikeAct = eventsWithLikeAct.map(e => ({ ...e, likedActive: true }))
+        eventsWithLikeAct.sort((a, b) => a.start > b.start);
       }
       return {
         ...state,
