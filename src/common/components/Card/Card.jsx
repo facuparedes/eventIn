@@ -1,6 +1,7 @@
 import moment from "moment";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { getLikedEvents } from "../../redux/actions.js";
+import { useSelector, useDispatch } from "react-redux";
 import { View, Text, Image, TouchableOpacity, Button, Alert } from "react-native";
 import { styles } from "./styles.js";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
@@ -10,6 +11,7 @@ import auth from '../../../../api/firebase/services/AuthService';
 
 export default function Card({ id, title, description, dateStart, attachments, navigation, likedActive }) {
   const logged = useSelector((state) => state.isLogged); 
+  const dispatch = useDispatch();
 
   const diffStart = moment(dateStart).diff(moment.now(), "hours");
   const isToday = diffStart < 24 && diffStart >= 0;
@@ -22,6 +24,7 @@ export default function Card({ id, title, description, dateStart, attachments, n
       if(!liked) {
         user.addRelation('events', 'liked', {eventUUID: id, userUUID: auth.currentUser.uid})
           .then(()=> {
+            dispatch(getLikedEvents(auth.currentUser.uid))
             console.log('Liked')
           })
           .catch(e=>console.log(e));
@@ -33,7 +36,7 @@ export default function Card({ id, title, description, dateStart, attachments, n
             let docId = likedEvent.id;
             user.deleteRelation('events', 'liked', auth.currentUser.uid, docId);
           })
-          .then(res => console.log(res))
+          .then(res => dispatch(getLikedEvents(auth.currentUser.uid)))
           .catch(e => console.log(e));
 
         setLiked(!liked);
