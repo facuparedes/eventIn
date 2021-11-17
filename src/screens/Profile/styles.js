@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
+import { colorPallete } from "../Onboarding/styles";
 
 const { height, width } = Dimensions.get("window");
 
@@ -18,7 +19,6 @@ const styles = StyleSheet.create({
     marginTop: height * 0.05,
     //paddingHorizontal: width * 0.07,
     alignItems: "center",
-    
   },
   info: {
     marginLeft: width * 0.1,
@@ -48,7 +48,41 @@ const styles = StyleSheet.create({
     fontSize: 20,
     justifyContent: "center",
     marginTop: height * 0.01,
-  }
+  },
+  favs: {
+    height: height * 0.6,
+  },
+  containerFlatList: {
+    flex: 20,
+    marginBottom:30
+  },
+  borderF: {
+    borderWidth: 1,
+    borderRadius: 15,
+    marginHorizontal: width * 0.025,
+    height: "95%",
+    width: width * 0.95,
+    backgroundColor: "white",
+    borderColor: "white",
+    elevation: 7,
+  },
+  imgFlat: {
+    resizeMode: "cover",
+    position: "relative",
+    width: width / 1.2,
+    height: height / 4.2,
+    borderRadius: 10,
+    alignSelf: "center",
+  },
+  title: {
+    color: colorPallete.second,
+    fontSize: 15,
+    fontFamily: "Gotham-Medium",
+  },
+  description: {
+    color: "#5c6066",
+    fontFamily: "Gotham-Book",
+  },
 });
 
 export default styles;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Image, TouchableOpacity, SafeAreaView, ScrollView, FlatList } from "react-native";
-import { getDetails } from "../../common/redux/actions";
+import { Text, View, Image, TouchableOpacity, SafeAreaView, ScrollView, FlatList, Alert } from "react-native";
+import { getDetails, getLikedEvents } from "../../common/redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./CardDetailStyles";
 import { AntDesign, FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
@@ -9,24 +9,21 @@ import auth from "../../../api/firebase/services/AuthService";
 
 export default function CardDetail({ route, navigation }) {
   const dispatch = useDispatch();
+  const { id, likedAct } = route.params;
   const details = useSelector((state) => state.detail);
   const logged = useSelector((state) => state.isLogged);
-  const [liked, setLiked] = useState(false);
-  const { id } = route.params;
+  const [liked, setLiked] = useState(likedAct);
 
   useEffect(() => {
     dispatch(getDetails(id));
   }, [dispatch]);
-
-  // console.log('latitud',details[0].location.latitude)
-  // console.log('longitud',details[0].location.longitude)
 
   const addLike = () => {
     if (logged) {
       if (!liked) {
         user
           .addRelation("events", "liked", { eventUUID: id, userUUID: auth.currentUser.uid })
-          .then((res) => console.log(res))
+          .then(() => dispatch(getLikedEvents(auth.currentUser.uid)))
           .catch((e) => console.log(e));
         setLiked(!liked);
       } else {
@@ -38,7 +35,7 @@ export default function CardDetail({ route, navigation }) {
             let docId = likedEvent.id;
             user.deleteRelation("events", "liked", auth.currentUser.uid, docId);
           })
-          .then((res) => console.log(res))
+          .then(() => dispatch(getLikedEvents(auth.currentUser.uid)))
           .catch((e) => console.log(e));
 
         setLiked(!liked);

@@ -1,5 +1,6 @@
 import moment from "moment";
 import React, { useState } from "react";
+import { getLikedEvents } from "../../redux/actions.js";
 import { useSelector, useDispatch } from "react-redux";
 import { View, Text, Image, TouchableOpacity, Button, Alert } from "react-native";
 import { styles } from "./styles.js";
@@ -8,20 +9,21 @@ import Event from "../../../../api/firebase/models/event.js";
 import user from '../../../../api/firebase/models/user.js';
 import auth from '../../../../api/firebase/services/AuthService';
 
-export default function Card({ id, title, description, dateStart, attachments, navigation }) {
+export default function Card({ id, title, description, dateStart, attachments, navigation, likedActive }) {
   const logged = useSelector((state) => state.isLogged); 
+  const dispatch = useDispatch();
 
   const diffStart = moment(dateStart).diff(moment.now(), "hours");
   const isToday = diffStart < 24 && diffStart >= 0;
   var today = new Date();
 
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(likedActive);
 
   const addLike = () => {
     if (logged) {
       if(!liked) {
         user.addRelation('events', 'liked', {eventUUID: id, userUUID: auth.currentUser.uid})
-          .then(res=> console.log(res))
+          .then(()=> dispatch(getLikedEvents(auth.currentUser.uid)))
           .catch(e=>console.log(e));
         setLiked(!liked);
       } else {
@@ -31,7 +33,7 @@ export default function Card({ id, title, description, dateStart, attachments, n
             let docId = likedEvent.id;
             user.deleteRelation('events', 'liked', auth.currentUser.uid, docId);
           })
-          .then(res => console.log(res))
+          .then(() => dispatch(getLikedEvents(auth.currentUser.uid)))
           .catch(e => console.log(e));
 
         setLiked(!liked);
@@ -71,6 +73,7 @@ export default function Card({ id, title, description, dateStart, attachments, n
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("CardDetail", {
+              likedAct: liked,
               id: id,
             })
           }
