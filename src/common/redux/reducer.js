@@ -12,14 +12,6 @@ const initialState = {
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_EVENTS:
-      // var currentsEvents = action.payload;
-      // //console.log("Eventos 1: ", currentsEvents.length)
-      // var today = new Date();
-      // var publishEvents = currentsEvents.filter((e) => e.publishDate <= today);
-      // if (publishEvents) {
-      //   //console.log("Eventos 2: ", publishEvents.length)
-      //   publishEvents.sort((a, b) => a.start > b.start);
-      // }
         return {
           ...state,
           events: action.payload,

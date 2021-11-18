@@ -62,13 +62,13 @@ export const getEventsByCategory = (category) => {
     var today = new Date();
 
     resultCat = await event.find(where("category", "==", category));
-    console.log("cat 1: ", resultCat.length);
+    //console.log("cat 1: ", resultCat.length);
     if (resultCat.length > 0) {
       filterCat = resultCat.filter((c) => c.end > today);
-      console.log("cat 2: ", filterCat.length);
+      //console.log("cat 2: ", filterCat.length);
       if (filterCat.length > 0) {
         publishCategory = filterCat.filter((e) => e.publishDate <= today);
-        console.log("cat 3: ", publishCategory.length);
+        //console.log("cat 3: ", publishCategory.length);
         if (publishCategory.length > 0) {
           publishCategory.sort((a, b) => a.start > b.start);
           return dispatch({
@@ -90,10 +90,10 @@ export const getEventsByDate = (date) => {
     let resultDate = await event.findAll();
 
     filterDate = resultDate.filter((d) => d.start <= date.setHours(23,59,0,0) && date.setHours(0,0,0,1) <= d.end);//eventos activos en esa fecha
-    console.log("Ev fecha 1: ", filterDate.length)
+    //console.log("Ev fecha 1: ", filterDate.length)
     if(filterDate.length>0){
       filterPublish = filterDate.filter(d => d.publishDate <= date.setHours(23,59,0,0));//eventos activos en publicacion en esa fecha
-      console.log("Ev fecha 2: ", filterPublish.length)
+      //console.log("Ev fecha 2: ", filterPublish.length)
       if(filterPublish.length>0){
         filterPublish.sort((a, b) => a.start > b.start);
         return dispatch({
