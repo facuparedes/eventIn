@@ -11,8 +11,6 @@ import * as Location from "expo-location";
 import { useDispatch } from "react-redux";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 
-// IMPORTANTE-- TODAVIA NO ANDA LA BARRA DE BUSQUEDA,SOLO ANDA NAVEGANDO EN EL MAPA Y PONIENDO EL PIN
-//              EN EL LUGAR DESEADO
 const FormMaps = ({ navigation }) => {
   const dispatch = useDispatch();
   //Location states

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeIsLogged, getEvents, getEventsByCategory, getLikedEvents } from "../../common/redux/actions";
+import { changeIsLogged, getEvents, getEventsByCategory, getLikedEvents, getUser } from "../../common/redux/actions";
 import { onAuthStateChanged } from "firebase/auth";
 import { View, SafeAreaView, RefreshControl, ScrollView, TouchableOpacity, Text, Button, Alert, Platform } from "react-native";
 import { styles } from "./styles.js";

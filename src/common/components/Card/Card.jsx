@@ -22,14 +22,12 @@ export default function Card({ id, title, description, dateStart, attachments, n
   const addLike = () => {
     if (logged) {
       if (!liked) {
-        user
-          .addRelation("events", "liked", { eventUUID: id, userUUID: auth.currentUser.uid })
+        user.addRelation("events", "liked", { eventUUID: id, userUUID: auth.currentUser.uid })
           .then(() => dispatch(getLikedEvents(auth.currentUser.uid)))
           .catch((e) => console.log(e));
         setLiked(!liked);
       } else {
-        user
-          .include("events", "liked", auth.currentUser.uid)
+        user.include("events", "liked", auth.currentUser.uid)
           .find()
           .then((data) => {
             let likedEvent = data["events-liked"].find((e) => e.eventUUID === id);
@@ -44,10 +42,6 @@ export default function Card({ id, title, description, dateStart, attachments, n
     } else {
       Alert.alert("Hola invitado", "Tenés que iniciar sesión para likear un evento.", [{ text: "Ahora no" }, { text: "Iniciar sesión", onPress: () => navigation.navigate("Login") }]);
     }
-  };
-
-  const shared = () => {
-    //acá se abriría las opciones para compartir
   };
 
   const deleteEvent = () => {

@@ -11,7 +11,8 @@ import CardsFlatCreatedEvents from "../../common/components/CardsFlatCreatedEven
 import { colorPallete } from "../Onboarding/styles";
 
 export default function Profile() {
-  const user = useSelector((state) => state.isLogged);
+  const presentUser = useSelector(state => state.currentUser)
+  const logged = useSelector((state) => state.isLogged);
   const likedEvents = useSelector((state) => state.likedEvents);
   const createdEvents = useSelector((state) => state.createdEvents);
   const [eventsFlat, setEventsFlat] = useState("liked");
@@ -39,8 +40,8 @@ export default function Profile() {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F9F9F9" }}>
       <View style={styles.profileInfo}>
         <Image style={styles.image} source={{ uri: "https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg" }} />
-        <Text style={styles.username}>{user.username}</Text>
-        <Text style={{ fontFamily: "Gotham-LightItalic", color: "grey" }}>{user.email}</Text>
+        <Text style={styles.username}>{logged.username}</Text>
+        <Text style={{ fontFamily: "Gotham-LightItalic", color: "grey" }}>{logged.email}</Text>
       </View>
       <View style={styles.favs}>
         <View style={styles.btnsCont}>

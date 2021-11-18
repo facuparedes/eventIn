@@ -13,8 +13,12 @@ export default function Logo({ navigation }) {
     setTimeout(() => {
       const subscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
-          const uid = user.uid;
-          dispatch(changeIsLogged(uid))
+          const presentUser = {
+            uid: user.uid,
+            email: user.email,
+            username: user.displayName,
+          };
+          dispatch(changeIsLogged(presentUser));
           navigation.replace('Loading');
         } else {
           navigation.replace("Onboarding");

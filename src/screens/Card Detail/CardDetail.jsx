@@ -6,7 +6,6 @@ import styles from "./CardDetailStyles";
 import { AntDesign, FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
 import user from "../../../api/firebase/models/user";
 import auth from "../../../api/firebase/services/AuthService";
-// import Geocoder from 'react-native-geocoder';
 import Geocoder from 'react-native-geocoding';
 
 export default function CardDetail({ route, navigation }) {
@@ -16,7 +15,7 @@ export default function CardDetail({ route, navigation }) {
   const logged = useSelector((state) => state.isLogged);
   const [liked, setLiked] = useState(likedAct);
   const [address,setAddress] = useState('');
-  // console.log('LONGITUD',latlng)
+  
   useEffect(() => {
     dispatch(getDetails(id));
     getAddress(latlng.latitude,latlng.longitude);
@@ -25,14 +24,12 @@ export default function CardDetail({ route, navigation }) {
   const addLike = () => {
     if (logged) {
       if (!liked) {
-        user
-          .addRelation("events", "liked", { eventUUID: id, userUUID: auth.currentUser.uid })
+        user.addRelation("events", "liked", { eventUUID: id, userUUID: auth.currentUser.uid })
           .then(() => dispatch(getLikedEvents(auth.currentUser.uid)))
           .catch((e) => console.log(e));
         setLiked(!liked);
       } else {
-        user
-          .include("events", "liked", auth.currentUser.uid)
+        user.include("events", "liked", auth.currentUser.uid)
           .find()
           .then((data) => {
             let likedEvent = data["events-liked"].find((e) => e.eventUUID === id);
@@ -49,47 +46,19 @@ export default function CardDetail({ route, navigation }) {
     }
   };
 
-  const share = () => {
-    //llevar a compartir
-  };
 
   const attachments = details.length && details[0].attachments.slice(1, details[0].attachments.length);
-
-  // const [pin,setPin] = useState({})
-  
-  //  const lat = details[0].location.latitude
-  //  const lng = details[0].location.longitude
-  //  console.log('lat',lat)
-  //  console.log('lng',lng)
-  // const getLatLng= async () => {
-
-    //  console.log('detailsss',latlng)
-  //    return latlng
-  // } 
-  
-//    const getAddress = async (lat,lng) =>{
-  //  await Geocoder.fallbackToGoogle('AIzaSyDEvbPWfuQvaChx1QrpAPgj_DiXB6R-6Ys')
-  //   try{
-    //   let res= await Geocoder.geocodePosition({lat,lng})
-    //     console.log('respuesta',res)
-    //   // let addr = (res[0].formattedAddress)
-    //     // console.log(addr)
-    // }       
-    // catch(e){ console.log(e)
     
-    // }
-    //     } -34.5453062,-58.44977489999999
-    
-       const getAddress = (lat, lng) => {
-        Geocoder.init("AIzaSyDEvbPWfuQvaChx1QrpAPgj_DiXB6R-6Ys")
-        Geocoder.from(lat, lng)
-		.then(json => {
+  const getAddress = (lat, lng) => {
+    Geocoder.init("AIzaSyDEvbPWfuQvaChx1QrpAPgj_DiXB6R-6Ys")
+    Geocoder.from(lat, lng)
+		  .then(json => {
       	var addressComponent = json.results[0].address_components;
         let direcc = `${addressComponent[0].long_name}, ${addressComponent[1].long_name}, ${addressComponent[2].long_name}, ${addressComponent[3].long_name}, ${addressComponent[4].long_name}.`;
-        setAddress(direcc)
-        // console.log('ADRS',addressComponent[0].long_name ,',',addressComponent[1].long_name,',',addressComponent[2].long_name,',',addressComponent[3].long_name,',',addressComponent[4].long_name,'.');
+        setAddress(direcc);
       })
-		.catch(error => console.warn(error));}
+		  .catch(error => console.warn(error));
+  }
 
   return (
     <View style={styles.view}>
@@ -118,7 +87,7 @@ export default function CardDetail({ route, navigation }) {
                 </TouchableOpacity>
               </View>
               <View style={styles.btnShare}>
-                <TouchableOpacity onPress={share}>
+                <TouchableOpacity>
                   <Ionicons name="share-social" size={24} color="rgba(0, 0, 0, 0.7)" />
                 </TouchableOpacity>
               </View>
@@ -149,9 +118,7 @@ export default function CardDetail({ route, navigation }) {
                   </View>
                 </View>
                 <View>
-                  
-                    <Text>{address}</Text>
-                  
+                  <Text>{address}</Text>
                 </View>
                 <View style={styles.descContent}>
                   <Text style={styles.subTitle}>Descripción</Text>

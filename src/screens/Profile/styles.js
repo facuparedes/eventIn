@@ -55,6 +55,7 @@ const styles = StyleSheet.create({
   },
   containerFlatList: {
     flex: 20,
+    bottom: 0
   },
   borderF: {
     borderWidth: 1,

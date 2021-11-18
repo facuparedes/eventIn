@@ -13,6 +13,7 @@ export const GET_EVENTS_DATE = "GET_EVENTS_DATE";
 export const CLEAN_EVENTS = "CLEAN_EVENTS";
 export const GET_LIKED_EVENTS = "GET_LIKED_EVENTS";
 export const GET_CREATED_EVENTS = "GET_CREATED_EVENTS";
+export const GET_USER = "GET_USER";
 
 
 export const getEvents = () => {
@@ -23,15 +24,21 @@ export const getEvents = () => {
     if (auth.currentUser) {
       user.include('events', 'liked', auth.currentUser.uid).find()
         .then(data => {
-          likedEventsUUIDs = data["events-liked"].map(e => e.eventUUID);
+          if (data) {
+            return likedEventsUUIDs = data["events-liked"].map(e => e.eventUUID);
+          } else {
+            return result;
+          }
         })
         .then(() => {
-          result.map(e => {
-            let likedEvent = likedEventsUUIDs.find(id => id === e.id);
-            if (likedEvent) {
-              e.likedActive = 'true';
-            }
-          })
+          if (likedEventsUUIDs.length) {
+            result.map(e => {
+              let likedEvent = likedEventsUUIDs.find(id => id === e.id);
+              if (likedEvent) {
+                e.likedActive = 'true';
+              }
+            })
+          }
           return result;
         })
         .then(result => {
@@ -171,6 +178,18 @@ export const getCreatedEvents = (id) => {
       return dispatch({
         type: GET_CREATED_EVENTS,
         payload: []
+      })
+    }
+  }
+}
+
+export const getUser = () => {
+  return async function (dispatch) {
+    if (auth.currentUser) {
+      let userDb = await user.find(where('uuid', '==', auth.currentUser.uid))
+      return dispatch({
+        type: GET_USER,
+        payload: userDb
       })
     }
   }

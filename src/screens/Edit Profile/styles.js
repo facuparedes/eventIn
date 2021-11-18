@@ -26,8 +26,8 @@ export default styles = StyleSheet.create({
   },
   containerInput: {
     flexDirection: "row",
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 13,
+    marginBottom: 13,
     borderBottomWidth: 1,
     borderBottomColor: "black",
     paddingBottom: 5,
@@ -53,6 +53,7 @@ export default styles = StyleSheet.create({
   btnSubir: {
     // justifyContent: "center",
     alignItems: "center",
+    marginTop: 16
     //backgroundColor: 'black',
     // height: 50,
     // marginLeft: 10,

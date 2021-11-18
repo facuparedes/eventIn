@@ -8,7 +8,8 @@ import {
   ADD_EVENT_INFO,
   CLEAN_EVENTS,
   GET_LIKED_EVENTS,
-  GET_CREATED_EVENTS
+  GET_CREATED_EVENTS,
+  GET_USER,
 } from "./actions";
 
 const initialState = {
@@ -17,7 +18,8 @@ const initialState = {
   createdEvents: [],
   detail: [],
   eventForm: {},
-  isLogged: false
+  isLogged: false,
+  currentUser: {},
 };
 
 export const rootReducer = (state = initialState, action) => {
@@ -102,7 +104,13 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         createdEvents: createdEventsWithLikeAct
-      }
+      };
+    case GET_USER:
+      console.log('USER GOTEN', action.payload)
+      return {
+        ...state,
+        currentUser: action.payload
+      };
     default:
       return state;
   }
