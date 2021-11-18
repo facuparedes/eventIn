@@ -4,13 +4,13 @@ import { getLikedEvents } from "../../redux/actions.js";
 import { useSelector, useDispatch } from "react-redux";
 import { View, Text, Image, TouchableOpacity, Button, Alert } from "react-native";
 import { styles } from "./styles.js";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import Event from "../../../../api/firebase/models/event.js";
-import user from '../../../../api/firebase/models/user.js';
-import auth from '../../../../api/firebase/services/AuthService';
+import user from "../../../../api/firebase/models/user.js";
+import auth from "../../../../api/firebase/services/AuthService";
 
 export default function Card({ id, title, description, dateStart, attachments, navigation, likedActive }) {
-  const logged = useSelector((state) => state.isLogged); 
+  const logged = useSelector((state) => state.isLogged);
   const dispatch = useDispatch();
 
   const diffStart = moment(dateStart).diff(moment.now(), "hours");
@@ -21,28 +21,28 @@ export default function Card({ id, title, description, dateStart, attachments, n
 
   const addLike = () => {
     if (logged) {
-      if(!liked) {
-        user.addRelation('events', 'liked', {eventUUID: id, userUUID: auth.currentUser.uid})
-          .then(()=> dispatch(getLikedEvents(auth.currentUser.uid)))
-          .catch(e=>console.log(e));
+      if (!liked) {
+        user
+          .addRelation("events", "liked", { eventUUID: id, userUUID: auth.currentUser.uid })
+          .then(() => dispatch(getLikedEvents(auth.currentUser.uid)))
+          .catch((e) => console.log(e));
         setLiked(!liked);
       } else {
-        user.include('events', 'liked', auth.currentUser.uid).find()
-          .then(data => {
-            let likedEvent = data["events-liked"].find(e => e.eventUUID === id);
+        user
+          .include("events", "liked", auth.currentUser.uid)
+          .find()
+          .then((data) => {
+            let likedEvent = data["events-liked"].find((e) => e.eventUUID === id);
             let docId = likedEvent.id;
-            user.deleteRelation('events', 'liked', auth.currentUser.uid, docId);
+            user.deleteRelation("events", "liked", auth.currentUser.uid, docId);
           })
           .then(() => dispatch(getLikedEvents(auth.currentUser.uid)))
-          .catch(e => console.log(e));
+          .catch((e) => console.log(e));
 
         setLiked(!liked);
       }
     } else {
-      Alert.alert("Hola invitado", "Tenés que iniciar sesión para likear un evento.", [
-        { text: "Ahora no" }, 
-        { text: "Iniciar sesión", onPress: () => navigation.navigate("Login") }
-      ])
+      Alert.alert("Hola invitado", "Tenés que iniciar sesión para likear un evento.", [{ text: "Ahora no" }, { text: "Iniciar sesión", onPress: () => navigation.navigate("Login") }]);
     }
   };
 
@@ -98,10 +98,7 @@ export default function Card({ id, title, description, dateStart, attachments, n
       </View>
       <View style={styles.card_footer}>
         <TouchableOpacity onPress={addLike}>
-          <AntDesign name={liked ? "heart" : "hearto"} size={24} color={liked ? "#E64141" : "black"} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => shared} style={{ marginLeft: 10 }}>
-          <Ionicons name="share-social" size={24} color="black" />
+          <AntDesign name={liked ? "heart" : "hearto"} size={27} color={liked ? "#E64141" : "black"} />
         </TouchableOpacity>
       </View>
     </View>

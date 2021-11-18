@@ -17,6 +17,7 @@ import Search from "../common/components/Search/Search";
 import { View } from "react-native";
 import styles from "./styles";
 import ActionSheet from "react-native-actions-sheet";
+import { colorPallete } from "../screens/Onboarding/styles";
 
 const Tab = createBottomTabNavigator();
 
@@ -32,10 +33,7 @@ export default function TabBar({ navigation }) {
     if (logged) {
       navigation.navigate("Form");
     } else {
-      Alert.alert("Acceso denegado", "Tenés que iniciar sesión para crear un evento.", [
-        { text: "Ahora no" }, 
-        { text: "Iniciar sesión", onPress: () => navigation.navigate("Login") }
-      ]);
+      Alert.alert("Acceso denegado", "Tenés que iniciar sesión para crear un evento.", [{ text: "Ahora no" }, { text: "Iniciar sesión", onPress: () => navigation.navigate("Login") }]);
     }
   }
 
@@ -45,7 +43,7 @@ export default function TabBar({ navigation }) {
 
   function logOut() {
     signOut(auth);
-    dispatch(updateEventsSignOut())
+    dispatch(updateEventsSignOut());
     dispatch(changeIsLogged(false));
     Alert.alert("Has cerrado sesión.");
     // Por alguna razón, sin especificar nada, de acá se navega directamente al onBoarding.
@@ -131,17 +129,15 @@ export default function TabBar({ navigation }) {
                     actionSheetRef.current?.setModalVisible();
                   }}
                 >
-                  <Text>
-                    <Feather name="menu" size={24} color="black" />
-                  </Text>
+                  <Feather name="menu" size={27} color="black" />
                 </TouchableOpacity>
-                <ActionSheet containerStyle={{ backgroundColor: "#d7eae9" }} indicatorColor="#00BD9D" gestureEnabled={true} ref={actionSheetRef}>
-                  <View>
+                <ActionSheet containerStyle={{ backgroundColor: colorPallete.fifth }} indicatorColor={colorPallete.third} gestureEnabled={true} ref={actionSheetRef}>
+                  <View style={styles.actionSheet}>
                     {/* Editar Perfil */}
                     <View style={styles.display}>
                       <View>
                         <TouchableOpacity
-                          style={styles.buttonLogout}
+                          style={styles.buttons}
                           onPress={() => {
                             navigation.navigate("EditProfile");
                             actionSheetRef.current?.hide();
@@ -164,7 +160,7 @@ export default function TabBar({ navigation }) {
                             navigation.navigate("UpdatePassword");
                             actionSheetRef.current?.hide();
                           }}
-                          style={styles.buttonLogout}
+                          style={styles.buttons}
                         >
                           <View style={styles.direction}>
                             <View style={styles.icon}>
@@ -183,7 +179,7 @@ export default function TabBar({ navigation }) {
                             alertLogOut();
                             actionSheetRef.current?.hide();
                           }}
-                          style={styles.buttonLogout}
+                          style={styles.buttons}
                         >
                           <View style={styles.direction}>
                             <View style={styles.icon}>
