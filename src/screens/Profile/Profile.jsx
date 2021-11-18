@@ -56,8 +56,8 @@ export default function Profile() {
           </View>
         </View>
         <View style={styles.containerFlatList}>
-          {eventsFlat === "liked" && likedEvents.length ? <CardsFlatLikedEvents /> : null}
-          {eventsFlat === "created" && createdEvents.length ? <CardsFlatCreatedEvents /> : null}
+          {eventsFlat === "liked" && likedEvents && likedEvents.length ? <CardsFlatLikedEvents /> : null}
+          {eventsFlat === "created" && createdEvents && createdEvents.length ? <CardsFlatCreatedEvents /> : null}
         </View>
       </View>
     </SafeAreaView>

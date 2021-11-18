@@ -36,7 +36,6 @@ export const rootReducer = (state = initialState, action) => {
         events: action.payload,
       };
     case GET_DETAILS:
-      console.log(action.payload.created)
       if (action.payload.created) {
         return {
           ...state,
