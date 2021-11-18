@@ -12,6 +12,7 @@ export const IS_LOGGED = "IS_LOGGED";
 export const GET_EVENTS_DATE = "GET_EVENTS_DATE";
 export const CLEAN_EVENTS = "CLEAN_EVENTS";
 export const GET_LIKED_EVENTS = "GET_LIKED_EVENTS";
+export const GET_CREATED_EVENTS = "GET_CREATED_EVENTS";
 
 
 export const getEvents = () => {
@@ -126,7 +127,7 @@ export const getLikedEvents = (id) => {
     if (eventsLiked) {
       let eventsUUIDs = eventsLiked["events-liked"].map(e => e.eventUUID);
 
-      let eventsFound = await getLikedEventById(eventsUUIDs);
+      let eventsFound = await getLikedOrCreatedEventById(eventsUUIDs);
 
       if (eventsFound) {
         return dispatch({
@@ -143,11 +144,34 @@ export const getLikedEvents = (id) => {
   }
 }
 
-async function getLikedEventById(array) {
+async function getLikedOrCreatedEventById(array) {
   let events = [];
   for (let i = 0; i < array.length; i++) {
     let eventById = await event.findById(array[i]);
     events.push(eventById);
   }
   return events;
+}
+
+export const getCreatedEvents = (id) => {
+  return async function (dispatch) {
+    let eventsCreated = await user.include('events', 'created', id).find();
+    if (eventsCreated) {
+      let eventsUUIDs = eventsCreated["events-created"].map(e => e.eventUUID);
+
+      let eventsFound = await getLikedOrCreatedEventById(eventsUUIDs);
+
+      if (eventsFound) {
+        return dispatch({
+          type: GET_CREATED_EVENTS,
+          payload: eventsFound
+        })
+      }
+    } else {
+      return dispatch({
+        type: GET_CREATED_EVENTS,
+        payload: []
+      })
+    }
+  }
 }
