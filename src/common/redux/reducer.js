@@ -1,4 +1,16 @@
-import { GET_EVENTS, GET_DETAILS, GET_EVENTS_CATEGORY, IS_LOGGED, GET_EVENTS_BY_TITLE, GET_EVENTS_DATE, ADD_EVENT_INFO, CLEAN_EVENTS, GET_LIKED_EVENTS, GET_CREATED_EVENTS } from "./actions";
+import {
+  GET_EVENTS,
+  GET_DETAILS,
+  GET_EVENTS_CATEGORY,
+  IS_LOGGED,
+  GET_EVENTS_BY_TITLE,
+  GET_EVENTS_DATE,
+  ADD_EVENT_INFO,
+  CLEAN_EVENTS,
+  GET_LIKED_EVENTS,
+  GET_CREATED_EVENTS,
+  CLEAN_EVENT_INFO
+} from "./actions";
 
 const initialState = {
   events: [],
@@ -97,6 +109,11 @@ export const rootReducer = (state = initialState, action) => {
         ...state,
         createdEvents: createdEventsWithLikeAct,
       };
+    case CLEAN_EVENT_INFO:
+      return {
+        ...state,
+        eventForm: {}
+      }
     default:
       return state;
   }

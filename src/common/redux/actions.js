@@ -13,6 +13,7 @@ export const GET_EVENTS_DATE = "GET_EVENTS_DATE";
 export const CLEAN_EVENTS = "CLEAN_EVENTS";
 export const GET_LIKED_EVENTS = "GET_LIKED_EVENTS";
 export const GET_CREATED_EVENTS = "GET_CREATED_EVENTS";
+export const CLEAN_EVENT_INFO = "CLEAN_EVENT_INFO";
 
 export const getEvents = () => {
   var today = new Date();
@@ -222,3 +223,9 @@ export const getCreatedEvents = (id) => {
     }
   };
 };
+
+export const cleanEventInfo = () => {
+  return {
+    type: CLEAN_EVENT_INFO,
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { View, Alert } from 'react-native';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { cleanEventInfo } from "../../common/redux/actions";
 import { WebView } from 'react-native-webview';
 import WVSNavigation from "../../common/components/WVSNavigation/WVSNavigation";
 import * as Progress from 'react-native-progress';
@@ -14,6 +15,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 export default function WebViewScreen ({navigation, redirectUrl}) {
     const eventInfo = useSelector((state) => state.eventForm);
     const webViewRef = useRef();
+    const dispatch = useDispatch();
 
     const [canGoBack, setCanGoBack] = useState(false);
     const [canGoForward, setCanGoForward] = useState(false);
@@ -50,6 +52,8 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
                     user.addRelation('events', 'created', {eventUUID: id, userUUID: auth.currentUser.uid})
                     Alert.alert('Tu evento ha sido creado', 'Te enviamos un email con la información.');
                     navigation.replace('TabBar', currentUrl);
+                    dispatch(cleanEventInfo());
+
                 })
                 .catch(e=> {
                     console.log(e);
@@ -62,7 +66,7 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
             Alert.alert('El pago ha sido rechazado.');
             navigation.replace('TabBar', currentUrl);
         }
-    }, [currentUrl, eventInfo, Event, user]);
+    }, [currentUrl, eventInfo, Event, user, dispatch]);
 
     return (
         <View style={{flex: 1, resizeMode: 'contain'}}>
