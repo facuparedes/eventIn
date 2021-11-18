@@ -10,15 +10,13 @@ const styles = StyleSheet.create({
   image: {
     width: width * 0.3,
     height: height * 0.15,
-    // borderWidth: 1,
     borderRadius: width * 0.3,
   },
   profileInfo: {
-    display: "flex",
+    flex: 2,
     flexDirection: "column",
-    marginTop: height * 0.05,
-    //paddingHorizontal: width * 0.07,
     alignItems: "center",
+    justifyContent: "center",
   },
   info: {
     marginLeft: width * 0.1,
@@ -45,15 +43,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   username: {
+    fontFamily: "Gotham-Medium",
     fontSize: 20,
+    color: colorPallete.first,
     justifyContent: "center",
     marginTop: height * 0.01,
   },
   favs: {
-    height: height * 0.6,
+    flex: 4,
+    alignItems: "center",
   },
   containerFlatList: {
-    flex: 20
+    flex: 20,
   },
   borderF: {
     borderWidth: 1,
@@ -83,24 +84,32 @@ const styles = StyleSheet.create({
     fontFamily: "Gotham-Book",
   },
   btnsCont: {
-    marginTop: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
-    height: 30
+    flexDirection: "row",
+    justifyContent: "space-around",
+    height: height * 0.06,
+    borderRadius: 10,
+    width: width * 0.95,
   },
   eventBtn: {
-    alignSelf: 'center'
+    alignItems: "center",
+    justifyContent: "center",
+    width: "50%",
+    height: "100%",
+    borderTopLeftRadius: 8,
+    borderBottomLeftRadius: 8,
+  },
+  eventBtn1: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: "50%",
+    height: "100%",
+    borderTopRightRadius: 8,
+    borderBottomRightRadius: 8,
   },
   textBtn: {
-    fontWeight: 'bold',
-
+    fontFamily: "Gotham-Bold",
+    fontSize: 16,
   },
-  middleView: {
-    borderWidth: 1,
-    marginHorizontal: -15
-  }
 });
 
 export default styles;
