@@ -8,13 +8,13 @@ import { useNavigation } from "@react-navigation/core";
 export default function CardsFlatCreatedEvents() {
   const navigation = useNavigation();
 
-  const likedEvents = useSelector((state) => state.likedEvents);
+  const createdEvents = useSelector((state) => state.createdEvents);
 
   return (
     <View>
       <FlatList
         style={{ width: "100%", height: "100%" }}
-        data={likedEvents}
+        data={createdEvents}
         renderItem={({ item }) => 
           <Card 
             id={item.id} 

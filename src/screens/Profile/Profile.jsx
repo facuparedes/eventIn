@@ -3,7 +3,7 @@ import { SafeAreaView, Text, View, TouchableOpacity, Image, FlatList, ScrollView
 import styles from "./styles";
 import { useNavigation } from "@react-navigation/core";
 import { useSelector, useDispatch } from "react-redux";
-import { getLikedEvents } from "../../common/redux/actions";
+import { getLikedEvents, getCreatedEvents } from "../../common/redux/actions";
 import auth from "../../../api/firebase/services/AuthService";
 import { useEffect } from "react";
 import CardsFlatLikedEvents from "../../common/components/CardsFlatLikedEvents/CardsFlatLikedEvents";
@@ -28,6 +28,7 @@ export default function Profile() {
       setEventsFlat('liked')
     } 
     if (mode === 'created') {
+      dispatch(getCreatedEvents(auth.currentUser.uid));
       setEventsFlat('created');
     }
 

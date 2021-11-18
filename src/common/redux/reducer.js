@@ -7,12 +7,14 @@ import {
   GET_EVENTS_DATE,
   ADD_EVENT_INFO,
   CLEAN_EVENTS,
-  GET_LIKED_EVENTS
+  GET_LIKED_EVENTS,
+  GET_CREATED_EVENTS
 } from "./actions";
 
 const initialState = {
   events: [],
   likedEvents: [],
+  createdEvents: [],
   detail: [],
   eventForm: {},
   isLogged: false
@@ -90,6 +92,16 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         likedEvents: eventsWithLikeAct
+      }
+    case GET_CREATED_EVENTS:
+      let createdEventsWithLikeAct = action.payload;
+      if (createdEventsWithLikeAct.length) {
+        createdEventsWithLikeAct = createdEventsWithLikeAct.map(e => ({ ...e, likedActive: true }))
+        createdEventsWithLikeAct.sort((a, b) => a.start > b.start);
+      }
+      return {
+        ...state,
+        createdEvents: createdEventsWithLikeAct
       }
     default:
       return state;
