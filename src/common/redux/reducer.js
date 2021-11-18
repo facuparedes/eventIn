@@ -41,6 +41,11 @@ export const rootReducer = (state = initialState, action) => {
           ...state,
           detail: state.createdEvents.filter((e) => e.id === action.payload.id),
         };
+      } else if (action.payload.likedBefore) {
+        return {
+          ...state,
+          detail: state.likedEvents.filter((e) => e.id === action.payload.id),
+        };
       } else {
         return {
           ...state,

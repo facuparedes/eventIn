@@ -25,6 +25,7 @@ export default function CardsFlatLikedEvents() {
             attachments={item.attachments[0]} 
             likedActive={item.likedActive && item.likedActive}
             latlng={item.location}
+            likedBefore={true}
         />}
       />
     </View>

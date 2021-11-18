@@ -13,14 +13,14 @@ import {KEY_MAPS} from "@env";
 
 export default function CardDetail({ route, navigation }) {
   const dispatch = useDispatch();
-  const { id, likedAct, latlng, created } = route.params;
+  const { id, likedAct, latlng, created, likedBefore } = route.params;
   const details = useSelector((state) => state.detail);
   const logged = useSelector((state) => state.isLogged);
   const [liked, setLiked] = useState(likedAct);
   const [address,setAddress] = useState('');
   // console.log('LONGITUD',latlng)
   useEffect(() => {
-    dispatch(getDetails(id, created ? created : null));
+    dispatch(getDetails(id, created ? created : null, likedBefore ? likedBefore : null));
     getAddress(latlng.latitude,latlng.longitude);
   }, [dispatch,getAddress,setAddress]);
 

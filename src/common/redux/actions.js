@@ -121,7 +121,7 @@ export const getEventsByName = (title) => {
   };
 };
 
-export const getDetails = (id, created) => {
+export const getDetails = (id, created = null, likedBefore = null) => {
   if (created) {
     return {
       type: GET_DETAILS,
@@ -130,7 +130,16 @@ export const getDetails = (id, created) => {
         created
       }
     };
-  } else {
+  } else if (likedBefore) {
+    return {
+      type: GET_DETAILS,
+      payload: {
+        id,
+        likedBefore
+      }
+    };
+  }
+  else {
     return {
       type: GET_DETAILS,
       payload: id,
