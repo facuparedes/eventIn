@@ -12,28 +12,25 @@ const initialState = {
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_EVENTS:
-      var currentsEvents = action.payload;
-      let today = new Date();
-      var publishEvents = currentsEvents.filter(e => e.publishDate <= today);
-      if (publishEvents) {
-        publishEvents.sort((a, b) => a.start > b.start);
+      // var currentsEvents = action.payload;
+      // //console.log("Eventos 1: ", currentsEvents.length)
+      // var today = new Date();
+      // var publishEvents = currentsEvents.filter((e) => e.publishDate <= today);
+      // if (publishEvents) {
+      //   //console.log("Eventos 2: ", publishEvents.length)
+      //   publishEvents.sort((a, b) => a.start > b.start);
+      // }
         return {
           ...state,
-          events: publishEvents,
+          events: action.payload,
         };
-      }
+      
 
     case GET_EVENTS_CATEGORY:
-      var cat = action.payload;
-      var today = new Date();
-      var filterCat = cat.filter((c) => c.end > today);
-
-      if (filterCat) {
-        return {
-          ...state,
-          events: filterCat,
-        };
-      } else alert("no hay eventos próximos en esa categoría");
+      return {
+        ...state,
+        events: action.payload,
+      };
 
     case GET_EVENTS_BY_TITLE:
       return {
