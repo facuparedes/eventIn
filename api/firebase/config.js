@@ -3,17 +3,18 @@ import { initializeApp } from "firebase/app";
 import { setLogLevel } from "@firebase/firestore";
 import { initializeFirestore } from "@firebase/firestore";
 import { LogBox } from "react-native";
+import { API_KEY, AUTH_DOMAIN, PROJECT_ID, STORAGE_BUCKET, MESSAGING_SENDER_ID, APP_ID, MEASUREMENT_ID } from "@env";
 LogBox.ignoreLogs(['Setting a timer', 'VirtualizedLists should never be nested']);
 // setLogLevel('debug')
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD6jUHn_5STRnE4jsNqjSQhXWdApjmFQUw",
-  authDomain: "unnamed-522b2.firebaseapp.com",
-  projectId: "unnamed-522b2",
-  storageBucket: "unnamed-522b2.appspot.com",
-  messagingSenderId: "99982117887",
-  appId: "1:99982117887:web:81ff0ed4f5d64457ddf5ca",
-  measurementId: "G-TGZYFR0G0T",
+  apiKey:API_KEY,
+  authDomain:AUTH_DOMAIN,
+  projectId:PROJECT_ID,
+  storageBucket:STORAGE_BUCKET,
+  messagingSenderId:MESSAGING_SENDER_ID,
+  appId:APP_ID,
+  measurementId:MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);

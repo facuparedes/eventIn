@@ -29,7 +29,9 @@ export default function Home() {
   const notificationListener = useRef();
   const responseListener = useRef();
   useEffect(() => {
-    dispatch(getLikedEvents(auth.currentUser.uid));
+    if (auth.currentUser) {
+      dispatch(getLikedEvents(auth.currentUser.uid));
+    }
     registerForPushNotificationsAsync().then((token) => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
