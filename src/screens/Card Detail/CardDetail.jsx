@@ -8,6 +8,8 @@ import user from "../../../api/firebase/models/user";
 import auth from "../../../api/firebase/services/AuthService";
 // import Geocoder from 'react-native-geocoder';
 import Geocoder from 'react-native-geocoding';
+import {KEY_MAPS} from "@env";
+
 
 export default function CardDetail({ route, navigation }) {
   const dispatch = useDispatch();
@@ -81,7 +83,7 @@ export default function CardDetail({ route, navigation }) {
     //     } -34.5453062,-58.44977489999999
     
        const getAddress = (lat, lng) => {
-        Geocoder.init("AIzaSyDEvbPWfuQvaChx1QrpAPgj_DiXB6R-6Ys")
+        Geocoder.init(KEY_MAPS)
         Geocoder.from(lat, lng)
 		.then(json => {
       	var addressComponent = json.results[0].address_components;
