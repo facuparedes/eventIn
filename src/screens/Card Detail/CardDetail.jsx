@@ -6,6 +6,7 @@ import styles from "./CardDetailStyles";
 import { AntDesign, FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
 import user from "../../../api/firebase/models/user";
 import auth from "../../../api/firebase/services/AuthService";
+import Geocoder from 'react-native-geocoder';
 
 export default function CardDetail({ route, navigation }) {
   const dispatch = useDispatch();
@@ -51,6 +52,24 @@ export default function CardDetail({ route, navigation }) {
 
   const attachments = details.length && details[0].attachments.slice(1, details[0].attachments.length);
 
+  // const [pin,setPin] = useState({})
+  
+   const lat = details[0].location.latitude
+   const lng = details[0].location.longitude
+   console.log('lat',lat)
+   console.log('lng',lng)
+  const getAddress = async (lat,lng) =>{
+  await Geocoder.fallbackToGoogle('AIzaSyDEvbPWfuQvaChx1QrpAPgj_DiXB6R-6Ys')
+  try{
+  let res= await Geocoder.geocodePosition({lat,lng})
+    console.log('respuesta',res)
+  // let addr = (res[0].formattedAddress)
+    // console.log(addr)
+}       
+catch(e){ console.log(e)
+
+}
+    }
   return (
     <View style={styles.view}>
       {details.length ? (
@@ -107,6 +126,11 @@ export default function CardDetail({ route, navigation }) {
                       <Image style={styles.maps} source={require("../../assets/maps.jpg")} />
                     </TouchableOpacity>
                   </View>
+                </View>
+                <View>
+                  <TouchableOpacity onPress={()=>getAddress(lat,lng)}>
+                    <Text>Ubicacion</Text>
+                  </TouchableOpacity>
                 </View>
                 <View style={styles.descContent}>
                   <Text style={styles.subTitle}>Descripción</Text>

@@ -50,7 +50,7 @@ const FormMaps = ({ navigation }) => {
   if (errorMsg) {
     Alert.alert(errorMsg);
   }
-
+ 
   const handleShowMap = () => {
     setShowMap(true);
     Alert.alert("Importante!", "Para mover el pin debes mantenerlo presionado.");
@@ -115,10 +115,22 @@ const FormMaps = ({ navigation }) => {
 					location: `${region.latitude}, ${region.longitude}`
 				}}
 				styles={{
-					container: { flex: 0, position: "relative", width: "100%", zIndex: 1 },
+					container: { flex: 0, position: "relative", width: "100%", zIndex: 1, borderWidth: 1,borderWidth: 1,borderRadius: 6},
 					listView: { backgroundColor: "white" }
 				}}
 			/>
+       {/* styles={{
+            container: { 
+              flex: 0, 
+              position:'relative',
+              width: "100%", 
+              zIndex: 1, 
+              borderWidth: 1, 
+              borderRadius: 6, 
+              height: 50 ,
+            },
+            listView: { backgroundColor: "white" },
+          }} */}
         <View style={styles.containerMap}>
           {showMap && (
             <MapView
