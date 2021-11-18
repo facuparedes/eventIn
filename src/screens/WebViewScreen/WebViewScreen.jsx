@@ -4,7 +4,9 @@ import { useSelector } from "react-redux";
 import { WebView } from 'react-native-webview';
 import WVSNavigation from "../../common/components/WVSNavigation/WVSNavigation";
 import * as Progress from 'react-native-progress';
-import Event from '../../../api/firebase/models/event'
+import Event from '../../../api/firebase/models/event';
+import user from "../../../api/firebase/models/user";
+import auth from '../../../api/firebase/services/AuthService';
 import { URL } from 'react-native-url-polyfill';
 
 // TEST CREDIT CARD NUMBER = 4013 5406 8274 6260
@@ -38,8 +40,8 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
             // console.log('FINAL EVENT', eventInfoDB);
             
             Event.create(eventInfoDB)
-                .then(res=>{
-                    console.log(res);
+                .then(id=>{
+                    user.addRelation('events', 'created', {eventUUID: id, userUUID: auth.currentUser.uid})
                     Alert.alert('Tu evento ha sido creado', 'Te enviamos un email con la información.');
                     navigation.replace('TabBar', currentUrl);
                 })
@@ -54,7 +56,7 @@ export default function WebViewScreen ({navigation, redirectUrl}) {
             Alert.alert('El pago ha sido rechazado.');
             navigation.replace('TabBar', currentUrl);
         }
-    }, [currentUrl, eventInfo, Event]);
+    }, [currentUrl, eventInfo, Event, user]);
 
     return (
         <View style={{flex: 1, resizeMode: 'contain'}}>
