@@ -53,8 +53,7 @@ const styles = StyleSheet.create({
     height: height * 0.6,
   },
   containerFlatList: {
-    flex: 20,
-    marginBottom:30
+    flex: 20
   },
   borderF: {
     borderWidth: 1,
@@ -83,6 +82,24 @@ const styles = StyleSheet.create({
     color: "#5c6066",
     fontFamily: "Gotham-Book",
   },
+  btnsCont: {
+    marginTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderWidth: 1,
+    height: 30
+  },
+  eventBtn: {
+    alignSelf: 'center'
+  },
+  textBtn: {
+    fontWeight: 'bold',
+
+  },
+  middleView: {
+    borderWidth: 1,
+    marginHorizontal: -15
+  }
 });
 
 export default styles;
