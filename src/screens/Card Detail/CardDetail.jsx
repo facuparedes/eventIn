@@ -55,7 +55,7 @@ export default function CardDetail({ route, navigation }) {
     //llevar a compartir
   };
 
-  const attachments = details.length && details[0].attachments.slice(1, details[0].attachments.length);
+  const attachments = details && details.length && details[0].attachments.slice(1, details[0].attachments.length);
 
   // const [pin,setPin] = useState({})
   
@@ -95,7 +95,7 @@ export default function CardDetail({ route, navigation }) {
 
   return (
     <View style={styles.view}>
-      {details.length ? (
+      {details && details.length ? (
         <SafeAreaView style={styles.viewCont}>
           <ScrollView>
             <View style={styles.header}>
