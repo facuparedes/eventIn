@@ -1,4 +1,16 @@
-import { GET_EVENTS, GET_DETAILS, GET_EVENTS_CATEGORY, IS_LOGGED, GET_EVENTS_BY_TITLE, GET_EVENTS_DATE, ADD_EVENT_INFO, CLEAN_EVENTS, GET_LIKED_EVENTS, GET_CREATED_EVENTS } from "./actions";
+import {
+  GET_EVENTS,
+  GET_DETAILS,
+  GET_EVENTS_CATEGORY,
+  IS_LOGGED,
+  GET_EVENTS_BY_TITLE,
+  GET_EVENTS_DATE,
+  ADD_EVENT_INFO,
+  CLEAN_EVENTS,
+  GET_LIKED_EVENTS,
+  GET_CREATED_EVENTS,
+  GET_USER
+} from "./actions";
 
 const initialState = {
   events: [],
@@ -91,6 +103,12 @@ export const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         createdEvents: createdEventsWithLikeAct,
+      };
+    case GET_USER:
+      console.log('USER GOTEN', action.payload)
+      return {
+        ...state,
+        currentUser: action.payload
       };
     default:
       return state;

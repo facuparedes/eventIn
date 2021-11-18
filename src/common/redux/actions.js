@@ -13,6 +13,7 @@ export const GET_EVENTS_DATE = "GET_EVENTS_DATE";
 export const CLEAN_EVENTS = "CLEAN_EVENTS";
 export const GET_LIKED_EVENTS = "GET_LIKED_EVENTS";
 export const GET_CREATED_EVENTS = "GET_CREATED_EVENTS";
+export const GET_USER = "GET_USER";
 
 export const getEvents = () => {
   var today = new Date();
@@ -213,3 +214,15 @@ export const getCreatedEvents = (id) => {
     }
   };
 };
+
+export const getUser = () => {
+  return async function (dispatch) {
+    if (auth.currentUser) {
+      let userDb = await user.find(where('uuid', '==', auth.currentUser.uid))
+      return dispatch({
+        type: GET_USER,
+        payload: userDb
+      })
+    }
+  }
+}
