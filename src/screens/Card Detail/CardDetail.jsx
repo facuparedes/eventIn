@@ -7,13 +7,8 @@ import { AntDesign, FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
 import user from "../../../api/firebase/models/user";
 import auth from "../../../api/firebase/services/AuthService";
 // import Geocoder from 'react-native-geocoder';
-<<<<<<< HEAD
 import Geocoder from "react-native-geocoding";
-=======
-import Geocoder from 'react-native-geocoding';
-import {KEY_MAPS} from "@env";
-
->>>>>>> 794e5f64d8414abc9d06731226a14d81344c9307
+import { KEY_MAPS } from "@env";
 
 export default function CardDetail({ route, navigation }) {
   const dispatch = useDispatch();
@@ -76,7 +71,6 @@ export default function CardDetail({ route, navigation }) {
   //    const getAddress = async (lat,lng) =>{
   //  await Geocoder.fallbackToGoogle('AIzaSyDEvbPWfuQvaChx1QrpAPgj_DiXB6R-6Ys')
   //   try{
-<<<<<<< HEAD
   //   let res= await Geocoder.geocodePosition({lat,lng})
   //     console.log('respuesta',res)
   //   // let addr = (res[0].formattedAddress)
@@ -88,27 +82,10 @@ export default function CardDetail({ route, navigation }) {
   //     } -34.5453062,-58.44977489999999
 
   const getAddress = (lat, lng) => {
-    Geocoder.init("AIzaSyDEvbPWfuQvaChx1QrpAPgj_DiXB6R-6Ys");
+    Geocoder.init(KEY_MAPS);
     Geocoder.from(lat, lng)
       .then((json) => {
         var addressComponent = json.results[0].address_components;
-=======
-    //   let res= await Geocoder.geocodePosition({lat,lng})
-    //     console.log('respuesta',res)
-    //   // let addr = (res[0].formattedAddress)
-    //     // console.log(addr)
-    // }       
-    // catch(e){ console.log(e)
-    
-    // }
-    //     } -34.5453062,-58.44977489999999
-    
-       const getAddress = (lat, lng) => {
-        Geocoder.init(KEY_MAPS)
-        Geocoder.from(lat, lng)
-		.then(json => {
-      	var addressComponent = json.results[0].address_components;
->>>>>>> 794e5f64d8414abc9d06731226a14d81344c9307
         let direcc = `${addressComponent[0].long_name}, ${addressComponent[1].long_name}, ${addressComponent[2].long_name}, ${addressComponent[3].long_name}, ${addressComponent[4].long_name}.`;
         setAddress(direcc);
         // console.log('ADRS',addressComponent[0].long_name ,',',addressComponent[1].long_name,',',addressComponent[2].long_name,',',addressComponent[3].long_name,',',addressComponent[4].long_name,'.');
