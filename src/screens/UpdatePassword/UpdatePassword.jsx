@@ -6,7 +6,7 @@ import { updatePassword, reauthenticateWithCredential, EmailAuthProvider } from 
 import { useState } from "react";
 import { Input } from "react-native-elements";
 import styles from "./styles";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, AntDesign, FontAwesome5 } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 
 function validate(passwords) {
@@ -66,15 +66,23 @@ export default function UpdatePassword() {
     <SafeAreaView>
       <View style={styles.all}>
         <View style={{ marginBottom: 50, marginLeft: 10 }}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back-outline" size={30} color="black" />
+          <TouchableOpacity onPress={() => navigation.goBack()}
+            style={{
+              flexDirection: "row",
+              }}
+          >
+            <AntDesign name="left" size={20} color="black"
+            />
+            <Text style={{ fontSize: 15 }}>Atras</Text>
           </TouchableOpacity>
         </View>
-        <View>
-          <Input secureTextEntry={true} placeholder="Escribe tu contraseña actual" onChangeText={(text) => setOldPassword(text)} />
+        <View style={styles.containerInput}>
+          <FontAwesome5 name="user-lock" size={20} color="black" />
+          <TextInput secureTextEntry={true} placeholder="Escribe tu contraseña actual" onChangeText={(text) => setOldPassword(text)} style={styles.textInput}/>
         </View>
-        <View>
-          <Input secureTextEntry={true} placeholder="Escribe tu contraseña nueva" onChangeText={(text) => setNewPassword(text)} />
+        <View style={styles.containerInput}>
+          <FontAwesome5 name="user-lock" size={20} color="black" />
+          <TextInput secureTextEntry={true} placeholder="Escribe tu contraseña nueva" onChangeText={(text) => setNewPassword(text)} style={styles.textInput}/>
         </View>
         <View style={styles.display}>
           <TouchableOpacity style={styles.updateBtn} onPress={changePassword}>

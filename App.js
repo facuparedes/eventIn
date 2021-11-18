@@ -31,11 +31,12 @@ import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import UpdatePassword from "./src/screens/UpdatePassword/UpdatePassword.jsx";
 import PaymentCalc from "./src/screens/FormEvent/PaymentCalc/PaymentCalc.jsx";
+import { LogBox } from 'react-native';
 
 export default function App() {
   const Stack = createStackNavigator();
   moment.locale("es");
-
+  LogBox.ignoreAllLogs();//Ignore all log notifications
   const [fontsLoaded, setFontsLoaded] = useState(false);
 
   useEffect(() => {
