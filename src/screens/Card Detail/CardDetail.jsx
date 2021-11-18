@@ -13,14 +13,14 @@ import {KEY_MAPS} from "@env";
 
 export default function CardDetail({ route, navigation }) {
   const dispatch = useDispatch();
-  const { id, likedAct, latlng} = route.params;
+  const { id, likedAct, latlng, created } = route.params;
   const details = useSelector((state) => state.detail);
   const logged = useSelector((state) => state.isLogged);
   const [liked, setLiked] = useState(likedAct);
   const [address,setAddress] = useState('');
   // console.log('LONGITUD',latlng)
   useEffect(() => {
-    dispatch(getDetails(id));
+    dispatch(getDetails(id, created ? created : null));
     getAddress(latlng.latitude,latlng.longitude);
   }, [dispatch,getAddress,setAddress]);
 
@@ -55,7 +55,7 @@ export default function CardDetail({ route, navigation }) {
     //llevar a compartir
   };
 
-  const attachments = details.length && details[0].attachments.slice(1, details[0].attachments.length);
+  const attachments = details && details.length && details[0].attachments.slice(1, details[0].attachments.length);
 
   // const [pin,setPin] = useState({})
   
@@ -95,7 +95,7 @@ export default function CardDetail({ route, navigation }) {
 
   return (
     <View style={styles.view}>
-      {details.length ? (
+      {details && details.length ? (
         <SafeAreaView style={styles.viewCont}>
           <ScrollView>
             <View style={styles.header}>

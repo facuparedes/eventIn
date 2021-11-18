@@ -14,69 +14,95 @@ export const CLEAN_EVENTS = "CLEAN_EVENTS";
 export const GET_LIKED_EVENTS = "GET_LIKED_EVENTS";
 export const GET_CREATED_EVENTS = "GET_CREATED_EVENTS";
 
-
 export const getEvents = () => {
-  let today = new Date();
+  var today = new Date();
   return async function (dispatch) {
     let likedEventsUUIDs = [];
     let result = await event.find(where("end", ">", today));
+    result = result.filter((e) => e.publishDate <= today);
+    result.sort((a, b) => a.start > b.start);
+
     if (auth.currentUser) {
-      user.include('events', 'liked', auth.currentUser.uid).find()
-        .then(data => {
-          likedEventsUUIDs = data["events-liked"].map(e => e.eventUUID);
+      user
+        .include("events", "liked", auth.currentUser.uid)
+        .find()
+        .then((data) => {
+          likedEventsUUIDs = data["events-liked"].map((e) => e.eventUUID);
         })
         .then(() => {
-          result.map(e => {
-            let likedEvent = likedEventsUUIDs.find(id => id === e.id);
+          result.map((e) => {
+            let likedEvent = likedEventsUUIDs.find((id) => id === e.id);
             if (likedEvent) {
-              e.likedActive = 'true';
+              e.likedActive = "true";
             }
-          })
+          });
           return result;
         })
-        .then(result => {
+        .then((result) => {
           return dispatch({
             type: GET_EVENTS,
             payload: result,
-          })
-
+          });
         })
-        .catch(e => console.log('ESTE ERROR ES DE LIKED X EVENTO', e));
+        .catch((e) => console.log("ESTE ERROR ES DE LIKED X EVENTO", e));
     } else {
       return dispatch({
         type: GET_EVENTS,
         payload: result,
-      })
+      });
     }
-
   };
 };
 
 export const getEventsByCategory = (category) => {
   return async function (dispatch) {
     var resultCat = [];
+    var filterCat = [];
+    var publishCategory = [];
+    var today = new Date();
+
     resultCat = await event.find(where("category", "==", category));
+    //console.log("cat 1: ", resultCat.length);
     if (resultCat.length > 0) {
-      //console.log("PROP start FIREBASE", resultCat[0].start);
-      return dispatch({
-        type: GET_EVENTS_CATEGORY,
-        payload: resultCat,
-      });
+      filterCat = resultCat.filter((c) => c.end > today);
+      //console.log("cat 2: ", filterCat.length);
+      if (filterCat.length > 0) {
+        publishCategory = filterCat.filter((e) => e.publishDate <= today);
+        //console.log("cat 3: ", publishCategory.length);
+        if (publishCategory.length > 0) {
+          publishCategory.sort((a, b) => a.start > b.start);
+          return dispatch({
+            type: GET_EVENTS_CATEGORY,
+            payload: publishCategory,
+          });
+        } else alert("No hay eventos en esa Categoría");
+      } else alert("No hay eventos en esa Categoría");
     } else alert("No hay eventos en esa Categoría");
   };
 };
 
 export const getEventsByDate = (date) => {
   var filterDate = [];
+  var filterPublish = [];
+  var today = new Date();
+
   return async function (dispatch) {
     let resultDate = await event.findAll();
-    filterDate = resultDate.filter((d) => d.start.toLocaleDateString() === date.toLocaleDateString());
+
+    filterDate = resultDate.filter((d) => d.start <= date.setHours(23, 59, 0, 0) && date.setHours(0, 0, 0, 1) <= d.end);//eventos activos en esa fecha
+    //console.log("Ev fecha 1: ", filterDate.length)
     if (filterDate.length > 0) {
-      return dispatch({
-        type: GET_EVENTS_DATE,
-        payload: filterDate,
-      });
-    } else alert("No hay eventos en esta fecha.");
+      filterPublish = filterDate.filter(d => d.publishDate <= date.setHours(23, 59, 0, 0));//eventos activos en publicacion en esa fecha
+      //console.log("Ev fecha 2: ", filterPublish.length)
+      if (filterPublish.length > 0) {
+        filterPublish.sort((a, b) => a.start > b.start);
+        return dispatch({
+          type: GET_EVENTS_DATE,
+          payload: filterPublish,
+        });
+      } else alert("No hay eventos activos en esa fecha.");
+    } else alert("No hay eventos activos en esa fecha.");
+
   };
 };
 
@@ -86,6 +112,7 @@ export const getEventsByName = (title) => {
     title = title.toLowerCase();
     let eventsTitle = allEvents.filter((e) => e.title.toLowerCase().includes(title));
     if (eventsTitle.length) {
+      eventsTitle.sort((a, b) => a.start > b.start);
       return dispatch({
         type: GET_EVENTS_BY_TITLE,
         payload: eventsTitle,
@@ -94,12 +121,23 @@ export const getEventsByName = (title) => {
   };
 };
 
-export const getDetails = (id) => {
-  return {
-    type: GET_DETAILS,
-    payload: id,
-  };
+export const getDetails = (id, created) => {
+  if (created) {
+    return {
+      type: GET_DETAILS,
+      payload: {
+        id,
+        created
+      }
+    };
+  } else {
+    return {
+      type: GET_DETAILS,
+      payload: id,
+    };
+  }
 };
+
 export const addEventInfo = (data) => {
   return {
     type: ADD_EVENT_INFO,
@@ -117,32 +155,32 @@ export const changeIsLogged = (id) => {
 export const updateEventsSignOut = () => {
   return {
     type: CLEAN_EVENTS,
-    payload: []
-  }
-}
+    payload: [],
+  };
+};
 
 export const getLikedEvents = (id) => {
   return async function (dispatch) {
-    let eventsLiked = await user.include('events', 'liked', id).find();
+    let eventsLiked = await user.include("events", "liked", id).find();
     if (eventsLiked) {
-      let eventsUUIDs = eventsLiked["events-liked"].map(e => e.eventUUID);
+      let eventsUUIDs = eventsLiked["events-liked"].map((e) => e.eventUUID);
 
       let eventsFound = await getLikedOrCreatedEventById(eventsUUIDs);
 
       if (eventsFound) {
         return dispatch({
           type: GET_LIKED_EVENTS,
-          payload: eventsFound
-        })
+          payload: eventsFound,
+        });
       }
     } else {
       return dispatch({
         type: GET_LIKED_EVENTS,
-        payload: []
-      })
+        payload: [],
+      });
     }
-  }
-}
+  };
+};
 
 async function getLikedOrCreatedEventById(array) {
   let events = [];
@@ -155,23 +193,23 @@ async function getLikedOrCreatedEventById(array) {
 
 export const getCreatedEvents = (id) => {
   return async function (dispatch) {
-    let eventsCreated = await user.include('events', 'created', id).find();
+    let eventsCreated = await user.include("events", "created", id).find();
     if (eventsCreated) {
-      let eventsUUIDs = eventsCreated["events-created"].map(e => e.eventUUID);
+      let eventsUUIDs = eventsCreated["events-created"].map((e) => e.eventUUID);
 
       let eventsFound = await getLikedOrCreatedEventById(eventsUUIDs);
 
       if (eventsFound) {
         return dispatch({
           type: GET_CREATED_EVENTS,
-          payload: eventsFound
-        })
+          payload: eventsFound,
+        });
       }
     } else {
       return dispatch({
         type: GET_CREATED_EVENTS,
-        payload: []
-      })
+        payload: [],
+      });
     }
-  }
-}
+  };
+};

@@ -18,7 +18,7 @@ export default function DatePicker() {
     setDate(currentDate);
     console.log("Fecha elegida: ", date);
     dispatch(getEventsByDate(selectedDate));
-    SVGLinearGradientElement(new Date());
+    setDate(new Date());
   };
 
   const showMode = (currentMode) => {
