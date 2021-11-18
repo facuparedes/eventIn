@@ -67,7 +67,7 @@ class User extends Model {
         if (user.uuid) userRef = doc(super.__getDB(), super.__getCollectionName(), user.uuid);
 
         await super.create(user, userRef);
-        resolve();
+        resolve(userRef?.id);
       } catch (e) {
         if (errors) console.log("Invalid data!\nErrors:", result);
         reject(e);
