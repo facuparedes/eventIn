@@ -1,24 +1,52 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, Image, TouchableOpacity, SafeAreaView, ScrollView, FlatList } from "react-native";
-import { getDetails } from "../../common/redux/actions";
+import { Text, View, Image, TouchableOpacity, SafeAreaView, ScrollView, FlatList, Alert } from "react-native";
+import { getDetails, getLikedEvents } from "../../common/redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./CardDetailStyles";
 import { AntDesign, FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
-import moment from "moment";
+import user from "../../../api/firebase/models/user";
+import auth from "../../../api/firebase/services/AuthService";
+// import Geocoder from 'react-native-geocoder';
+import Geocoder from 'react-native-geocoding';
 
 export default function CardDetail({ route, navigation }) {
   const dispatch = useDispatch();
-  const { id } = route.params;
+  const { id, likedAct, latlng} = route.params;
+  const details = useSelector((state) => state.detail);
+  const logged = useSelector((state) => state.isLogged);
+  const [liked, setLiked] = useState(likedAct);
+  const [address,setAddress] = useState('');
+  // console.log('LONGITUD',latlng)
   useEffect(() => {
     dispatch(getDetails(id));
-  }, [dispatch]);
+    getAddress(latlng.latitude,latlng.longitude);
+  }, [dispatch,getAddress,setAddress]);
 
-  const details = useSelector((state) => state.detail);
+  const addLike = () => {
+    if (logged) {
+      if (!liked) {
+        user
+          .addRelation("events", "liked", { eventUUID: id, userUUID: auth.currentUser.uid })
+          .then(() => dispatch(getLikedEvents(auth.currentUser.uid)))
+          .catch((e) => console.log(e));
+        setLiked(!liked);
+      } else {
+        user
+          .include("events", "liked", auth.currentUser.uid)
+          .find()
+          .then((data) => {
+            let likedEvent = data["events-liked"].find((e) => e.eventUUID === id);
+            let docId = likedEvent.id;
+            user.deleteRelation("events", "liked", auth.currentUser.uid, docId);
+          })
+          .then(() => dispatch(getLikedEvents(auth.currentUser.uid)))
+          .catch((e) => console.log(e));
 
-  const [liked, setLiked] = useState(false);
-
-  const addFavourite = () => {
-    setLiked(!liked);
+        setLiked(!liked);
+      }
+    } else {
+      Alert.alert("Hola invitado", "Tenés que iniciar sesión para likear un evento.", [{ text: "Ahora no" }, { text: "Iniciar sesión", onPress: () => navigation.navigate("Login") }]);
+    }
   };
 
   const share = () => {
@@ -26,6 +54,42 @@ export default function CardDetail({ route, navigation }) {
   };
 
   const attachments = details.length && details[0].attachments.slice(1, details[0].attachments.length);
+
+  // const [pin,setPin] = useState({})
+  
+  //  const lat = details[0].location.latitude
+  //  const lng = details[0].location.longitude
+  //  console.log('lat',lat)
+  //  console.log('lng',lng)
+  // const getLatLng= async () => {
+
+    //  console.log('detailsss',latlng)
+  //    return latlng
+  // } 
+  
+//    const getAddress = async (lat,lng) =>{
+  //  await Geocoder.fallbackToGoogle('AIzaSyDEvbPWfuQvaChx1QrpAPgj_DiXB6R-6Ys')
+  //   try{
+    //   let res= await Geocoder.geocodePosition({lat,lng})
+    //     console.log('respuesta',res)
+    //   // let addr = (res[0].formattedAddress)
+    //     // console.log(addr)
+    // }       
+    // catch(e){ console.log(e)
+    
+    // }
+    //     } -34.5453062,-58.44977489999999
+    
+       const getAddress = (lat, lng) => {
+        Geocoder.init("AIzaSyDEvbPWfuQvaChx1QrpAPgj_DiXB6R-6Ys")
+        Geocoder.from(lat, lng)
+		.then(json => {
+      	var addressComponent = json.results[0].address_components;
+        let direcc = `${addressComponent[0].long_name}, ${addressComponent[1].long_name}, ${addressComponent[2].long_name}, ${addressComponent[3].long_name}, ${addressComponent[4].long_name}.`;
+        setAddress(direcc)
+        // console.log('ADRS',addressComponent[0].long_name ,',',addressComponent[1].long_name,',',addressComponent[2].long_name,',',addressComponent[3].long_name,',',addressComponent[4].long_name,'.');
+      })
+		.catch(error => console.warn(error));}
 
   return (
     <View style={styles.view}>
@@ -49,7 +113,7 @@ export default function CardDetail({ route, navigation }) {
                 <FontAwesome name="circle" size={45} color="rgba(255, 255, 255, 0.8)" style={{ marginRight: 8 }} />
               </View>
               <View style={styles.btnLike}>
-                <TouchableOpacity onPress={addFavourite}>
+                <TouchableOpacity onPress={addLike}>
                   <AntDesign name={liked ? "heart" : "hearto"} size={24} color={liked ? "#E64141" : "rgba(0, 0, 0, 0.7)"} />
                 </TouchableOpacity>
               </View>
@@ -72,13 +136,22 @@ export default function CardDetail({ route, navigation }) {
                 <View style={styles.dataContain}>
                   <View style={{ flex: 3 }}>
                     <Text style={styles.textBody}>
-                      {details[0].start.toString().slice(4, 15)} {details[0].start.toString().slice(16, 24)}
+                      <Text style={{ fontFamily: "Gotham-Medium" }}>Inicia:</Text> {details[0].start.toString().slice(4, 15)} - {details[0].start.toString().slice(16, 21)}hs
                     </Text>
-                    <Text style={styles.location}>Acá iría la dirección</Text>
+                    <Text style={styles.textBody}>
+                      <Text style={{ fontFamily: "Gotham-Medium" }}>Finaliza:</Text> {details[0].end.toString().slice(4, 15)} - {details[0].end.toString().slice(16, 21)}hs
+                    </Text>
                   </View>
-                  <View style={{ flex: 1, alignItems: "center", borderRadius: 10, elevation: 10 }}>
-                    <Image style={styles.maps} source={require("../../assets/maps.jpg")} />
+                  <View style={{ flex: 1, alignItems: "center", borderRadius: 10, elevation: 10, backgroundColor: "white" }}>
+                    <TouchableOpacity onPress={() => navigation.navigate("MapDetail", { id: id })}>
+                      <Image style={styles.maps} source={require("../../assets/maps.jpg")} />
+                    </TouchableOpacity>
                   </View>
+                </View>
+                <View>
+                  
+                    <Text>{address}</Text>
+                  
                 </View>
                 <View style={styles.descContent}>
                   <Text style={styles.subTitle}>Descripción</Text>

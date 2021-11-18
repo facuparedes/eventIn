@@ -30,11 +30,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderColor: 'black',
         borderRadius: 4,
-        // paddingLeft: 9,
-        // marginBottom: 2,
-        // borderWidth: 1,
         alignItems: 'center',
-        //borderBottomColor: 'green'
         fontSize: 15,
     },
     label: {
@@ -47,7 +43,7 @@ const styles = StyleSheet.create({
     inputCont: {
         // borderBottomWidth: 0,
         marginRight: 46,
-        
+
     },
     inputError: {
         backgroundColor: '#d7eae9',
@@ -178,7 +174,7 @@ const styles = StyleSheet.create({
     checkBox: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        
+
     },
     boxCont: {
         borderWidth: 0,
@@ -259,7 +255,7 @@ const styles = StyleSheet.create({
     containerMap: {
         shadowColor: "#000",
         shadowOffset: {
-            width:2,
+            width: 2,
             height: 4,
         },
         shadowOpacity: 0.25,
@@ -283,7 +279,7 @@ const styles = StyleSheet.create({
     },
     photosContainer: {
         flexDirection: 'column',
-        
+
     },
     photosText: {
         marginLeft: 10,
@@ -316,7 +312,7 @@ const styles = StyleSheet.create({
     selectedPhotosText: {
         marginLeft: 9,
         marginBottom: 6,
-        
+
     },
     multimediaBtns: {
         flexDirection: 'row'
@@ -447,6 +443,11 @@ const styles = StyleSheet.create({
     },
     textHeader: {
         fontSize: 20,
+    },
+    pickedImg: {
+        width: 130,
+        height: 95,
+        marginLeft: 3
     }
 })
 

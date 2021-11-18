@@ -1,8 +1,6 @@
 import Validator, { ValidationSchema } from "fastest-validator";
-import { GeoPoint, Timestamp } from "firebase/firestore";
-import { ref, getStorage, uploadBytes, getDownloadURL } from "firebase/storage";
+import { doc, GeoPoint, Timestamp } from "firebase/firestore";
 import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
 import Model from "./model";
 import { categoryArray } from "../../../src/common/categories";
 const v = new Validator();
@@ -31,6 +29,12 @@ const EventSchema = {
     minProps: 2,
     props: { date: "date", time: "date" },
   },
+  publishDate: {
+    type: "object",
+    strict: "remove",
+    minProps: 2,
+    props: { date: "date", time: "date" },
+  },
   location: {
     type: "object",
     strict: "remove",
@@ -44,33 +48,46 @@ const EventSchema = {
     min: 1,
     items: "string|empty:false|trim|min:1",
   },
+  payment_id: "string|empty:false|trim|min:1|max:100",
+  payment_status: "string|empty:false|trim|min:1|max:100",
+  payment_price: "number|min:0|max:10000000",
+  $$strict: "remove",
+};
+
+/** @type {ValidationSchema} */
+const RelationSchema = {
+  userUUID: "string|empty:false|trim|min:10|max:100",
+  eventUUID: "string|empty:false|trim|min:10|max:100",
   $$strict: "remove",
 };
 
 const check = v.compile(EventSchema);
 const updateCheck = updateV.compile(EventSchema);
+const relationCheck = v.compile(RelationSchema);
 
 class Event extends Model {
   constructor() {
-    super('event');
+    super("event");
   }
 
   /** @private */
   __mergeDateAndTime = super.__mergeDateAndTime;
 
   /** @private */
-  async __eventToFirebase(event) {
+  async __eventToFirebase(event, eventUUID) {
     if (event.location) event.location = new GeoPoint(event.location.lat, event.location.long);
     if (event.start) event.start = this.__mergeDateAndTime(event.start.date, event.start.time);
     if (event.end) event.end = this.__mergeDateAndTime(event.end.date, event.end.time);
-    if (event.attachments) event.attachments = await this.__upload(event.attachments);
+    if (event.publishDate) event.publishDate = this.__mergeDateAndTime(event.publishDate.date, event.publishDate.time);
+    if (event.attachments) event.attachments = await this.__upload(event.attachments, eventUUID);
     return event;
   }
 
   /** @private */
   __parseFetchedEvent(event) {
-    event.start = new Timestamp(event.start.seconds, event.start.nanoseconds).toDate();
-    event.end = new Timestamp(event.end.seconds, event.end.nanoseconds).toDate();
+    if (event.start) event.start = new Timestamp(event.start.seconds, event.start.nanoseconds).toDate();
+    if (event.end) event.end = new Timestamp(event.end.seconds, event.end.nanoseconds).toDate();
+    if (event.publishDate) event.publishDate = new Timestamp(event.publishDate.seconds, event.publishDate.nanoseconds).toDate();
     return event;
   }
 
@@ -81,20 +98,8 @@ class Event extends Model {
    * @returns {Promise<*>}
    * @private
    */
-  async __upload(uriFiles) {
-    const fileRef = ref(getStorage(), uuidv4());
-    const uploadFileAndGetURL = uriFiles.map((uri) =>
-      new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest();
-        xhr.onload = () => resolve(xhr.response);
-        xhr.onerror = (e) => reject(e);
-        xhr.responseType = "blob";
-        xhr.open("GET", uri, true);
-        xhr.send(null);
-      })
-        .then((blob) => uploadBytes(fileRef, blob).then(() => blob.close()))
-        .then(() => getDownloadURL(fileRef))
-    );
+  async __upload(uriFiles, userUUID) {
+    const uploadFileAndGetURL = uriFiles.map((uri) => super.__upload(uri, userUUID));
 
     return await Promise.all(uploadFileAndGetURL);
   }
@@ -105,7 +110,7 @@ class Event extends Model {
    * @param {*} event
    * @returns {Promise<*>}
    */
-  create(event) {
+  create(event = {}) {
     return new Promise(async (resolve, reject) => {
       const result = check(event);
       const errors = Array.isArray(result) ? result : null;
@@ -113,8 +118,9 @@ class Event extends Model {
       try {
         if (errors) throw new Error(result);
 
-        await super.create(await this.__eventToFirebase(event));
-        resolve();
+        const eventRef = doc(super.__getCollection());
+        await super.create(await this.__eventToFirebase(event, eventRef.id), eventRef);
+        resolve(eventRef.id);
       } catch (e) {
         if (errors) console.log("Invalid data!\nErrors:", result);
         reject(e);
@@ -129,7 +135,7 @@ class Event extends Model {
    * @param {string} id
    * @param {*} event
    */
-  update(id, event) {
+  update(id, event = {}) {
     return new Promise(async (resolve, reject) => {
       const result = updateCheck(event);
       const errors = Array.isArray(result) ? result : null;
@@ -138,7 +144,7 @@ class Event extends Model {
         if (typeof id !== "string") throw new Error("Invalid id!");
         if (errors) throw new Error(result);
 
-        await super.update(id, await this.__eventToFirebase(event));
+        await super.update(id, await this.__eventToFirebase(event, id));
         resolve();
       } catch (e) {
         if (errors) console.log("Invalid data!\nErrors:", result);
@@ -195,6 +201,25 @@ class Event extends Model {
         const event = await super.findAll(this.__parseFetchedEvent);
         resolve(event);
       } catch (e) {
+        reject(e);
+      }
+    });
+  }
+
+  addRelation(modelName, relationName, relationData = {}) {
+    return new Promise(async (resolve, reject) => {
+      const result = relationCheck(relationData);
+      const errors = Array.isArray(result) ? result : null;
+
+      try {
+        if (errors) throw new Error(result);
+
+        relationData.id = relationData.eventUUID;
+
+        await super.addRelation(modelName, relationName, relationData);
+        resolve();
+      } catch (e) {
+        if (errors) console.log("Invalid data!\nErrors:", result);
         reject(e);
       }
     });

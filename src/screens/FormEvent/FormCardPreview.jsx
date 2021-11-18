@@ -1,98 +1,115 @@
 import React from "react";
-import { View, Image, Alert } from "react-native";
-import { Input, Text, LinearProgress } from "react-native-elements";
+import { View, Image, ScrollView, FlatList, Alert, Dimensions } from "react-native";
+import { Text, LinearProgress } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import formStyles from "./FormStyles";
-import Event from "../../../api/firebase/models/event";
-import moment from "moment";
 import estilos from "./CardPreviewStyles";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
-import styles from "./FormStyles";
+import styles from "../Card Detail/CardDetailStyles.js";
+import { AntDesign, Ionicons, FontAwesome } from "@expo/vector-icons";
+
+const { width, height } = Dimensions.get("window");
 
 const FormCardPreview = ({ navigation }) => {
   const eventInfo = useSelector((state) => state.eventForm);
 
-  const diff = moment(moment.now()).diff(eventInfo.start.date, "hours");
-  const isToday = diff < 24 && diff >= 0;
+  var startDay = eventInfo.start.date.getDate() + "-" + (eventInfo.start.date.getMonth() + 1) + "-" + eventInfo.start.date.getFullYear();
+  var startHour = (eventInfo.start.time.getHours() < 10 ? "0" : "") + eventInfo.start.time.getHours() + ":" + (eventInfo.start.time.getMinutes() < 10 ? "0" : "") + eventInfo.start.time.getMinutes();
 
-  const handleAccept = async () => {
-    Event.create(eventInfo);
-    // ESTO HAY QUE SACARLO CUANDO PONGAMOS PASARELA DE PAGO!! ES SOLO PARA LA SEGUNDA DEMO.
-    Alert.alert("Tu evento ha sido creado!");
-    navigation.replace("TabBar");
-  };
-
-  const handleCancel = () => {
-    Alert.alert("¿Estás seguro de que deseas salir?", "Se perderán todos los cambios.", [{ text: "Si", onPress: () => navigation.popToTop() }, { text: "No" }]);
-  };
-
-  function handleBack() {
-    navigation.goBack();
-  }
+  var endDay = eventInfo.end.date.getDate() + "-" + (eventInfo.end.date.getMonth() + 1) + "-" + eventInfo.end.date.getFullYear();
+  var endHour = (eventInfo.end.time.getHours() < 10 ? "0" : "") + eventInfo.end.time.getHours() + ":" + (eventInfo.end.time.getMinutes() < 10 ? "0" : "") + eventInfo.end.time.getMinutes();
+  var gallery = eventInfo.attachments.slice(1);
 
   return (
     <SafeAreaView style={estilos.container}>
-      <LinearProgress color="#00BD9D" variant="determinate" value={0.9} style={{height:10}} />
+      <LinearProgress color="#00BD9D" variant="determinate" value={0.6} style={{ height: 10 }} />
       <View style={estilos.header}>
-        <Text style={estilos.textHeader}>Paso 4 de 4</Text>
-        </View>
+        <Text style={estilos.textHeader}>Paso 4 de 5</Text>
+      </View>
       <View style={estilos.textAndImg}>
-        <Text h4 style={estilos.titleText}>
-          Vista previa del Evento:
-        </Text>
-        <Image source={require("../../assets/Logo.png")} style={[estilos.logoImage, { marginLeft: 40 }]} />
+        <Text style={estilos.titleText}>Vista previa del Evento</Text>
+        <Image source={require("../../assets/Logo.png")} style={[estilos.logoImage, { marginLeft: 30 }]} />
       </View>
 
-      <View style={estilos.cardContainer}>
-        {/*CARD PREVIEW*/}
-
-        <View style={estilos.card_header}>
-          <View style={estilos.cardItems}>
-            <Text style={estilos.card_header_title}>{eventInfo.title}</Text>
-            <Text numberOfLines={3} style={estilos.card_header_description}>
-              {eventInfo.description}
-            </Text>
+      {/* <Text>Detalle del Evento:</Text> */}
+      <ScrollView>
+        <View style={estilos.cardContainer}>
+          {/* DETAIL CARD */}
+          <View style={[styles.header, { height: height * 0.34 }]}>
+            <Image style={[styles.img, { width: "102%", marginTop: -20, borderRadius: 10 }]} source={{ uri: `${eventInfo.attachments[0]}` }} />
+            <View style={[styles.btnShareBackground, { paddingTop: height * 0.27 }]}>
+              <FontAwesome name="circle" size={45} color="rgba(255, 255, 255, 0.8)" style={{ marginRight: 8.5 }} />
+            </View>
+            <View style={[styles.btnLike, { paddingTop: height * 0.285 }]}>
+              <AntDesign name={"heart"} size={24} color={"#E64141"} />
+            </View>
           </View>
-          <View style={estilos.card_body}>
-            <Image source={{ uri: eventInfo.attachments[0] }} style={estilos.card_body_image} resizeMode={"cover"} />
-            <Text style={[estilos.card_body_date, isToday ? estilos.card_body_date_active : ""]}>{moment(eventInfo.start.date).fromNow()}</Text>
-          </View>
 
-          <View style={estilos.card_boton}>
-            <TouchableOpacity>
-              <AntDesign name="heart" size={24} color="#E64141" />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Ionicons name="share-social" size={24} color="black" />
-            </TouchableOpacity>
+          <View style={[styles.body, { width: "102%", paddingBottom: 12 }]}>
+            <View style={{ flex: 1, width: "90%", alignSelf: "center" }}>
+              <View style={styles.contentTitled}>
+                <View style={{ flex: 3 }}>
+                  <Text style={styles.title}>{eventInfo.title}</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.fee}>{eventInfo.fee === 0 ? "Gratis" : `$${eventInfo.fee}`}</Text>
+                </View>
+              </View>
+              <View style={styles.dataContain}>
+                <View style={{ flex: 3 }}>
+                  <Text style={styles.textBody}>
+                    <Text style={{ fontFamily: "Gotham-Medium" }}>Inicia: </Text> {startDay} - {startHour}hs
+                  </Text>
+                  <Text style={styles.textBody}>
+                    <Text style={{ fontFamily: "Gotham-Medium" }}>Finaliza:</Text> {endDay} - {endHour}hs
+                  </Text>
+                </View>
+                <View style={{ flex: 1, alignItems: "center", borderRadius: 10, elevation: 10, backgroundColor: "white" }}>
+                  <Image style={styles.maps} source={require("../../assets/maps.jpg")} />
+                </View>
+              </View>
+              <View style={styles.descContent}>
+                <Text style={styles.subTitle}>Descripción</Text>
+                <Text style={styles.textBody}>{eventInfo.description}</Text>
+                <Text style={styles.subTitle}>Categoría</Text>
+                <Text style={styles.textBody}>{eventInfo.category}</Text>
+                <Text style={styles.subTitle}>Galería del evento</Text>
+                {gallery.length ? (
+                  <View style={{ paddingVertical: 10 }}>
+                    <FlatList data={gallery} horizontal renderItem={({ item, id }) => <Image source={{ uri: item }} style={styles.flatList} />} keyExtractor={(item) => item.id} />
+                  </View>
+                ) : (
+                  <View>
+                    <Text style={styles.textBody}>No hay contenido disponible.</Text>
+                  </View>
+                )}
+              </View>
+            </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
 
-      <View style={formStyles.btnsContainer}>
-      <TouchableOpacity 
-                title="Atras" 
-                onPress={handleBack}
-                style={[
-                  styles.btnCancelarPrewiew,
-                  {
-                    flexDirection: 'row',
-                    backgroundColor:'gray',
-                    marginRight: 10,
-                  }
-                ]} 
-                >
-                  
-                  <AntDesign name="arrowleft" size={28} color="#fff" style={{marginLeft: 15}} />
-                  <Text style={[styles.textBtn, {marginRight: 10}]}>Atras</Text>
-                </TouchableOpacity>
-        <TouchableOpacity title="Pago" onPress={handleAccept} style={formStyles.btnAceptarPrewiew}>
-          <Text style={formStyles.textBtn}>Aceptar</Text>
+      <View style={{ flexDirection: "row", justifyContent: "center", marginTop: "2%" }}>
+        <TouchableOpacity
+          title="Atras"
+          onPress={() => navigation.goBack()}
+          style={[
+            formStyles.btn,
+            {
+              flexDirection: "row",
+              backgroundColor: "gray",
+              marginRight: 80,
+            },
+          ]}
+        >
+          <AntDesign name="arrowleft" size={28} color="#fff" style={{ marginLeft: 40 }} />
+          <Text style={[formStyles.textBtn, { marginRight: 30 }]}>Atras</Text>
         </TouchableOpacity>
-        <TouchableOpacity title="Pago" onPress={handleCancel} style={formStyles.cancelBtn}>
-          <Text style={formStyles.cancelTextBtn}>Cancelar</Text>
+
+        <TouchableOpacity title="Siguiente..." onPress={() => navigation.navigate("PaymentCalc")} style={[formStyles.btn, { flexDirection: "row", justifyContent: "center" }]}>
+          <Text style={formStyles.textBtn}>Siguiente</Text>
+          <Ionicons name="arrow-forward" size={28} color="#fff" style={formStyles.arrowIcon} />
         </TouchableOpacity>
       </View>
     </SafeAreaView>

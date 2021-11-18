@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, createRef } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Entypo, MaterialCommunityIcons, AntDesign, Feather } from "@expo/vector-icons";
+import { Entypo, MaterialCommunityIcons, AntDesign, Feather, Ionicons, FontAwesome5, SimpleLineIcons } from "@expo/vector-icons";
 import { TouchableOpacity, Text, Image, Dimensions, Alert } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { changeIsLogged } from "../common/redux/actions";
+import { changeIsLogged, updateEventsSignOut } from "../common/redux/actions";
 
 import auth from "../../api/firebase/services/AuthService";
 import { signOut } from "@firebase/auth";
@@ -15,43 +15,40 @@ import Profile from "../screens/Profile/Profile";
 import Search from "../common/components/Search/Search";
 
 import { View } from "react-native";
-import styles from './styles'
-import { createNavigatorFactory } from "@react-navigation/core";
+import styles from "./styles";
+import ActionSheet from "react-native-actions-sheet";
+import { colorPallete } from "../screens/Onboarding/styles";
 
 const Tab = createBottomTabNavigator();
 
 const windowHeight = Dimensions.get("window").height;
 
 export default function TabBar({ navigation }) {
-  const logged = useSelector(state=>state.isLogged);
+  const logged = useSelector((state) => state.isLogged);
   const [display, setDisplay] = useState(false);
   const dispatch = useDispatch();
+  const actionSheetRef = createRef();
 
-  function handleGoToForm () {
+  function handleGoToForm() {
     if (logged) {
       navigation.navigate("Form");
     } else {
-      Alert.alert('Acceso denegado', 'Tenés que iniciar sesión para crear un evento.', [
-        {text: 'Ahora no'},
-        {text: 'Iniciar sesión', onPress: () => navigation.navigate('Login')}
-      ]); 
+      Alert.alert("Acceso denegado", "Tenés que iniciar sesión para crear un evento.", [{ text: "Ahora no" }, { text: "Iniciar sesión", onPress: () => navigation.navigate("Login") }]);
     }
   }
 
   function alertLogOut() {
-    Alert.alert(auth.currentUser.displayName, "¿Estas seguro de que deseas cerrar sesión?", [
-      { text: "Cancelar" },
-      { text: "Aceptar", onPress: () => logOut() },
-    ]);
-  };
+    Alert.alert(auth.currentUser.displayName, "¿Estas seguro de que deseas cerrar sesión?", [{ text: "Cancelar" }, { text: "Aceptar", onPress: () => logOut() }]);
+  }
 
   function logOut() {
     signOut(auth);
+    dispatch(updateEventsSignOut());
     dispatch(changeIsLogged(false));
     Alert.alert("Has cerrado sesión.");
     // Por alguna razón, sin especificar nada, de acá se navega directamente al onBoarding.
     // navigation.replace('Login'); // Acá vamos a tener que navegar desde el Stack y no desde el Tab, porque sino va a mostrar el TabBar
-  };
+  }
 
   return (
     <Tab.Navigator
@@ -89,30 +86,22 @@ export default function TabBar({ navigation }) {
           ),
           headerRight: () => (
             <View style={styles.headerRight}>
-              {
-                display && <Search display={display} setDisplay={setDisplay}/>
-              } 
-              {
-                !display && 
-                  <TouchableOpacity style={styles.searchContainer} onPress={() => setDisplay(true)}>
-                    <Feather name="search" style={styles.searchIcon} />
-                  </TouchableOpacity>
-              }
-            <TouchableOpacity onPress={handleGoToForm}>
-              <MaterialCommunityIcons 
-                name="plus" 
-                size={36} 
-                color="black" 
-                style={{marginRight: 12, marginTop: 2, marginLeft: 0, borderRadius: 999, backgroundColor: "#F0EEEE"}}
-                />
+              {display && <Search display={display} setDisplay={setDisplay} />}
+              {!display && (
+                <TouchableOpacity style={styles.searchContainer} onPress={() => setDisplay(true)}>
+                  <Feather name="search" style={styles.searchIcon} />
+                </TouchableOpacity>
+              )}
+              <TouchableOpacity onPress={handleGoToForm}>
+                <MaterialCommunityIcons name="plus" size={36} color="black" style={{ marginRight: 12, marginTop: 2, marginLeft: 0, borderRadius: 999, backgroundColor: "#F0EEEE" }} />
               </TouchableOpacity>
             </View>
           ),
         }}
       />
 
-      { !(!logged) &&
-          <Tab.Screen
+      {!!logged && (
+        <Tab.Screen
           name="Perfil"
           component={Profile}
           options={{
@@ -133,32 +122,96 @@ export default function TabBar({ navigation }) {
               </SafeAreaView>
             ),
             headerRight: () => (
-              <TouchableOpacity 
-                  onPress={()=> alertLogOut()} 
-                  style={styles.buttonLogout}   
+              <View>
+                <TouchableOpacity
+                  style={{ marginRight: 15 }}
+                  onPress={() => {
+                    actionSheetRef.current?.setModalVisible();
+                  }}
                 >
-                  <Text style={styles.textLogout}>Cerrar Sesión</Text>
+                  <Feather name="menu" size={27} color="black" />
                 </TouchableOpacity>
-            )
+                <ActionSheet containerStyle={{ backgroundColor: colorPallete.fifth }} indicatorColor={colorPallete.third} gestureEnabled={true} ref={actionSheetRef}>
+                  <View style={styles.actionSheet}>
+                    {/* Editar Perfil */}
+                    <View style={styles.display}>
+                      <View>
+                        <TouchableOpacity
+                          style={styles.buttons}
+                          onPress={() => {
+                            navigation.navigate("EditProfile");
+                            actionSheetRef.current?.hide();
+                          }}
+                        >
+                          <View style={styles.direction}>
+                            <View style={styles.icon}>
+                              <FontAwesome5 name="user-edit" size={24} color="white" />
+                            </View>
+                            <View style={styles.text}>
+                              <Text style={styles.textLogout}>Editar perfil</Text>
+                            </View>
+                          </View>
+                        </TouchableOpacity>
+                      </View>
+                      {/* Editar contraseña */}
+                      <View>
+                        <TouchableOpacity
+                          onPress={() => {
+                            navigation.navigate("UpdatePassword");
+                            actionSheetRef.current?.hide();
+                          }}
+                          style={styles.buttons}
+                        >
+                          <View style={styles.direction}>
+                            <View style={styles.icon}>
+                              <Ionicons name="key" size={24} color="white" />
+                            </View>
+                            <View style={styles.text}>
+                              <Text style={styles.textLogout}>Editar contraseña</Text>
+                            </View>
+                          </View>
+                        </TouchableOpacity>
+                      </View>
+                      {/* Cerrar sesion */}
+                      <View>
+                        <TouchableOpacity
+                          onPress={() => {
+                            alertLogOut();
+                            actionSheetRef.current?.hide();
+                          }}
+                          style={styles.buttons}
+                        >
+                          <View style={styles.direction}>
+                            <View style={styles.icon}>
+                              <SimpleLineIcons name="logout" size={24} color="white" />
+                            </View>
+                            <View style={styles.text}>
+                              <Text style={styles.textLogout}>Cerrar Sesión</Text>
+                            </View>
+                          </View>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </View>
+                </ActionSheet>
+              </View>
+            ),
           }}
         />
-      }
-      {
-        !logged &&
+      )}
+      {!logged && (
         <Tab.Screen
           name=" "
           component={Home}
           options={{
-            tabBarIcon: () => 
-              <TouchableOpacity 
-                onPress={()=>navigation.navigate('Login')} 
-                style={styles.buttonLogin}   
-              >
+            tabBarIcon: () => (
+              <TouchableOpacity onPress={() => navigation.navigate("Login")} style={styles.buttonLogin}>
                 <Text style={styles.textLogin}>Iniciar sesión</Text>
               </TouchableOpacity>
+            ),
           }}
         />
-      }
+      )}
     </Tab.Navigator>
   );
 }

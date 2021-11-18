@@ -5,16 +5,16 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 
 
-export default function CardsFlat() {
+export default function CardsFlatCreatedEvents() {
   const navigation = useNavigation();
 
-  const allEvents = useSelector((state) => state.events);
+  const createdEvents = useSelector((state) => state.createdEvents);
 
   return (
     <View>
       <FlatList
         style={{ width: "100%", height: "100%" }}
-        data={allEvents}
+        data={createdEvents}
         renderItem={({ item }) => 
           <Card 
             id={item.id} 

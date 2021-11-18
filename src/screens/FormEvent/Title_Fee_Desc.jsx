@@ -8,7 +8,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons, Ionicons, AntDesign} from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
-import { Picker } from "@react-native-picker/picker"; ///
+import { Picker } from "@react-native-picker/picker"; 
 import { categoryArray } from "./../../common/categories";
 
 // Validate Function
@@ -141,8 +141,16 @@ const Title_Fee_Desc = ({ navigation }) => {
     }
     if (fee === 0) Alert.alert("Tu evento será gratuito, podés volver atrás para cambiarlo.");
   };
+
   function handleBack() {
     navigation.goBack();
+  }
+  
+  function handleFilter(e) {
+    Alert.alert("Eliminar imagen", "¿esta seguro que desea eliminar esta imagen?", [
+      { text: "Si", onPress: () => setAttachments (attachments.filter( img => img !== e)) }, 
+      { text: "No" }
+    ]);
   }
 
   return (
@@ -150,7 +158,7 @@ const Title_Fee_Desc = ({ navigation }) => {
       <ScrollView>
         <LinearProgress color="#00BD9D" variant="determinate" value={0} style={{height:10}}/>
         <View style={styles.header}>
-        <Text style={styles.textHeader}>Paso 1 de 4</Text>
+        <Text style={styles.textHeader}>Paso 1 de 5</Text>
         </View>
 
         <View style={styles.textAndImg}>
@@ -160,38 +168,99 @@ const Title_Fee_Desc = ({ navigation }) => {
           <Image source={require("../../assets/Logo.png")} style={styles.logoImage} />
         </View>
 
-        <Input label="Nombre" placeholder="Nombre del evento" onChangeText={handleTitle} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} />
+        <Input 
+          label="Nombre" 
+          placeholder="Nombre del evento" 
+          onChangeText={handleTitle} 
+          inputStyle={styles.input} 
+          labelStyle={styles.label} 
+          inputContainerStyle={styles.inputCont} 
+        />
 
-        <Input label="Descripción" placeholder="Descripción..." onChangeText={handleDescription} inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} />
+        <Input 
+          label="Descripción" 
+          placeholder="Descripción..." 
+          onChangeText={handleDescription} 
+          inputStyle={styles.input} 
+          labelStyle={styles.label} 
+          inputContainerStyle={styles.inputCont} 
+        />
 
-        <Input label="Tarifa" placeholder="Tarifa" inputStyle={styles.input} labelStyle={styles.label} inputContainerStyle={styles.inputCont} onChangeText={handleFee} />
+        <Input 
+          label="Tarifa" 
+          placeholder="Tarifa" 
+          inputStyle={styles.input} 
+          labelStyle={styles.label} 
+          inputContainerStyle={styles.inputCont} 
+          onChangeText={handleFee} 
+        />
 
         <View style={styles.photosContainer}>
-          <Text style={styles.photosText}>Fotos y Videos</Text>
-          {attachments.length === 1 && <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto/video</Text>}
-          {attachments.length > 1 && <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos/videos</Text>}
+          <Text style={styles.photosText}>Fotos</Text>
+          {attachments.length === 1 && 
+            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto</Text>
+          }
+          {attachments.length > 1 && 
+            <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos</Text>
+          }
           <View style={styles.multimediaBtns}>
             <TouchableOpacity onPress={openImagePickerAsync} style={styles.photoBtn}>
               <Text style={styles.textPhotoBtn}>Selecciona una foto</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={openVideoPickerAsync} style={styles.videoBtn}>
+            {/* <TouchableOpacity onPress={openVideoPickerAsync} style={styles.videoBtn}>
               <Text style={styles.textVideoBtn}>Selecciona un video</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+
           </View>
+            <ScrollView horizontal={true}>
+            <View style={{flexDirection:'row'}}>
+            {
+              attachments.length !== 0 && attachments.map((img, i) =>
+            <View key={i}>
+              <TouchableOpacity style={styles.btnX} onPress={() =>{handleFilter(img)}}>
+                <Image source={{ uri: img }} style={styles.pickedImg}  resizeMode={"cover"} />
+              </TouchableOpacity>
+            </View> 
+            )}
+            </View>
+             </ScrollView>
         </View>
 
         <Text style={styles.textType}>Tipo de evento:</Text>
         <View style={styles.checkBox}>
-          {!isPublic && !isPrivate ? (
+          {
+            !isPublic && !isPrivate ? (
             <View style={styles.checkBox}>
-              <CheckBox title="Público" onPress={handleIsPublic} size={20} checked={isPublic} containerStyle={styles.boxCont} />
-              <CheckBox title="Privado" onPress={handleIsPrivate} checked={isPrivate} containerStyle={styles.boxCont} />
+              <CheckBox 
+                title="Público" 
+                onPress={handleIsPublic} 
+                size={20} 
+                checked={isPublic} 
+                containerStyle={styles.boxCont} 
+              />
+              <CheckBox 
+                title="Privado" 
+                onPress={handleIsPrivate} 
+                checked={isPrivate} 
+                containerStyle={styles.boxCont} 
+              />
             </View>
           ) : isPublic ? (
-            <CheckBox title="Publico" onPress={handleIsPublic} size={20} checked={isPublic} containerStyle={styles.boxCont} />
+            <CheckBox 
+              title="Publico" 
+              onPress={handleIsPublic} 
+              size={20} 
+              checked={isPublic} 
+              containerStyle={styles.boxCont} 
+            />
           ) : (
-            <CheckBox title="Privado" onPress={handleIsPrivate} checked={isPrivate} containerStyle={styles.boxCont} />
+            <CheckBox 
+              title="Privado" 
+              onPress={handleIsPrivate} 
+              checked={isPrivate}
+              containerStyle={styles.boxCont} 
+            />
           )}
         </View>
 
@@ -205,7 +274,6 @@ const Title_Fee_Desc = ({ navigation }) => {
                 setCateg(value);
               }}
               mode="dropdown" // Android only
-              //style={styles.picker}
             >
               {categoryArray.map((item, i) => {
                 return <Picker.Item style={{ color: "black" }} key={i} value={item} label={item} />;
