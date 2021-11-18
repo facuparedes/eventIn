@@ -25,8 +25,8 @@ const FormMaps = ({ navigation }) => {
   const [region, setRegion] = useState({
     latitude: -34.667270557115565,
     longitude: -58.368570803061345,
-    latitudeDelta: 0.000000000004,
-    longitudeDelta: 0.002421,
+    latitudeDelta: 0.300000000004,
+    longitudeDelta: 0.302421,
   });
 
   const [errorMsg, setErrorMsg] = useState(null);
@@ -102,8 +102,8 @@ const FormMaps = ({ navigation }) => {
 					setPin({
 						latitude: details.geometry.location.lat,
 						longitude: details.geometry.location.lng,
-						latitudeDelta: 0.0922,
-						longitudeDelta: 0.0421
+						latitudeDelta: 0.3422,
+						longitudeDelta: 0.3421
 					})
 				}}
 				query={{
@@ -138,8 +138,8 @@ const FormMaps = ({ navigation }) => {
               initialRegion={{
                 latitude: pin.latitude,
                 longitude: pin.longitude,
-                latitudeDelta: 0.000000000004,
-                longitudeDelta: 0.002421,
+                latitudeDelta: 0.340000000004,
+                longitudeDelta: 0.342421,
               }}
               provider="google"
             >
