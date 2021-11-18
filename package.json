@@ -38,6 +38,7 @@
     "react-native-dotenv": "^3.3.0",
     "react-native-elements": "^3.4.2",
     "react-native-geocoder": "^0.5.0",
+    "react-native-geocoding": "^0.5.0",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-get-random-values": "~1.7.0",
     "react-native-google-places-autocomplete": "^2.4.1",
