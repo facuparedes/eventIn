@@ -6,17 +6,21 @@ import styles from "./CardDetailStyles";
 import { AntDesign, FontAwesome, Ionicons, Entypo } from "@expo/vector-icons";
 import user from "../../../api/firebase/models/user";
 import auth from "../../../api/firebase/services/AuthService";
+// import Geocoder from 'react-native-geocoder';
+import Geocoder from 'react-native-geocoding';
 
 export default function CardDetail({ route, navigation }) {
   const dispatch = useDispatch();
-  const { id, likedAct } = route.params;
+  const { id, likedAct, latlng} = route.params;
   const details = useSelector((state) => state.detail);
   const logged = useSelector((state) => state.isLogged);
   const [liked, setLiked] = useState(likedAct);
-
+  const [address,setAddress] = useState('');
+  // console.log('LONGITUD',latlng)
   useEffect(() => {
     dispatch(getDetails(id));
-  }, [dispatch]);
+    getAddress(latlng.latitude,latlng.longitude);
+  }, [dispatch,getAddress,setAddress]);
 
   const addLike = () => {
     if (logged) {
@@ -50,6 +54,42 @@ export default function CardDetail({ route, navigation }) {
   };
 
   const attachments = details.length && details[0].attachments.slice(1, details[0].attachments.length);
+
+  // const [pin,setPin] = useState({})
+  
+  //  const lat = details[0].location.latitude
+  //  const lng = details[0].location.longitude
+  //  console.log('lat',lat)
+  //  console.log('lng',lng)
+  // const getLatLng= async () => {
+
+    //  console.log('detailsss',latlng)
+  //    return latlng
+  // } 
+  
+//    const getAddress = async (lat,lng) =>{
+  //  await Geocoder.fallbackToGoogle('AIzaSyDEvbPWfuQvaChx1QrpAPgj_DiXB6R-6Ys')
+  //   try{
+    //   let res= await Geocoder.geocodePosition({lat,lng})
+    //     console.log('respuesta',res)
+    //   // let addr = (res[0].formattedAddress)
+    //     // console.log(addr)
+    // }       
+    // catch(e){ console.log(e)
+    
+    // }
+    //     } -34.5453062,-58.44977489999999
+    
+       const getAddress = (lat, lng) => {
+        Geocoder.init("AIzaSyDEvbPWfuQvaChx1QrpAPgj_DiXB6R-6Ys")
+        Geocoder.from(lat, lng)
+		.then(json => {
+      	var addressComponent = json.results[0].address_components;
+        let direcc = `${addressComponent[0].long_name}, ${addressComponent[1].long_name}, ${addressComponent[2].long_name}, ${addressComponent[3].long_name}, ${addressComponent[4].long_name}.`;
+        setAddress(direcc)
+        // console.log('ADRS',addressComponent[0].long_name ,',',addressComponent[1].long_name,',',addressComponent[2].long_name,',',addressComponent[3].long_name,',',addressComponent[4].long_name,'.');
+      })
+		.catch(error => console.warn(error));}
 
   return (
     <View style={styles.view}>
@@ -107,6 +147,11 @@ export default function CardDetail({ route, navigation }) {
                       <Image style={styles.maps} source={require("../../assets/maps.jpg")} />
                     </TouchableOpacity>
                   </View>
+                </View>
+                <View>
+                  
+                    <Text>{address}</Text>
+                  
                 </View>
                 <View style={styles.descContent}>
                   <Text style={styles.subTitle}>Descripción</Text>

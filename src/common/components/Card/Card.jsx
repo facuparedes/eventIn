@@ -9,8 +9,8 @@ import Event from "../../../../api/firebase/models/event.js";
 import user from "../../../../api/firebase/models/user.js";
 import auth from "../../../../api/firebase/services/AuthService";
 
-export default function Card({ id, title, description, dateStart, attachments, navigation, likedActive }) {
-  const logged = useSelector((state) => state.isLogged);
+export default function Card({ id, title, description, dateStart, attachments, navigation, likedActive, latlng }) {
+  const logged = useSelector((state) => state.isLogged); 
   const dispatch = useDispatch();
 
   const diffStart = moment(dateStart).diff(moment.now(), "hours");
@@ -75,6 +75,7 @@ export default function Card({ id, title, description, dateStart, attachments, n
             navigation.navigate("CardDetail", {
               likedAct: liked,
               id: id,
+              latlng: latlng,
             })
           }
         >
