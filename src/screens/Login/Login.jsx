@@ -7,6 +7,7 @@ import { signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import auth from '../../../api/firebase/services/AuthService';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Feather } from '@expo/vector-icons';
+import user from '../../../api/firebase/models/user';
 
 function validate (user) {
     let errors = {}; 
@@ -46,8 +47,10 @@ export default function Login ({navigation}) {
         if(Object.keys(validation).length === 0) {
             signInWithEmailAndPassword(auth, email, password)
                 .then(data=>{
-                    const user = data;
-                    Alert.alert(`Bienvenido, ${user.user.displayName}!`);
+                    const userCred = data;
+                    console.log(userCred);
+                    Alert.alert(`Bienvenido, ${userCred.user.displayName}!`);
+                    
                     navigation.replace('Loading');
                 })
                 .catch(e=> {

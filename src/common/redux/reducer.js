@@ -74,6 +74,8 @@ export const rootReducer = (state = initialState, action) => {
       }
 
     case IS_LOGGED:
+      let usercito = action.payload;
+      console.log('USERCITO', usercito);
       return {
         ...state,
         isLogged: action.payload,
