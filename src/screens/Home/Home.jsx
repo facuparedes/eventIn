@@ -172,7 +172,6 @@ async function registerForPushNotificationsAsync() {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
   } else {
     alert("Tenes que usar un celular verdadero para recibir push-notifications salamin");
   }

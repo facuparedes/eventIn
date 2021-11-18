@@ -37,6 +37,7 @@ export const styles = StyleSheet.create({
     fontFamily: "Gotham-Book",
   },
   card_body: {
+    flex: 3,
     width: "100%",
   },
   card_body_image: {
@@ -48,7 +49,6 @@ export const styles = StyleSheet.create({
   },
   card_footer: {
     flex: 1,
-    flexDirection: "row",
     alignSelf: "flex-start",
     paddingVertical: 5,
     paddingHorizontal: 10,
@@ -68,5 +68,12 @@ export const styles = StyleSheet.create({
   card_body_date_active: {
     backgroundColor: "#6ad5ce",
     color: "white",
+  },
+  backgroundLike: {
+    position: "absolute",
+    width: windowWidth * 1,
+  },
+  btnLike: {
+    position: "absolute",
   },
 });
