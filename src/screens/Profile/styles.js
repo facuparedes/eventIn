@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    width: '100%',
     height: 30
   },
   eventBtn: {
