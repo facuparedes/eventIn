@@ -5,9 +5,9 @@ import { styles } from "./styles";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDispatch } from "react-redux";
 import { getEventsByName, getEvents } from "../../redux/actions";
-import * as Animatable from 'react-native-animatable';
+import * as Animatable from "react-native-animatable";
 
-export default function Search({display, setDisplay}) {
+export default function Search({ display, setDisplay }) {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   //console.log("soy el title", title);
@@ -20,9 +20,9 @@ export default function Search({display, setDisplay}) {
   function handleSubmit() {
     if (title === "todos") {
       dispatch(getEvents());
-    } else if(title === ""){
+    } else if (title === "") {
       setDisplay(false);
-    }else {
+    } else {
       dispatch(getEventsByName(title));
     }
     //console.log("el boton", title);
@@ -31,8 +31,8 @@ export default function Search({display, setDisplay}) {
 
   return (
     <View style={styles.container}>
-      <Animatable.View animation='zoomIn' duration={1200}>
-        <TextInput onSubmitEditing={handleSubmit} style={styles.textInput} placeholder="Buscar por título..." placeholderTextColor="#0808088f"  onChangeText={handleInputChange} value={title}/>
+      <Animatable.View animation="zoomIn" duration={1200}>
+        <TextInput onSubmitEditing={handleSubmit} style={styles.textInput} placeholder="Buscar por título..." placeholderTextColor="#0808088f" onChangeText={handleInputChange} value={title} />
       </Animatable.View>
       <TouchableOpacity style={styles.touchableOpacity} onPress={handleSubmit}>
         <Feather name="search" style={styles.iconStyle} />
