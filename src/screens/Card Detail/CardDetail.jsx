@@ -111,19 +111,19 @@ export default function CardDetail({ route, navigation }) {
               <View style={styles.btnLikeBackground}>
                 <FontAwesome name="circle" size={45} color="rgba(255, 255, 255, 0.8)" style={{ marginRight: 8 }} />
               </View>
-              <View style={styles.btnShareBackground}>
+              {/* <View style={styles.btnShareBackground}>
                 <FontAwesome name="circle" size={45} color="rgba(255, 255, 255, 0.8)" style={{ marginRight: 8 }} />
-              </View>
+              </View> */}
               <View style={styles.btnLike}>
                 <TouchableOpacity onPress={addLike}>
                   <AntDesign name={liked ? "heart" : "hearto"} size={24} color={liked ? "#E64141" : "rgba(0, 0, 0, 0.7)"} />
                 </TouchableOpacity>
               </View>
-              <View style={styles.btnShare}>
+              {/* <View style={styles.btnShare}>
                 <TouchableOpacity onPress={share}>
                   <Ionicons name="share-social" size={24} color="rgba(0, 0, 0, 0.7)" />
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
             <View style={styles.body}>
               <View style={{ flex: 1, width: "90%", alignSelf: "center" }}>

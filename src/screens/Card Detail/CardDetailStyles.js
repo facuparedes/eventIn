@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignSelf: "flex-end",
     paddingTop: height * 0.232,
+    marginTop: width * 0.09,
   },
   btnShareBackground: {
     flex: 1,
@@ -48,6 +49,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     paddingTop: height * 0.246,
     paddingRight: width * 0.037,
+    marginTop: width * 0.09,
   },
   btnShare: {
     position: "absolute",
