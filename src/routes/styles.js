@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
+import { colorPallete } from "../screens/Onboarding/styles";
 
 const { width, height } = Dimensions.get("window");
 
@@ -33,18 +34,18 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     color: "white",
   },
-  buttonLogout: {
-    backgroundColor: "#00BD9D",
-    width: width * 0.6,
-    borderRadius: 4,
-    marginHorizontal: 63,
-    marginVertical: 15,
+  buttons: {
+    backgroundColor: colorPallete.third,
+    width: width * 0.65,
+    borderRadius: 10,
+    padding: 15,
+    alignItems: "center",
+    justifyContent: "center",
   },
   textLogout: {
-    flexDirection: "row",
-    paddingVertical: 10,
+    fontFamily: "Gotham-Medium",
+    fontSize: 16,
     color: "white",
-    fontWeight: "bold",
   },
   searchIcon: {
     fontSize: 28,
@@ -64,21 +65,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
   },
-  direction: { display: "flex", flexDirection: "row", padding: 8, alignSelf: "center" },
+  direction: {
+    flexDirection: "row",
+    paddingHorizontal: 10,
+  },
   display: {
+    flex: 1,
     alignItems: "center",
     flexDirection: "column",
-    marginBottom: height * 0.2,
-    marginTop: height * 0.1,
-    height: height * 0.25,
+    justifyContent: "space-around",
+    marginVertical: height * 0.03,
   },
   text: {
     flex: 2,
-    justifyContent: "center",
+    justifyContent: "flex-start",
   },
   icon: {
     flex: 1,
     justifyContent: "center",
+  },
+  actionSheet: {
+    height: height * 0.4,
   },
 });
 

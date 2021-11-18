@@ -50,8 +50,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignSelf: "flex-start",
-    paddingVertical: 15,
-    paddingHorizontal: 5,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
   },
   card_body_date: {
     position: "absolute",

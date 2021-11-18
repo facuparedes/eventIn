@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, Image, SafeAreaView, Alert, ImageBackground } from "react-native";
-import { Input } from "react-native-elements";
+import { View, Text, SafeAreaView, ImageBackground } from "react-native";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import styles from "./styles";
-import { Feather, AntDesign, FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { useSelector } from "react-redux";
 
