@@ -10,6 +10,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import * as Location from "expo-location";
 import { useDispatch } from "react-redux";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
+import {KEY_MAPS} from "@env";
 
 // IMPORTANTE-- TODAVIA NO ANDA LA BARRA DE BUSQUEDA,SOLO ANDA NAVEGANDO EN EL MAPA Y PONIENDO EL PIN
 //              EN EL LUGAR DESEADO
@@ -107,7 +108,7 @@ const FormMaps = ({ navigation }) => {
 					})
 				}}
 				query={{
-					key: "AIzaSyDEvbPWfuQvaChx1QrpAPgj_DiXB6R-6Ys",
+					key: KEY_MAPS,
 					language: "es",
 					components: "country:arg",
 					types: "establishment",
