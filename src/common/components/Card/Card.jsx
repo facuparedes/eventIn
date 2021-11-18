@@ -9,7 +9,7 @@ import Event from "../../../../api/firebase/models/event.js";
 import user from "../../../../api/firebase/models/user.js";
 import auth from "../../../../api/firebase/services/AuthService";
 
-export default function Card({ id, title, description, dateStart, attachments, navigation, likedActive, latlng }) {
+export default function Card({ id, title, description, dateStart, attachments, navigation, likedActive, latlng, created }) {
   const logged = useSelector((state) => state.isLogged);
   const dispatch = useDispatch();
 
@@ -76,6 +76,7 @@ export default function Card({ id, title, description, dateStart, attachments, n
               likedAct: liked,
               id: id,
               latlng: latlng,
+              created: created ? created : false,
             })
           }
         >

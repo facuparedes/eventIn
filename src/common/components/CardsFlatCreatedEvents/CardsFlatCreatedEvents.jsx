@@ -25,6 +25,7 @@ export default function CardsFlatCreatedEvents() {
             attachments={item.attachments[0]} 
             likedActive={item.likedActive && item.likedActive}
             latlng={item.location}
+            created={true}
         />}
       />
     </View>
