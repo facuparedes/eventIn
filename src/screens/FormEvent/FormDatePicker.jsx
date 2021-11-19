@@ -147,13 +147,13 @@ const FormDatePicker = ({ navigation }) => {
         },
       };
       dispatch(addEventInfo(partialEvent));
-      navigation.navigate("FormMaps");
+      navigation.replace("FormMaps");
     } else {
       return Alert.alert(`${Object.values(errorsForm)[0]}`);
     }
   }
   function handleBack() {
-    navigation.goBack();
+    navigation.replace("Form");
   }
 
   return (
