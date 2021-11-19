@@ -8,7 +8,7 @@ import formStyles from "./FormStyles";
 import estilos from "./CardPreviewStyles";
 import styles from "../Card Detail/CardDetailStyles.js";
 import { AntDesign, Ionicons, FontAwesome } from "@expo/vector-icons";
-import { putSomethingInGS } from "../../common/redux/actions";
+import { colorPallete } from "../Onboarding/styles";
 
 const { width, height } = Dimensions.get("window");
 const FormCardPreview = ({ navigation }) => {
@@ -24,23 +24,24 @@ const FormCardPreview = ({ navigation }) => {
     let gallery = eventInfo.attachments.slice(1);
 
   return (
-    <SafeAreaView style={estilos.container}>
-      <LinearProgress color="#00BD9D" variant="determinate" value={0.6} style={{ height: 10 }} />
-      <View style={estilos.header}>
-        <Text style={estilos.textHeader}>Paso 4 de 5</Text>
-      </View>
-      <View style={estilos.textAndImg}>
-        <Text style={estilos.titleText}>Vista previa del Evento</Text>
-        <Image source={require("../../assets/Logo.png")} style={[estilos.logoImage, { marginLeft: 30 }]} />
-      </View>
-
-      {/* <Text>Detalle del Evento:</Text> */}
+    <SafeAreaView style={formStyles.container}>
       <ScrollView>
+        <LinearProgress color={colorPallete.third} variant="determinate" value={0.8} style={{ height: 10 }} />
+        <View style={formStyles.header}>
+          <Text style={formStyles.textHeader}>Paso 4 de 5</Text>
+        </View>
+        <View style={formStyles.textAndImg}>
+          <Text style={formStyles.titleText}>Vista previa del Evento</Text>
+          <Image source={require("../../assets/Logo.png")} style={formStyles.logoImage} />
+        </View>
+
+        {/* <Text>Detalle del Evento:</Text> */}
+
         <View style={estilos.cardContainer}>
           {/* DETAIL CARD */}
           <View style={[styles.header, { height: height * 0.34 }]}>
             <Image style={[styles.img, { width: "102%", marginTop: -20, borderRadius: 10 }]} source={{ uri: `${eventInfo.attachments[0]}` }} />
-            <View style={[styles.btnShareBackground, { paddingTop: height * 0.27 }]}>
+            <View style={[styles.btnLikeBackground, { paddingTop: height * 0.27 }]}>
               <FontAwesome name="circle" size={45} color="rgba(255, 255, 255, 0.8)" style={{ marginRight: 8.5 }} />
             </View>
             <View style={[styles.btnLike, { paddingTop: height * 0.285 }]}>
