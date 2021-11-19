@@ -135,6 +135,7 @@ const Title_Fee_Desc = ({ navigation }) => {
         isPublic: isPublic ? true : false,
         category: categ,
       };
+      console.log("LOS DATOS QUE PONGO: ",partialEvent)
       dispatch(addEventInfo(partialEvent));
       navigation.navigate("FormDatePicker");
     } else {
@@ -150,6 +151,7 @@ const Title_Fee_Desc = ({ navigation }) => {
   function handleFilter(e) {
     Alert.alert("Eliminar imagen", "¿esta seguro que desea eliminar esta imagen?", [{ text: "Si", onPress: () => setAttachments(attachments.filter((img) => img !== e)) }, { text: "No" }]);
   }
+  
 
   return (
     <SafeAreaView style={styles.container}>

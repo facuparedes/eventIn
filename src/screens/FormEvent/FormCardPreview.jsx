@@ -14,6 +14,7 @@ const { width, height } = Dimensions.get("window");
 
 const FormCardPreview = ({ navigation }) => {
   const eventInfo = useSelector((state) => state.eventForm);
+  console.log("SOY EVENT INFO: ",eventInfo)
 
   var startDay = eventInfo.start.date.getDate() + "-" + (eventInfo.start.date.getMonth() + 1) + "-" + eventInfo.start.date.getFullYear();
   var startHour = (eventInfo.start.time.getHours() < 10 ? "0" : "") + eventInfo.start.time.getHours() + ":" + (eventInfo.start.time.getMinutes() < 10 ? "0" : "") + eventInfo.start.time.getMinutes();
