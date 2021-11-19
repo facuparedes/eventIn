@@ -143,26 +143,68 @@ export default function Register({ navigation }) {
 
       <View style={styles.inputContainer}>
         <View style={styles.inputAndIcon}>
-          <TextInput placeholder="Nombre de Usuario" value={username} onChangeText={(text) => onChangeUsername(text)} style={styles.input} />
-          {checkUsername ? <Feather name="check-circle" color="green" size={24} style={styles.icon} /> : null}
+          <TextInput 
+            placeholder="Nombre de Usuario" 
+            value={username} 
+            onChangeText={(text) => onChangeUsername(text)} 
+            style={styles.input} />
+          { 
+            checkUsername ? <Feather name="check-circle" color="green" size={24} style={styles.icon} /> 
+            : null
+          }
         </View>
 
         <View style={styles.inputAndIcon}>
-          <TextInput placeholder="Email" value={email} onChangeText={(text) => onChangeEmail(text)} style={styles.input} />
-          {checkEmail ? <Feather name="check-circle" color="green" size={24} style={styles.icon} /> : null}
+          <TextInput 
+            placeholder="Email" 
+            value={email} 
+            onChangeText={(text) => onChangeEmail(text)} 
+            style={styles.input} />
+          {
+            checkEmail ? 
+            <Feather name="check-circle" color="green" size={24} style={styles.icon} /> 
+            : null
+          }
         </View>
 
         <View style={styles.inputAndIcon}>
-          <TextInput placeholder="Contraseña" secureTextEntry={secureDataEntry ? true : false} value={password} onChangeText={(text) => onChangePassword(text)} style={styles.input} />
-          <TouchableOpacity onPress={updateSecureDataEntry} style={[styles.eyeBtn, colorPass && { marginRight: 30 }]}>
-            {secureDataEntry ? <Feather name="eye-off" color="grey" size={18} /> : <Feather name="eye" color="grey" size={18} />}
+          <TextInput 
+            placeholder="Contraseña" 
+            secureTextEntry={secureDataEntry ? true : false} 
+            value={password} 
+            onChangeText={(text) => onChangePassword(text)} 
+            style={styles.input} />
+          <TouchableOpacity 
+            onPress={updateSecureDataEntry} 
+            style={[styles.eyeBtn, colorPass && { marginRight: 30 }]}>
+            {
+              secureDataEntry ? <Feather name="eye-off" color="grey" size={18} /> 
+            : <Feather name="eye" color="grey" size={18} />}
           </TouchableOpacity>
-          {checkPassword ? <Feather name="check-circle" color={colorPass === "yellow" ? "#ffb400" : "green"} size={24} style={styles.icon} /> : null}
-          {colorPass === "red" && <AntDesign name="closecircleo" size={24} color="#b70000" style={styles.icon} />}
+          {
+            checkPassword ? 
+            <Feather 
+             name="check-circle"
+             color={colorPass === "yellow" ? "#ffb400" : "green"} 
+             size={24} style={styles.icon} />
+            : null
+          }
+          {
+            colorPass === "red" && 
+            <AntDesign name="closecircleo" size={24} color="#b70000" style={styles.icon} />}
         </View>
-        {colorPass === "yellow" && <Text style={styles.passWarnYellow}>Contraseña de seguridad media.</Text>}
-        {colorPass === "green" && <Text style={styles.passWarnGreen}>Contraseña segura.</Text>}
-        {colorPass === "red" && <Text style={styles.passWarnRed}>Contraseña muy débil.</Text>}
+        {
+          colorPass === "yellow" && 
+          <Text style={styles.passWarnYellow}>Contraseña de seguridad media.</Text>
+        }
+        {
+          colorPass === "green" && 
+          <Text style={styles.passWarnGreen}>Contraseña segura.</Text>
+        }
+        {
+          colorPass === "red" && 
+          <Text style={styles.passWarnRed}>Contraseña muy débil.</Text>
+        }
       </View>
 
       <View style={styles.buttonContainer}>
