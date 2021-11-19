@@ -158,11 +158,13 @@ const Title_Fee_Desc = ({ navigation }) => {
         <View style={styles.header}>
           <Text style={styles.textHeader}>Paso 1 de 5</Text>
         </View>
+
         <View style={styles.subcontainer}>
           <View style={styles.textAndImg}>
             <Text style={styles.titleText}>Crea tu Evento</Text>
             <Image source={require("../../assets/Logo.png")} style={styles.logoImage} />
           </View>
+
           <View style={styles.inputs}>
             <Input label="Nombre" placeholder="Nombre del evento..." onChangeText={handleTitle} inputStyle={styles.input} labelStyle={styles.label} />
 
@@ -170,18 +172,15 @@ const Title_Fee_Desc = ({ navigation }) => {
 
             <Input label="Precio de la entrada" placeholder="$" inputStyle={styles.input} labelStyle={styles.label} onChangeText={handleFee} />
           </View>
+
           <View style={styles.photosContainer}>
             <Text style={styles.photosText}>Imagen</Text>
             {attachments.length === 1 && <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} foto</Text>}
             {attachments.length > 1 && <Text style={styles.selectedPhotosText}>Seleccionaste {attachments.length} fotos</Text>}
-            <View style={styles.multimediaBtns}>
+            <View>
               <TouchableOpacity onPress={openImagePickerAsync} style={styles.photoBtn}>
                 <Text style={styles.textPhotoBtn}>Selecciona una o más imágenes</Text>
               </TouchableOpacity>
-
-              {/* <TouchableOpacity onPress={openVideoPickerAsync} style={styles.videoBtn}>
-              <Text style={styles.textVideoBtn}>Selecciona un video</Text>
-            </TouchableOpacity> */}
             </View>
             <ScrollView horizontal>
               <View style={{ flexDirection: "row" }}>
@@ -194,7 +193,7 @@ const Title_Fee_Desc = ({ navigation }) => {
                           handleFilter(img);
                         }}
                       >
-                        <Image source={{ uri: img }} style={styles.pickedImg} resizeMode={"cover"} />
+                        <Image source={{ uri: img }} style={styles.pickedImg} />
                       </TouchableOpacity>
                     </View>
                   ))}
@@ -202,22 +201,24 @@ const Title_Fee_Desc = ({ navigation }) => {
             </ScrollView>
           </View>
 
-          <Text style={styles.textType}>Tipo de evento:</Text>
-          <View style={styles.checkBox}>
-            {!isPublic && !isPrivate ? (
-              <View style={styles.checkBox}>
-                <CheckBox title="Público" onPress={handleIsPublic} size={20} checked={isPublic} containerStyle={styles.boxCont} />
-                <CheckBox title="Privado" onPress={handleIsPrivate} checked={isPrivate} containerStyle={styles.boxCont} />
-              </View>
-            ) : isPublic ? (
-              <CheckBox title="Publico" onPress={handleIsPublic} size={20} checked={isPublic} containerStyle={styles.boxCont} />
-            ) : (
-              <CheckBox title="Privado" onPress={handleIsPrivate} checked={isPrivate} containerStyle={styles.boxCont} />
-            )}
+          <View style={styles.typeEvent}>
+            <Text style={styles.textType}>Tipo de evento:</Text>
+            <View style={styles.checkBox}>
+              {!isPublic && !isPrivate ? (
+                <View style={styles.checkBox}>
+                  <CheckBox title="Público" onPress={handleIsPublic} size={25} checked={isPublic} containerStyle={styles.boxCont} />
+                  <CheckBox title="Privado" onPress={handleIsPrivate} size={25} checked={isPrivate} containerStyle={styles.boxCont} />
+                </View>
+              ) : isPublic ? (
+                <CheckBox title="Publico" onPress={handleIsPublic} size={25} checked={isPublic} containerStyle={styles.boxCont} />
+              ) : (
+                <CheckBox title="Privado" onPress={handleIsPrivate} size={25} checked={isPrivate} containerStyle={styles.boxCont} />
+              )}
+            </View>
           </View>
 
-          <View>
-            <Text style={styles.textType}>Categoría del evento:</Text>
+          <View style={styles.categoryContainer}>
+            <Text style={[styles.textType, { marginBottom: 5 }]}>Categoría del evento:</Text>
             <View style={styles.pickerContainer}>
               <Picker
                 style={styles.picker}
@@ -235,24 +236,13 @@ const Title_Fee_Desc = ({ navigation }) => {
           </View>
 
           <View style={styles.btnsContainer}>
-            <TouchableOpacity
-              title="Atras"
-              onPress={handleBack}
-              style={[
-                styles.btn,
-                {
-                  flexDirection: "row",
-                  backgroundColor: "gray",
-                  marginRight: 10,
-                },
-              ]}
-            >
-              <AntDesign name="arrowleft" size={24} color="#fff" style={{ marginLeft: 40 }} />
-              <Text style={[styles.textBtn, { marginRight: 30 }]}>Salir</Text>
+            <TouchableOpacity title="Atras" onPress={handleBack} style={styles.btnExit}>
+              <AntDesign name="arrowleft" size={24} color="#fff" />
+              <Text style={styles.textBtn}> Salir</Text>
             </TouchableOpacity>
-            <TouchableOpacity title="Siguiente..." onPress={handleNext} style={[styles.btn, { flexDirection: "row" }]}>
-              <Text style={[styles.textBtn, { marginLeft: 20 }]}>Siguiente</Text>
-              <Ionicons name="arrow-forward" size={28} color="#fff" style={styles.arrowIcon} />
+            <TouchableOpacity title="Siguiente..." onPress={handleNext} style={styles.btnContinue}>
+              <Text style={styles.textBtn}>Siguiente</Text>
+              <AntDesign name="arrowright" size={24} color="#fff" />
             </TouchableOpacity>
           </View>
         </View>
