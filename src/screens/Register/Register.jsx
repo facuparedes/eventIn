@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { TouchableOpacity, TextInput, Text, View, Image, Alert } from "react-native";
+import { TouchableOpacity, TextInput, Text, View, Image, Alert, KeyboardAvoidingView } from "react-native";
 import styles from "./RegisterStyles";
 import User from "../../../api/firebase/models/user";
-import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithRedirect, signInWithPopup, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import auth from "../../../api/firebase/services/AuthService";
 import { AntDesign, Feather } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 function validate(user) {
   let errors = {};
@@ -138,7 +137,7 @@ export default function Register({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.container} behaviour="padding">
+    <KeyboardAvoidingView style={styles.container} behaviour="padding">
       <Image style={styles.logoImage} source={require("../../assets/Logo.png")} />
 
       <View style={styles.inputContainer}>
@@ -230,6 +229,6 @@ export default function Register({ navigation }) {
           </Text>
         </View>
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
