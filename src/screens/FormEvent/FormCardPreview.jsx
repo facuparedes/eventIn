@@ -3,24 +3,25 @@ import { View, Image, ScrollView, FlatList, Alert, Dimensions } from "react-nati
 import { Text, LinearProgress } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import formStyles from "./FormStyles";
 import estilos from "./CardPreviewStyles";
 import styles from "../Card Detail/CardDetailStyles.js";
 import { AntDesign, Ionicons, FontAwesome } from "@expo/vector-icons";
+import { putSomethingInGS } from "../../common/redux/actions";
 
 const { width, height } = Dimensions.get("window");
-
 const FormCardPreview = ({ navigation }) => {
-  const eventInfo = useSelector((state) => state.eventForm);
-  console.log("SOY EVENT INFO: ",eventInfo)
+  const dispatch = useDispatch();
+  let eventInfo = useSelector((state) => state.eventForm);
+  console.log("SOY EVENT INFO: ", eventInfo);
 
-  var startDay = eventInfo.start.date.getDate() + "-" + (eventInfo.start.date.getMonth() + 1) + "-" + eventInfo.start.date.getFullYear();
-  var startHour = (eventInfo.start.time.getHours() < 10 ? "0" : "") + eventInfo.start.time.getHours() + ":" + (eventInfo.start.time.getMinutes() < 10 ? "0" : "") + eventInfo.start.time.getMinutes();
+    let startDay = eventInfo.start.date.getDate() + "-" + (eventInfo.start.date.getMonth() + 1) + "-" + eventInfo.start.date.getFullYear();
+    let startHour = (eventInfo.start.time.getHours() < 10 ? "0" : "") + eventInfo.start.time.getHours() + ":" + (eventInfo.start.time.getMinutes() < 10 ? "0" : "") + eventInfo.start.time.getMinutes();
 
-  var endDay = eventInfo.end.date.getDate() + "-" + (eventInfo.end.date.getMonth() + 1) + "-" + eventInfo.end.date.getFullYear();
-  var endHour = (eventInfo.end.time.getHours() < 10 ? "0" : "") + eventInfo.end.time.getHours() + ":" + (eventInfo.end.time.getMinutes() < 10 ? "0" : "") + eventInfo.end.time.getMinutes();
-  var gallery = eventInfo.attachments.slice(1);
+    let endDay = eventInfo.end.date.getDate() + "-" + (eventInfo.end.date.getMonth() + 1) + "-" + eventInfo.end.date.getFullYear();
+    let endHour = (eventInfo.end.time.getHours() < 10 ? "0" : "") + eventInfo.end.time.getHours() + ":" + (eventInfo.end.time.getMinutes() < 10 ? "0" : "") + eventInfo.end.time.getMinutes();
+    let gallery = eventInfo.attachments.slice(1);
 
   return (
     <SafeAreaView style={estilos.container}>
@@ -94,7 +95,7 @@ const FormCardPreview = ({ navigation }) => {
       <View style={{ flexDirection: "row", justifyContent: "center", marginTop: "2%" }}>
         <TouchableOpacity
           title="Atras"
-          onPress={() => navigation.goBack()}
+          onPress={() => navigation.replace("FormMaps")}
           style={[
             formStyles.btn,
             {
@@ -108,7 +109,7 @@ const FormCardPreview = ({ navigation }) => {
           <Text style={[formStyles.textBtn, { marginRight: 30 }]}>Atras</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity title="Siguiente..." onPress={() => navigation.navigate("PaymentCalc")} style={[formStyles.btn, { flexDirection: "row", justifyContent: "center" }]}>
+        <TouchableOpacity title="Siguiente..." onPress={() => navigation.replace("PaymentCalc")} style={[formStyles.btn, { flexDirection: "row", justifyContent: "center" }]}>
           <Text style={formStyles.textBtn}>Siguiente</Text>
           <Ionicons name="arrow-forward" size={28} color="#fff" style={formStyles.arrowIcon} />
         </TouchableOpacity>

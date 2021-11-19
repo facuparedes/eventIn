@@ -156,7 +156,7 @@ const FormEvent = ({ navigation }) => {
     Alert.alert('Evento creado');
 
     // Navegamos a Login porque no tenemos a Home en el Navigator, pero en el futuro navegaremos a Home.
-    navigation.navigate('Home');
+    navigation.replace('Home');
   };
 
   return (
