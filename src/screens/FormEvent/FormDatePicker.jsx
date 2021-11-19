@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEventInfo } from "../../common/redux/actions";
-import { Alert, View, Image } from "react-native";
+import { Alert, View, Image, ScrollView } from "react-native";
 import { Input, Text, LinearProgress } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./FormStyles";
 import { MaterialIcons, Feather, Ionicons, AntDesign } from "@expo/vector-icons";
+import { colorPallete } from "../Onboarding/styles";
 
 // Validate Function
 function validate(form) {
@@ -95,8 +96,8 @@ const FormDatePicker = ({ navigation }) => {
     let tempTime = new Date(currentTime);
     let minutes = tempTime.getMinutes();
     let hours = tempTime.getHours();
-    if (minutes.toString().length === 1) minutes = '0' + minutes.toString();
-    if (hours < 10 ) hours = '0' +  hours.toString();
+    if (minutes.toString().length === 1) minutes = "0" + minutes.toString();
+    if (hours < 10) hours = "0" + hours.toString();
     let fTime = hours + ":" + minutes;
     setTextTimeStart(fTime);
     setTimeValueStart(tempTime);
@@ -113,8 +114,8 @@ const FormDatePicker = ({ navigation }) => {
     let tempTime = new Date(currentTime);
     let minutes = tempTime.getMinutes();
     let hours = tempTime.getHours();
-    if (minutes.toString().length === 1) minutes = '0' + minutes.toString();    
-    if (hours < 10) hours = '0' +  hours.toString();
+    if (minutes.toString().length === 1) minutes = "0" + minutes.toString();
+    if (hours < 10) hours = "0" + hours.toString();
     let fTime = hours + ":" + minutes;
     setTextTimeEnd(fTime);
     setTimeValueEnd(tempTime);
@@ -125,7 +126,7 @@ const FormDatePicker = ({ navigation }) => {
     // Form validation
     let errorsForm = validate({
       start: {
-        date: textDateStart, 
+        date: textDateStart,
         time: textTimeStart,
       },
       end: {
@@ -157,155 +158,119 @@ const FormDatePicker = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      
-      <LinearProgress color="#00BD9D" variant="determinate" value={0.2} style={{height:10}}  />
-      <View style={styles.header}>
-        <Text style={styles.textHeader}>Paso 2 de 5</Text>
-        </View>
-      
-      <View style={(styles.textAndImg, { padding: 10 })}>
-        <Text h4 style={[styles.titleText, {marginBottom: 65}]}>
-          Selecciona fecha y hora de tu Evento
-        </Text>
-        {/* <Image 
-          source={require("../../assets/Logo.png")} 
-          style={[styles.logoImage, {
-            marginTop: -46,
-            alignSelf: 'flex-end',
-            marginRight: 20,
-            marginBottom: 30
-          }]} /> */}
-      </View>
-      <View
-        style={{
-          flex: 0,
-          backgroundColor: "#fff",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <View style={styles.horaCont}>
-          <Input
-            label="Fecha de Inicio"
-            placeholder="Fecha"
-            onFocus={() => showMode("date")}
-            showSoftInputOnFocus={false}
-            inputStyle={styles.input}
-            labelStyle={styles.label}
-            inputContainerStyle={styles.inputHoraContainer}
-            value={textDateStart}
-          />
-          <TouchableOpacity onPress={() => showMode("date")}>
-            <MaterialIcons name="date-range" size={40} color="black" style={styles.reloj} />
-          </TouchableOpacity>
+      <ScrollView>
+        <LinearProgress color={colorPallete.third} variant="determinate" value={0.4} style={{ height: 10 }} />
+        <View style={styles.header}>
+          <Text style={styles.textHeader}>Paso 2 de 5</Text>
         </View>
 
-        <View style={styles.horaCont}>
-          <Input
-            label="Hora de Inicio"
-            placeholder="Hora"
-            onFocus={() => showMode("time")}
-            showSoftInputOnFocus={false}
-            inputStyle={styles.input}
-            labelStyle={styles.label}
-            inputContainerStyle={styles.inputHoraContainer}
-            value={textTimeStart}
-          />
-          <TouchableOpacity onPress={() => showMode("time")}>
-            <Feather name="clock" size={40} color="black" style={styles.reloj} />
-          </TouchableOpacity>
-        </View>
+        <View style={styles.subcontainer}>
+          <View style={styles.textAndImg}>
+            <Text style={styles.titleText}>Selecciona fecha y hora de tu Evento</Text>
+          </View>
+          <View style={styles.dateContainer}>
+            <View style={styles.horaCont}>
+              <Input
+                label="Fecha de Inicio"
+                placeholder="Fecha"
+                onFocus={() => showMode("date")}
+                showSoftInputOnFocus={false}
+                inputStyle={styles.input}
+                labelStyle={styles.label}
+                inputContainerStyle={styles.inputHoraContainer}
+                value={textDateStart}
+              />
+              <TouchableOpacity onPress={() => showMode("date")}>
+                <MaterialIcons name="date-range" size={40} color="black" style={styles.reloj} />
+              </TouchableOpacity>
+            </View>
 
-        <View style={styles.horaCont}>
-          <Input
-            label="Fecha de Finalización"
-            placeholder="Fecha"
-            onFocus={() => showMode("dateEnd")}
-            showSoftInputOnFocus={false}
-            inputStyle={styles.input}
-            labelStyle={styles.label}
-            inputContainerStyle={styles.inputHoraContainer}
-            value={textDateEnd}
-          />
-          <TouchableOpacity onPress={() => showMode("dateEnd")}>
-            <MaterialIcons name="date-range" size={40} color="black" style={styles.reloj} />
-          </TouchableOpacity>
-        </View>
+            <View style={styles.horaCont}>
+              <Input
+                label="Hora de Inicio"
+                placeholder="Hora"
+                onFocus={() => showMode("time")}
+                showSoftInputOnFocus={false}
+                inputStyle={styles.input}
+                labelStyle={styles.label}
+                inputContainerStyle={styles.inputHoraContainer}
+                value={textTimeStart}
+              />
+              <TouchableOpacity onPress={() => showMode("time")}>
+                <Feather name="clock" size={40} color="black" style={styles.reloj} />
+              </TouchableOpacity>
+            </View>
 
-        <View style={styles.horaCont}>
-          <Input
-            label="Hora de Finalización"
-            placeholder="Hora"
-            onFocus={() => showMode("timeEnd")}
-            showSoftInputOnFocus={false}
-            inputStyle={styles.input}
-            labelStyle={styles.label}
-            inputContainerStyle={styles.inputHoraContainer}
-            value={textTimeEnd}
-          />
-          <TouchableOpacity onPress={() => showMode("timeEnd")}>
-            <Feather name="clock" size={40} color="black" style={styles.reloj} />
-          </TouchableOpacity>
-        </View>
+            <View style={styles.horaCont}>
+              <Input
+                label="Fecha de Finalización"
+                placeholder="Fecha"
+                onFocus={() => showMode("dateEnd")}
+                showSoftInputOnFocus={false}
+                inputStyle={styles.input}
+                labelStyle={styles.label}
+                inputContainerStyle={styles.inputHoraContainer}
+                value={textDateEnd}
+              />
+              <TouchableOpacity onPress={() => showMode("dateEnd")}>
+                <MaterialIcons name="date-range" size={40} color="black" style={styles.reloj} />
+              </TouchableOpacity>
+            </View>
 
-        {showDateStart && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode="date"
-            // is24Hour={false}
-            display="default"
-            minimumDate={new Date()}
-            onChange={onChangeDateStart}
-          />
-        )}
-        {showDateEnd && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode="date"
-            // is24Hour={false}
-            display="default"
-            minimumDate={new Date()}
-            onChange={onChangeDateEnd}
-          />
-        )}
-        {showTimeStart && <DateTimePicker testID="dateTimePicker" value={time} mode="time" is24Hour={true} display="default" onChange={onChangeTimeStart} />}
-        {showTimeEnd && <DateTimePicker testID="dateTimePicker" value={time} mode="time" is24Hour={true} display="default" onChange={onChangeTimeEnd} />}
-      </View>
+            <View style={styles.horaCont}>
+              <Input
+                label="Hora de Finalización"
+                placeholder="Hora"
+                onFocus={() => showMode("timeEnd")}
+                showSoftInputOnFocus={false}
+                inputStyle={styles.input}
+                labelStyle={styles.label}
+                inputContainerStyle={styles.inputHoraContainer}
+                value={textTimeEnd}
+              />
+              <TouchableOpacity onPress={() => showMode("timeEnd")}>
+                <Feather name="clock" size={40} color="black" style={styles.reloj} />
+              </TouchableOpacity>
+            </View>
 
-      <View style={styles.btnsContainer}>
-            <TouchableOpacity 
-            title="Atras" 
-            onPress={handleBack}
-            style={[
-              styles.btn,
-              {
-                flexDirection: 'row',
-                backgroundColor:'gray',
-                marginRight: 10,
-                
-              }
-            ]} 
-            >
-              
-              <AntDesign name="arrowleft" size={24} color="#fff" style={{marginLeft: 40}} />
-              <Text style={[styles.textBtn, {marginRight: 30}]}>Atras</Text>
+            {showDateStart && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode="date"
+                // is24Hour={false}
+                display="default"
+                minimumDate={new Date()}
+                onChange={onChangeDateStart}
+              />
+            )}
+            {showDateEnd && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={date}
+                mode="date"
+                // is24Hour={false}
+                display="default"
+                minimumDate={new Date()}
+                onChange={onChangeDateEnd}
+              />
+            )}
+            {showTimeStart && <DateTimePicker testID="dateTimePicker" value={time} mode="time" is24Hour={true} display="default" onChange={onChangeTimeStart} />}
+            {showTimeEnd && <DateTimePicker testID="dateTimePicker" value={time} mode="time" is24Hour={true} display="default" onChange={onChangeTimeEnd} />}
+          </View>
+
+          <View style={styles.btnsContainer}>
+            <TouchableOpacity title="Atras" onPress={handleBack} style={styles.btnExit}>
+              <AntDesign name="arrowleft" size={24} color="#fff" />
+              <Text style={styles.textBtn}> Volver</Text>
             </TouchableOpacity>
-          <TouchableOpacity 
-          title="Siguiente..." 
-          onPress={handleNext}
-          style={[
-            styles.btn,
-            {
-              flexDirection: 'row'
-            }
-          ]} 
-          >
-            <Text style={[styles.textBtn, {marginLeft: 20}]}>Siguiente</Text>
-            <Ionicons name="arrow-forward" size={28} color="#fff" style={styles.arrowIcon}/>
-          </TouchableOpacity>
+            <TouchableOpacity title="Siguiente..." onPress={handleNext} style={styles.btnContinue}>
+              <Text style={styles.textBtn}>Siguiente </Text>
+              <AntDesign name="arrowright" size={24} color="#fff" />
+            </TouchableOpacity>
+          </View>
         </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

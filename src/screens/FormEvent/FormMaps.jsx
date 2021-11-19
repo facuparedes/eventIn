@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { addEventInfo } from "../../common/redux/actions";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, ScrollView, Image } from "react-native";
 import { Input, Text, LinearProgress } from "react-native-elements";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import styles from "./FormStyles";
 import MapView, { Callout, Marker } from "react-native-maps";
@@ -10,7 +10,8 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import * as Location from "expo-location";
 import { useDispatch } from "react-redux";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
-import {KEY_MAPS} from "@env";
+import { KEY_MAPS } from "@env";
+import { colorPallete } from "../Onboarding/styles";
 
 // IMPORTANTE-- TODAVIA NO ANDA LA BARRA DE BUSQUEDA,SOLO ANDA NAVEGANDO EN EL MAPA Y PONIENDO EL PIN
 //              EN EL LUGAR DESEADO
@@ -51,7 +52,7 @@ const FormMaps = ({ navigation }) => {
   if (errorMsg) {
     Alert.alert(errorMsg);
   }
- 
+
   const handleShowMap = () => {
     setShowMap(true);
     Alert.alert("Importante!", "Para mover el pin debes mantenerlo presionado.");
@@ -78,49 +79,50 @@ const FormMaps = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <LinearProgress color="#00BD9D" variant="determinate" value={0.4} style={{ height: 10 }} />
-      <View style={styles.header}>
+      <LinearProgress color={colorPallete.third} variant="determinate" value={0.6} style={{ height: 10 }} />
+      <View style={styles.headerMap}>
         <Text style={styles.textHeader}>Paso 3 de 5</Text>
       </View>
 
-      <Text h3 style={styles.textLoc}>
-        Elige una ubicación:
-      </Text>
-      {/* <ScrollView> */}
-      <View style={{ marginTop: 50 }}>
-        <TouchableOpacity title="elegir ubicacion" onPress={handleShowMap} style={styles.btn2}>
-          <Text style={styles.textMaps}>Mostrar mapa</Text>
-        </TouchableOpacity>
-        <GooglePlacesAutocomplete
-				placeholder="Search"
-				fetchDetails={true}
-				GooglePlacesSearchQuery={{
-					rankby: "distance"
-				}}
-				onPress={(data, details = null) => {
-					// 'details' is provided when fetchDetails = true
-					// console.log(data, details)
-					setPin({
-						latitude: details.geometry.location.lat,
-						longitude: details.geometry.location.lng,
-						latitudeDelta: 0.3422,
-						longitudeDelta: 0.3421
-					})
-				}}
-				query={{
-					key: KEY_MAPS,
-					language: "es",
-					components: "country:arg",
-					types: "establishment",
-					radius: 30000,
-					location: `${region.latitude}, ${region.longitude}`
-				}}
-				styles={{
-					container: { flex: 0, position: "relative", width: "100%", zIndex: 1, borderWidth: 1,borderWidth: 1,borderRadius: 6},
-					listView: { backgroundColor: "white" }
-				}}
-			/>
-       {/* styles={{
+      <View style={styles.subcontainer}>
+        <View style={styles.textAndImgMaps}>
+          <Text style={styles.titleText}>Elige una ubicación</Text>
+          <Image source={require("../../assets/Logo.png")} style={styles.logoImage} />
+        </View>
+        <View style={styles.body}>
+          <TouchableOpacity title="elegir ubicacion" onPress={handleShowMap} style={styles.btn2}>
+            <Text style={styles.textMaps}>Mostrar mapa</Text>
+          </TouchableOpacity>
+          <GooglePlacesAutocomplete
+            placeholder="Buscar..."
+            fetchDetails={true}
+            GooglePlacesSearchQuery={{
+              rankby: "distance",
+            }}
+            onPress={(data, details = null) => {
+              // 'details' is provided when fetchDetails = true
+              // console.log(data, details)
+              setPin({
+                latitude: details.geometry.location.lat,
+                longitude: details.geometry.location.lng,
+                latitudeDelta: 0.3422,
+                longitudeDelta: 0.3421,
+              });
+            }}
+            query={{
+              key: KEY_MAPS,
+              language: "es",
+              components: "country:arg",
+              types: "establishment",
+              radius: 30000,
+              location: `${region.latitude}, ${region.longitude}`,
+            }}
+            styles={{
+              container: { flex: 0, position: "relative", width: "100%", zIndex: 1, borderWidth: 1, borderWidth: 1, borderRadius: 6 },
+              listView: { backgroundColor: "white" },
+            }}
+          />
+          {/* styles={{
             container: { 
               flex: 0, 
               position:'relative',
@@ -132,68 +134,56 @@ const FormMaps = ({ navigation }) => {
             },
             listView: { backgroundColor: "white" },
           }} */}
-        <View style={styles.containerMap}>
+          <View style={styles.containerMap}>
+            {showMap && (
+              <MapView
+                style={estilos.map}
+                initialRegion={{
+                  latitude: pin.latitude,
+                  longitude: pin.longitude,
+                  latitudeDelta: 0.340000000004,
+                  longitudeDelta: 0.342421,
+                }}
+                provider="google"
+              >
+                <Marker
+                  coordinate={pin}
+                  pinColor="black"
+                  draggable={true}
+                  onDragStart={(e) => {
+                    console.log("Drag start", e.nativeEvent.coordinates);
+                  }}
+                  onDragEnd={(e) => {
+                    setPin({
+                      latitude: e.nativeEvent.coordinate.latitude,
+                      longitude: e.nativeEvent.coordinate.longitude,
+                    });
+                  }}
+                >
+                  <Callout>
+                    <Text>I'm here</Text>
+                  </Callout>
+                </Marker>
+              </MapView>
+            )}
+          </View>
           {showMap && (
-            <MapView
-              style={estilos.map}
-              initialRegion={{
-                latitude: pin.latitude,
-                longitude: pin.longitude,
-                latitudeDelta: 0.340000000004,
-                longitudeDelta: 0.342421,
-              }}
-              provider="google"
-            >
-              
-              	<Marker
-					coordinate={pin}
-					pinColor="black"
-					draggable={true}
-					onDragStart={(e) => {
-						console.log("Drag start", e.nativeEvent.coordinates)
-					}}
-					onDragEnd={(e) => {
-						setPin({
-							latitude: e.nativeEvent.coordinate.latitude,
-							longitude: e.nativeEvent.coordinate.longitude
-						})
-					}}
-				>
-					<Callout>
-						<Text>I'm here</Text>
-					</Callout>
-				</Marker>
-            </MapView>
+            <TouchableOpacity title="sacar mapa" onPress={handleHideMap} style={styles.btn2}>
+              <Text style={styles.textMaps}>Ocultar mapa</Text>
+            </TouchableOpacity>
           )}
         </View>
-        {showMap && (
-          <TouchableOpacity title="sacar mapa" onPress={handleHideMap} style={styles.btn2}>
-            <Text style={styles.textMaps}>Ocultar mapa</Text>
+        <View style={styles.btnsContainer}>
+          <TouchableOpacity title="Atras" onPress={handleBack} style={styles.btnExit}>
+            <AntDesign name="arrowleft" size={24} color="#fff" />
+            <Text style={styles.textBtn}> Volver</Text>
           </TouchableOpacity>
-        )}
+          <TouchableOpacity title="Siguiente..." onPress={handleNext} style={styles.btnContinue}>
+            <Text style={styles.textBtn}>Siguiente </Text>
+            <AntDesign name="arrowright" size={24} color="#fff" />
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={styles.btnsContainerMaps}>
-        <TouchableOpacity
-          title="Atras"
-          onPress={handleBack}
-          style={[
-            styles.btn,
-            {
-              flexDirection: "row",
-              backgroundColor: "gray",
-              marginRight: 10,
-            },
-          ]}
-        >
-          <AntDesign name="arrowleft" size={28} color="#fff" style={{ marginLeft: 40 }} />
-          <Text style={[styles.textBtn, { marginRight: 30 }]}>Atras</Text>
-        </TouchableOpacity>
-        <TouchableOpacity title="Siguiente..." onPress={handleNext} style={[styles.btn, { flexDirection: "row", justifyContent: "center" }]}>
-          <Text style={styles.textBtn}>Siguiente</Text>
-          <Ionicons name="arrow-forward" size={28} color="#fff" style={styles.arrowIcon} />
-        </TouchableOpacity>
-      </View>
-      {/* </ScrollView> */}
     </SafeAreaView>
   );
 };
@@ -205,7 +195,7 @@ const estilos = StyleSheet.create({
     justifyContent: "center",
   },
   map: {
-    marginTop: 10,
+    marginVertical: 15,
     width: "100%",
     height: 250,
   },
