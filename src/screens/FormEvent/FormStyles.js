@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   input: {
     fontFamily: "Gotham-Book",
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#fff",
     borderRadius: 5,
     fontSize: 15,
   },

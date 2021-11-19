@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { TouchableOpacity, TextInput, Text, View, Image, Alert } from "react-native";
+import { TouchableOpacity, TextInput, Text, View, Image, Alert, KeyboardAvoidingView } from "react-native";
 import styles from "./RegisterStyles";
 import User from "../../../api/firebase/models/user";
-import { createUserWithEmailAndPassword, updateProfile, GoogleAuthProvider, signInWithRedirect, signInWithPopup, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import auth from "../../../api/firebase/services/AuthService";
 import { AntDesign, Feather } from "@expo/vector-icons";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 function validate(user) {
   let errors = {};
@@ -138,31 +137,73 @@ export default function Register({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.container} behaviour="padding">
+    <KeyboardAvoidingView style={styles.container} behaviour="padding">
       <Image style={styles.logoImage} source={require("../../assets/Logo.png")} />
 
       <View style={styles.inputContainer}>
         <View style={styles.inputAndIcon}>
-          <TextInput placeholder="Nombre de Usuario" value={username} onChangeText={(text) => onChangeUsername(text)} style={styles.input} />
-          {checkUsername ? <Feather name="check-circle" color="green" size={24} style={styles.icon} /> : null}
+          <TextInput 
+            placeholder="Nombre de Usuario" 
+            value={username} 
+            onChangeText={(text) => onChangeUsername(text)} 
+            style={styles.input} />
+          { 
+            checkUsername ? <Feather name="check-circle" color="green" size={24} style={styles.icon} /> 
+            : null
+          }
         </View>
 
         <View style={styles.inputAndIcon}>
-          <TextInput placeholder="Email" value={email} onChangeText={(text) => onChangeEmail(text)} style={styles.input} />
-          {checkEmail ? <Feather name="check-circle" color="green" size={24} style={styles.icon} /> : null}
+          <TextInput 
+            placeholder="Email" 
+            value={email} 
+            onChangeText={(text) => onChangeEmail(text)} 
+            style={styles.input} />
+          {
+            checkEmail ? 
+            <Feather name="check-circle" color="green" size={24} style={styles.icon} /> 
+            : null
+          }
         </View>
 
         <View style={styles.inputAndIcon}>
-          <TextInput placeholder="Contraseña" secureTextEntry={secureDataEntry ? true : false} value={password} onChangeText={(text) => onChangePassword(text)} style={styles.input} />
-          <TouchableOpacity onPress={updateSecureDataEntry} style={[styles.eyeBtn, colorPass && { marginRight: 30 }]}>
-            {secureDataEntry ? <Feather name="eye-off" color="grey" size={18} /> : <Feather name="eye" color="grey" size={18} />}
+          <TextInput 
+            placeholder="Contraseña" 
+            secureTextEntry={secureDataEntry ? true : false} 
+            value={password} 
+            onChangeText={(text) => onChangePassword(text)} 
+            style={styles.input} />
+          <TouchableOpacity 
+            onPress={updateSecureDataEntry} 
+            style={[styles.eyeBtn, colorPass && { marginRight: 30 }]}>
+            {
+              secureDataEntry ? <Feather name="eye-off" color="grey" size={18} /> 
+            : <Feather name="eye" color="grey" size={18} />}
           </TouchableOpacity>
-          {checkPassword ? <Feather name="check-circle" color={colorPass === "yellow" ? "#ffb400" : "green"} size={24} style={styles.icon} /> : null}
-          {colorPass === "red" && <AntDesign name="closecircleo" size={24} color="#b70000" style={styles.icon} />}
+          {
+            checkPassword ? 
+            <Feather 
+             name="check-circle"
+             color={colorPass === "yellow" ? "#ffb400" : "green"} 
+             size={24} style={styles.icon} />
+            : null
+          }
+          {
+            colorPass === "red" && 
+            <AntDesign name="closecircleo" size={24} color="#b70000" style={styles.icon} />}
         </View>
-        {colorPass === "yellow" && <Text style={styles.passWarnYellow}>Contraseña de seguridad media.</Text>}
-        {colorPass === "green" && <Text style={styles.passWarnGreen}>Contraseña segura.</Text>}
-        {colorPass === "red" && <Text style={styles.passWarnRed}>Contraseña muy débil.</Text>}
+        {
+          colorPass === "yellow" && 
+          <Text style={styles.passWarnYellow}>Contraseña de seguridad media.</Text>
+        }
+        {
+          colorPass === "green" && 
+          <Text style={styles.passWarnGreen}>Contraseña segura.</Text>
+        }
+        {
+          colorPass === "red" && 
+          <Text style={styles.passWarnRed}>Contraseña muy débil.</Text>
+        }
       </View>
 
       <View style={styles.buttonContainer}>
@@ -188,6 +229,6 @@ export default function Register({ navigation }) {
           </Text>
         </View>
       </View>
-    </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
