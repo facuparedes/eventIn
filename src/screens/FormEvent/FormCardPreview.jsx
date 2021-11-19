@@ -3,7 +3,7 @@ import { View, Image, ScrollView, FlatList, Alert, Dimensions } from "react-nati
 import { Text, LinearProgress } from "react-native-elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import formStyles from "./FormStyles";
 import estilos from "./CardPreviewStyles";
 import styles from "../Card Detail/CardDetailStyles.js";
@@ -11,17 +11,17 @@ import { AntDesign, Ionicons, FontAwesome } from "@expo/vector-icons";
 import { colorPallete } from "../Onboarding/styles";
 
 const { width, height } = Dimensions.get("window");
+
 const FormCardPreview = ({ navigation }) => {
-  const dispatch = useDispatch();
-  let eventInfo = useSelector((state) => state.eventForm);
-  console.log("SOY EVENT INFO: ", eventInfo);
+  const eventInfo = useSelector((state) => state.eventForm);
+  console.log("SOY EVENT INFO: ",eventInfo)
 
-    let startDay = eventInfo.start.date.getDate() + "-" + (eventInfo.start.date.getMonth() + 1) + "-" + eventInfo.start.date.getFullYear();
-    let startHour = (eventInfo.start.time.getHours() < 10 ? "0" : "") + eventInfo.start.time.getHours() + ":" + (eventInfo.start.time.getMinutes() < 10 ? "0" : "") + eventInfo.start.time.getMinutes();
+  var startDay = eventInfo.start.date.getDate() + "-" + (eventInfo.start.date.getMonth() + 1) + "-" + eventInfo.start.date.getFullYear();
+  var startHour = (eventInfo.start.time.getHours() < 10 ? "0" : "") + eventInfo.start.time.getHours() + ":" + (eventInfo.start.time.getMinutes() < 10 ? "0" : "") + eventInfo.start.time.getMinutes();
 
-    let endDay = eventInfo.end.date.getDate() + "-" + (eventInfo.end.date.getMonth() + 1) + "-" + eventInfo.end.date.getFullYear();
-    let endHour = (eventInfo.end.time.getHours() < 10 ? "0" : "") + eventInfo.end.time.getHours() + ":" + (eventInfo.end.time.getMinutes() < 10 ? "0" : "") + eventInfo.end.time.getMinutes();
-    let gallery = eventInfo.attachments.slice(1);
+  var endDay = eventInfo.end.date.getDate() + "-" + (eventInfo.end.date.getMonth() + 1) + "-" + eventInfo.end.date.getFullYear();
+  var endHour = (eventInfo.end.time.getHours() < 10 ? "0" : "") + eventInfo.end.time.getHours() + ":" + (eventInfo.end.time.getMinutes() < 10 ? "0" : "") + eventInfo.end.time.getMinutes();
+  var gallery = eventInfo.attachments.slice(1);
 
   return (
     <SafeAreaView style={formStyles.container}>
@@ -91,30 +91,18 @@ const FormCardPreview = ({ navigation }) => {
             </View>
           </View>
         </View>
+
+        <View style={formStyles.btnsContainer}>
+          <TouchableOpacity title="Atras" onPress={() => navigation.replace("FormMaps")} style={formStyles.btnExit}>
+            <AntDesign name="arrowleft" size={24} color="#fff" />
+            <Text style={formStyles.textBtn}> Volver</Text>
+          </TouchableOpacity>
+          <TouchableOpacity title="Siguiente..." onPress={() => navigation.replace("PaymentCalc")} style={formStyles.btnContinue}>
+            <Text style={formStyles.textBtn}>Siguiente </Text>
+            <AntDesign name="arrowright" size={24} color="#fff" />
+          </TouchableOpacity>
+        </View>
       </ScrollView>
-
-      <View style={{ flexDirection: "row", justifyContent: "center", marginTop: "2%" }}>
-        <TouchableOpacity
-          title="Atras"
-          onPress={() => navigation.replace("FormMaps")}
-          style={[
-            formStyles.btn,
-            {
-              flexDirection: "row",
-              backgroundColor: "gray",
-              marginRight: 80,
-            },
-          ]}
-        >
-          <AntDesign name="arrowleft" size={28} color="#fff" style={{ marginLeft: 40 }} />
-          <Text style={[formStyles.textBtn, { marginRight: 30 }]}>Atras</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity title="Siguiente..." onPress={() => navigation.replace("PaymentCalc")} style={[formStyles.btn, { flexDirection: "row", justifyContent: "center" }]}>
-          <Text style={formStyles.textBtn}>Siguiente</Text>
-          <Ionicons name="arrow-forward" size={28} color="#fff" style={formStyles.arrowIcon} />
-        </TouchableOpacity>
-      </View>
     </SafeAreaView>
   );
 };
