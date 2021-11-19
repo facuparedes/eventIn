@@ -134,6 +134,7 @@ const Title_Fee_Desc = ({ navigation }) => {
         isPublic: isPublic ? true : false,
         category: categ,
       };
+      console.log("LOS DATOS QUE PONGO: ",partialEvent)
       dispatch(addEventInfo(partialEvent));
       navigation.navigate("FormDatePicker");
     } else {
@@ -152,6 +153,7 @@ const Title_Fee_Desc = ({ navigation }) => {
       { text: "No" }
     ]);
   }
+  
 
   return (
     <SafeAreaView style={styles.container}>

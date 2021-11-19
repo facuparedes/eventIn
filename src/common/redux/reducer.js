@@ -49,16 +49,20 @@ export const rootReducer = (state = initialState, action) => {
       }
 
     case ADD_EVENT_INFO:
-      let eventData = state.eventForm;
+      let reducerEventData = state.eventForm;
+      let eventData = {};
       let newEventData = action.payload;
-
+      console.log("STATE: ", state.eventForm)
+      console.log("EVENT-DATA: ", eventData)
       for (const prop in newEventData) {
+        console.log("SOY EL PROP: ", prop)
         eventData[prop] = newEventData[prop];
       }
-
+      reducerEventData = {...reducerEventData, ...eventData}
+      console.log("ESTADO GLOBAL: ",reducerEventData)
       return {
         ...state,
-        eventForm: eventData,
+        eventForm: reducerEventData,
       };
 
     case IS_LOGGED:
