@@ -89,10 +89,10 @@ export const getEventsByDate = (date) => {
   return async function (dispatch) {
     let resultDate = await event.findAll();
 
-    filterDate = resultDate.filter((d) => d.start <= date.setHours(23, 59, 0, 0) && date.setHours(0, 0, 0, 1) <= d.end); //eventos activos en esa fecha
+    filterDate = resultDate.filter((d) => d.start <= date.setHours(23, 59, 0, 0) && date.setHours(0, 0, 0, 1) <= d.end);//eventos activos en esa fecha
     //console.log("Ev fecha 1: ", filterDate.length)
     if (filterDate.length > 0) {
-      filterPublish = filterDate.filter((d) => d.publishDate <= date.setHours(23, 59, 0, 0)); //eventos activos en publicacion en esa fecha
+      filterPublish = filterDate.filter(d => d.publishDate <= date.setHours(23, 59, 0, 0));//eventos activos en publicacion en esa fecha
       //console.log("Ev fecha 2: ", filterPublish.length)
       if (filterPublish.length > 0) {
         filterPublish.sort((a, b) => a.start > b.start);
@@ -102,6 +102,7 @@ export const getEventsByDate = (date) => {
         });
       } else alert("No hay eventos activos en esa fecha.");
     } else alert("No hay eventos activos en esa fecha.");
+
   };
 };
 
@@ -126,8 +127,8 @@ export const getDetails = (id, created) => {
       type: GET_DETAILS,
       payload: {
         id,
-        created,
-      },
+        created
+      }
     };
   } else {
     return {

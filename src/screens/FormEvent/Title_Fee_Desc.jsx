@@ -137,7 +137,7 @@ const Title_Fee_Desc = ({ navigation }) => {
       };
       console.log("LOS DATOS QUE PONGO: ",partialEvent)
       dispatch(addEventInfo(partialEvent));
-      navigation.replace("FormDatePicker");
+      navigation.navigate("FormDatePicker");
     } else {
       return Alert.alert(`${Object.values(errorsForm)[0]}`);
     }
@@ -145,7 +145,7 @@ const Title_Fee_Desc = ({ navigation }) => {
   }
 
   function handleBack() {
-    navigation.replace("TabBar");
+    navigation.goBack();
   }
 
   function handleFilter(e) {

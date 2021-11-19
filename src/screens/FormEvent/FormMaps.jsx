@@ -70,11 +70,11 @@ const FormMaps = ({ navigation }) => {
       },
     };
     dispatch(addEventInfo(partialEvent));
-    navigation.replace("FormCardPreview");
+    navigation.navigate("FormCardPreview");
   };
 
   function handleBack() {
-    navigation.replace("FormDatePicker");
+    navigation.goBack();
   }
 
   return (

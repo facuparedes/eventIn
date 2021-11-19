@@ -93,11 +93,11 @@ const FormCardPreview = ({ navigation }) => {
         </View>
 
         <View style={formStyles.btnsContainer}>
-          <TouchableOpacity title="Atras" onPress={() => navigation.replace("FormMaps")} style={formStyles.btnExit}>
+          <TouchableOpacity title="Atras" onPress={() => navigation.goBack()} style={formStyles.btnExit}>
             <AntDesign name="arrowleft" size={24} color="#fff" />
             <Text style={formStyles.textBtn}> Volver</Text>
           </TouchableOpacity>
-          <TouchableOpacity title="Siguiente..." onPress={() => navigation.replace("PaymentCalc")} style={formStyles.btnContinue}>
+          <TouchableOpacity title="Siguiente..." onPress={() => navigation.navigate("PaymentCalc")} style={formStyles.btnContinue}>
             <Text style={formStyles.textBtn}>Siguiente </Text>
             <AntDesign name="arrowright" size={24} color="#fff" />
           </TouchableOpacity>

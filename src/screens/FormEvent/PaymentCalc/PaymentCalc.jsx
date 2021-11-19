@@ -140,14 +140,14 @@ export default function PaymentCalc({ navigation }) {
       });
       // await console.log(post.data);
       const redirectUrl = post.data;
-      navigation.replace("MercadoPagoCard", redirectUrl);
+      navigation.navigate("MercadoPagoCard", redirectUrl);
     } else {
       return Alert.alert(`${Object.values(validation)[0]}`);
     }
   };
 
   const handleCancel = () => {
-    Alert.alert("¿Estás seguro de que deseas salir?", "Se perderán todos los cambios.", [{ text: "Si", onPress: () => navigation.replace("TabBar") }, { text: "No" }]);
+    Alert.alert("¿Estás seguro de que deseas salir?", "Se perderán todos los cambios.", [{ text: "Si", onPress: () => navigation.popToTop() }, { text: "No" }]);
   };
 
   return (
