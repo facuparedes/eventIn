@@ -9,14 +9,25 @@ const styles = StyleSheet.create({
   },
   subcontainer: {
     flex: 1,
-    width: width * 0.95,
+    width: width * 0.9,
   },
   textAndImg: {
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
     height: height * 0.1,
+    width: width * 1,
     justifyContent: "space-between",
+    paddingHorizontal: width * 0.03,
+  },
+  textAndImgMaps: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    height: height * 0.12,
+    width: width * 1,
+    justifyContent: "space-between",
+    paddingHorizontal: width * 0.03,
   },
   inputs: {
     flex: 3,
@@ -24,6 +35,7 @@ const styles = StyleSheet.create({
     width: width * 1,
     justifyContent: "center",
     alignItems: "flex-start",
+    paddingHorizontal: width * 0.01,
   },
   titleText: {
     fontFamily: "Gotham-Bold",
@@ -31,9 +43,13 @@ const styles = StyleSheet.create({
   },
   logoImage: {
     resizeMode: "contain",
-    height: 60,
-    width: 80,
-    marginLeft: 120,
+    height: height * 0.2,
+    width: width * 0.22,
+  },
+  body: {
+    flex: 4,
+    width: "100%",
+    marginLeft: 15,
   },
   input: {
     fontFamily: "Gotham-Book",
@@ -142,7 +158,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     marginTop: height * 0.025,
     width: width * 1,
     paddingHorizontal: width * 0.025,
@@ -184,7 +200,7 @@ const styles = StyleSheet.create({
   categoryContainer: {
     flex: 1,
     justifyContent: "space-between",
-    paddingHorizontal: width * 0.025,
+    paddingHorizontal: width * 0.03,
   },
   text: {
     marginBottom: 10,
@@ -226,6 +242,13 @@ const styles = StyleSheet.create({
     // marginBottom:100,
     // position:'absolute'
   },
+  dateContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    width: width * 1,
+    paddingHorizontal: width * 0.01,
+  },
   horaCont: {
     flexDirection: "row",
     alignItems: "center",
@@ -233,29 +256,14 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   btn2: {
-    // backgroundColor: '#298bc4',
-    backgroundColor: "#fff",
-    height: 42,
-    width: "44%",
-    paddingHorizontal: 4,
-    paddingBottom: 10,
-    paddingTop: 10,
-    borderRadius: 6,
+    elevation: 3,
+    height: height * 0.06,
+    width: width * 0.4,
+    alignItems: "center",
     justifyContent: "center",
-    alignSelf: "center",
-    marginLeft: 14,
-    marginTop: 5,
-    marginBottom: 15,
-    borderWidth: 1,
-    borderColor: "#298bc4",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
+    marginBottom: height * 0.03,
+    backgroundColor: colorPallete.fourth,
+    borderRadius: 7,
   },
   containerMap: {
     shadowColor: "#000",
@@ -268,11 +276,9 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   textMaps: {
-    color: "black",
-    alignSelf: "center",
-    marginTop: -3,
-    fontWeight: "bold",
+    fontFamily: "Gotham-Medium",
     fontSize: 16,
+    color: "white",
   },
   textLoc: {
     fontWeight: "bold",
@@ -281,7 +287,7 @@ const styles = StyleSheet.create({
   },
   photosContainer: {
     flex: 3,
-    paddingHorizontal: width * 0.025,
+    paddingHorizontal: width * 0.03,
     width: width * 1,
   },
   photosText: {
@@ -296,7 +302,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: width * 0.65,
     height: height * 0.05,
-    paddingHorizontal: width * 0.04,
     justifyContent: "center",
     marginVertical: 10,
   },
@@ -313,7 +318,7 @@ const styles = StyleSheet.create({
   },
   typeEvent: {
     flex: 1,
-    paddingHorizontal: width * 0.025,
+    paddingHorizontal: width * 0.03,
     marginVertical: height * 0.01,
   },
   pickerContainer: {
@@ -414,6 +419,14 @@ const styles = StyleSheet.create({
     backgroundColor: colorPallete.fifth,
     height: height * 0.07,
   },
+  headerMap: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    backgroundColor: colorPallete.fifth,
+    height: height * 0.07,
+  },
   textHeader: {
     fontFamily: "Gotham-Medium",
     color: colorPallete.third,
@@ -427,7 +440,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 3,
   },
   pickedImg: {
-    width: width * 0.46,
+    width: width * 0.455,
     height: height * 0.2,
     borderRadius: 10,
   },

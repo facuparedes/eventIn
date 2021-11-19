@@ -206,13 +206,13 @@ const Title_Fee_Desc = ({ navigation }) => {
             <View style={styles.checkBox}>
               {!isPublic && !isPrivate ? (
                 <View style={styles.checkBox}>
-                  <CheckBox title="Público" onPress={handleIsPublic} size={25} checked={isPublic} containerStyle={styles.boxCont} />
-                  <CheckBox title="Privado" onPress={handleIsPrivate} size={25} checked={isPrivate} containerStyle={styles.boxCont} />
+                  <CheckBox title="Público" onPress={handleIsPublic} size={22} checked={isPublic} containerStyle={styles.boxCont} />
+                  <CheckBox title="Privado" onPress={handleIsPrivate} size={22} checked={isPrivate} containerStyle={styles.boxCont} />
                 </View>
               ) : isPublic ? (
-                <CheckBox title="Publico" onPress={handleIsPublic} size={25} checked={isPublic} containerStyle={styles.boxCont} />
+                <CheckBox title="Publico" onPress={handleIsPublic} size={22} checked={isPublic} containerStyle={styles.boxCont} />
               ) : (
-                <CheckBox title="Privado" onPress={handleIsPrivate} size={25} checked={isPrivate} containerStyle={styles.boxCont} />
+                <CheckBox title="Privado" onPress={handleIsPrivate} size={22} checked={isPrivate} containerStyle={styles.boxCont} />
               )}
             </View>
           </View>
@@ -241,7 +241,7 @@ const Title_Fee_Desc = ({ navigation }) => {
               <Text style={styles.textBtn}> Salir</Text>
             </TouchableOpacity>
             <TouchableOpacity title="Siguiente..." onPress={handleNext} style={styles.btnContinue}>
-              <Text style={styles.textBtn}>Siguiente</Text>
+              <Text style={styles.textBtn}>Siguiente </Text>
               <AntDesign name="arrowright" size={24} color="#fff" />
             </TouchableOpacity>
           </View>
