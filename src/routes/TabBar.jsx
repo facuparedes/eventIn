@@ -103,7 +103,7 @@ export default function TabBar({ navigation }) {
 
       {!!logged && (
         <Tab.Screen
-          name="Maps"
+          name="Buscar Eventos"
           component={EventsMaps}
           options={{
             headerTitle: "",
