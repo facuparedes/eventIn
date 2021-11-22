@@ -31,6 +31,7 @@ import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
 import UpdatePassword from "./src/screens/UpdatePassword/UpdatePassword.jsx";
 import PaymentCalc from "./src/screens/FormEvent/PaymentCalc/PaymentCalc.jsx";
+import EventsMaps from "./src/screens/EventsMaps/EventsMaps.jsx";
 
 import { LogBox } from 'react-native';
 
@@ -90,6 +91,7 @@ export default function App() {
           <Stack.Screen name="PaymentCalc" component={PaymentCalc} />
 
           <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="EventsMaps" component={EventsMaps} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
           <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
           <Stack.Screen name="Login" component={Login} />
