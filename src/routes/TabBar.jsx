@@ -13,6 +13,7 @@ import { signOut } from "@firebase/auth";
 import Home from "../screens/Home/Home";
 import Profile from "../screens/Profile/Profile";
 import Search from "../common/components/Search/Search";
+import EventsMaps from '../screens/EventsMaps/EventsMaps';
 
 import { View } from "react-native";
 import styles from "./styles";
@@ -99,6 +100,32 @@ export default function TabBar({ navigation }) {
           ),
         }}
       />
+
+      {!!logged && (
+        <Tab.Screen
+          name="Buscar Eventos"
+          component={EventsMaps}
+          options={{
+            headerTitle: "",
+            tabBarIcon: ({ color, size }) => ( <FontAwesome5 name="map-marker-alt" size={size - 2} color={color} />
+            ),
+            headerBackground: () => (
+              <SafeAreaView style={{ backgroundColor: "#d7eae9" }}>
+                <Image
+                  style={{
+                    resizeMode: "contain",
+                    height: "100%",
+                    width: windowHeight / 10,
+                    marginHorizontal: 16,
+                    alignSelf: "flex-start",
+                  }}
+                  source={require("../assets/Logo.png")}
+                />
+              </SafeAreaView>
+            ),
+          }}
+        />
+       )}
 
       {!!logged && (
         <Tab.Screen

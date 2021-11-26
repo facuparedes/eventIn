@@ -21,7 +21,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function Home() {
+export default function Home({navigation}) {
   const dispatch = useDispatch();
 
   const [expoPushToken, setExpoPushToken] = useState("");
