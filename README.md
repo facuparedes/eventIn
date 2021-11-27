@@ -10,7 +10,7 @@ Event-In is a mobile app created with the purpose of bringing people closer to s
 
 ## Screenshots
 
-![img1](./src/assets/README/Logo_README.jpg) ![img2](./src/assets/README/Register_README.png) ![img3](./src/assets/README/Feed_README.png) ![img4](./src/assets/README/MapsUser_README.png) ![img5](./src/assets/README/MapsEvents_README.png) ![img6](./src/assets/README/Details_README.jpg)   
+![img1](./src/assets/README/Logo_README.jpg)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![img2](./src/assets/README/Register_README.png)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![img3](./src/assets/README/Feed_README.png)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![img4](./src/assets/README/MapsUser_README.png)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![img5](./src/assets/README/MapsEvents_README.png)&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![img6](./src/assets/README/Details_README.jpg)   
 
 
 ### Programming Language <g-emoji class="g-emoji" alias="tongue" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f445.png">👅</g-emoji>
