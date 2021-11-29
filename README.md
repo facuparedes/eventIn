@@ -4,6 +4,16 @@
 
 Event-In is a mobile app created with the purpose of bringing people closer to social events near their current location, filtering them by date or category and searching for them by name. Wether it may be a casual social gathering or a formal event, everyone has the opportunity to showcase their own. 
 
+## Test the published version (preferably on Android)
+
+**Step 1**: download Expo Go from Google Play Store on your mobile device.
+<br />
+**Step 2**: access the following link on your computer's web browser: https://expo.dev/@andyfrank/proyecto-grupal
+<br />
+**Step 3**: open Expo Go, tap on "Scan QR Code" and scan the code rendered on the previous link.
+<br /> 
+**Step 4**: enjoy.
+
 ## Features Video <g-emoji class="g-emoji" alias="movie_camera" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f3a5.png">🎥</g-emoji> 
 
 [![Watch the video](./src/assets/Logo.png)](https://www.youtube.com/watch?v=XYkslUE_vKg)
